@@ -9,10 +9,13 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ClientComponent } from './client/client.component';
+import {ClientService} from './client/client.service';
 
 const appRoutes: Routes = [
   
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'client', component: ClientComponent },
   /*{ path: 'maintenance', component: MaintenanceComponent },
   { path: 'expence', component: ExpenceComponent },
   { path: 'monthlyReport', component: MonthlyReportComponent },
@@ -25,7 +28,8 @@ const appRoutes: Routes = [
     AppComponent,
     NavComponent,
     HeaderComponent,
-    DashboardComponent
+    DashboardComponent,
+    ClientComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -37,7 +41,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
