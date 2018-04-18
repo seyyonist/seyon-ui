@@ -1,36 +1,21 @@
- <h3>Manage Clients</h3>
+<h3>Manage Clients</h3>
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  {{errorMessage}}
+</div>
 <div class="row">
-   <div class="col-md-4">
+  <div class="col-md-4">
     <div class="card">
       <div class="card-header" style="padding-left:5px;">
-        <input type="text" class="form-control underlined" placeholder="search" />
+        <div class="input-group mb-3">
+          <input type="text" class="form-control underlined" placeholder="search" />
+          <div class="input-group-append">
+            <button class="btn btn-primary" (click)="new()">Add New</button>
+          </div>
+        </div>
       </div>
       <div style="overflow:auto;height:400px;background-color:white;">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
+          <li *ngFor="let client of clients" class="list-group-item" (click)="edit(client)">{{client.name}}</li>
         </ul>
         <div>
         </div>
@@ -40,7 +25,131 @@
   <div class="col-md-8">
     <div class="card">
       <div class="card-body">
-        This is some text within a card body.
+        <form (ngSubmit)="submit()" name="clientForm">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="name">Name *</label>
+                <input type="text" class="form-control underlined" name="name" id="name" required="true" [(ngModel)]="client.name" />
+              </div>
+              <div class="col-sm-4">
+                <label for="phonePrimary">Primary Phone *</label>
+                <input type="text" class="form-control underlined" name="phonePrimary" id="phonePrimary" required="true" [(ngModel)]="client.phonePrimary"
+                />
+              </div>
+              <div class="col-sm-4">
+                <label for="email">Primary Email *</label>
+                <input type="text" class="form-control underlined" name="email" id="email" required="true" [(ngModel)]="client.email" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="name">Secondary Phone</label>
+                <input type="text" class="form-control underlined" name="phoneSecondary" id="phoneSecondary" required="false" [(ngModel)]="client.phoneSecondary"
+                />
+              </div>
+              <div class="col-sm-4">
+                <label for="faxNo">Fax</label>
+                <input type="text" class="form-control underlined" name="faxNo" id="faxNo" required="false" [(ngModel)]="client.faxNo" />
+              </div>
+              <div class="col-sm-4">
+                <label for="pan">PAN *</label>
+                <input type="text" class="form-control underlined" name="pan" id="pan" required="true" [(ngModel)]="client.pan" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-6">
+                <label for="addrLine1">Address line 1 *</label>
+                <input type="text" class="form-control underlined" name="addrLine1" id="addrLine1" required="true" [(ngModel)]="client.addrLine1"
+                />
+              </div>
+              <div class="col-sm-6">
+                <label for="addrLine2">Address line 2 *</label>
+                <input type="text" class="form-control underlined" name="addrLine2" id="addrLine2" required="true" [(ngModel)]="client.addrLine2"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="city">City *</label>
+                <input type="text" class="form-control underlined" name="city" id="city" required="true" [(ngModel)]="client.city" />
+              </div>
+              <div class="col-sm-4">
+                <label for="state">State *</label>
+                <input type="text" class="form-control underlined" name="state" id="state" required="true" [(ngModel)]="client.state" />
+              </div>
+              <div class="col-sm-4">
+                <label for="pinCode">PinCode *</label>
+                <input type="text" class="form-control underlined" name="pinCode" id="pinCode" required="true" [(ngModel)]="client.pinCode"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="gstin">gstin *</label>
+                <input type="text" class="form-control underlined" name="gstin" id="gstin" required="true" [(ngModel)]="client.gstin" />
+              </div>
+              <div class="col-sm-4">
+                <label for="ServiceTaxRegNo">ServiceTaxRegNo *</label>
+                <input type="text" class="form-control underlined" name="ServiceTaxRegNo" id="ServiceTaxRegNo" required="true" [(ngModel)]="client.serviceTaxRegNo"
+                />
+              </div>
+              <div class="col-sm-4">
+                <label for="accountingType">accountingType *</label>
+                <input type="text" class="form-control underlined" name="accountingType" id="accountingType" required="true" [(ngModel)]="client.accountingType"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="bankName">Bank Name *</label>
+                <input type="text" class="form-control underlined" name="bankName" id="bankName" required="true" [(ngModel)]="client.bankName"
+                />
+              </div>
+              <div class="col-sm-4">
+                <label for="bankAcctNumber">Bank Account Number *</label>
+                <input type="text" class="form-control underlined" name="bankAcctNumber" id="bankAcctNumber" required="true" [(ngModel)]="client.bankAcctNumber"
+                />
+              </div>
+              <div class="col-sm-4">
+                <label for="ifscCode">IFSC Code *</label>
+                <input type="text" class="form-control underlined" name="ifscCode" id="ifscCode" required="true" [(ngModel)]="client.ifscCode"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="bankBranch">Bank Branch Name *</label>
+                <input type="text" class="form-control underlined" name="bankBranch" id="bankBranch" required="true" [(ngModel)]="client.bankBranch"
+                />
+              </div>
+              <div class="col-sm-4">
+                <label for="accountType">Bank Account Type *</label>
+                <input type="text" class="form-control underlined" name="accountType" id="accountType" required="true" [(ngModel)]="client.accountType"
+                />
+              </div>
+              <div class="col-sm-4">
+                <label for="swiftCode">Swift Code *</label>
+                <input type="text" class="form-control underlined" name="swiftCode" id="swiftCode" required="true" [(ngModel)]="client.swiftCode"
+                />
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success">Save</button>
+          logoImg: string; signatureImg: string; companyId: Number; active: string;
+        </form>
       </div>
     </div>
   </div>
