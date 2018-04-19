@@ -11,6 +11,7 @@ import { ClientService } from './client.service';
 export class ClientComponent implements OnInit {
 
   clients: Client[] = [];
+  filterClients: Client[] = [];
   error: boolean = false;
   errorMessage: string = "";
   client: Client = new Client();
@@ -28,12 +29,12 @@ export class ClientComponent implements OnInit {
     this.clientService.getForCompany()
       .subscribe(
       clients => {
-        this.clients = clients
+        this.clients = clients;
+        this.filterClients=clients;
       },
       err => {
-        console.log(err);
         this.error = true;
-        this.errorMessage = err.error.message;
+        this.errorMessage = "Error occured please contact administrator";
       }
       )
   }
@@ -57,9 +58,8 @@ export class ClientComponent implements OnInit {
         this.success=true;
       },
       err => {
-        console.log(err);
         this.error = true;
-        this.errorMessage = err.error.message;
+        this.errorMessage = "Error occured please contact administrator";
       }
       )
   }
@@ -78,5 +78,8 @@ export class ClientComponent implements OnInit {
       this.client.logoImg = myReader.result;
     }
     myReader.readAsDataURL(file);
+  }
+  onSearchChange(searchValue : string ):void {  
+    this.filterClients=this.clients.filter(cl=>cl.name.toLowerCase().includes(searchValue.toLowerCase()));
   }
 }
