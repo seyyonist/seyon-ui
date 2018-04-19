@@ -12,13 +12,19 @@
         <div class="input-group mb-3">
           <input type="text" class="form-control underlined" placeholder="search" />
           <div class="input-group-append">
-            <button class="btn btn-primary" (click)="new()">Add New</button>
+            <button class="btn btn-primary" (click)="new()">
+              <i class="fa fa-plus-square"></i> &nbsp;Add New</button>
           </div>
         </div>
       </div>
       <div style="overflow:auto;height:400px;background-color:white;">
         <ul class="list-group list-group-flush">
-          <li *ngFor="let client of clients" class="list-group-item" (click)="edit(client)">{{client.name}}</li>
+          <li *ngFor="let client of clients" class="list-group-item" (click)="edit(client)" style="cursor: pointer;">
+            {{client.name}}
+            <span class="float-right">
+              <i class="fa fa-arrow-right"></i>
+            </span>
+          </li>
         </ul>
         <div>
         </div>
@@ -29,11 +35,13 @@
     <div class="card">
       <div class="card-body">
         <form (ngSubmit)="submit()" name="clientForm" ngNativeValidate>
+          Client Id:{{client.id}}
           <div class="form-group">
             <div class="row">
               <div class="col-md-8">
                 <label for="name">Name *</label>
-                <input type="text" class="form-control underlined" name="name" id="name" required="true" [(ngModel)]="client.name" />
+                <input type="text" class="form-control underlined" name="name" id="name" required="true" [(ngModel)]="client.name" pattern=".{3,}" title="3 characters minimum"/>
+                <small>minimum 3 character</small>
               </div>
               <div class="col-md-4">
                 <label for="active">Status *</label>
@@ -48,12 +56,14 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="phonePrimary">Primary Phone *</label>
-                <input type="text" class="form-control underlined" name="phonePrimary" id="phonePrimary" required="true" [(ngModel)]="client.phonePrimary"
+                <input type="tel" class="form-control underlined" pattern=".{10,12}" title="min 10, max 12 characters"
+                name="phonePrimary" id="phonePrimary" required="true" [(ngModel)]="client.phonePrimary"
                 />
+                <small>min 10, max 12 characters</small>
               </div>
               <div class="col-md-6">
                 <label for="email">Primary Email *</label>
-                <input type="text" class="form-control underlined" name="email" id="email" required="true" [(ngModel)]="client.email" />
+                <input type="email" class="form-control underlined" name="email" id="email" required="true" [(ngModel)]="client.email" />
               </div>
             </div>
           </div>
@@ -61,12 +71,12 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="name">Secondary Phone</label>
-                <input type="text" class="form-control underlined" name="phoneSecondary" id="phoneSecondary" required="false" [(ngModel)]="client.phoneSecondary"
+                <input type="tel" class="form-control underlined" name="phoneSecondary" id="phoneSecondary" required="false" [(ngModel)]="client.phoneSecondary"
                 />
               </div>
               <div class="col-md-6">
                 <label for="faxNo">Fax</label>
-                <input type="text" class="form-control underlined" name="faxNo" id="faxNo" required="false" [(ngModel)]="client.faxNo" />
+                <input type="tel" class="form-control underlined" name="faxNo" id="faxNo" required="false" [(ngModel)]="client.faxNo" />
               </div>
             </div>
           </div>
@@ -74,11 +84,14 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="pan">PAN *</label>
-                <input type="text" class="form-control underlined" name="pan" id="pan" required="true" [(ngModel)]="client.pan" />
+                <input type="text" class="form-control underlined" name="pan" id="pan"  pattern=".{10,}" title="min 10 characters" required="true" [(ngModel)]="client.pan" />
+                <small>min 10 characters</small>
               </div>
+              
               <div class="col-md-6">
                 <label for="gstin">GSTIN *</label>
-                <input type="text" class="form-control underlined" name="gstin" id="gstin" required="true" [(ngModel)]="client.gstin" />
+                <input type="text" class="form-control underlined" name="gstin" id="gstin" pattern=".{15,20}" title="min 15,max 20 characters" required="true" [(ngModel)]="client.gstin" />
+                <small>min 15,Max 20 characters</small>
               </div>
             </div>
           </div>
@@ -86,13 +99,14 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="addrLine1">Address line 1 *</label>
-                <input type="text" class="form-control underlined" name="addrLine1" id="addrLine1" required="true" [(ngModel)]="client.addrLine1"
-                />
+                <input type="text" class="form-control underlined" name="addrLine1" pattern=".{3,}" title="min 3 characters" id="addrLine1" required="true" [(ngModel)]="client.addrLine1"/>
+                <small>min 3 characters</small>
               </div>
               <div class="col-md-6">
                 <label for="addrLine2">Address line 2 </label>
                 <input type="text" class="form-control underlined" name="addrLine2" id="addrLine2" required="false" [(ngModel)]="client.addrLine2"
                 />
+                
               </div>
             </div>
           </div>
@@ -100,16 +114,19 @@
             <div class="row">
               <div class="col-md-4">
                 <label for="city">City *</label>
-                <input type="text" class="form-control underlined" name="city" id="city" required="true" [(ngModel)]="client.city" />
+                <input type="text" class="form-control underlined" name="city" pattern=".{3,}" title="min 3 characters" id="city" required="true" [(ngModel)]="client.city" />
+                <small>min 3 characters</small>
               </div>
               <div class="col-md-4">
                 <label for="state">State *</label>
-                <input type="text" class="form-control underlined" name="state" id="state" required="true" [(ngModel)]="client.state" />
+                <input type="text" class="form-control underlined" name="state" pattern=".{2,}" title="min 2 characters" id="state" required="true" [(ngModel)]="client.state" />
+                <small>min 2 characters</small>
               </div>
               <div class="col-md-4">
                 <label for="pinCode">PinCode *</label>
-                <input type="text" class="form-control underlined" name="pinCode" id="pinCode" required="true" [(ngModel)]="client.pinCode"
+                <input type="text" class="form-control underlined" pattern=".{6,6}" title="min 6,max 6 characters" name="pinCode" id="pinCode" required="true" [(ngModel)]="client.pinCode"
                 />
+                <small>6 characters</small>
               </div>
             </div>
           </div>
@@ -117,13 +134,15 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="ServiceTaxRegNo">Service Tax Reg No</label>
-                <input type="text" class="form-control underlined" name="ServiceTaxRegNo" id="ServiceTaxRegNo" required="false" [(ngModel)]="client.serviceTaxRegNo"
+                <input type="text" class="form-control underlined" pattern=".{15,20}" title="min 15,max 20 characters" name="ServiceTaxRegNo" id="ServiceTaxRegNo" required="false" [(ngModel)]="client.serviceTaxRegNo"
                 />
+                <small>min 15, max 20 characters</small>
               </div>
               <div class="col-md-6">
                 <label for="accountingType">Accounting Type </label>
-                <input type="text" class="form-control underlined" name="accountingType" id="accountingType" required="false" [(ngModel)]="client.accountingType"
+                <input type="text" class="form-control underlined" pattern=".{3,}" title="min 3 characters" name="accountingType" id="accountingType" required="false" [(ngModel)]="client.accountingType"
                 />
+                <small>min 3 characters</small>
               </div>
             </div>
           </div>
@@ -131,13 +150,15 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="bankName">Bank Name *</label>
-                <input type="text" class="form-control underlined" name="bankName" id="bankName" required="true" [(ngModel)]="client.bankName"
+                <input type="text" class="form-control underlined" pattern=".{3,}" title="min 3 characters" name="bankName" id="bankName" required="true" [(ngModel)]="client.bankName"
                 />
+                <small>min 3 characters</small>
               </div>
               <div class="col-md-6">
                 <label for="bankAcctNumber">Bank Account Number *</label>
-                <input type="text" class="form-control underlined" name="bankAcctNumber" id="bankAcctNumber" required="true" [(ngModel)]="client.bankAcctNumber"
+                <input type="text" class="form-control underlined" pattern=".{5,20}" title="min 5,max 20  characters" name="bankAcctNumber" id="bankAcctNumber" required="true" [(ngModel)]="client.bankAcctNumber"
                 />
+                <small>min 5,max 20 characters</small>
               </div>
 
             </div>
@@ -146,13 +167,15 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="bankBranch">Bank Branch Name *</label>
-                <input type="text" class="form-control underlined" name="bankBranch" id="bankBranch" required="true" [(ngModel)]="client.bankBranch"
+                <input type="text" class="form-control underlined" pattern=".{3,}" title="min 3  characters" name="bankBranch" id="bankBranch" required="true" [(ngModel)]="client.bankBranch"
                 />
+                <small>min 3 characters</small>
               </div>
               <div class="col-md-6">
                 <label for="ifscCode">IFSC Code *</label>
-                <input type="text" class="form-control underlined" name="ifscCode" id="ifscCode" required="true" [(ngModel)]="client.ifscCode"
+                <input type="text" class="form-control underlined" pattern=".{9,15}" title="min 9,max 15  characters" name="ifscCode" id="ifscCode" required="true" [(ngModel)]="client.ifscCode"
                 />
+                <small>min 9, max 15 characters</small>
               </div>
 
             </div>
@@ -161,13 +184,15 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="accountType">Bank Account Type </label>
-                <input type="text" class="form-control underlined" name="accountType" id="accountType" required="false" [(ngModel)]="client.accountType"
+                <input type="text" class="form-control underlined" pattern=".{3,15}" title="min 3,max 15  characters" name="accountType" id="accountType" required="false" [(ngModel)]="client.accountType"
                 />
+                <small>min 3,max 15 characters</small>
               </div>
               <div class="col-md-6">
                 <label for="swiftCode">Swift Code </label>
-                <input type="text" class="form-control underlined" name="swiftCode" id="swiftCode" required="false" [(ngModel)]="client.swiftCode"
+                <input type="text" class="form-control underlined" pattern=".{3,15}" title="min 3,max 15  characters" name="swiftCode" id="swiftCode" required="false" [(ngModel)]="client.swiftCode"
                 />
+                <small>min 3,max 15 characters</small>
               </div>
             </div>
           </div>
@@ -175,14 +200,14 @@
             <div class="row">
               <div class="col-sm-6">
                 <label for="logoImg">Logo</label>
-                <input type="file" name="file-logo" id="file-logo" (change)="changeListener($event)"/>
+                <input type="file" name="file-logo" id="file-logo" (change)="changeListener($event)" />
               </div>
               <div class="col-sm-6">
-                <img height="75" id="logoImg" name="logoImg" src="{{client.logoImg}}"/>
+                <img height="75" id="logoImg" name="logoImg" src="{{client.logoImg}}" />
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-success float-right">Save</button>
+          <button type="submit" class="btn bg-primary float-right"><i class="fa fa-save"></i>&nbsp;Save Client</button>
         </form>
       </div>
     </div>
