@@ -12,7 +12,7 @@ export class Client {
     faxNo: string;
     pan: string;
     gstin: string;
-    ServiceTaxRegNo: string;
+    serviceTaxRegNo: string;
     accountingType: string;
     logoImg: string;
     signatureImg: string;

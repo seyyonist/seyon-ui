@@ -22,8 +22,8 @@ export class ClientService {
     return this.http.get<Client[]>(url);
   }
 
-  save(): Observable<any[]> {
+  save(client:Client): Observable<Client> {
     var url = Urls.getDomain().concat(APIURLS.client);
-    return this.http.get<any[]>(url);
+    return this.http.post<Client>(url,client,{headers:httpOptions.headers});
   }
 }
