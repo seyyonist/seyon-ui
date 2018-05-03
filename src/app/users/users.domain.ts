@@ -1,5 +1,5 @@
 
-export class User {
+export class UserInfo {
     email: string;
     name: string;
     active: string;
@@ -7,6 +7,7 @@ export class User {
 }
 
 export class UserRole {
-    email: string;
-    roleCode: string;
+    id: number;
+    email: string= "";
+    roleCode: string= "";
 }

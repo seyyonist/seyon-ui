@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClientComponent } from './client/client.component';
 import {ClientService} from './client/client.service';
 import { UsersComponent } from './users/users.component';
+import {UserService} from './users/users.service';
 
 const appRoutes: Routes = [
   
@@ -44,7 +45,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule
   ],
-  providers: [ClientService],
+  providers: [ClientService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
