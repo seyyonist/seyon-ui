@@ -1,0 +1,52 @@
+<h3>Invoice Details</h3>
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  {{errorMessage}}
+</div>
+<div class="row">
+  <div class="col-md-2">Selected Client</div>
+  <div class="col-md-4">
+    <select (change)="loadSelectedClient()" [(ngModel)]="selClientId">
+        <option></option>
+        <option *ngFor="let cli of clients" [ngValue]="cli.id" [selected]="cli.id === selClientId">{{cli.name}}</option>
+    </select>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    Name :{{selectedClient.name}}
+  </div>
+  <div class="col-md-3">
+    GSTIN : {{selectedClient.gstin}}
+  </div>
+  <div class="col-md-3">
+    PAN:{{selectedClient.pan}}
+  </div>
+  <div class="col-md-3">
+    Service Tax No :{{selectedClient.serviceTaxRegNo}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    Address :{{selectedClient.addrLine1}},{{selectedClient.addrLine2}}
+  </div>
+  <div class="col-md-3">
+    City : {{selectedClient.city}}
+  </div>
+  <div class="col-md-3">
+    State:{{selectedClient.state}}
+  </div>
+  <div class="col-md-3">
+    Pincode :{{selectedClient.pincode}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    Phone :{{selectedClient.phone}}
+  </div>
+  <div class="col-md-3">
+    Email : {{selectedClient.email}}
+  </div>
+</div>
+<div class="row">
+</div>
