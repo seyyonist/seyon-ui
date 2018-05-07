@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { ClientService } from '../client/client.service';
 import { Client } from '../client/client.domain';
+import { Particulars } from './invoice.domain';
 
 @Component({
   selector: 'app-invoice',
@@ -14,26 +15,33 @@ export class InvoiceComponent implements OnInit {
   error: boolean = false;
   errorMessage: string = "";
   selectedClient: Client = new Client();
-  success:boolean=true;
-  invoiceIdParam:number;
-  selClientId:number;
+  success: boolean = true;
+  invoiceIdParam: number;
+  selClientId: number;
+  particular: Particulars;
+  particulars: Particulars[] = [];
 
-  constructor(private route: ActivatedRoute,private clientService: ClientService) { 
-    this.route.params.subscribe( params => {
-      this.invoiceIdParam=params['id']
+  constructor(private route: ActivatedRoute, private clientService: ClientService) {
+    this.route.params.subscribe(params => {
+      this.invoiceIdParam = params['id']
       console.log(this.invoiceIdParam);
-  } );
+    });
   }
 
   ngOnInit() {
-    if(this.invoiceIdParam!=0){
-      this.selClientId=this.invoiceIdParam;
+    if (this.invoiceIdParam != 0) {
+      this.selClientId = this.invoiceIdParam;
     }
     this.getClients();
+    this.particular = new Particulars();
+    console.log(this.particular);
+    this.particulars.push(this.particular);
+    console.log(this.particulars);
+    
   }
 
-   getClients(): void {
-    this.success=false;
+  getClients(): void {
+    this.success = false;
     this.error = false;
     this.clientService.getForCompany()
       .subscribe(
@@ -46,7 +54,7 @@ export class InvoiceComponent implements OnInit {
       }
       )
   }
-    loadSelectedClient():void{
-      this.selectedClient=this.clients.find(cli=>cli.id===this.selClientId);
-    }
+  loadSelectedClient(): void {
+    this.selectedClient = this.clients.find(cli => cli.id === this.selClientId);
+  }
 }

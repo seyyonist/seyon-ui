@@ -2,7 +2,10 @@
 <div class="alert alert-danger" role="alert" *ngIf="error">
   {{errorMessage}}
 </div>
-<div class="row">
+
+<div class="card">
+  <div class="card-body">
+    <div class="row">
   <div class="col-md-2">Selected Client</div>
   <div class="col-md-4">
     <select (change)="loadSelectedClient()" [(ngModel)]="selClientId">
@@ -11,42 +14,91 @@
     </select>
   </div>
 </div>
+  <table class="table">
+    <tr>
+      <td colspan="8" align="center"><b>GSTIN :</b> {{selectedClient.gstin}}, <b>PAN :</b> {{selectedClient.pan}}</td>
+    </tr>
+    <tr>
+      <td rowspan="3" colspan="4"> <img height="75" id="logoImg" name="logoImg" src="{{selectedClient.logoImg}}" /></td>
+      <th colspan="2" align="right">Name</th>
+      <td colspan="2">{{selectedClient.name}}</td>
+    </tr>
+    <tr>
+      <th colspan="2" align="right">Address</th>
+      <td colspan="2">{{selectedClient.addrLine1}} {{selectedClient.addrLine2}}</td>
+    </tr>
+     <tr>
+      <td colspan="2"> </td>
+      <td colspan="2">{{selectedClient.city}} {{selectedClient.state}} {{selectedClient.pincode}}</td>
+    </tr>
+     <tr>
+      <th colspan="2" align="right">Phone</th>
+      <td colspan="2">{{selectedClient.phonePrimary}}</td>
+      <th colspan="2" align="right">Email</th>
+      <td colspan="2">{{selectedClient.email}}</td>
+    </tr>
+    <tr>
+      <th colspan="7">Particulars</th>
+      <th ><button class="btn btn-success">AddRow</button></th>
+    </tr>
+    <tr>
+      <th colspan="2">Item</th>
+      <th>CGST(%)</th>
+      <th>SGST(%)</th>
+      <th>IGST(%)</th>
+      <th>Quantity</th>
+      <th>Rate</th>
+      <th>Amount</th>
+    </tr>
+    <tr *ngIf="particulars" for="let field of particulars">
+      {{field}}
+      <th colspan="2">
+        <input type="text" class="form-control "
+        name="item" id="item" required="true" [(ngModel)]="field.item"/>
+      </th>
+      <th>
+        <input type="number" class="form-control "
+        name="cgst" id="cgst" required="false" min="0" max="100" [(ngModel)]="field.cgstPercent"/>
+      </th>
+      <th>
+        <input type="number" class="form-control "
+        name="sgst" id="sgst" required="false" min="0" max="100" [(ngModel)]="field.sgstPercent"/>
+      </th>
+      <th>
+        <input type="number" class="form-control "
+        name="igst" id="igst" required="false" min="0" max="100" [(ngModel)]="field.igstPercent"/>
 
-<div class="row">
-  <div class="col-md-3">
-    Name :{{selectedClient.name}}
-  </div>
-  <div class="col-md-3">
-    GSTIN : {{selectedClient.gstin}}
-  </div>
-  <div class="col-md-3">
-    PAN:{{selectedClient.pan}}
-  </div>
-  <div class="col-md-3">
-    Service Tax No :{{selectedClient.serviceTaxRegNo}}
-  </div>
+      </th>
+      <th><input type="number" class="form-control "
+        name="quantity" id="quantity" required="false" [(ngModel)]="field.quantity"/>
+      </th>
+      <th><input type="number" class="form-control "
+        name="rate" id="rate" required="false" [(ngModel)]="field.rate"/>
+      </th>
+      <th>
+        <input type="number" readoly class="form-control "
+        name="amount" id="amount" required="true" readonly [(ngModel)]="field.calculatedAmount"/>
+      </th>
+    </tr>
+    <tfoot>
+      <tr>
+        <td colspan="6">
+        </td>
+      <th>
+        Total
+      </th>
+      <th> 124.021</th>
+      </tr>
+    <tr>
+       <td colspan="5">
+        </td>
+       <td colspan="3">
+         <button class="btn btn-secondary">Calculate</button>
+         <button class="btn btn-primary">Generate Invoice</button>
+         <button class="btn btn-warning">Cancel Invoice</button>
+       </td>
+    </tr>
+    </tfoot>
+  </table>
 </div>
-<div class="row">
-  <div class="col-md-3">
-    Address :{{selectedClient.addrLine1}},{{selectedClient.addrLine2}}
-  </div>
-  <div class="col-md-3">
-    City : {{selectedClient.city}}
-  </div>
-  <div class="col-md-3">
-    State:{{selectedClient.state}}
-  </div>
-  <div class="col-md-3">
-    Pincode :{{selectedClient.pincode}}
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-3">
-    Phone :{{selectedClient.phone}}
-  </div>
-  <div class="col-md-3">
-    Email : {{selectedClient.email}}
-  </div>
-</div>
-<div class="row">
 </div>
