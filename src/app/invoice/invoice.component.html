@@ -39,7 +39,7 @@
     </tr>
     <tr>
       <th colspan="7">Particulars</th>
-      <th ><button class="btn btn-success">AddRow</button></th>
+      <th ><button class="btn btn-success" (click)="addRow()">AddRow</button></th>
     </tr>
     <tr>
       <th colspan="2">Item</th>
@@ -50,35 +50,28 @@
       <th>Rate</th>
       <th>Amount</th>
     </tr>
-    <tr *ngIf="particulars" for="let field of particulars">
-      {{field}}
-      <th colspan="2">
-        <input type="text" class="form-control "
-        name="item" id="item" required="true" [(ngModel)]="field.item"/>
-      </th>
-      <th>
-        <input type="number" class="form-control "
-        name="cgst" id="cgst" required="false" min="0" max="100" [(ngModel)]="field.cgstPercent"/>
-      </th>
-      <th>
-        <input type="number" class="form-control "
-        name="sgst" id="sgst" required="false" min="0" max="100" [(ngModel)]="field.sgstPercent"/>
-      </th>
-      <th>
-        <input type="number" class="form-control "
-        name="igst" id="igst" required="false" min="0" max="100" [(ngModel)]="field.igstPercent"/>
 
-      </th>
-      <th><input type="number" class="form-control "
-        name="quantity" id="quantity" required="false" [(ngModel)]="field.quantity"/>
-      </th>
-      <th><input type="number" class="form-control "
-        name="rate" id="rate" required="false" [(ngModel)]="field.rate"/>
-      </th>
-      <th>
-        <input type="number" readoly class="form-control "
-        name="amount" id="amount" required="true" readonly [(ngModel)]="field.calculatedAmount"/>
-      </th>
+    <tr *ngFor="let field of particulars;let i=index">
+      <td colspan="2">
+        <input type="text" class="form-control" required="true" [(ngModel)]="field.item"/>
+      </td>
+      <td>
+        <input type="number" class="form-control" required="false" min="0" max="100" [(ngModel)]="field.cgstPercent" (focusout)="calculateAmount(field)"/>
+      </td>
+      <td>
+        <input type="number" class="form-control" required="false" min="0" max="100" [(ngModel)]="field.sgstPercent" (focusout)="calculateAmount(field)"/>
+      </td>
+      <td>
+        <input type="number" class="form-control" required="false" min="0" max="100" [(ngModel)]="field.igstPercent" (focusout)="calculateAmount(field)"/>
+      </td>
+      <td>
+        <input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.quantity" (focusout)="calculateAmount(field)"/>
+      </td>
+      <td><input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.rate" (focusout)="calculateAmount(field)"/>
+      </td>
+      <td>
+        <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedAmount"/>
+      </td>
     </tr>
     <tfoot>
       <tr>

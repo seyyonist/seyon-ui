@@ -18,25 +18,21 @@ export class InvoiceComponent implements OnInit {
   success: boolean = true;
   invoiceIdParam: number;
   selClientId: number;
-  particular: Particulars;
-  particulars: Particulars[] = [];
+  particulars: Array<Particulars>=[];
 
   constructor(private route: ActivatedRoute, private clientService: ClientService) {
     this.route.params.subscribe(params => {
       this.invoiceIdParam = params['id']
       console.log(this.invoiceIdParam);
     });
-  }
-
-  ngOnInit() {
     if (this.invoiceIdParam != 0) {
       this.selClientId = this.invoiceIdParam;
     }
     this.getClients();
-    this.particular = new Particulars();
-    console.log(this.particular);
-    this.particulars.push(this.particular);
-    console.log(this.particulars);
+    this.particulars.push(new Particulars());
+  }
+
+  ngOnInit() {    
     
   }
 
@@ -56,5 +52,15 @@ export class InvoiceComponent implements OnInit {
   }
   loadSelectedClient(): void {
     this.selectedClient = this.clients.find(cli => cli.id === this.selClientId);
+  }
+
+  addRow():void{
+    this.particulars.push(new Particulars());
+    console.log(this.particulars);
+  }
+  
+
+  calculateAmount(field:Particulars):void{
+    console.log(field);
   }
 }
