@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { ClientService } from '../client/client.service';
 import { Client } from '../client/client.domain';
-import { Particulars } from './invoice.domain';
+import { Particulars,InvoiceData,Invoice } from './invoice.domain';
+import {InvoiceService} from './invoice.service'; 
 
 @Component({
   selector: 'app-invoice',
@@ -16,19 +17,33 @@ export class InvoiceComponent implements OnInit {
   errorMessage: string = "";
   selectedClient: Client = new Client();
   success: boolean = true;
-  invoiceIdParam: number;
   selClientId: number;
   particulars: Array<Particulars>=[];
+  invoiceData:InvoiceData=new InvoiceData();
+  invoice:Invoice=new Invoice();
 
-  constructor(private route: ActivatedRoute, private clientService: ClientService) {
+  constructor(private route: ActivatedRoute, private clientService: ClientService
+  ,private invoiceService:InvoiceService) {
+    var invoiceIdParam
     this.route.params.subscribe(params => {
-      this.invoiceIdParam = params['id']
-      console.log(this.invoiceIdParam);
+      invoiceIdParam = params['id']
+      console.log(invoiceIdParam);
     });
-    if (this.invoiceIdParam != 0) {
-      this.selClientId = this.invoiceIdParam;
+    if (invoiceIdParam != 0) {
+      console.log("fetching the invoice for the id :" +invoiceIdParam)
+      this.invoiceService.getInvoice(invoiceIdParam).subscribe(
+        invoiceData=>{
+          this.invoice=invoiceData.invoice;
+          this.particulars=invoiceData.particulars;
+          this.selClientId=invoiceData.invoice.clientId;
+        },
+        err=>{
+          console.log(err);
+        }
+      )
     }
     this.getClients();
+    this.loadSelectedClient();
     this.particulars.push(new Particulars());
   }
 
@@ -36,6 +51,9 @@ export class InvoiceComponent implements OnInit {
     
   }
 
+  getInvoice():void{
+    this.invoice.id;
+  }
   getClients(): void {
     this.success = false;
     this.error = false;
@@ -50,8 +68,10 @@ export class InvoiceComponent implements OnInit {
       }
       )
   }
+
   loadSelectedClient(): void {
     this.selectedClient = this.clients.find(cli => cli.id === this.selClientId);
+    this.invoice.clientId=this.selClientId;
   }
 
   addRow():void{
@@ -61,6 +81,35 @@ export class InvoiceComponent implements OnInit {
   
 
   calculateAmount(field:Particulars):void{
-    console.log(field);
+    if(field.item)
+     if(field.rate>0){
+      field.calculatedAmount=field.rate*field.quantity+(((field.rate*field.quantity)*(field.cgstPercent+field.sgstPercent+field.igstPercent))/100);
+      field.cgst=(((field.rate*field.quantity)*(field.cgstPercent))/100);
+      field.sgst=(((field.rate*field.quantity)*(field.sgstPercent))/100);
+      field.igst=(((field.rate*field.quantity)*(field.igstPercent))/100);
+     }else{
+       field.calculatedAmount=0;
+       field.cgst=0
+       field.sgst=0
+       field.igst=0
+     }
+  }
+
+  calculateTotal():void{
+    this.invoice.totalAmount=this.particulars.reduce((sum,part)=>sum+part.calculatedAmount,0);
+  }  
+  saveInvoice():void{
+    this.invoiceData.invoice=this.invoice;
+    this.invoiceData.particulars=this.particulars;
+    this.invoiceService.save(this.invoiceData).subscribe(
+      invoiceData=>{
+        this.invoiceData=invoiceData;
+        this.invoice=invoiceData.invoice;
+        this.particulars=invoiceData.particulars
+      },
+      err=>{
+        console.log(err);
+      }
+    )
   }
 }
