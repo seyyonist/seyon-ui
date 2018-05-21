@@ -6,94 +6,102 @@
 <div class="card">
   <div class="card-body">
     <div class="row">
-  <div class="col-md-2">Selected Client</div>
-  <div class="col-md-4">
-    <select (change)="loadSelectedClient()" [(ngModel)]="selClientId">
+      <div class="col-md-2">Selected Client</div>
+      <div class="col-md-4">
+        <select (change)="loadSelectedClient()" [(ngModel)]="selClientId">
         <option></option>
         <option *ngFor="let cli of clients" [ngValue]="cli.id" [selected]="cli.id === selClientId">{{cli.name}}</option>
     </select>
-  </div>
-</div>
-  <table class="table">
-    <tr>
-      <td colspan="8" align="center"><b>GSTIN :</b> {{selectedClient.gstin}}, <b>PAN :</b> {{selectedClient.pan}}</td>
-    </tr>
-    <tr>
-      <td rowspan="3" colspan="4"> <img height="75" id="logoImg" name="logoImg" src="{{selectedClient.logoImg}}" /></td>
-      <th colspan="2" align="right">Name</th>
-      <td colspan="2">{{selectedClient.name}}</td>
-    </tr>
-    <tr>
-      <th colspan="2" align="right">Address</th>
-      <td colspan="2">{{selectedClient.addrLine1}} {{selectedClient.addrLine2}}</td>
-    </tr>
-     <tr>
-      <td colspan="2"> </td>
-      <td colspan="2">{{selectedClient.city}} {{selectedClient.state}} {{selectedClient.pincode}}</td>
-    </tr>
-     <tr>
-      <th colspan="2" align="right">Phone</th>
-      <td colspan="2">{{selectedClient.phonePrimary}}</td>
-      <th colspan="2" align="right">Email</th>
-      <td colspan="2">{{selectedClient.email}}</td>
-    </tr>
-    <tr>
-      <th colspan="7">Particulars</th>
-      <th ><button class="btn btn-success" (click)="addRow()">AddRow</button></th>
-    </tr>
-    <tr>
-      <th colspan="2">Item</th>
-      <th>CGST(%)</th>
-      <th>SGST(%)</th>
-      <th>IGST(%)</th>
-      <th>Quantity</th>
-      <th>Rate</th>
-      <th>Amount</th>
-    </tr>
-
-    <tr *ngFor="let field of particulars;let i=index">
-      <td colspan="2">
-        <input type="text" class="form-control" required="true" [(ngModel)]="field.item" (focusout)="calculateAmount(field);calculateTotal();"/>
-      </td>
-      <td>
-        <input type="number" class="form-control" required="false" min="0" max="100" [(ngModel)]="field.cgstPercent" (focusout)="calculateAmount(field);calculateTotal();"/>
-        <small>{{field.cgst}}</small>
-      </td>
-      <td>
-        <input type="number" class="form-control" required="false" min="0" max="100" [(ngModel)]="field.sgstPercent" (focusout)="calculateAmount(field);calculateTotal();"/>
-        <small>{{field.sgst}}</small>
-      </td>
-      <td>
-        <input type="number" class="form-control" required="false" min="0" max="100" [(ngModel)]="field.igstPercent" (focusout)="calculateAmount(field);calculateTotal();"/>
-        <small>{{field.igst}}</small>
-      </td>
-      <td>
-        <input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.quantity" (focusout)="calculateAmount(field);calculateTotal();"/>
-      </td>
-      <td><input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.rate" (focusout)="calculateAmount(field);calculateTotal();"/>
-      </td>
-      <td>
-        <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedAmount"/>
-      </td>
-    </tr>
-    <tfoot>
+      </div>
+      <div class="col-md-2"><b>Invoice Id : </b></div>
+      <div class="col-md-4"><b>{{invoice.id}}</b></div>
+    </div>
+    <table class="table">
       <tr>
-        <td colspan="6">
-        </td>
-      <th>
-        Total
-      </th>
-      <th>{{invoice.totalAmount}}</th>
+        <td colspan="8" align="center"><b>GSTIN :</b> {{selectedClient.gstin}}, <b>PAN :</b> {{selectedClient.pan}}</td>
       </tr>
-    <tr>
-       <td colspan="5">
+      <tr>
+        <td rowspan="3" colspan="4"> <img height="75" id="logoImg" name="logoImg" src="{{selectedClient.logoImg}}" /></td>
+        <th colspan="2" align="right">Name</th>
+        <td colspan="2">{{selectedClient.name}}</td>
+      </tr>
+      <tr>
+        <th colspan="2" align="right">Address</th>
+        <td colspan="2">{{selectedClient.addrLine1}} {{selectedClient.addrLine2}}</td>
+      </tr>
+      <tr>
+        <td colspan="2"> </td>
+        <td colspan="2">{{selectedClient.city}} {{selectedClient.state}} {{selectedClient.pincode}}</td>
+      </tr>
+      <tr>
+        <th colspan="2" align="right">Phone</th>
+        <td colspan="2">{{selectedClient.phonePrimary}}</td>
+        <th colspan="2" align="right">Email</th>
+        <td colspan="2">{{selectedClient.email}}</td>
+      </tr>
+      <tr>
+        <th colspan="7">Particulars</th>
+        <th><button class="btn btn-success" (click)="addRow()">AddRow</button></th>
+      </tr>
+      <tr>
+        <th colspan="2">Item</th>
+        <th>CGST(%)</th>
+        <th>SGST(%)</th>
+        <th>IGST(%)</th>
+        <th>Quantity</th>
+        <th>Rate</th>
+        <th>Amount</th>
+      </tr>
+
+      <tr *ngFor="let field of particulars;let i=index">
+        <td colspan="2">
+          <input type="text" class="form-control" required="true" [(ngModel)]="field.item" (focusout)="calculateAmount(field);calculateTotal();"
+          />
         </td>
-       <td colspan="3">
-         <button class="btn btn-primary" (click)="saveInvoice()">Generate Invoice</button>
-         <button class="btn btn-warning">Cancel Invoice</button>
-       </td>
-    </tr>
-    </tfoot>
-  </table>
-</div>
+        <td>
+          <input type="number" class="form-control" required="false" min="0" max="100" [(ngModel)]="field.cgstPercent" (focusout)="calculateAmount(field);calculateTotal();"
+          />
+          <small>{{field.cgst}}</small>
+        </td>
+        <td>
+          <input type="number" class="form-control" required="false" min="0" max="100" [(ngModel)]="field.sgstPercent" (focusout)="calculateAmount(field);calculateTotal();"
+          />
+          <small>{{field.sgst}}</small>
+        </td>
+        <td>
+          <input type="number" class="form-control" required="false" min="0" max="100" [(ngModel)]="field.igstPercent" (focusout)="calculateAmount(field);calculateTotal();"
+          />
+          <small>{{field.igst}}</small>
+        </td>
+        <td>
+          <input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.quantity" (focusout)="calculateAmount(field);calculateTotal();"
+          />
+        </td>
+        <td><input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.rate" (focusout)="calculateAmount(field);calculateTotal();"
+          />
+        </td>
+        <td>
+          <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedAmount" />
+        </td>
+      </tr>
+      <tfoot>
+        <tr>
+          <td colspan="6">
+          </td>
+          <th>
+            Total
+          </th>
+          <th>{{invoice.totalAmount}}</th>
+        </tr>
+        <tr>
+          <td colspan="5">
+          </td>
+          <td colspan="3">
+            <button class="btn btn-primary" (click)="saveInvoice()">Generate Invoice</button>
+            <button class="btn btn-warning">Cancel Invoice</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 </div>

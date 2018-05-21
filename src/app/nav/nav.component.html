@@ -12,19 +12,29 @@
     </div>
     <nav class="menu">
       <ul class="sidebar-menu metismenu" id="sidebar-menu">
-        <li >
+        <li>
           <a routerLink="/dashboard" routerLinkActive="active">
            <i class="fa fa-home"></i> Dashboard </a>
         </li>
         <li>
-           <a routerLink="/client" routerLinkActive="active">
+          <a routerLink="/client" routerLinkActive="active">
            <i class="fa fa-group"></i> Manage Clients </a>
         </li>
         <li>
-           <a routerLink="/invoice/0" routerLinkActive="active">
-           <i class="fa fa-file-text"></i> Invoice </a>
+          <a href="">
+            <i class="fa fa-file-text"></i> Invoice
+            <i class="fa arrow"></i>
+           </a>
+          <ul class="sidebar-nav">
+            <li>
+              <a routerLink="/invoice/0" routerLinkActive="active">New</a>
+            </li>
+            <li>
+              <a routerLink="/invoice-search"> Search </a>
+            </li>
+          </ul>
         </li>
-       <!-- <li class="active">
+        <!-- <li class="active">
           <a href="">
           <i class="fa fa-th-large"></i> test Sub menu
           <i class="fa arrow"></i>
@@ -49,9 +59,7 @@
       <li>
         <ul>
           <li class="customize">
-            Compay owner ,
-            address
-            etc etc.,
+            Compay owner , address etc etc.,
           </li>
         </ul>
         <a href="">

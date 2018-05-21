@@ -30,4 +30,12 @@ export class InvoiceService {
     console.log(APIURLS.invoice+"  "+url);
     return this.http.get<InvoiceData>(url,{headers:httpOptions.headers});
   }
+
+  searchInvoice(id:number):Observable<InvoiceData>{
+    var url = Urls.getDomain().concat(APIURLS.invoice).concat("/search")
+    .concat("?invoiceId=")
+    .concat(id.toString());
+    console.log(APIURLS.invoice+"  "+url);
+    return this.http.get<InvoiceData>(url,{headers:httpOptions.headers});
+  }
 }

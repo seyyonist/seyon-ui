@@ -32,3 +32,12 @@ export class InvoiceData{
     invoice:Invoice=new Invoice();
     particulars:Particulars[]=[];
 }
+
+export class SearchInvoice{
+    pageNumber:number=0;
+    id:number;
+    clientId:number;
+    invoiceStDate:Date;
+    invoiceEdDate:Date;
+    status:string;
+}

@@ -33,18 +33,24 @@ export class InvoiceComponent implements OnInit {
       console.log("fetching the invoice for the id :" +invoiceIdParam)
       this.invoiceService.getInvoice(invoiceIdParam).subscribe(
         invoiceData=>{
+          console.log("invoice Data "+invoiceData);
           this.invoice=invoiceData.invoice;
           this.particulars=invoiceData.particulars;
           this.selClientId=invoiceData.invoice.clientId;
+          this.getClients();
+          this.loadSelectedClient();
+          this.particulars.push(new Particulars());
         },
         err=>{
           console.log(err);
         }
       )
+    }else{
+        this.getClients();
+        this.loadSelectedClient();
+        this.particulars.push(new Particulars());
     }
-    this.getClients();
-    this.loadSelectedClient();
-    this.particulars.push(new Particulars());
+   
   }
 
   ngOnInit() {    
@@ -61,6 +67,7 @@ export class InvoiceComponent implements OnInit {
       .subscribe(
       clients => {
         this.clients = clients;
+        this.loadSelectedClient();
       },
       err => {
         this.error = true;
