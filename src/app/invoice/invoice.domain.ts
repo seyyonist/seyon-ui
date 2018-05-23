@@ -25,7 +25,8 @@ export class Invoice{
 	 invoiceDate:Date;
 	 totalAmount:number=0;
 	 createdBy:string="";
-	 createdDate:Date;
+     createdDate:Date;
+     clientName:String="";
 }
 
 export class InvoiceData{
@@ -40,4 +41,15 @@ export class SearchInvoice{
     invoiceStDate:Date;
     invoiceEdDate:Date;
     status:string;
+}
+
+export class SearchResult{
+    content:Invoice[];
+    first:boolean;
+    last:boolean;
+    number:number;
+    numberOfElements:number;
+    size:number;
+    totalElements:number;
+    totalPages:number;
 }

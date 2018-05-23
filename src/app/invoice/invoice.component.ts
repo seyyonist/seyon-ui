@@ -21,7 +21,7 @@ export class InvoiceComponent implements OnInit {
   particulars: Array<Particulars>=[];
   invoiceData:InvoiceData=new InvoiceData();
   invoice:Invoice=new Invoice();
-
+  
   constructor(private route: ActivatedRoute, private clientService: ClientService
   ,private invoiceService:InvoiceService) {
     var invoiceIdParam
@@ -46,6 +46,9 @@ export class InvoiceComponent implements OnInit {
         }
       )
     }else{
+        this.invoice=new Invoice();
+        this.particulars=[];
+        this.selClientId=null;
         this.getClients();
         this.loadSelectedClient();
         this.particulars.push(new Particulars());
@@ -113,9 +116,11 @@ export class InvoiceComponent implements OnInit {
         this.invoiceData=invoiceData;
         this.invoice=invoiceData.invoice;
         this.particulars=invoiceData.particulars
+        this.success=true;
       },
       err=>{
-        console.log(err);
+        this.error=true;
+        this.errorMessage = "Error occured While saving the Invoice";
       }
     )
   }

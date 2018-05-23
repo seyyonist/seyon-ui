@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import * as _ from 'underscore';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
-import { Particulars,InvoiceData,Invoice } from './invoice.domain';
+import { Particulars,InvoiceData,Invoice,SearchInvoice,SearchResult } from './invoice.domain';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -31,11 +31,11 @@ export class InvoiceService {
     return this.http.get<InvoiceData>(url,{headers:httpOptions.headers});
   }
 
-  searchInvoice(id:number):Observable<InvoiceData>{
+  searchInvoice(searchInvoice:SearchInvoice,pageNo:number=0):Observable<SearchResult>{
     var url = Urls.getDomain().concat(APIURLS.invoice).concat("/search")
-    .concat("?invoiceId=")
-    .concat(id.toString());
-    console.log(APIURLS.invoice+"  "+url);
-    return this.http.get<InvoiceData>(url,{headers:httpOptions.headers});
+    .concat("?pageNumber=")
+    .concat(pageNo.toString())
+    console.log("Searching : "+url);
+    return this.http.post<SearchResult>(url,searchInvoice,{headers:httpOptions.headers});
   }
 }

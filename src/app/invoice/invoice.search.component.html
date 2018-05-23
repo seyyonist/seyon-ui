@@ -58,6 +58,27 @@
 
 <div class="card">
   <div class="card-body">
-    Result
+    <table class="table">
+      <thead>
+      <tr>
+        <td>Invoice ID</td>
+        <td>Client</td>
+        <td>Date</td>
+        <td>Amount</td>
+        <td>Options</td>
+      </tr>
+      </thead>
+    <tbody>
+      <tr *ngFor="let invoice of invoices">
+        <td>{{invoice.id}}</td>
+        <td>{{invoice.clientName}}</td>
+        <td>{{invoice.invoiceDate}}</td>
+        <td>{{invoice.totalAmount}}</td>
+        <td>
+            <a routerLink="/invoice/{{invoice.id}}" routerLinkActive="active" >View</a>  
+        </td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 </div>
