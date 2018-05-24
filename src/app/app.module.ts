@@ -11,11 +11,16 @@ import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClientComponent } from './client/client.component';
 import {ClientService} from './client/client.service';
+import { InvoiceComponent } from './invoice/invoice.component';
+import { InvoiceSearchComponent } from './invoice/invoice.search.component';
+import {InvoiceService} from './invoice/invoice.service'; 
 
 const appRoutes: Routes = [
   
   { path: 'dashboard', component: DashboardComponent },
   { path: 'client', component: ClientComponent },
+  { path: 'invoice/:id', component: InvoiceComponent },
+  { path: 'invoice-search', component: InvoiceSearchComponent},
   /*{ path: 'maintenance', component: MaintenanceComponent },
   { path: 'expence', component: ExpenceComponent },
   { path: 'monthlyReport', component: MonthlyReportComponent },
@@ -29,7 +34,9 @@ const appRoutes: Routes = [
     NavComponent,
     HeaderComponent,
     DashboardComponent,
-    ClientComponent
+    ClientComponent,
+    InvoiceComponent,
+    InvoiceSearchComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -41,7 +48,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule
   ],
-  providers: [ClientService],
+  providers: [ClientService,InvoiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
