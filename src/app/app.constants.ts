@@ -17,5 +17,6 @@ export class Urls{
 export const APIURLS={
     client:"/api/client",
     user:"/api/user",
-    userrole:"/api/userrole"
+    userrole:"/api/userrole",
+    adduserrole:"/api/userrole/adduserrole"
 }
