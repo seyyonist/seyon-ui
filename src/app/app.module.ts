@@ -11,6 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClientComponent } from './client/client.component';
 import {ClientService} from './client/client.service';
+import { UsersComponent } from './users/users.component';
+import {UserService} from './users/users.service';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { InvoiceSearchComponent } from './invoice/invoice.search.component';
 import {InvoiceService} from './invoice/invoice.service'; 
@@ -19,6 +21,7 @@ const appRoutes: Routes = [
   
   { path: 'dashboard', component: DashboardComponent },
   { path: 'client', component: ClientComponent },
+   { path: 'users', component: UsersComponent },
   { path: 'invoice/:id', component: InvoiceComponent },
   { path: 'invoice-search', component: InvoiceSearchComponent},
   /*{ path: 'maintenance', component: MaintenanceComponent },
@@ -35,6 +38,7 @@ const appRoutes: Routes = [
     HeaderComponent,
     DashboardComponent,
     ClientComponent,
+    UsersComponent,
     InvoiceComponent,
     InvoiceSearchComponent
   ],
@@ -48,7 +52,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule
   ],
-  providers: [ClientService,InvoiceService],
+  providers: [ClientService,UserService,InvoiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

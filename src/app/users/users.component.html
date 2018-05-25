@@ -1,0 +1,91 @@
+<h3>Manage Users</h3>
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  {{errorMessage}}
+</div>
+<div class="alert alert-success" role="alert" *ngIf="success">
+  Successfully Saved
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header" style="padding-left:5px;">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control underlined" placeholder="search" />
+          <div class="input-group-append">
+            <button class="btn btn-primary" (click)="new()">Add New</button>
+          </div>
+        </div>
+      </div>
+      <div style="overflow:auto;height:400px;background-color:white;">
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let user of users" class="list-group-item" (click)="edit(user)">{{user.name}}</li>
+        </ul>
+        <div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <form (ngSubmit)="submit()" name="userForm" ngNativeValidate>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="name">User Name</label>
+                <input type="text" class="form-control underlined" name="name" id="name" required="true" [(ngModel)]="user.name" />
+              </div>
+              <div class="col-md-4">
+                <label for="email">Email</label>
+                <input type="text" class="form-control underlined" name="email" id="email" required="true" [(ngModel)]="user.email" />
+              </div>
+              <div class="col-md-4">
+                <label for="active">Active</label>
+                <select id="active" name="active " class="form-control underlined" required="true" [(ngModel)]="user.active">
+                  <option value="true" selected>Active </option>
+                  <option value="false">InActive </option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="showRoles">
+              <div class="col-md-4">
+                <label for="role">User Role</label>
+                <select id="RoleSelect" name="roleSelect " class="form-control underlined" [(ngModel)]="userRole.roleCode">
+                  <option value="ADMIN" selected>ADMIN</option>
+                  <option value="USER">USER</option>
+                </select>
+                <button type="button" name="addRole" (click)="adduserRole(userRole.roleCode)" class="btn btn-secondary btn-sm">Add Role</button>
+              </div>
+              <div class="col-md-3">
+                <ul class="list-group list-group-flush">
+                  <li *ngFor="let userRole of userRoles" class="list-group-item" style="cursor: pointer;">
+                    {{userRole.roleCode}}
+                    <span class="float-right">
+              <i (click)="deleteUserRole(userRole.id)" class="fa fa-trash"></i>
+                  </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <br/>
+              <div class="col-md-2">
+              <label for="password" >Password</label>
+              </div>
+              <div class="col-md-5">
+                <input type="password" class="form-control underlined" name="password" id="password" placeholder="Enter password" required="true" [(ngModel)]="user.password" >                </div>
+              <div class="col-md-5">
+                <input type="password" class="form-control underlined" name="retype_password" id="retype_password" placeholder="Re-type password"
+                  required=""> </div>
+
+            </div>
+
+          </div>
+          <button type="submit" class="btn btn-success float-right">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

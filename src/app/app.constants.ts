@@ -16,5 +16,8 @@ export class Urls{
 
 export const APIURLS={
     client:"/api/client",
-    invoice:"/api/invoice"
+    invoice:"/api/invoice",
+    user:"/api/user",
+    userrole:"/api/userrole",
+    adduserrole:"/api/userrole/adduserrole"
 }
