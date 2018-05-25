@@ -17,8 +17,8 @@
             <select id="status" name="status " class="form-control underlined" required="false" [(ngModel)]="searchInvoice.status">
                   <option value="NEW" selected>NEW </option>
                   <option value="CREATED">CREATED </option>
-                  <option value="CREATED">DELIVERED </option>
-                  <option value="CREATED">CANCELED </option>                  
+                  <option value="DELIVERED">DELIVERED </option>
+                  <option value="CANCELED">CANCELED </option>                  
                 </select>
           </div>
           <div class="col-md-4">
@@ -65,6 +65,7 @@
         <td>Client</td>
         <td>Date</td>
         <td>Amount</td>
+        <td>Status</td>
         <td>Options</td>
       </tr>
       </thead>
@@ -72,8 +73,9 @@
       <tr *ngFor="let invoice of invoices">
         <td>{{invoice.id}}</td>
         <td>{{invoice.clientName}}</td>
-        <td>{{invoice.invoiceDate}}</td>
+        <td>{{invoice.invoiceDate | date:'yyyy-MM-dd hh:mm aa'}}</td>
         <td>{{invoice.totalAmount}}</td>
+        <td>{{invoice.status}}</td>
         <td>
             <a routerLink="/invoice/{{invoice.id}}" routerLinkActive="active" >View</a>  
         </td>

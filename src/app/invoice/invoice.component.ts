@@ -109,13 +109,32 @@ export class InvoiceComponent implements OnInit {
     this.invoice.totalAmount=this.particulars.reduce((sum,part)=>sum+part.calculatedAmount,0);
   }  
   saveInvoice():void{
+    this.success=false;
+    this.error=false;
     this.invoiceData.invoice=this.invoice;
-    this.invoiceData.particulars=this.particulars;
+    this.invoiceData.particulars=this.particulars.filter(part=>part.item!=="");
     this.invoiceService.save(this.invoiceData).subscribe(
       invoiceData=>{
         this.invoiceData=invoiceData;
         this.invoice=invoiceData.invoice;
         this.particulars=invoiceData.particulars
+        this.success=true;
+      },
+      err=>{
+        this.error=true;
+        this.errorMessage = "Error occured While saving the Invoice";
+      }
+    )
+  }
+
+  cancelInvoice():void{
+    this.success=false;
+    this.error=false;
+    this.invoiceData.invoice=this.invoice;
+    this.invoiceData.particulars=this.particulars;
+    this.invoiceService.cancel(this.invoiceData.invoice.id).subscribe(
+      invoice=>{
+        this.invoiceData.invoice=invoice;
         this.success=true;
       },
       err=>{
