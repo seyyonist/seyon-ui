@@ -23,6 +23,7 @@ const appRoutes: Routes = [
   { path: 'client', component: ClientComponent },
    { path: 'users', component: UsersComponent },
   { path: 'invoice/:id', component: InvoiceComponent },
+   { path: 'invoiceNew/:id', component: InvoiceComponent },
   { path: 'invoice-search', component: InvoiceSearchComponent},
   /*{ path: 'maintenance', component: MaintenanceComponent },
   { path: 'expence', component: ExpenceComponent },

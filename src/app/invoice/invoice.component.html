@@ -10,14 +10,16 @@
   <div class="card-body">
     <div class="row">
       <div class="col-md-2">Selected Client</div>
-      <div class="col-md-4">
+      <div class="col-md-2">
         <select (change)="loadSelectedClient()" [(ngModel)]="selClientId">
         <option></option>
         <option *ngFor="let cli of clients" [ngValue]="cli.id" [selected]="cli.id === selClientId">{{cli.name}}</option>
     </select>
       </div>
       <div class="col-md-2"><b>Invoice Id : </b></div>
-      <div class="col-md-4"><b>{{invoice.id}}</b></div>
+      <div class="col-md-2"><b>{{invoice.id}}</b></div>
+      <div class="col-md-2"><b>Status : </b></div>
+      <div class="col-md-2"><b>{{invoice.status}}</b></div>
     </div>
     <table class="table">
       <tr>
@@ -44,7 +46,7 @@
       </tr>
       <tr>
         <th colspan="7">Particulars</th>
-        <th><button class="btn btn-success" (click)="addRow()">AddRow</button></th>
+        <th><button class="btn btn-success" (click)="addRow()" *ngIf="invoice.status!=='CANCELED'">AddRow</button></th>
       </tr>
       <tr>
         <th colspan="2">Item</th>
@@ -100,8 +102,8 @@
           <td colspan="6">
           </td>
           <td colspan="2">
-            <button class="btn btn-primary" (click)="saveInvoice()">Generate Invoice</button>
-            <button class="btn btn-warning">Cancel Invoice</button>
+            <button class="btn btn-primary" (click)="saveInvoice()" *ngIf="invoice.status!=='CANCELED'">Save Invoice</button>
+            <button class="btn btn-warning" (click)="cancelInvoice()" *ngIf="invoice.status!=='CANCELED'">Cancel Invoice</button>
           </td>
         </tr>
       </tfoot>

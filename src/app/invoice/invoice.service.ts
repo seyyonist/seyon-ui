@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import * as _ from 'underscore';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
-import { Particulars,InvoiceData,Invoice,SearchInvoice,SearchResult } from './invoice.domain';
+import { Particulars, InvoiceData, Invoice, SearchInvoice, SearchResult } from './invoice.domain';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,29 +13,38 @@ const httpOptions = {
 
 
 @Injectable()
-export class InvoiceService { 
+export class InvoiceService {
   constructor(private http: HttpClient) {
   }
 
-  save(invoiceData:InvoiceData): Observable<InvoiceData> {
+  save(invoiceData: InvoiceData): Observable<InvoiceData> {
     var url = Urls.getDomain().concat(APIURLS.invoice);
-    console.log(APIURLS.invoice+"  "+url);
-    return this.http.post<InvoiceData>(url,invoiceData,{headers:httpOptions.headers});
+    console.log(APIURLS.invoice + "  " + url);
+    return this.http.post<InvoiceData>(url, invoiceData, { headers: httpOptions.headers });
   }
 
-  getInvoice(id:number):Observable<InvoiceData>{
+  cancel(invoiceId: number): Observable<Invoice> {
     var url = Urls.getDomain().concat(APIURLS.invoice)
-    .concat("?invoiceId=")
-    .concat(id.toString());
-    console.log(APIURLS.invoice+"  "+url);
-    return this.http.get<InvoiceData>(url,{headers:httpOptions.headers});
+      .concat("/cancel")
+      .concat("?invoiceId=")
+      .concat(invoiceId.toString());
+    console.log("Cancel invoice  " + url);
+    return this.http.patch<Invoice>(url, { headers: httpOptions.headers });
   }
 
-  searchInvoice(searchInvoice:SearchInvoice,pageNo:number=0):Observable<SearchResult>{
+  getInvoice(id: number): Observable<InvoiceData> {
+    var url = Urls.getDomain().concat(APIURLS.invoice)
+      .concat("?invoiceId=")
+      .concat(id.toString());
+    console.log(APIURLS.invoice + "  " + url);
+    return this.http.get<InvoiceData>(url, { headers: httpOptions.headers });
+  }
+
+  searchInvoice(searchInvoice: SearchInvoice, pageNo: number = 0): Observable<SearchResult> {
     var url = Urls.getDomain().concat(APIURLS.invoice).concat("/search")
-    .concat("?pageNumber=")
-    .concat(pageNo.toString())
-    console.log("Searching : "+url);
-    return this.http.post<SearchResult>(url,searchInvoice,{headers:httpOptions.headers});
+      .concat("?pageNumber=")
+      .concat(pageNo.toString())
+    console.log("Searching : " + url);
+    return this.http.post<SearchResult>(url, searchInvoice, { headers: httpOptions.headers });
   }
 }
