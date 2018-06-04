@@ -15,7 +15,9 @@ import { UsersComponent } from './users/users.component';
 import {UserService} from './users/users.service';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { InvoiceSearchComponent } from './invoice/invoice.search.component';
-import {InvoiceService} from './invoice/invoice.service'; 
+import {InvoiceService} from './invoice/invoice.service';
+import { CompanyComponent } from './company/company.component'; 
+import { CompanyService } from './company/company.service'; 
 
 const appRoutes: Routes = [
   
@@ -25,6 +27,7 @@ const appRoutes: Routes = [
   { path: 'invoice/:id', component: InvoiceComponent },
    { path: 'invoiceNew/:id', component: InvoiceComponent },
   { path: 'invoice-search', component: InvoiceSearchComponent},
+  { path: 'company', component: CompanyComponent}
   /*{ path: 'maintenance', component: MaintenanceComponent },
   { path: 'expence', component: ExpenceComponent },
   { path: 'monthlyReport', component: MonthlyReportComponent },
@@ -41,7 +44,8 @@ const appRoutes: Routes = [
     ClientComponent,
     UsersComponent,
     InvoiceComponent,
-    InvoiceSearchComponent
+    InvoiceSearchComponent,
+    CompanyComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -53,7 +57,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule
   ],
-  providers: [ClientService,UserService,InvoiceService],
+  providers: [ClientService,UserService,InvoiceService,CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
