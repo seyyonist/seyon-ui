@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { ClientService } from '../client/client.service';
 import { Client } from '../client/client.domain';
-import { Particulars,InvoiceData,Invoice } from './invoice.domain';
+import { Particulars,InvoiceData,Invoice,SACCode } from './invoice.domain';
 import {InvoiceService} from './invoice.service'; 
 
 @Component({
@@ -21,7 +21,10 @@ export class InvoiceComponent implements OnInit {
   particulars: Array<Particulars>=[];
   invoiceData:InvoiceData=new InvoiceData();
   invoice:Invoice=new Invoice();
-  
+  sacCodes:SACCode[]=[];
+  selSacId:number;
+  selSacCode:SACCode=new SACCode();
+
   constructor(private route: ActivatedRoute, private clientService: ClientService
   ,private invoiceService:InvoiceService) {
     var invoiceIdParam
@@ -39,6 +42,7 @@ export class InvoiceComponent implements OnInit {
           this.selClientId=invoiceData.invoice.clientId;
           this.getClients();
           this.loadSelectedClient();
+          this.getSacCodes();
           this.particulars.push(new Particulars());
         },
         err=>{
@@ -50,6 +54,7 @@ export class InvoiceComponent implements OnInit {
         this.particulars=[];
         this.selClientId=null;
         this.getClients();
+        this.getSacCodes();
         this.loadSelectedClient();
         this.particulars.push(new Particulars());
     }
@@ -78,6 +83,28 @@ export class InvoiceComponent implements OnInit {
       }
       )
   }
+    getSacCodes(): void {
+    this.success = false;
+    this.error = false;
+    this.invoiceService.getSACCode()
+      .subscribe(
+      sac => {
+        this.sacCodes = sac;
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured please contact administrator";
+      }
+      )
+  }
+
+  loadSelectedSac():void{
+    this.selSacCode = this.sacCodes.find(sac => sac.id === this.selSacId);
+    this.invoice.cgstPerfomaPercent=this.selSacCode.cgstPercent;
+    this.invoice.sgstPerfomaPercent=this.selSacCode.sgstPercent;
+    this.invoice.igstPerfomaPercent=this.selSacCode.igstPercent;
+    this.invoice.sacCode=this.selSacCode.sacCode;
+  }
 
   loadSelectedClient(): void {
     this.selectedClient = this.clients.find(cli => cli.id === this.selClientId);
@@ -91,29 +118,33 @@ export class InvoiceComponent implements OnInit {
   
 
   calculateAmount(field:Particulars):void{
-    if(field.item)
-     if(field.rate>0){
-      field.calculatedAmount=field.rate*field.quantity+(((field.rate*field.quantity)*(field.cgstPercent+field.sgstPercent+field.igstPercent))/100);
-      field.cgst=(((field.rate*field.quantity)*(field.cgstPercent))/100);
-      field.sgst=(((field.rate*field.quantity)*(field.sgstPercent))/100);
-      field.igst=(((field.rate*field.quantity)*(field.igstPercent))/100);
-     }else{
-       field.calculatedAmount=0;
-       field.cgst=0
-       field.sgst=0
-       field.igst=0
-     }
+      if(field.itemDescription!=="")
+        field.calculatedPerformaAmount=field.quantity*field.performaRate;
+      this.calculateTotal();
+
   }
 
   calculateTotal():void{
-    this.invoice.totalAmount=this.particulars.reduce((sum,part)=>sum+part.calculatedAmount,0);
+    var sum=0
+    this.particulars.filter(part=>part.itemDescription!=="").forEach(part=>{
+      sum=sum+part.calculatedPerformaAmount;
+    })
+    this.invoice.totalPerfomaBeforeTax=sum;
+
+    //apply Tax
+    this.invoice.cgstPerfoma=(this.invoice.cgstPerfomaPercent*this.invoice.totalPerfomaBeforeTax)/100
+    this.invoice.sgstPerfoma=(this.invoice.sgstPerfomaPercent*this.invoice.totalPerfomaBeforeTax)/100
+    this.invoice.igstPerfoma=(this.invoice.igstPerfomaPercent*this.invoice.totalPerfomaBeforeTax)/100
+
+    this.invoice.totalPerfomaAmount=this.invoice.totalPerfomaBeforeTax+this.invoice.cgstPerfoma+this.invoice.sgstPerfoma
+                                    +this.invoice.igstPerfoma
   }  
-  saveInvoice():void{
+  savePerformaInvoice():void{
     this.success=false;
     this.error=false;
     this.invoiceData.invoice=this.invoice;
-    this.invoiceData.particulars=this.particulars.filter(part=>part.item!=="");
-    this.invoiceService.save(this.invoiceData).subscribe(
+    this.invoiceData.particulars=this.particulars.filter(part=>part.itemDescription!=="");
+    this.invoiceService.savePerforma(this.invoiceData).subscribe(
       invoiceData=>{
         this.invoiceData=invoiceData;
         this.invoice=invoiceData.invoice;
