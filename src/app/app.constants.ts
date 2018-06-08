@@ -21,5 +21,7 @@ export const APIURLS = {
     userrole: "/api/userrole",
     adduserrole: "/api/userrole/adduserrole",
     getcompany: "/api/company/getCompany",
-    updatecompany: "/api/company/updateCompany"
+    updatecompany: "/api/company/updateCompany",
+    savevoucher : "/api/voucher/saveVoucher",
+    voucher : "/api/voucher"
 }

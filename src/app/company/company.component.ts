@@ -39,4 +39,24 @@ getCompany(): void {
 
 }
 
+
+submitCompany(): void{
+  
+  this.success = false;
+    this.error = false;
+    this.companyService.save(this.company)
+      .subscribe(
+      company => {
+        this.company = company;
+        this.getCompany();
+        this.success = true;
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured please contact administrator";
+      }
+      )
+  }
+
+
 }

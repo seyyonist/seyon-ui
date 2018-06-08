@@ -1,7 +1,13 @@
 <div class="card">
+  <div class="alert alert-danger" role="alert" *ngIf="error">
+    {{errorMessage}}
+  </div>
+  <div class="alert alert-success" role="alert" *ngIf="success">
+    Successfully Saved
+  </div>
 
   <div class="card-header" style="padding-left:20px;">
-   <label for="companyName">Company Name : </label> 
+    <label for="companyName">Company Name : </label>
     <h5>{{company.companyName}}</h5>
   </div>
 
@@ -144,7 +150,7 @@
       <div class="form-group">
         <div class="row">
           <div class="col-sm-6">
-            <label for="firstname">Logo</label> <input type="file" id="file-logo" />
+            <label for="file-logo">Logo</label> <input type="file" id="file-logo" />
             <input type="hidden" name="logo" id="logo" [(ngModel)]="company.logoImg" />
           </div>
           <div class="col-sm-6">

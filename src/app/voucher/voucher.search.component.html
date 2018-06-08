@@ -1,0 +1,74 @@
+<h3>Search Voucher </h3>
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  {{errorMessage}}
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <form (ngSubmit)="submit()" name="searchForm">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="name">Voucher Id </label>
+            <input type="text" class="form-control underlined" name="voucherId" id="voucherId" required="false" [(ngModel)]="searchVoucher.voucherId"/>
+          </div>
+          
+           <div class="col-md-4">
+            <label for="name">Vendor Name </label>
+            <input type="text" class="form-control underlined" name="vendorName" id="vendorName" required="false" [(ngModel)]="searchVoucher.vendorName"/>
+          </div>
+        </div>
+      </div>
+
+       <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="startDt">Start Date </label>
+            <input type="date" class="form-control underlined" name="startDate" id="startDate" required="false" [(ngModel)]="searchVoucher.startDate"/>
+          </div>
+          <div class="col-md-6">
+            <label for="endDt">End Date</label>
+            <input type="date"  class="form-control underlined" name="endDate" id="endDate" required="false" [(ngModel)]="searchVoucher.endDate"/>
+          </div>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <button type="submit" class="btn btn-primary">
+              <i class="fa fa-search">&nbsp;</i>
+              Search</button>
+          </div>
+        </div>
+       </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <table class="table">
+      <thead>
+      <tr>
+        <td>Id</td>
+        <td>Voucher Id</td>
+        <td>Vendor Name</td>
+        <td>Particulars</td>
+        <td>Total Amount</td>
+        <td>Voucher Date</td>
+      </tr>
+      </thead>
+    <tbody>
+      <tr *ngFor="let voucher of vouchers">
+        <td>{{voucher.id}}</td>
+        <td>{{voucher.voucherId}}</td>
+        <td>{{voucher.vendorName}}</td>
+        <td>{{voucher.particulars}}</td>
+        <td>{{voucher.totalAmount}}</td>
+        <td>{{voucher.voucherDate | date:'yyyy-MM-dd hh:mm aa'}}</td>
+     
+      </tr>
+    </tbody>
+    </table>
+  </div>
+</div>
