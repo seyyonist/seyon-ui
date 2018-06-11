@@ -8,11 +8,17 @@
     <form (ngSubmit)="submit()" name="searchForm" ngNativeValidate>
       <div class="form-group">
         <div class="row">
-          <div class="col-md-4">
-            <label for="name">Invoice Id </label>
-            <input type="text" class="form-control underlined" name="invoiceId" id="invoiceId" required="false" [(ngModel)]="searchInvoice.id"/>
+          <div class="col-md-3">
+            <label for="name">Performa Id </label>
+            <input type="text" class="form-control underlined" name="performa Id" id="performaId" required="false" [(ngModel)]="searchInvoice.performaId"
+            />
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
+            <label for="name">Invoice Id </label>
+            <input type="text" class="form-control underlined" name="invoiceId" id="invoiceId" required="false" [(ngModel)]="searchInvoice.invoiceId"
+            />
+          </div>
+          <div class="col-md-3">
             <label for="status">Status </label>
             <select id="status" name="status " class="form-control underlined" required="false" [(ngModel)]="searchInvoice.status">
                   <option value="NEW" selected>NEW </option>
@@ -21,9 +27,9 @@
                   <option value="CANCELED">CANCELED </option>                  
                 </select>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label for="client">Client </label>
-            <select  id="client" name="client " class="form-control underlined" required="false"  (change)="loadSelectedClient()" [(ngModel)]="searchInvoice.clientId">
+            <select id="client" name="client " class="form-control underlined" required="false" (change)="loadSelectedClient()" [(ngModel)]="searchInvoice.clientId">
               <option></option>
               <option *ngFor="let cli of clients" [ngValue]="cli.id">{{cli.name}}</option>
             </select>
@@ -31,19 +37,29 @@
         </div>
       </div>
 
-       <div class="form-group">
+      <div class="form-group">
         <div class="row">
-          <div class="col-md-6">
-            <label for="startDt">Start Date </label>
-            <input type="date" class="form-control underlined" name="startDt" id="startDt" required="false" [(ngModel)]="searchInvoice.invoiceStDate"/>
+          <div class="col-md-4">
+            <label for="startDt">Performa/Invoice </label>
+            <select id="status" name="status " class="form-control underlined" required="false" [(ngModel)]="searchInvoice.type">
+                  <option></option>
+                  <option value="PERFORMA">PERFORMA </option>
+                  <option value="INVOICE">INVOICE </option>               
+                </select>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
+            <label for="startDt">Start Date </label>
+            <input type="date" class="form-control underlined" name="startDt" id="startDt" required="false" [(ngModel)]="searchInvoice.invoiceStDate"
+            />
+          </div>
+          <div class="col-md-4">
             <label for="endDt">End Date</label>
-            <input type="date"  class="form-control underlined" name="endDt" id="endDt" required="false" [(ngModel)]="searchInvoice.invoiceEdDate"/>
+            <input type="date" class="form-control underlined" name="endDt" id="endDt" required="false" [(ngModel)]="searchInvoice.invoiceEdDate"
+            />
           </div>
         </div>
       </div>
-       <div class="form-group">
+      <div class="form-group">
         <div class="row">
           <div class="col-md-6">
             <button type="submit" class="btn btn-primary">
@@ -51,7 +67,7 @@
               Search</button>
           </div>
         </div>
-       </div>
+      </div>
     </form>
   </div>
 </div>
@@ -60,27 +76,37 @@
   <div class="card-body">
     <table class="table">
       <thead>
-      <tr>
-        <td>Invoice ID</td>
-        <td>Client</td>
-        <td>Date</td>
-        <td>Amount</td>
-        <td>Status</td>
-        <td>Options</td>
-      </tr>
+        <tr>
+          <td>ID</td>
+          <td>Invoice Id</td>
+          <td>Performa Id</td>
+          <td>Client</td>
+          <td>Performa Date</td>
+          <td>Invoice Date</td>
+           <td>Sac Code</td>
+          <td>Performa Amount</td>
+          <td>Invoice Amount</td>
+          <td>Status</td>
+          <td>Options</td>
+        </tr>
       </thead>
-    <tbody>
-      <tr *ngFor="let invoice of invoices">
-        <td>{{invoice.id}}</td>
-        <td>{{invoice.clientName}}</td>
-        <td>{{invoice.invoiceDate | date:'yyyy-MM-dd hh:mm aa'}}</td>
-        <td>{{invoice.totalAmount}}</td>
-        <td>{{invoice.status}}</td>
-        <td>
-            <a routerLink="/invoice/{{invoice.id}}" routerLinkActive="active" >View</a>  
-        </td>
-      </tr>
-    </tbody>
+      <tbody>
+        <tr *ngFor="let invoice of invoices">
+          <td>{{invoice.id}}</td>
+          <td>{{invoice.invoiceId}}</td>
+          <td>{{invoice.performaId}}</td>
+          <td>{{invoice.clientName}}</td>
+          <td>{{invoice.performaDate | date:'yyyy-MM-dd hh:mm aa'}}</td>
+          <td>{{invoice.invoiceDate | date:'yyyy-MM-dd hh:mm aa'}}</td>
+          <td>{{invoice.sacCode}}</td>
+          <td>{{invoice.totalPerfomaAmount}}</td>
+          <td>{{invoice.totalInvoiceAmount}}</td>
+          <td>{{invoice.status}}</td>
+          <td>
+            <a routerLink="/performaView/{{invoice.id}}" routerLinkActive="active">View</a>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </div>

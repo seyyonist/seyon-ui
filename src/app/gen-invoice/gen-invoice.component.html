@@ -1,0 +1,24 @@
+<h3>Invoice Details</h3>
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  {{errorMessage}}
+</div>
+<div class="alert alert-success" role="alert" *ngIf="success">
+  Successfully Saved
+</div>
+
+<div class="card">
+  <div class="card-body">
+     <div class="row">
+      <div class="col-md-3 "><b>Selected PerformA Invoice Id</b></div>
+      <div class="col-md-4">
+        <select (change)="loadSelectedPerformAInvoice()" [(ngModel)]="selPerformaId" class="form-control underlined" >
+        <option></option>
+        <option *ngFor="let ids of performaIds" [ngValue]="ids">{{ids}}</option>
+         </select>
+      </div>
+      <div class="col-md-2"><b>Invoice Date : </b></div>
+      <div class="col-md-3">
+        <input type="date" class="form-control underlined" name="invoiceDate" id="invoiceDate" required="true" [(ngModel)]="performa.invoiceDate" />
+      </div>
+  </div>
+</div>

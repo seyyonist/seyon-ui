@@ -58,4 +58,11 @@ export class InvoiceService {
     var url = Urls.getDomain().concat(APIURLS.invoice).concat("/sac");
     return this.http.get<SACCode[]>(url, { headers: httpOptions.headers });
   }
+
+  deleteParti(partiId:number):Observable<string>{
+    var url = Urls.getDomain().concat(APIURLS.invoice).concat("/delParticular?particularId=").concat(partiId.toString());
+    let options= { responseType: 'text' as 'json'};
+    return this.http.get<string>(url,options)
+  }
+
 }
