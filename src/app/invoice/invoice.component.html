@@ -62,7 +62,7 @@
       </tr>
       <tr *ngFor="let field of particulars;let i=index">
 
-        <td><button class="btn btn-sm btn-danger" (click)="deletParticulars(field.id)" *ngIf="field.id"><i class="fa fa-trash"></i></button></td>
+        <td><button class="btn btn-sm btn-danger" (click)="deletParticulars(field.id)" *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i class="fa fa-trash"></i></button></td>
 
         <td colspan="4" WIDTH="70%">
           <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)">

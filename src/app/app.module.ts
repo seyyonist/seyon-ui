@@ -28,7 +28,7 @@ const appRoutes: Routes = [
   { path: 'performaView/:id', component: InvoiceComponent },
    { path: 'invoiceNew/:id', component: InvoiceComponent },
   { path: 'invoice-search', component: InvoiceSearchComponent},
-  { path: 'generate-invoice', component: GenInvoiceComponent},
+  { path: 'generate-invoice/:id', component: GenInvoiceComponent},
   /*{ path: 'maintenance', component: MaintenanceComponent },
   { path: 'expence', component: ExpenceComponent },
   { path: 'monthlyReport', component: MonthlyReportComponent },

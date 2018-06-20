@@ -55,7 +55,7 @@ export class InvoiceSearchComponent implements OnInit {
       },
       err=>{
         this.error=true;
-        this.errorMessage = "Error occured While saving the Invoice";
+        this.errorMessage = "Error occured While searching the Invoice";
       }
     )
   }

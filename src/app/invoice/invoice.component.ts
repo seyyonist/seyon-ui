@@ -143,8 +143,9 @@ export class InvoiceComponent implements OnInit {
     this.invoice.sgstPerfoma = (this.invoice.sgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100
     this.invoice.igstPerfoma = (this.invoice.igstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100
 
-    this.invoice.totalPerfomaAmount = this.invoice.totalPerfomaBeforeTax + this.invoice.cgstPerfoma + this.invoice.sgstPerfoma
-      + this.invoice.igstPerfoma
+    this.invoice.totalPerfomaAmount = (this.invoice.totalPerfomaBeforeTax + this.invoice.cgstPerfoma + this.invoice.sgstPerfoma
+      + this.invoice.igstPerfoma)
+    this.invoice.totalPerfomaAmount.toFixed(2);
   }
   savePerformaInvoice(): void {
     this.success = false;

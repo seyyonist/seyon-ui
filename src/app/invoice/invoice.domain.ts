@@ -36,6 +36,9 @@ export class Invoice {
     cgstPerfoma: number = 0;
     sgstPerfoma: number = 0;
     igstPerfoma: number = 0;
+    cgstInvoice: number = 0;
+    sgstInvoice: number = 0;
+    igstInvoice: number = 0;
     createdBy: string = "";
     createdDate: Date;
     clientName: String = "";

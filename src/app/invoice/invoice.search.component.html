@@ -21,9 +21,8 @@
           <div class="col-md-3">
             <label for="status">Status </label>
             <select id="status" name="status " class="form-control underlined" required="false" [(ngModel)]="searchInvoice.status">
-                  <option value="NEW" selected>NEW </option>
-                  <option value="CREATED">CREATED </option>
-                  <option value="DELIVERED">DELIVERED </option>
+                <option></option>   
+                  <option value="NEW">NEW </option>
                   <option value="CANCELED">CANCELED </option>                  
                 </select>
           </div>
@@ -65,6 +64,9 @@
             <button type="submit" class="btn btn-primary">
               <i class="fa fa-search">&nbsp;</i>
               Search</button>
+              <button type="reset" class="btn btn-info">
+              <i class="fa fa-refresh">&nbsp;</i>
+              Reset</button>
           </div>
         </div>
       </div>
@@ -77,34 +79,31 @@
     <table class="table">
       <thead>
         <tr>
-          <td>ID</td>
           <td>Invoice Id</td>
           <td>Performa Id</td>
           <td>Client</td>
           <td>Performa Date</td>
           <td>Invoice Date</td>
-           <td>Sac Code</td>
           <td>Performa Amount</td>
           <td>Invoice Amount</td>
+          <td>Type</td>
           <td>Status</td>
-          <td>Options</td>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let invoice of invoices">
-          <td>{{invoice.id}}</td>
-          <td>{{invoice.invoiceId}}</td>
-          <td>{{invoice.performaId}}</td>
+          <td>
+            <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId">{{invoice.invoiceId}}</a>
+            <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="!invoice.invoiceId" class="btn btn-success">Generate Invoice</a>
+          </td>
+          <td><a routerLink="/performaView/{{invoice.id}}" *ngIf="invoice.performaId">{{invoice.performaId}}</a></td>
           <td>{{invoice.clientName}}</td>
-          <td>{{invoice.performaDate | date:'yyyy-MM-dd hh:mm aa'}}</td>
-          <td>{{invoice.invoiceDate | date:'yyyy-MM-dd hh:mm aa'}}</td>
-          <td>{{invoice.sacCode}}</td>
+          <td>{{invoice.performaDate | date:'yyyy-MM-dd'}}</td>
+          <td>{{invoice.invoiceDate | date:'yyyy-MM-dd'}}</td>
           <td>{{invoice.totalPerfomaAmount}}</td>
           <td>{{invoice.totalInvoiceAmount}}</td>
+          <td>{{invoice.type}}</td>
           <td>{{invoice.status}}</td>
-          <td>
-            <a routerLink="/performaView/{{invoice.id}}" routerLinkActive="active">View</a>
-          </td>
         </tr>
       </tbody>
     </table>
