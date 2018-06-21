@@ -19,8 +19,8 @@ export class GenInvoiceService {
 
 
   saveInvoice(invoiceData: InvoiceData): Observable<InvoiceData> {
-    var url = Urls.getDomain().concat(APIURLS.invoice);
-    console.log(APIURLS.invoice + "  " + url);
+    var url = Urls.getDomain().concat(APIURLS.invoice).concat("/invoice");
+    console.log("Accessing "+url);
     return this.http.post<InvoiceData>(url, invoiceData, { headers: httpOptions.headers });
   }
   

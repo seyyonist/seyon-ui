@@ -21,7 +21,7 @@
           <td>{{invoice.performaId}}</td>
           <td>{{invoice.invoiceId}}</td>
           <td><input type="date" class="form-control underlined" name="invoiceDate" id="invoiceDate" required="true" [ngModel]="invoice.invoiceDate | date:'yyyy-MM-dd'"
-              (ngModelChange)="myDate = $event" />
+              (ngModelChange)="myDate = $event;loadSac()" [disabled]="invoice.type==='INVOICE'" />
           </td>
         </tr>
       </tbody>
@@ -64,7 +64,7 @@
          <td >{{field.itemDescription}}</td>
          <td>{{invoice.sacCode}}</td>
          <td  align="right">{{field.quantity}}</td>
-         <td  align="right"><input class="form-control" style="width:100px;" (change)="calculateAmount(field)" type="number" [(ngModel)]="field.invoiceRate"/></td>
+         <td  align="right"><input [disabled]="invoice.type==='INVOICE'" class="form-control" style="width:100px;" (change)="calculateAmount(field)" type="number" [(ngModel)]="field.invoiceRate"/></td>
          <td  align="right">{{field.calculatedInvoiceAmount}}</td>
         </tr>
         <tr>
@@ -102,6 +102,6 @@
 </div>
 <div class="card">
   <div class="card-body">
-    <button class="btn btn-primary float-right">Generate Invoice</button>
+    <button class="btn btn-primary float-right" [disabled]="invoice.type==='INVOICE'" (click)="generateInvoice()">Generate Invoice</button>
   </div>
 </div>

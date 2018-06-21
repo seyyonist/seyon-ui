@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Particulars, InvoiceData, Invoice, SACCode } from '../invoice/invoice.domain';
-import {GenInvoiceService} from './gen-invoice.service';
+import { GenInvoiceService } from './gen-invoice.service';
 import { ClientService } from '../client/client.service';
 import { Client } from '../client/client.domain';
 
@@ -12,26 +12,26 @@ import { Client } from '../client/client.domain';
 })
 export class GenInvoiceComponent implements OnInit {
 
-  performaIds:string[]=[];
-  errorMessage:string="";
-  successMessage:string="";
-  success:boolean=false;
-  error:boolean=false;
+  performaIds: string[] = [];
+  errorMessage: string = "";
+  successMessage: string = "";
+  success: boolean = false;
+  error: boolean = false;
   particulars: Array<Particulars> = [];
   invoiceData: InvoiceData = new InvoiceData();
   invoice: Invoice = new Invoice();
   clients: Client[] = [];
-  client:Client;
+  client: Client;
 
-  constructor(private route: ActivatedRoute,private genInvoiceService:GenInvoiceService,
-    private clientService: ClientService) { 
+  constructor(private route: ActivatedRoute, private genInvoiceService: GenInvoiceService,
+    private clientService: ClientService) {
     var invoiceIdParam
     this.route.params.subscribe(params => {
       invoiceIdParam = params['id']
       console.log(invoiceIdParam);
     });
 
-    if(invoiceIdParam){
+    if (invoiceIdParam) {
       this.loadSelectedPerformAInvoice(invoiceIdParam);
     }
   }
@@ -39,28 +39,32 @@ export class GenInvoiceComponent implements OnInit {
   ngOnInit() {
   }
 
-  loadSelectedPerformAInvoice(invoiceId:number):void{
-    this.error=false;
-    this.success=false;
+  loadSac(): void {
+    alert("Loading SAC Code");
+  }
+  loadSelectedPerformAInvoice(invoiceId: number): void {
+    this.error = false;
+    this.success = false;
     this.genInvoiceService.getInvoice(invoiceId).subscribe(
-      invoiceData=>{
-        this.invoice=invoiceData.invoice;
-        this.particulars=invoiceData.particulars;
-        this.particulars.forEach(par=>{
-          par.calculatedInvoiceAmount=par.calculatedPerformaAmount;
-          par.invoiceRate=par.performaRate
-        });
-        this.invoice.cgstInvoicePercent=this.invoice.cgstPerfomaPercent;
-        this.invoice.sgstInvoicePercent=this.invoice.sgstPerfomaPercent;
-        this.invoice.igstInvoicePercent=this.invoice.igstPerfomaPercent;
-        
-        this.invoice.invoiceDate=this.invoice.performaDate;
+      invoiceData => {
+        this.invoice = invoiceData.invoice;
+        this.particulars = invoiceData.particulars;
+        if (this.invoice.type != 'INVOICE') {
+          this.particulars.forEach(par => {
+            par.calculatedInvoiceAmount = par.calculatedPerformaAmount;
+            par.invoiceRate = par.performaRate
+          });
+          this.invoice.cgstInvoicePercent = this.invoice.cgstPerfomaPercent;
+          this.invoice.sgstInvoicePercent = this.invoice.sgstPerfomaPercent;
+          this.invoice.igstInvoicePercent = this.invoice.igstPerfomaPercent;
+          this.invoice.invoiceDate = this.invoice.performaDate;
+        }
         this.getClients();
         this.calculateTotal();
       },
-      err=>{
-        this.error=false;
-        this.errorMessage="Error occured while getting the invoice details";
+      err => {
+        this.error = false;
+        this.errorMessage = "Error occured while getting the invoice details";
         console.log(err);
       }
     )
@@ -96,7 +100,7 @@ export class GenInvoiceComponent implements OnInit {
       .subscribe(
       clients => {
         this.clients = clients;
-        this.client=this.clients.find(cli=>cli.id===this.invoice.clientId);
+        this.client = this.clients.find(cli => cli.id === this.invoice.clientId);
       },
       err => {
         this.error = true;
@@ -105,4 +109,22 @@ export class GenInvoiceComponent implements OnInit {
       )
   }
 
+  generateInvoice(): void {
+    this.success = false;
+    this.error = false;
+    this.invoiceData.invoice = this.invoice;
+    this.invoiceData.particulars = this.particulars;
+    this.genInvoiceService.saveInvoice(this.invoiceData).subscribe(
+      invoiceData => {
+        this.invoiceData = invoiceData;
+        this.invoice = invoiceData.invoice;
+        this.particulars = invoiceData.particulars
+        this.success = true;
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured While saving the Invoice";
+      }
+    )
+  }
 }

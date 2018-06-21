@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-md-1 "><b>Client</b></div>
       <div class="col-md-2">
-        <select (change)="loadSelectedClient()" class="form-control underlined" [(ngModel)]="selClientId">
+        <select (change)="loadSelectedClient()" class="form-control underlined" [(ngModel)]="selClientId" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
         <option></option>
         <option *ngFor="let cli of clients" [ngValue]="cli.id" [selected]="cli.id === selClientId">{{cli.name}}</option>
          </select>
@@ -20,7 +20,7 @@
       <div class="col-md-3">{{invoice.performaId}}</div>
       <div class="col-md-2"><b>SAC code: </b></div>
       <div class="col-md-2">
-        <select (change)="loadSelectedSac()" class="form-control underlined" [(ngModel)]="selSacId">
+        <select (change)="loadSelectedSac()" class="form-control underlined" [(ngModel)]="selSacId" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
         <option></option>
         <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === selSacId">{{sac.sacCode}}</option>
         </select>
@@ -65,14 +65,13 @@
         <td><button class="btn btn-sm btn-danger" (click)="deletParticulars(field.id)" *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i class="fa fa-trash"></i></button></td>
 
         <td colspan="4" WIDTH="70%">
-          <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)">
+          <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
           </textarea>
         </td>
         <td WIDTH="10%">
-          <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="field.quantity"
-          (change)="calculateAmount(field)"/>
+          <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="field.quantity"  (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/>
         </td>
-        <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0"  [(ngModel)]="field.performaRate" (change)="calculateAmount(field)"/>
+        <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0"  [(ngModel)]="field.performaRate" (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/>
         </td>
         <td WIDTH="10%">
           <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedPerformaAmount"/>
@@ -127,13 +126,13 @@
             
           </td>
           <td colspan="1">
-            <button class="btn btn-secondary" (click)="calculateTotal()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Calculate Total</button>
+            <button class="btn btn-secondary" (click)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Calculate Total</button>
           </td>
           <td colspan="1">
-            <button class="btn btn-primary" (click)="savePerformaInvoice()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Save Invoice</button>
+            <button class="btn btn-primary" (click)="savePerformaInvoice()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Save Invoice</button>
           </td>
           <td colspan="1">
-            <button class="btn btn-warning" (click)="cancelInvoice()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Cancel Invoice</button>
+            <button class="btn btn-warning" (click)="cancelInvoice()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Cancel Invoice</button>
           </td>
         </tr>
       </tfoot>

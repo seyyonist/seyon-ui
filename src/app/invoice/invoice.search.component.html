@@ -64,7 +64,7 @@
             <button type="submit" class="btn btn-primary">
               <i class="fa fa-search">&nbsp;</i>
               Search</button>
-              <button type="reset" class="btn btn-info">
+            <button type="reset" class="btn btn-secondary">
               <i class="fa fa-refresh">&nbsp;</i>
               Reset</button>
           </div>
@@ -76,18 +76,19 @@
 
 <div class="card">
   <div class="card-body">
+    <small style="color:#432fb5">Displaying {{searchResult.numberOfElements}}/{{searchResult.totalElements}} items in this page</small>
     <table class="table">
       <thead>
         <tr>
-          <td>Invoice Id</td>
-          <td>Performa Id</td>
-          <td>Client</td>
-          <td>Performa Date</td>
-          <td>Invoice Date</td>
-          <td>Performa Amount</td>
-          <td>Invoice Amount</td>
-          <td>Type</td>
-          <td>Status</td>
+          <th>Invoice Id</th>
+          <th>Performa Id</th>
+          <th>Client</th>
+          <th>Performa Date</th>
+          <th>Invoice Date</th>
+          <th>Performa Amount</th>
+          <th>Invoice Amount</th>
+          <th>Type</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -107,5 +108,20 @@
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <!--Table runat="server" ID="tblPrint" width="595px" heigh="842px" Border="1" />-->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><button class="btn btn-info" [disabled]="searchResult.first" (click)="submit(pageNo)">Previous</button></li>
+        <li class="page-item" *ngFor="let pageNo of numbers">
+          <button class="btn btn-info" (click)="submit(pageNo)">{{pageNo+1}}</button>
+        </li>
+        <li class="page-item"><button class="btn btn-info" [disabled]="searchResult.last">Next</button></li>
+      </ul>
+    </nav>
+    <small style="color:#432fb5">Page Size is {{searchResult.size}}.</small>
   </div>
 </div>
