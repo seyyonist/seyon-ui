@@ -115,11 +115,11 @@
     <!--Table runat="server" ID="tblPrint" width="595px" heigh="842px" Border="1" />-->
     <nav aria-label="Page navigation example">
       <ul class="pagination">
-        <li class="page-item"><button class="btn btn-info" [disabled]="searchResult.first" (click)="submit(pageNo)">Previous</button></li>
+        <li class="page-item"><button class="btn btn-info" [disabled]="searchResult.first" (click)="submit(0)">First</button></li>
         <li class="page-item" *ngFor="let pageNo of numbers">
           <button class="btn btn-info" (click)="submit(pageNo)">{{pageNo+1}}</button>
         </li>
-        <li class="page-item"><button class="btn btn-info" [disabled]="searchResult.last">Next</button></li>
+        <li class="page-item"><button class="btn btn-info" [disabled]="searchResult.last" (click)="submit(searchResult.totalElements-1)">Last</button></li>
       </ul>
     </nav>
     <small style="color:#432fb5">Page Size is {{searchResult.size}}.</small>
