@@ -28,7 +28,7 @@
           </div>
           <div class="col-md-3">
             <label for="client">Client </label>
-            <select id="client" name="client " class="form-control underlined" required="false" (change)="loadSelectedClient()" [(ngModel)]="searchInvoice.clientId">
+            <select id="client" name="client " class="form-control underlined" required="false" [(ngModel)]="searchInvoice.clientId">
               <option></option>
               <option *ngFor="let cli of clients" [ngValue]="cli.id">{{cli.name}}</option>
             </select>

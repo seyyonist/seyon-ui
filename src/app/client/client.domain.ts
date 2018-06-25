@@ -6,7 +6,7 @@ export class Client {
     addrLine2: string;
     city: string;
     state: string;
-    pinCode: string;
+    pincode: string;
     phonePrimary: string;
     phoneSecondary: string;
     faxNo: string;
