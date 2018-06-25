@@ -21,7 +21,8 @@ import { CompanyService } from './company/company.service';
 import { VoucherComponent } from './voucher/voucher.component';
 import { VoucherSearchComponent } from './voucher/voucher.search.component';
 import { VoucherService } from './voucher/voucher.service';
-import {GenInvoiceComponent} from './gen-invoice/gen-invoice.component';
+import { GenInvoiceComponent } from './gen-invoice/gen-invoice.component';
+import {GenInvoiceService} from './gen-invoice/gen-invoice.service';
 
 const appRoutes: Routes = [
 

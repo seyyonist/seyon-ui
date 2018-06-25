@@ -43,7 +43,7 @@ export class Invoice {
     createdDate: Date;
     clientName: String = "";
     type:string="";
-    status:string="";
+    status:string="NEW";
 }
 
 export class InvoiceData {
