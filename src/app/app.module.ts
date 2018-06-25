@@ -2,38 +2,40 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpModule} from '@angular/http';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClientComponent } from './client/client.component';
-import {ClientService} from './client/client.service';
+import { ClientService } from './client/client.service';
 import { UsersComponent } from './users/users.component';
-import {UserService} from './users/users.service';
+import { UserService } from './users/users.service';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { InvoiceSearchComponent } from './invoice/invoice.search.component';
-import {InvoiceService} from './invoice/invoice.service';
-import { GenInvoiceComponent } from './gen-invoice/gen-invoice.component'; 
-import { GenInvoiceService } from './gen-invoice/gen-invoice.service';
-
+import { InvoiceService } from './invoice/invoice.service';
+import { CompanyComponent } from './company/company.component';
+import { CompanyService } from './company/company.service';
+import { VoucherComponent } from './voucher/voucher.component';
+import { VoucherSearchComponent } from './voucher/voucher.search.component';
+import { VoucherService } from './voucher/voucher.service';
+import {GenInvoiceComponent} from './gen-invoice/gen-invoice.component';
 
 const appRoutes: Routes = [
-  
+
   { path: 'dashboard', component: DashboardComponent },
   { path: 'client', component: ClientComponent },
-   { path: 'users', component: UsersComponent },
-  { path: 'performaView/:id', component: InvoiceComponent },
-   { path: 'invoiceNew/:id', component: InvoiceComponent },
+  { path: 'users', component: UsersComponent },
+	{ path: 'performaView/:id', component: InvoiceComponent },
+  { path: 'invoiceNew/:id', component: InvoiceComponent },
   { path: 'invoice-search', component: InvoiceSearchComponent},
   { path: 'generate-invoice/:id', component: GenInvoiceComponent},
-  /*{ path: 'maintenance', component: MaintenanceComponent },
-  { path: 'expence', component: ExpenceComponent },
-  { path: 'monthlyReport', component: MonthlyReportComponent },
-  { path: 'flatsReport', component: FlatsReportComponent }
-  */
+  { path: 'company', component: CompanyComponent },
+  { path: 'voucherNew/:id', component: VoucherComponent },
+  { path: 'voucher-search', component: VoucherSearchComponent }
+
 ]
 
 @NgModule({
@@ -46,7 +48,10 @@ const appRoutes: Routes = [
     UsersComponent,
     InvoiceComponent,
     InvoiceSearchComponent,
-    GenInvoiceComponent
+    GenInvoiceComponent,
+    CompanyComponent,
+    VoucherComponent,
+    VoucherSearchComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -58,7 +63,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule
   ],
-  providers: [ClientService,UserService,InvoiceService,GenInvoiceService],
+  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
