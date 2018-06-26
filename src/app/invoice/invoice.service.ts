@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import * as _ from 'underscore';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
-import { Particulars, InvoiceData, Invoice, SearchInvoice, SearchResult } from './invoice.domain';
+import { Particulars, InvoiceData, Invoice, SearchInvoice, SearchResult,SACCode } from './invoice.domain';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,7 +17,13 @@ export class InvoiceService {
   constructor(private http: HttpClient) {
   }
 
-  save(invoiceData: InvoiceData): Observable<InvoiceData> {
+  savePerforma(invoiceData: InvoiceData): Observable<InvoiceData> {
+    var url = Urls.getDomain().concat(APIURLS.invoice).concat("/performa");
+    console.log(APIURLS.invoice + "  " + url);
+    return this.http.post<InvoiceData>(url, invoiceData, { headers: httpOptions.headers });
+  }
+
+  saveInvoice(invoiceData: InvoiceData): Observable<InvoiceData> {
     var url = Urls.getDomain().concat(APIURLS.invoice);
     console.log(APIURLS.invoice + "  " + url);
     return this.http.post<InvoiceData>(url, invoiceData, { headers: httpOptions.headers });
@@ -47,4 +53,16 @@ export class InvoiceService {
     console.log("Searching : " + url);
     return this.http.post<SearchResult>(url, searchInvoice, { headers: httpOptions.headers });
   }
+
+  getSACCode():Observable<SACCode[]>{
+    var url = Urls.getDomain().concat(APIURLS.invoice).concat("/sac");
+    return this.http.get<SACCode[]>(url, { headers: httpOptions.headers });
+  }
+
+  deleteParti(partiId:number):Observable<string>{
+    var url = Urls.getDomain().concat(APIURLS.invoice).concat("/delParticular?particularId=").concat(partiId.toString());
+    let options= { responseType: 'text' as 'json'};
+    return this.http.get<string>(url,options)
+  }
+
 }

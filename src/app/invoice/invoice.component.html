@@ -1,4 +1,4 @@
-<h3>Invoice Details</h3>
+<h3>PerformA Invoice Details</h3>
 <div class="alert alert-danger" role="alert" *ngIf="error">
   {{errorMessage}}
 </div>
@@ -9,84 +9,72 @@
 <div class="card">
   <div class="card-body">
     <div class="row">
-      <div class="col-md-2">Selected Client</div>
+      <div class="col-md-1 "><b>Client</b></div>
       <div class="col-md-2">
-        <select (change)="loadSelectedClient()" [(ngModel)]="selClientId">
+        <select (change)="loadSelectedClient()" class="form-control underlined" [(ngModel)]="selClientId" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
         <option></option>
         <option *ngFor="let cli of clients" [ngValue]="cli.id" [selected]="cli.id === selClientId">{{cli.name}}</option>
-    </select>
+         </select>
       </div>
-      <div class="col-md-2"><b>Invoice Id : </b></div>
-      <div class="col-md-2"><b>{{invoice.id}}</b></div>
-      <div class="col-md-2"><b>Status : </b></div>
-      <div class="col-md-2"><b>{{invoice.status}}</b></div>
+      <div class="col-md-2"><b>Performa Id : </b></div>
+      <div class="col-md-3">{{invoice.performaId}}</div>
+      <div class="col-md-2"><b>SAC code: </b></div>
+      <div class="col-md-2">
+        <select (change)="loadSelectedSac()" class="form-control underlined" [(ngModel)]="selSacId" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+        <option></option>
+        <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === selSacId">{{sac.sacCode}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"><b>Status : </b></div>
+      <div class="col-md-2">{{invoice.status}}</div>
+      <div class="col-md-2"><b>GSTIN : </b></div>
+      <div class="col-md-3">{{selectedClient.gstin}}</div>
+      <div class="col-md-1"><b>Date : </b></div>
+      <div class="col-md-3">{{invoice.performaDate | date:"dd MMM yyyy HH:mm"}}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"><b>Name : </b></div>
+      <div class="col-md-2">{{selectedClient.name}}</div>
+      <div class="col-md-2"><b>Address : </b></div>
+      <div class="col-md-4">
+        {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},
+        <br/> {{selectedClient.city}}, {{selectedClient.state}},
+        <br/>        {{selectedClient.pincode}}.
+        <br/>
+        <i>Phone : </i> {{selectedClient.phonePrimary}}.
+        <br/>
+        <i>Email : </i> {{selectedClient.email}}.
+        <br/>
+      </div>
     </div>
     <table class="table">
       <tr>
-        <td colspan="8" align="center"><b>GSTIN :</b> {{selectedClient.gstin}}, <b>PAN :</b> {{selectedClient.pan}}</td>
-      </tr>
-      <tr>
-        <td rowspan="3" colspan="4"> <img height="75" id="logoImg" name="logoImg" src="{{selectedClient.logoImg}}" /></td>
-        <th colspan="2" align="right">Name</th>
-        <td colspan="2">{{selectedClient.name}}</td>
-      </tr>
-      <tr>
-        <th colspan="2" align="right">Address</th>
-        <td colspan="2">{{selectedClient.addrLine1}} {{selectedClient.addrLine2}}</td>
-      </tr>
-      <tr>
-        <td colspan="2"> </td>
-        <td colspan="2">{{selectedClient.city}} {{selectedClient.state}} {{selectedClient.pincode}}</td>
-      </tr>
-      <tr>
-        <th colspan="2" align="right">Phone</th>
-        <td colspan="2">{{selectedClient.phonePrimary}}</td>
-        <th colspan="2" align="right">Email</th>
-        <td colspan="2">{{selectedClient.email}}</td>
-      </tr>
-      <tr>
         <th colspan="7">Particulars</th>
-        <th><button class="btn btn-success" (click)="addRow()" *ngIf="invoice.status!=='CANCELED'">AddRow</button></th>
+        <th><button class="btn btn-success" (click)="addRow()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">AddRow</button></th>
       </tr>
       <tr>
-        <th colspan="2">Item</th>
-        <th>CGST(%)</th>
-        <th>SGST(%)</th>
-        <th>IGST(%)</th>
+        <th colspan="5">Item Description</th>
         <th>Quantity</th>
         <th>Rate</th>
         <th>Amount</th>
       </tr>
-
       <tr *ngFor="let field of particulars;let i=index">
-        <td colspan="2">
-          <input type="text" class="form-control" required="true" [(ngModel)]="field.item" (focusout)="calculateAmount(field);calculateTotal();"
-          />
+
+        <td><button class="btn btn-sm btn-danger" (click)="deletParticulars(field.id)" *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i class="fa fa-trash"></i></button></td>
+
+        <td colspan="4" WIDTH="70%">
+          <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+          </textarea>
         </td>
-        <td>
-          <input type="number" class="form-control" required="false" min="0" max="100" [(ngModel)]="field.cgstPercent" (focusout)="calculateAmount(field);calculateTotal();"
-          />
-          <small>{{field.cgst}}</small>
+        <td WIDTH="10%">
+          <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="field.quantity"  (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/>
         </td>
-        <td>
-          <input type="number" class="form-control" required="false" min="0" max="100" [(ngModel)]="field.sgstPercent" (focusout)="calculateAmount(field);calculateTotal();"
-          />
-          <small>{{field.sgst}}</small>
+        <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0"  [(ngModel)]="field.performaRate" (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/>
         </td>
-        <td>
-          <input type="number" class="form-control" required="false" min="0" max="100" [(ngModel)]="field.igstPercent" (focusout)="calculateAmount(field);calculateTotal();"
-          />
-          <small>{{field.igst}}</small>
-        </td>
-        <td>
-          <input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.quantity" (focusout)="calculateAmount(field);calculateTotal();"
-          />
-        </td>
-        <td><input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.rate" (focusout)="calculateAmount(field);calculateTotal();"
-          />
-        </td>
-        <td>
-          <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedAmount" />
+        <td WIDTH="10%">
+          <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedPerformaAmount"/>
         </td>
       </tr>
       <tfoot>
@@ -94,16 +82,57 @@
           <td colspan="6">
           </td>
           <th>
-            Total
+            SUM =
           </th>
-          <th>{{invoice.totalAmount}}</th>
+          <td>{{invoice.totalPerfomaBeforeTax}}</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+          </td>
+          <th>
+            CGST =
+          </th>
+          <td>{{invoice.cgstPerfomaPercent}}</td>
+          <td>{{invoice.cgstPerfoma}}</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+          </td>
+          <th>
+            SGST =
+          </th>
+          <td>{{invoice.sgstPerfomaPercent}}</td>
+          <td>{{invoice.sgstPerfoma}}</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+          </td>
+          <th>
+            IGST =
+          </th>
+          <td>{{invoice.igstPerfomaPercent}}</td>
+          <td>{{invoice.igstPerfoma}}</td>
         </tr>
         <tr>
           <td colspan="6">
           </td>
-          <td colspan="2">
-            <button class="btn btn-primary" (click)="saveInvoice()" *ngIf="invoice.status!=='CANCELED'">Save Invoice</button>
-            <button class="btn btn-warning" (click)="cancelInvoice()" *ngIf="invoice.status!=='CANCELED'">Cancel Invoice</button>
+          <th>
+            Total =
+          </th>
+          <th>{{invoice.totalPerfomaAmount}}</th>
+        </tr>
+        <tr>
+          <td colspan="5">
+            
+          </td>
+          <td colspan="1">
+            <button class="btn btn-secondary" (click)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Calculate Total</button>
+          </td>
+          <td colspan="1">
+            <button class="btn btn-primary" (click)="savePerformaInvoice()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Save Invoice</button>
+          </td>
+          <td colspan="1">
+            <button class="btn btn-warning" (click)="cancelInvoice()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Cancel Invoice</button>
           </td>
         </tr>
       </tfoot>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { InvoiceService } from './invoice.service';
-import {SearchInvoice,Invoice} from './invoice.domain';
+import {SearchInvoice,Invoice,SearchResult} from './invoice.domain';
 import { Client } from '../client/client.domain';
 import { ClientService } from '../client/client.service';
 
@@ -18,9 +18,10 @@ export class InvoiceSearchComponent implements OnInit {
     searchInvoice:SearchInvoice=new SearchInvoice();
     clients: Client[] = [];
     invoices:Invoice[]=[];
+    searchResult:SearchResult=new SearchResult();
+    numbers:number[] = [];
 
     constructor(private route: ActivatedRoute, private invoiceService: InvoiceService,private clientService: ClientService) {
-
     }
 
     ngOnInit() {
@@ -42,11 +43,14 @@ export class InvoiceSearchComponent implements OnInit {
       )
   }
 
-  submit():void{
+  submit(pageNumber:number=0):void{
     console.log(this.searchInvoice)
-    this.invoiceService.searchInvoice(this.searchInvoice)
+    this.invoiceService.searchInvoice(this.searchInvoice,pageNumber)
     .subscribe(
       searchResult=>{
+        this.searchResult=searchResult;
+        this.numbers =Array<number>(searchResult.totalPages).fill(1).map((x,i)=>i);
+        console.log(this.numbers);
         this.invoices=searchResult.content
         this.invoices.forEach(
           invoice=>
@@ -55,7 +59,7 @@ export class InvoiceSearchComponent implements OnInit {
       },
       err=>{
         this.error=true;
-        this.errorMessage = "Error occured While saving the Invoice";
+        this.errorMessage = "Error occured While searching the Invoice";
       }
     )
   }

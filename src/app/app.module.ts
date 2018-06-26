@@ -21,15 +21,18 @@ import { CompanyService } from './company/company.service';
 import { VoucherComponent } from './voucher/voucher.component';
 import { VoucherSearchComponent } from './voucher/voucher.search.component';
 import { VoucherService } from './voucher/voucher.service';
+import { GenInvoiceComponent } from './gen-invoice/gen-invoice.component';
+import {GenInvoiceService} from './gen-invoice/gen-invoice.service';
 
 const appRoutes: Routes = [
 
   { path: 'dashboard', component: DashboardComponent },
   { path: 'client', component: ClientComponent },
   { path: 'users', component: UsersComponent },
-  { path: 'invoice/:id', component: InvoiceComponent },
+	{ path: 'performaView/:id', component: InvoiceComponent },
   { path: 'invoiceNew/:id', component: InvoiceComponent },
-  { path: 'invoice-search', component: InvoiceSearchComponent },
+  { path: 'invoice-search', component: InvoiceSearchComponent},
+  { path: 'generate-invoice/:id', component: GenInvoiceComponent},
   { path: 'company', component: CompanyComponent },
   { path: 'voucherNew/:id', component: VoucherComponent },
   { path: 'voucher-search', component: VoucherSearchComponent }
@@ -46,6 +49,7 @@ const appRoutes: Routes = [
     UsersComponent,
     InvoiceComponent,
     InvoiceSearchComponent,
+    GenInvoiceComponent,
     CompanyComponent,
     VoucherComponent,
     VoucherSearchComponent
@@ -60,7 +64,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule
   ],
-  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService],
+  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
