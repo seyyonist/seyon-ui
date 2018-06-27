@@ -21,7 +21,7 @@ export class GenInvoiceComponent implements OnInit {
   invoiceData: InvoiceData = new InvoiceData();
   invoice: Invoice = new Invoice();
   clients: Client[] = [];
-  client: Client;
+  client: Client=new Client();
 
   constructor(private route: ActivatedRoute, private genInvoiceService: GenInvoiceService,
     private clientService: ClientService) {
@@ -120,6 +120,7 @@ export class GenInvoiceComponent implements OnInit {
         this.invoice = invoiceData.invoice;
         this.particulars = invoiceData.particulars
         this.success = true;
+        this.successMessage = "Invoice successfully generated with id:" + this.invoice.invoiceId;
       },
       err => {
         this.error = true;
