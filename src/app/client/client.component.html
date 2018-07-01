@@ -148,56 +148,6 @@
           </div>
           <div class="form-group">
             <div class="row">
-              <div class="col-md-6">
-                <label for="bankName">Bank Name *</label>
-                <input type="text" class="form-control underlined" pattern=".{3,}" title="min 3 characters" name="bankName" id="bankName" required="true" [(ngModel)]="client.bankName"
-                />
-                <small>min 3 characters</small>
-              </div>
-              <div class="col-md-6">
-                <label for="bankAcctNumber">Bank Account Number *</label>
-                <input type="text" class="form-control underlined" pattern=".{5,20}" title="min 5,max 20  characters" name="bankAcctNumber" id="bankAcctNumber" required="true" [(ngModel)]="client.bankAcctNumber"
-                />
-                <small>min 5,max 20 characters</small>
-              </div>
-
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-6">
-                <label for="bankBranch">Bank Branch Name *</label>
-                <input type="text" class="form-control underlined" pattern=".{3,}" title="min 3  characters" name="bankBranch" id="bankBranch" required="true" [(ngModel)]="client.bankBranch"
-                />
-                <small>min 3 characters</small>
-              </div>
-              <div class="col-md-6">
-                <label for="ifscCode">IFSC Code *</label>
-                <input type="text" class="form-control underlined" pattern=".{9,15}" title="min 9,max 15  characters" name="ifscCode" id="ifscCode" required="true" [(ngModel)]="client.ifscCode"
-                />
-                <small>min 9, max 15 characters</small>
-              </div>
-
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-6">
-                <label for="accountType">Bank Account Type </label>
-                <input type="text" class="form-control underlined" pattern=".{3,15}" title="min 3,max 15  characters" name="accountType" id="accountType" required="false" [(ngModel)]="client.accountType"
-                />
-                <small>min 3,max 15 characters</small>
-              </div>
-              <div class="col-md-6">
-                <label for="swiftCode">Swift Code </label>
-                <input type="text" class="form-control underlined" pattern=".{3,15}" title="min 3,max 15  characters" name="swiftCode" id="swiftCode" required="false" [(ngModel)]="client.swiftCode"
-                />
-                <small>min 3,max 15 characters</small>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
               <div class="col-sm-6">
                 <label for="logoImg">Logo</label>
                 <input type="file" name="file-logo" id="file-logo" (change)="changeListener($event)" />

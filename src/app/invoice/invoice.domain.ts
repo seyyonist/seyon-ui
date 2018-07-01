@@ -44,6 +44,7 @@ export class Invoice {
     clientName: String = "";
     type:string="";
     status:string="NEW";
+    url:string="/api/invoice/htmlReport?invoiceId=";
 }
 
 export class InvoiceData {

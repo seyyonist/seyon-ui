@@ -20,7 +20,7 @@ export class InvoiceSearchComponent implements OnInit {
     invoices:Invoice[]=[];
     searchResult:SearchResult=new SearchResult();
     numbers:number[] = [];
-
+    url:string="/api/invoice/htmlReport?invoiceId=";
     constructor(private route: ActivatedRoute, private invoiceService: InvoiceService,private clientService: ClientService) {
     }
 
@@ -53,8 +53,10 @@ export class InvoiceSearchComponent implements OnInit {
         console.log(this.numbers);
         this.invoices=searchResult.content
         this.invoices.forEach(
-          invoice=>
-            invoice.clientName=this.clients.find(client=>client.id==invoice.clientId).name
+          invoice=>{
+            invoice.clientName=this.clients.find(client=>client.id==invoice.clientId).name;
+            invoice.url=this.url.concat(invoice.invoiceId);
+          }
         );
       },
       err=>{
