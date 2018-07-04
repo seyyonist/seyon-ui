@@ -25,7 +25,8 @@ body {
   min-height: 100%;
   font-family: 'Open Sans', sans-serif;
   color: #4f5f6f;
-  overflow-x: hidden; }
+  overflow-x: hidden; 
+  font-size: 90%}
 
 .main-wrapper {
   width: 100%;
@@ -2435,7 +2436,7 @@ pre {
     color: #fff;
     background-color: #6769d4; }
   .sidebar .sidebar-menu {
-    font-size: 14px;
+    font-size: 12px;
     list-style: none;
     margin: 0;
     padding: 0; }
@@ -2797,7 +2798,9 @@ pre {
   text-align: left;
   padding-left: 25px;
   line-height: 70px;
-  font-size: 16px; }
+  font-size: 16px;
+  background-color: #4bcf99;
+ }
   @media (max-width: 767.98px) {
     .sidebar-header .brand {
       line-height: 50px;

@@ -23,5 +23,7 @@ export const APIURLS = {
     getcompany: "/api/company/getCompany",
     updatecompany: "/api/company/updateCompany",
     savevoucher : "/api/voucher/saveVoucher",
-    voucher : "/api/voucher"
+    voucher : "/api/voucher",
+    printIInvoiceUrl:"/api/invoice/IhtmlReport?performaId=",
+    printPInvoiceUrl:"/api/invoice/PhtmlReport?performaId="
 }

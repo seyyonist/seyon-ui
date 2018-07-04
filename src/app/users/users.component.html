@@ -48,34 +48,42 @@
               </div>
             </div>
             <br>
-            <div class="row" *ngIf="showRoles">
-              <div class="col-md-4">
-                <label for="role">User Role</label>
-                <select id="RoleSelect" name="roleSelect " class="form-control underlined" [(ngModel)]="userRole.roleCode">
-                  <option value="ADMIN" selected>ADMIN</option>
-                  <option value="USER">USER</option>
-                </select>
-                <button type="button" name="addRole" (click)="adduserRole(userRole.roleCode)" class="btn btn-secondary btn-sm">Add Role</button>
+            <div *ngIf="showRoles">
+                <b>User Roles:</b>
+              <div class="row">
+                <div class="col-md-4">
+                  <select id="RoleSelect" name="roleSelect " class="form-control underlined" [(ngModel)]="userRole.roleCode">
+                    <option value="ADMIN" selected>ADMIN</option>
+                    <option value="USER">USER</option>
+                    <option value="CLIENT">CLIENT</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" name="addRole" (click)="adduserRole(userRole.roleCode)" class="btn btn-success">Add Role</button>
+                </div>
               </div>
-              <div class="col-md-3">
-                <ul class="list-group list-group-flush">
-                  <li *ngFor="let userRole of userRoles" class="list-group-item" style="cursor: pointer;">
-                    {{userRole.roleCode}}
-                    <span class="float-right">
-              <i (click)="deleteUserRole(userRole.id)" class="fa fa-trash"></i>
-                  </span>
-                  </li>
-                </ul>
+              <div class="row">
+                <div class="col-md-4">
+                  <ul class="list-group list-group-flush">
+                    <li *ngFor="let userRole of userRoles" class="list-group-item" style="cursor: pointer;">
+                      {{userRole.roleCode}}
+                      <span class="float-right">
+                        <i (click)="deleteUserRole(userRole.id)" class="fa fa-trash"></i>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
             <hr/>
             <div class="row">
               <br/>
               <div class="col-md-2">
-              <label for="password" >Password</label>
+                <label for="password">Password</label>
               </div>
               <div class="col-md-5">
-                <input type="password" class="form-control underlined" name="password" id="password" placeholder="Enter password" required="true" [(ngModel)]="user.password" >                </div>
+                <input type="password" class="form-control underlined" name="password" id="password" placeholder="Enter password" required="true"
+                  [(ngModel)]="user.password"> </div>
               <div class="col-md-5">
                 <input type="password" class="form-control underlined" name="retype_password" id="retype_password" placeholder="Re-type password"
                   required=""> </div>

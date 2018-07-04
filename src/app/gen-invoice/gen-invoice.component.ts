@@ -4,6 +4,7 @@ import { Particulars, InvoiceData, Invoice, SACCode } from '../invoice/invoice.d
 import { GenInvoiceService } from './gen-invoice.service';
 import { ClientService } from '../client/client.service';
 import { Client } from '../client/client.domain';
+import {APIURLS } from '../app.constants';
 
 @Component({
   selector: 'app-gen-invoice',
@@ -48,6 +49,8 @@ export class GenInvoiceComponent implements OnInit {
     this.genInvoiceService.getInvoice(invoiceId).subscribe(
       invoiceData => {
         this.invoice = invoiceData.invoice;
+        this.invoice.url=APIURLS.printIInvoiceUrl.concat(this.invoice.performaId);
+        this.invoice.purl=APIURLS.printPInvoiceUrl.concat(this.invoice.performaId);
         this.particulars = invoiceData.particulars;
         if (this.invoice.type != 'INVOICE') {
           this.particulars.forEach(par => {

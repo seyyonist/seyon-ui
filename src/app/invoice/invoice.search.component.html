@@ -89,6 +89,7 @@
           <th>Invoice Amount</th>
           <th>Type</th>
           <th>Status</th>
+          <th>Print</th>
         </tr>
       </thead>
       <tbody>
@@ -97,7 +98,9 @@
             <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId">{{invoice.invoiceId}}</a>
             <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="!invoice.invoiceId" class="btn btn-success">Generate Invoice</a>
           </td>
-          <td><a routerLink="/performaView/{{invoice.id}}" *ngIf="invoice.performaId">{{invoice.performaId}}</a></td>
+          <td>
+            <a routerLink="/performaView/{{invoice.id}}" *ngIf="invoice.performaId">{{invoice.performaId}}</a>
+          </td>
           <td>{{invoice.clientName}}</td>
           <td>{{invoice.performaDate | date:'yyyy-MM-dd'}}</td>
           <td>{{invoice.invoiceDate | date:'yyyy-MM-dd'}}</td>
@@ -105,6 +108,16 @@
           <td>{{invoice.totalInvoiceAmount}}</td>
           <td>{{invoice.type}}</td>
           <td>{{invoice.status}}</td>
+          <td>
+              <div class="btn-group">
+              <a target="_blank" style="color:white;background-color:#432fb5;border:white solid 1px;" class="btn btn-sm" [href]="invoice.purl">
+                  P
+              </a>
+              <a target="_blank" *ngIf="invoice.invoiceId" style="color:white;background-color:#3c3c3c;border:white solid 1px;" class="btn btn-sm" [href]="invoice.url">
+                 I
+              </a>
+              </div>
+            </td>
         </tr>
       </tbody>
     </table>
