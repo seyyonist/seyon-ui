@@ -4,6 +4,7 @@ import { ClientService } from '../client/client.service';
 import { Client } from '../client/client.domain';
 import { Particulars, InvoiceData, Invoice, SACCode } from './invoice.domain';
 import { InvoiceService } from './invoice.service';
+import {APIURLS } from '../app.constants';
 
 @Component({
   selector: 'app-invoice',
@@ -38,6 +39,8 @@ export class InvoiceComponent implements OnInit {
         invoiceData => {
           console.log("invoice Data " + invoiceData);
           this.invoice = invoiceData.invoice;
+          this.invoice.url=APIURLS.printIInvoiceUrl.concat(this.invoice.performaId);
+          this.invoice.purl=APIURLS.printPInvoiceUrl.concat(this.invoice.performaId);
           this.particulars = invoiceData.particulars;
           this.selClientId = invoiceData.invoice.clientId;
           this.getClients();
@@ -157,6 +160,8 @@ export class InvoiceComponent implements OnInit {
         this.invoiceData = invoiceData;
         this.invoice = invoiceData.invoice;
         this.particulars = invoiceData.particulars
+        this.invoice.url=APIURLS.printIInvoiceUrl.concat(this.invoice.performaId);
+        this.invoice.purl=APIURLS.printPInvoiceUrl.concat(this.invoice.performaId);
         this.success = true;
       },
       err => {

@@ -122,8 +122,13 @@
           <th>{{invoice.totalPerfomaAmount}}</th>
         </tr>
         <tr>
-          <td colspan="5">
-            
+          <td colspan="4">
+          </td>
+          <td colspan="1" align="right">
+            <a target="_blank" style="color:white;background-color:#432fb5" class="btn" [href]="invoice.purl" *ngIf="invoice.purl">
+                  <i class="fa fa-print"></i>
+                  Print View
+             </a>
           </td>
           <td colspan="1">
             <button class="btn btn-secondary" (click)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Calculate Total</button>

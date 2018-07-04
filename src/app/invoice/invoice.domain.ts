@@ -44,7 +44,8 @@ export class Invoice {
     clientName: String = "";
     type:string="";
     status:string="NEW";
-    url:string="/api/invoice/htmlReport?invoiceId=";
+    url:string="/api/invoice/IhtmlReport?performaId=";
+    purl:string="/api/invoice/PhtmlReport?performaId=";
 }
 
 export class InvoiceData {

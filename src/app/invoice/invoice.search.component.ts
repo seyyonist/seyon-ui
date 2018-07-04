@@ -4,6 +4,7 @@ import { InvoiceService } from './invoice.service';
 import {SearchInvoice,Invoice,SearchResult} from './invoice.domain';
 import { Client } from '../client/client.domain';
 import { ClientService } from '../client/client.service';
+import {APIURLS } from '../app.constants';
 
 @Component({
     selector: 'app-invoice-search',
@@ -20,7 +21,6 @@ export class InvoiceSearchComponent implements OnInit {
     invoices:Invoice[]=[];
     searchResult:SearchResult=new SearchResult();
     numbers:number[] = [];
-    url:string="/api/invoice/htmlReport?invoiceId=";
     constructor(private route: ActivatedRoute, private invoiceService: InvoiceService,private clientService: ClientService) {
     }
 
@@ -55,7 +55,8 @@ export class InvoiceSearchComponent implements OnInit {
         this.invoices.forEach(
           invoice=>{
             invoice.clientName=this.clients.find(client=>client.id==invoice.clientId).name;
-            invoice.url=this.url.concat(invoice.invoiceId);
+            invoice.url=APIURLS.printIInvoiceUrl.concat(invoice.performaId);
+            invoice.purl=APIURLS.printPInvoiceUrl.concat(invoice.performaId);
           }
         );
       },
