@@ -2,6 +2,8 @@
 export class Client {
     id: Number;
     name: string;
+    contactPerson: string;
+    companyType: string;
     addrLine1: string;
     addrLine2: string;
     city: string;

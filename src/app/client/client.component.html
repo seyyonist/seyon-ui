@@ -38,16 +38,22 @@
           Client Id:{{client.id}}
           <div class="form-group">
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-4">
                 <label for="name">Name *</label>
                 <input type="text" class="form-control underlined" name="name" id="name" required="true" [(ngModel)]="client.name" pattern=".{3,}" title="3 characters minimum"/>
                 <small>minimum 3 character</small>
               </div>
+               <div class="col-md-4">
+                <label for="contactPerson">Contact Person *</label>
+                <input type="text" class="form-control underlined" name="contactPerson" id="contactPerson" required="true" [(ngModel)]="client.contactPerson" pattern=".{3,}" title="3 characters minimum"/>
+                <small>minimum 3 character</small>
+              </div>
               <div class="col-md-4">
-                <label for="active">Status *</label>
-                <select id="active" name="active " class="form-control underlined" required="true" [(ngModel)]="client.active">
-                  <option value="true" selected>Active </option>
-                  <option value="false">InActive </option>
+                <label for="companyType">Company Type *</label>
+                <select id="companyType" name="companyType" class="form-control underlined" required="true" [(ngModel)]="client.companyType">
+                  <option value="Company" selected>Company</option>
+                  <option value="Partnership">Partnership</option>
+                  <option value="Individual">Individual</option>
                 </select>
               </div>
             </div>

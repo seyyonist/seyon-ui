@@ -21,6 +21,7 @@ export class Invoice {
     invoiceId: string = "";
     performaId: string = "";
     sacCode: string = "";
+    invoiceType: string = "Service"; // Right now it is hardcoded; need to change it when manufacturing invoice logic is added
     performaDate: Date;
     invoiceDate: Date;
     cgstPerfomaPercent: number = 0;

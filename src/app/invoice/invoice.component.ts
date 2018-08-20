@@ -127,7 +127,7 @@ export class InvoiceComponent implements OnInit {
 
   calculateAmount(field: Particulars): void {
     if (field.itemDescription !== "")
-      field.calculatedPerformaAmount = field.quantity * field.performaRate;
+      field.calculatedPerformaAmount = field.performaRate;
     this.calculateTotal();
 
   }
