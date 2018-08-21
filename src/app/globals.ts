@@ -11,8 +11,6 @@ export class CompanyGlobalVar {
     tanNo: string = "";
     gstNo: string = "";
     panNo: string = "";
-    serviceTaxRegNo: string = "";
-    accountingType: string = "";
     primaryEmail: string = "";
     
 } 

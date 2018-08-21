@@ -4,7 +4,8 @@ import { ClientService } from '../client/client.service';
 import { Client } from '../client/client.domain';
 import { Particulars, InvoiceData, Invoice, SACCode } from './invoice.domain';
 import { InvoiceService } from './invoice.service';
-import {APIURLS } from '../app.constants';
+import { APIURLS } from '../app.constants';
+import { CompanyGlobalVar } from '../globals';
 
 @Component({
   selector: 'app-invoice',
@@ -18,6 +19,9 @@ export class InvoiceComponent implements OnInit {
   errorMessage: string = "";
   selectedClient: Client = new Client();
   success: boolean = true;
+  cgstDisplay: boolean = false;
+  sgstDisplay: boolean = false;
+  igstDisplay: boolean = false;
   selClientId: number;
   particulars: Array<Particulars> = [];
   invoiceData: InvoiceData = new InvoiceData();
@@ -27,7 +31,7 @@ export class InvoiceComponent implements OnInit {
   selSacCode: SACCode = new SACCode();
 
   constructor(private route: ActivatedRoute, private clientService: ClientService
-    , private invoiceService: InvoiceService) {
+    , private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar) {
     var invoiceIdParam
     this.route.params.subscribe(params => {
       invoiceIdParam = params['id']
@@ -39,8 +43,8 @@ export class InvoiceComponent implements OnInit {
         invoiceData => {
           console.log("invoice Data " + invoiceData);
           this.invoice = invoiceData.invoice;
-          this.invoice.url=APIURLS.printIInvoiceUrl.concat(this.invoice.performaId);
-          this.invoice.purl=APIURLS.printPInvoiceUrl.concat(this.invoice.performaId);
+          this.invoice.url = APIURLS.printIInvoiceUrl.concat(this.invoice.performaId);
+          this.invoice.purl = APIURLS.printPInvoiceUrl.concat(this.invoice.performaId);
           this.particulars = invoiceData.particulars;
           this.selClientId = invoiceData.invoice.clientId;
           this.getClients();
@@ -116,6 +120,19 @@ export class InvoiceComponent implements OnInit {
 
   loadSelectedClient(): void {
     this.selectedClient = this.clients.find(cli => cli.id === this.selClientId);
+    if (this.selectedClient != null) {
+      console.debug('selectedClient.state' + this.selectedClient.state);
+      console.debug('companyGlobalVar.state' + this.companyGlobalVar.state);
+      if (this.selectedClient.state == this.companyGlobalVar.state) {
+        this.cgstDisplay = true;
+        this.sgstDisplay = true;
+        this.igstDisplay = false;
+      } else {
+         this.cgstDisplay = false;
+        this.sgstDisplay = false;
+        this.igstDisplay = true;
+      }
+    }
     this.invoice.clientId = this.selClientId;
   }
 
@@ -150,6 +167,7 @@ export class InvoiceComponent implements OnInit {
       + this.invoice.igstPerfoma)
     this.invoice.totalPerfomaAmount.toFixed(2);
   }
+  
   savePerformaInvoice(): void {
     this.success = false;
     this.error = false;
@@ -160,8 +178,8 @@ export class InvoiceComponent implements OnInit {
         this.invoiceData = invoiceData;
         this.invoice = invoiceData.invoice;
         this.particulars = invoiceData.particulars
-        this.invoice.url=APIURLS.printIInvoiceUrl.concat(this.invoice.performaId);
-        this.invoice.purl=APIURLS.printPInvoiceUrl.concat(this.invoice.performaId);
+        this.invoice.url = APIURLS.printIInvoiceUrl.concat(this.invoice.performaId);
+        this.invoice.purl = APIURLS.printPInvoiceUrl.concat(this.invoice.performaId);
         this.success = true;
       },
       err => {

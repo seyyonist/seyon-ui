@@ -86,7 +86,7 @@
           </th>
           <td>{{invoice.totalPerfomaBeforeTax}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="cgstDisplay">
           <td colspan="5">
           </td>
           <th>
@@ -95,7 +95,7 @@
           <td>{{invoice.cgstPerfomaPercent}}</td>
           <td>{{invoice.cgstPerfoma}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="sgstDisplay">
           <td colspan="5">
           </td>
           <th>
@@ -104,7 +104,7 @@
           <td>{{invoice.sgstPerfomaPercent}}</td>
           <td>{{invoice.sgstPerfoma}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="igstDisplay">
           <td colspan="5">
           </td>
           <th>

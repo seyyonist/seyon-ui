@@ -9,7 +9,7 @@ export class Particulars {
     calculatedPerformaAmount: number;
     calculatedInvoiceAmount: number;
     companyId: number;
-    createdBy: string;
+    createdBy: string="";
     createdDate: Date;
     
 }
@@ -60,7 +60,7 @@ export class SearchInvoice {
     clientId: number;
     invoiceStDate: Date;
     invoiceEdDate: Date;
-    status: string;
+    status: string="";
     type:string="";
     invoiceId:string="";
     performaId:string="";
