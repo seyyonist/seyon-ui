@@ -1,4 +1,4 @@
-<h3>PerformA Invoice Details</h3>
+<h3>PerformA Invoice (Service)</h3>
 <div class="alert alert-danger" role="alert" *ngIf="error">
   {{errorMessage}}
 </div>
@@ -56,7 +56,7 @@
       </tr>
       <tr>
         <th colspan="5">Item Description</th>
-        <th>Quantity</th>
+        <!--<th>Quantity</th>-->
         <th>Rate</th>
         <th>Amount</th>
       </tr>
@@ -68,9 +68,9 @@
           <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
           </textarea>
         </td>
-        <td WIDTH="10%">
+       <!-- <td WIDTH="10%">
           <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="field.quantity"  (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/>
-        </td>
+        </td>-->
         <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0"  [(ngModel)]="field.performaRate" (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/>
         </td>
         <td WIDTH="10%">
@@ -86,7 +86,7 @@
           </th>
           <td>{{invoice.totalPerfomaBeforeTax}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="cgstDisplay">
           <td colspan="5">
           </td>
           <th>
@@ -95,7 +95,7 @@
           <td>{{invoice.cgstPerfomaPercent}}</td>
           <td>{{invoice.cgstPerfoma}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="sgstDisplay">
           <td colspan="5">
           </td>
           <th>
@@ -104,7 +104,7 @@
           <td>{{invoice.sgstPerfomaPercent}}</td>
           <td>{{invoice.sgstPerfoma}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="igstDisplay">
           <td colspan="5">
           </td>
           <th>

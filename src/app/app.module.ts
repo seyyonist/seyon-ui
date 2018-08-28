@@ -23,6 +23,7 @@ import { VoucherSearchComponent } from './voucher/voucher.search.component';
 import { VoucherService } from './voucher/voucher.service';
 import { GenInvoiceComponent } from './gen-invoice/gen-invoice.component';
 import {GenInvoiceService} from './gen-invoice/gen-invoice.service';
+import { CompanyGlobalVar } from './globals';
 
 const appRoutes: Routes = [
 
@@ -64,7 +65,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule
   ],
-  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService],
+  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
