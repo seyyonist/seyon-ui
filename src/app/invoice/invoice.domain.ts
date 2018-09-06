@@ -60,7 +60,7 @@ export class SearchInvoice {
     clientId: number;
     invoiceStDate: Date;
     invoiceEdDate: Date;
-    status: string="";
+    status: string='NEW';
     type:string="";
     invoiceId:string="";
     performaId:string="";
