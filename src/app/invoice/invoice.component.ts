@@ -111,10 +111,21 @@ export class InvoiceComponent implements OnInit {
   }
 
   loadSelectedSac(): void {
+    if (this.selectedClient.state == "") {
+      alert("please select the client");
+      return;
+    }
     this.selSacCode = this.sacCodes.find(sac => sac.id === this.selSacId);
-    this.invoice.cgstPerfomaPercent = this.selSacCode.cgstPercent;
-    this.invoice.sgstPerfomaPercent = this.selSacCode.sgstPercent;
-    this.invoice.igstPerfomaPercent = this.selSacCode.igstPercent;
+
+    if (this.selectedClient.state == this.companyGlobalVar.state) {
+      this.invoice.cgstPerfomaPercent = this.selSacCode.cgstPercent;
+      this.invoice.sgstPerfomaPercent = this.selSacCode.sgstPercent;
+      this.invoice.igstPerfomaPercent = 0;
+    } else {
+      this.invoice.cgstPerfomaPercent = 0;
+      this.invoice.sgstPerfomaPercent = 0;
+      this.invoice.igstPerfomaPercent = this.selSacCode.igstPercent;
+    }
     this.invoice.sacCode = this.selSacCode.sacCode;
   }
 
@@ -128,10 +139,12 @@ export class InvoiceComponent implements OnInit {
         this.sgstDisplay = true;
         this.igstDisplay = false;
       } else {
-         this.cgstDisplay = false;
+        this.cgstDisplay = false;
         this.sgstDisplay = false;
         this.igstDisplay = true;
       }
+    }else{
+      this.selectedClient= new Client();
     }
     this.invoice.clientId = this.selClientId;
   }
@@ -167,7 +180,7 @@ export class InvoiceComponent implements OnInit {
       + this.invoice.igstPerfoma)
     this.invoice.totalPerfomaAmount.toFixed(2);
   }
-  
+
   savePerformaInvoice(): void {
     this.success = false;
     this.error = false;
