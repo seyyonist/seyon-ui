@@ -46,9 +46,20 @@ export class InvoiceService {
     return this.http.get<InvoiceData>(url, { headers: httpOptions.headers });
   }
 
-  searchInvoice(searchInvoice: SearchInvoice, pageNo: number = 0): Observable<SearchResult> {
-    var url = Urls.getDomain().concat(APIURLS.invoice).concat("/search")
-      .concat("?pageNumber=")
+  searchInvoice(searchInvoice: SearchInvoice,category: string, pageNo: number = 0): Observable<SearchResult> {
+
+    var url = Urls.getDomain();
+    console.log(url);
+    if(category==='SERVICE'){
+     url= url.concat(APIURLS.invoice).concat("/search")
+      console.log("SERVICE"+url);
+    }
+    else if(category==='MANUFACTURING'){
+      url=url.concat(APIURLS.manInvoice).concat("/search")
+     console.log(url);
+    }
+
+    url=url.concat("?pageNumber=")
       .concat(pageNo.toString())
     console.log("Searching : " + url);
     return this.http.post<SearchResult>(url, searchInvoice, { headers: httpOptions.headers });
