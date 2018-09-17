@@ -17,7 +17,11 @@ export class Client {
     serviceTaxRegNo: string='';
     accountingType: string='';
     email: string='';
-    
     companyId: Number;
     active: string='';
+    shipToAddrLine1: string='';
+	shipToAddrLine2: string='';
+	shipToAddrCity: string='';
+	shipToAddrState: string='';
+	shipToAddrPincode: string='';
 }
