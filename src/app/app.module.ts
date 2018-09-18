@@ -24,6 +24,7 @@ import { VoucherService } from './voucher/voucher.service';
 import { GenInvoiceComponent } from './gen-invoice/gen-invoice.component';
 import {GenInvoiceService} from './gen-invoice/gen-invoice.service';
 import { CompanyGlobalVar } from './globals';
+import {InvoiceManuComponent} from './invoice/invoice.manu.component';
 
 const appRoutes: Routes = [
 
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
   { path: 'generate-invoice/:id', component: GenInvoiceComponent},
   { path: 'company', component: CompanyComponent },
   { path: 'voucherNew/:id', component: VoucherComponent },
-  { path: 'voucher-search', component: VoucherSearchComponent }
+  { path: 'voucher-search', component: VoucherSearchComponent },
+  {path:'invoiceManu/:id',component:InvoiceManuComponent}
 
 ]
 
@@ -53,7 +55,8 @@ const appRoutes: Routes = [
     GenInvoiceComponent,
     CompanyComponent,
     VoucherComponent,
-    VoucherSearchComponent
+    VoucherSearchComponent,
+    InvoiceManuComponent
   ],
   imports: [
     RouterModule.forRoot(
