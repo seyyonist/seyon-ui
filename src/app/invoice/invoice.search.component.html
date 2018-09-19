@@ -102,11 +102,15 @@
       <tbody>
         <tr *ngFor="let invoice of invoices">
           <td>
-            <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId">{{invoice.invoiceId}}</a>
-            <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="!invoice.invoiceId" class="btn btn-success">Generate Invoice</a>
+            <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId && searchInvoice.category=='SERVICE'">{{invoice.invoiceId}}</a>
+            <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="!invoice.invoiceId && searchInvoice.category=='SERVICE'" class="btn btn-success">Generate Invoice</a>
+             <a routerLink="/generate-manu-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId && searchInvoice.category=='MANUFACTURING'">{{invoice.invoiceId}}</a>
+            <a routerLink="/generate-manu-invoice/{{invoice.id}}" *ngIf="!invoice.invoiceId && searchInvoice.category=='MANUFACTURING'" class="btn btn-success">Generate Invoice</a>
+
           </td>
           <td>
-            <a routerLink="/performaView/{{invoice.id}}" *ngIf="invoice.performaId">{{invoice.performaId}}</a>
+            <a routerLink="/performaView/{{invoice.id}}" *ngIf="invoice.performaId && searchInvoice.category=='SERVICE'">{{invoice.performaId}}</a>
+            <a routerLink="/manufacturingProforma/{{invoice.id}}" *ngIf="invoice.proFormaId && searchInvoice.category=='MANUFACTURING'">{{invoice.proFormaId}}</a>
           </td>
           <td>{{invoice.clientName}}</td>
           <td>{{invoice.performaDate | date:'yyyy-MM-dd'}}</td>

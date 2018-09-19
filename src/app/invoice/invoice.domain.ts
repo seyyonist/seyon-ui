@@ -108,6 +108,7 @@ export class SearchInvoice {
     type:string="";
     invoiceId:string="";
     performaId:string="";
+    proFormaId:string="";
 }
 
 export class SearchResult {
