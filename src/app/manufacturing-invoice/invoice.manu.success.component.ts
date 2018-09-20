@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { ClientService } from '../client/client.service';
 import { Client } from '../client/client.domain';
-import { Particulars, InvoiceData, Invoice, SACCode, ManufacturingInvoice } from './invoice.domain';
-import { InvoiceService } from './invoice.service';
+import { Particulars, InvoiceData, Invoice, SACCode,ManufacturingInvoice } from './invoice.manu.domain';
+import { InvoiceService } from '../invoice/invoice.service';
 import { APIURLS } from '../app.constants';
 import { CompanyGlobalVar } from '../globals';
 

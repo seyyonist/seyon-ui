@@ -1,0 +1,118 @@
+<h3>{{manufacturingInvoice.type}} Invoice (Manufacturing)</h3>
+
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <!-- <div class="col-md-1 "><b>Client</b></div>
+      <div class="col-md-3">
+        <select (change)="loadSelectedClient()" class="form-control underlined" [(ngModel)]="selClientId" [disabled]="(manufacturingInvoice.status=='CANCELED' || manufacturingInvoice.type=='INVOICE')">
+        <option></option>
+        <option *ngFor="let cli of clients" [ngValue]="cli.id" [selected]="cli.id === selClientId">{{cli.name}}</option>
+         </select>
+      </div> -->
+      <div class="col-md-8">
+        
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-info" (click)="calculateTotal()">Calculate Amount</button>
+        <button class="btn btn-info" (click)="save()">Save</button>
+        <button class="btn btn-warning" (click)="generateInvoice()">Generate Invoice</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"><b>Status : </b></div>
+      <div class="col-md-2">NEW</div>
+      <div class="col-md-2"><b>GSTIN : </b></div>
+      <div class="col-md-3">{{selectedClient.gstin}}</div>
+      <div class="col-md-1"><b>Date : </b></div>
+      <div class="col-md-3" *ngIf="manufacturingInvoice.type==='PERFORMA'">{{manufacturingInvoice.performaDate | date:"dd MMM yyyy HH:mm"}}</div>
+      <div class="col-md-3" *ngIf="manufacturingInvoice.type==='INVOICE'">{{manufacturingInvoice.invoiceDate | date:"dd MMM yyyy HH:mm"}}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"><b>Name : </b></div>
+      <div class="col-md-2">{{selectedClient.name}}</div>
+      <div class="col-md-2"><b>Address : </b></div>
+      <div class="col-md-4">
+        {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},
+        <br/> {{selectedClient.city}}, {{selectedClient.state}},
+        <br/> {{selectedClient.pincode}}.
+        <br/>
+        <i>Phone : </i> {{selectedClient.phonePrimary}}.
+        <br/>
+        <i>Email : </i> {{selectedClient.email}}.
+        <br/>
+      </div>
+    </div>
+    <table class="table">
+      <tr>
+        <th colspan="8">Particulars</th>
+      </tr>
+      <tr>
+        <th WIDTH="30%">Description</th>
+        <th>SAC Code</th>
+        <th>Quantity</th>
+        <th>Rate</th>
+        <th>gst</th>
+        <th>Amount</th>
+      </tr>
+      <tr *ngIf="manufacturingInvoice.type==='PERFORMA'">
+        <td WIDTH="30%">
+          <textarea type="text" class="form-control" required="true" [(ngModel)]="manufacturingInvoice.itemDescription" (change)="calculateAmount(manufacturingInvoice)">
+          </textarea>
+        </td>
+        <td WIDTH="10%">
+         <!-- <select (change)="loadSelectedSac(manufacturingInvoice)" class="form-control underlined" [(ngModel)]="manufacturingInvoice.sacCodeId">
+        <option></option>
+        <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === manufacturingInvoice.sacCodeId">{{sac.sacCode}}</option>
+        </select>-->
+         {{manufacturingInvoice.sacCode}}
+        </td>
+        <td WIDTH="10%">
+          <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="manufacturingInvoice.quantity" (change)="calculateAmount(manufacturingInvoice)"
+          />
+        </td>
+        <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0" [(ngModel)]="manufacturingInvoice.performaRate" (change)="calculateAmount(manufacturingInvoice)"
+          />
+        </td>
+        <td WIDTH="10%">
+          <p *ngIf="manufacturingInvoice.cgstPerfomaPercent>0">cgst={{manufacturingInvoice.cgstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>
+          <p *ngIf="manufacturingInvoice.sgstPerfomaPercent>0">sgst={{manufacturingInvoice.sgstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>
+          <p *ngIf="manufacturingInvoice.igstPerfomaPercent>0">igst={{manufacturingInvoice.igstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>
+        </td>
+        <td WIDTH="10%">
+          <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="manufacturingInvoice.calculatedPerformaAmount" />
+        </td>
+      </tr>
+
+      <tr *ngIf="manufacturingInvoice.type==='INVOICE'">
+        <td WIDTH="50%">
+          <textarea type="text" class="form-control" required="true" [(ngModel)]="manufacturingInvoice.itemDescription" (change)="calculateAmount(manufacturingInvoice)">
+          </textarea>
+        </td>
+        <td WIDTH="10%">
+          <select (change)="loadSelectedSac(manufacturingInvoice)" class="form-control underlined" [(ngModel)]="manufacturingInvoice.sacCodeId">
+        <option></option>
+        <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === manufacturingInvoice.sacCodeId">{{sac.sacCode}}</option>
+        </select>
+        </td>
+        <td WIDTH="10%">
+          <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="manufacturingInvoice.quantity" (change)="calculateAmount(manufacturingInvoice)"
+          />
+        </td>
+        <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0" [(ngModel)]="manufacturingInvoice.invoiceRate" (change)="calculateAmount(manufacturingInvoice)"
+          />
+        </td>
+        <td WIDTH="10%">
+          <p *ngIf="manufacturingInvoice.cgstInvoicePercent>0">cgst={{manufacturingInvoice.cgstInvoicePercent}}%, :{{manufacturingInvoice.cgstInvoice}}</p>
+          <p *ngIf="manufacturingInvoice.sgstInvoicePercent>0">sgst={{manufacturingInvoice.sgstInvoicePercent}}%, :{{manufacturingInvoice.cgstInvoice}}</p>
+          <p *ngIf="manufacturingInvoice.igstInvoicePercent>0">igst={{manufacturingInvoice.igstInvoicePercent}}%, :{{manufacturingInvoice.cgstInvoice}}</p>
+        </td>
+        <td WIDTH="10%">
+          <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="manufacturingInvoice.calculatedInvoiceAmount" />
+        </td>
+      </tr>
+      <tfoot>
+      </tfoot>
+    </table>
+  </div>
+</div>

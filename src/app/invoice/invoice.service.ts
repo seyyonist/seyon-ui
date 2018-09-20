@@ -80,4 +80,11 @@ export class InvoiceService {
      var url = Urls.getDomain().concat(APIURLS.manInvoice).concat("/performa");
      return this.http.post<ManufacturingInvoice[]>(url, manufacturingInvoice, { headers: httpOptions.headers });
   }
+
+  getManufacturingInvoice(proformaId:string):Observable<ManufacturingInvoice>{
+    var url=Urls.getDomain().concat(APIURLS.manInvoice)
+    .concat("?id=")
+      .concat(proformaId);
+    return this.http.get<ManufacturingInvoice>(url,{headers:httpOptions.headers})
+  }
 }
