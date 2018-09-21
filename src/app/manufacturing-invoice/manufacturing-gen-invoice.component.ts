@@ -6,11 +6,11 @@ import { Client } from '../client/client.domain';
 import { ClientService } from '../client/client.service';
 
 @Component({
-  selector: 'app-manufacturing-invoice',
-  templateUrl: './manufacturing-invoice.component.html',
-  styleUrls: ['./manufacturing-invoice.component.css']
+  selector: 'app-manufacturing-gen-invoice',
+  templateUrl: './manufacturing-gen-invoice.component.html',
+  styleUrls: ['./manufacturing-gen-invoice.component.css']
 })
-export class ManufacturingInvoiceComponent implements OnInit {
+export class ManufacturingGenInvoiceComponent implements OnInit {
 
   proformaId: string = "";
   manufacturingInvoice: ManufacturingInvoice = new ManufacturingInvoice();
@@ -28,10 +28,30 @@ export class ManufacturingInvoiceComponent implements OnInit {
       if (this.proformaId === "") {
         return;
       }
-  
+
       this.invoiceService.getManufacturingInvoice(this.proformaId).subscribe(
         suc => {
           this.manufacturingInvoice = suc
+          if (!this.manufacturingInvoice.cgstInvoice)
+            this.manufacturingInvoice.cgstInvoice = suc.cgstPerfoma
+          if (!this.manufacturingInvoice.sgstInvoice)
+            this.manufacturingInvoice.sgstInvoice = suc.sgstPerfoma
+          if (!this.manufacturingInvoice.igstInvoice) 
+            this.manufacturingInvoice.igstInvoice = suc.igstPerfoma
+          if (!this.manufacturingInvoice.igstInvoicePercent) 
+            this.manufacturingInvoice.igstInvoicePercent = suc.igstPerfomaPercent
+          if (!this.manufacturingInvoice.sgstInvoicePercent) 
+            this.manufacturingInvoice.sgstInvoicePercent = suc.sgstPerfomaPercent
+          if (!this.manufacturingInvoice.cgstInvoicePercent) 
+            this.manufacturingInvoice.cgstInvoicePercent = suc.cgstPerfomaPercent
+          if (this.manufacturingInvoice.invoiceRate==0) 
+            this.manufacturingInvoice.invoiceRate = suc.performaRate
+          if (!this.manufacturingInvoice.totalInvoiceAmount) 
+            this.manufacturingInvoice.totalInvoiceAmount = suc.totalPerfomaAmount
+          if (!this.manufacturingInvoice.calculatedInvoiceAmount) 
+            this.manufacturingInvoice.calculatedInvoiceAmount = suc.calculatedPerformaAmount
+          if(this.manufacturingInvoice.invoiceId=='')
+            this.manufacturingInvoice.invoiceId=suc.proFormaId.replace("PI","IN");
           this.getClients();
           this.getSacCodes();
         },
@@ -85,13 +105,14 @@ export class ManufacturingInvoiceComponent implements OnInit {
   }
 
   save(): void {
+    this.manufacturingInvoice.type="INVOICE";
     this.invoiceService.saveManufacturingInvoice(this.manufacturingInvoice).subscribe(
-      succ=>{
-        this.manufacturingInvoice=succ;
+      succ => {
+        this.manufacturingInvoice = succ;
         alert("Invoice saved ")
-    },
-    err=>{
-       alert("Error while Saving the invoice");
+      },
+      err => {
+        alert("Error while Saving the invoice");
         console.log("Error :" + err);
       }
     );
@@ -102,13 +123,13 @@ export class ManufacturingInvoiceComponent implements OnInit {
 
   }
   calculateAmount(): void {
-    let field: ManufacturingInvoice=this.manufacturingInvoice
-     if (field.itemDescription !== ""){
-      let amt =field.performaRate*field.quantity;
-      field.cgstPerfoma=Math.round((amt*field.cgstPerfomaPercent/100)*100)/100;
-      field.sgstPerfoma=Math.round((amt*field.sgstPerfomaPercent/100)*100)/100;
-      field.igstPerfoma=Math.round((amt*field.igstPerfomaPercent/100)*100)/100;
-      field.calculatedPerformaAmount = Math.round((amt+field.cgstPerfoma+field.sgstPerfoma+field.igstPerfoma)*100)/100;
+    let field: ManufacturingInvoice = this.manufacturingInvoice
+    if (field.itemDescription !== "") {
+      let amt = field.invoiceRate * field.quantity;
+      field.cgstInvoice = Math.round((amt * field.cgstInvoicePercent / 100) * 100) / 100;
+      field.sgstInvoice = Math.round((amt * field.sgstInvoicePercent / 100) * 100) / 100;
+      field.igstInvoice = Math.round((amt * field.igstInvoicePercent / 100) * 100) / 100;
+      field.calculatedInvoiceAmount = Math.round((amt + field.cgstInvoice + field.sgstInvoice + field.igstInvoice) * 100) / 100;
     }
   }
 
