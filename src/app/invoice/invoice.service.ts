@@ -5,7 +5,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 import * as _ from 'underscore';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
-import { Particulars, InvoiceData, Invoice, SearchInvoice, SearchResult,SACCode } from './invoice.domain';
+import { Particulars, InvoiceData, Invoice, SearchInvoice, SearchResult,SACCode, } from './invoice.domain';
+import { ManufacturingInvoice } from '../manufacturing-invoice/invoice.manu.domain';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -76,4 +77,20 @@ export class InvoiceService {
     return this.http.get<string>(url,options)
   }
 
+  saveManufacProformaInvoice(manufacturingInvoice:ManufacturingInvoice[]):Observable<ManufacturingInvoice[]>{
+     var url = Urls.getDomain().concat(APIURLS.manInvoice).concat("/performa");
+     return this.http.post<ManufacturingInvoice[]>(url, manufacturingInvoice, { headers: httpOptions.headers });
+  }
+
+  getManufacturingInvoice(proformaId:string):Observable<ManufacturingInvoice>{
+    var url=Urls.getDomain().concat(APIURLS.manInvoice)
+    .concat("?id=")
+      .concat(proformaId);
+    return this.http.get<ManufacturingInvoice>(url,{headers:httpOptions.headers})
+  }
+
+  saveManufacturingInvoice(manufacturingInvoice:ManufacturingInvoice): Observable<ManufacturingInvoice> {
+    var url = Urls.getDomain().concat(APIURLS.manInvoice).concat("/invoice");
+    return this.http.post<ManufacturingInvoice>(url, manufacturingInvoice, { headers: httpOptions.headers });
+  }
 }

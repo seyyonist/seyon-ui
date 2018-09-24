@@ -89,7 +89,9 @@ export class ManufacturingInvoice{
 	status:string = 'NEW';
 	createdBy:string="";
 	createdDate:Date = new Date();
-	type:string = "PERFORMA";// or INVOICE
+    type:string = "PERFORMA";// or INVOICE
+    url:string="/api/manuFacturingInvoice/IhtmlReport?performaId=";
+    purl:string="/api/manuFacturingInvoice/PhtmlReport?performaId=";
 }
 
 export class InvoiceData {

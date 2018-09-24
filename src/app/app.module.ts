@@ -24,7 +24,10 @@ import { VoucherService } from './voucher/voucher.service';
 import { GenInvoiceComponent } from './gen-invoice/gen-invoice.component';
 import {GenInvoiceService} from './gen-invoice/gen-invoice.service';
 import { CompanyGlobalVar } from './globals';
-import {InvoiceManuComponent} from './invoice/invoice.manu.component';
+import {InvoiceManuComponent} from './manufacturing-invoice/invoice.manu.component';
+import {InvoiceManuSuccessComponent} from './manufacturing-invoice/invoice.manu.success.component';
+import { ManufacturingInvoiceComponent } from './manufacturing-invoice/manufacturing-invoice.component';
+import { ManufacturingGenInvoiceComponent } from './manufacturing-invoice/manufacturing-gen-invoice.component';
 
 const appRoutes: Routes = [
 
@@ -38,8 +41,11 @@ const appRoutes: Routes = [
   { path: 'company', component: CompanyComponent },
   { path: 'voucherNew/:id', component: VoucherComponent },
   { path: 'voucher-search', component: VoucherSearchComponent },
-  {path:'invoiceManu/:id',component:InvoiceManuComponent}
-
+  { path: 'invoiceManu/:id',component:InvoiceManuComponent},
+  { path: 'invoiceManuSuccess/:ids',component:InvoiceManuSuccessComponent},
+  { path: 'manufacturingInvoice/:proformaId',component:ManufacturingInvoiceComponent},
+  { path: 'generate-manu-invoice/:proformaId',component:ManufacturingGenInvoiceComponent}
+  
 ]
 
 @NgModule({
@@ -56,7 +62,10 @@ const appRoutes: Routes = [
     CompanyComponent,
     VoucherComponent,
     VoucherSearchComponent,
-    InvoiceManuComponent
+    InvoiceManuComponent,
+    InvoiceManuSuccessComponent,
+    ManufacturingInvoiceComponent,
+    ManufacturingGenInvoiceComponent
   ],
   imports: [
     RouterModule.forRoot(

@@ -26,5 +26,7 @@ export const APIURLS = {
     savevoucher : "/api/voucher/saveVoucher",
     voucher : "/api/voucher",
     printIInvoiceUrl:"/api/invoice/IhtmlReport?performaId=",
-    printPInvoiceUrl:"/api/invoice/PhtmlReport?performaId="
+    printPInvoiceUrl:"/api/invoice/PhtmlReport?performaId=",
+    printManIInvoiceUrl:"/api/manuFacturingInvoice/IhtmlReport?performaId=",
+    printManPInvoiceUrl:"/api/manuFacturingInvoice/PhtmlReport?performaId="
 }

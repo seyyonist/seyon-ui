@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute,Router } from "@angular/router";
 import { ClientService } from '../client/client.service';
 import { Client } from '../client/client.domain';
-import { Particulars, InvoiceData, Invoice, SACCode,ManufacturingInvoice } from './invoice.domain';
-import { InvoiceService } from './invoice.service';
+import { Particulars, InvoiceData, Invoice, SACCode,ManufacturingInvoice } from './invoice.manu.domain';
+import { InvoiceService } from '../invoice/invoice.service';
 import { APIURLS } from '../app.constants';
 import { CompanyGlobalVar } from '../globals';
 
@@ -34,7 +34,8 @@ export class InvoiceManuComponent implements OnInit {
   totalPerfomaBeforeTax:number=0;
 
   constructor(private route: ActivatedRoute, private clientService: ClientService
-    , private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar) {
+    , private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar,
+  private router:Router) {
     var invoiceIdParam
     this.route.params.subscribe(params => {
       invoiceIdParam = params['id']
@@ -72,7 +73,6 @@ export class InvoiceManuComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   getInvoice(): void {
@@ -164,8 +164,6 @@ export class InvoiceManuComponent implements OnInit {
     }
   }
 
-
-
   calculateTotal(): void {
     var sum = 0
     this.manufacturingInvoice.filter(part => part.itemDescription !== "").forEach(part => {
@@ -177,20 +175,22 @@ export class InvoiceManuComponent implements OnInit {
   savePerformaInvoice(): void {
     this.success = false;
     this.error = false;
-    this.invoiceData.invoice = this.invoice;
-    this.invoiceData.particulars = this.particulars.filter(part => part.itemDescription !== "");
-    this.invoiceService.savePerforma(this.invoiceData).subscribe(
-      invoiceData => {
-        this.invoiceData = invoiceData;
-        this.invoice = invoiceData.invoice;
-        this.particulars = invoiceData.particulars
-        this.invoice.url = APIURLS.printIInvoiceUrl.concat(this.invoice.performaId);
-        this.invoice.purl = APIURLS.printPInvoiceUrl.concat(this.invoice.performaId);
-        this.success = true;
+    this.manufacturingInvoice.forEach(inv=>{
+      inv.clientId=this.selClientId;
+    })
+    console.log(this.manufacturingInvoice);
+
+    this.invoiceService.saveManufacProformaInvoice(this.manufacturingInvoice).subscribe(
+      manu=>{
+        this.manufacturingInvoice=manu
+        var performaIds=manu.map(inv=>inv.id).join(',');
+        this.router.navigate(['/invoiceManuSuccess',performaIds]);
       },
-      err => {
+      err=>{
         this.error = true;
-        this.errorMessage = "Error occured While saving the Invoice";
+        this.errorMessage = "Error occured please contact administrator";
+        
+        console.log(err);
       }
     )
   }

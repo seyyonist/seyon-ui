@@ -57,10 +57,14 @@ export class GenInvoiceComponent implements OnInit {
             par.calculatedInvoiceAmount = par.calculatedPerformaAmount;
             par.invoiceRate = par.performaRate
           });
-          this.invoice.cgstInvoicePercent = this.invoice.cgstPerfomaPercent;
-          this.invoice.sgstInvoicePercent = this.invoice.sgstPerfomaPercent;
-          this.invoice.igstInvoicePercent = this.invoice.igstPerfomaPercent;
-          this.invoice.invoiceDate = this.invoice.performaDate;
+          if(!this.invoice.cgstInvoicePercent)
+            this.invoice.cgstInvoicePercent = this.invoice.cgstPerfomaPercent;
+          if(!this.invoice.cgstInvoicePercent)
+            this.invoice.sgstInvoicePercent = this.invoice.sgstPerfomaPercent;
+          if(!this.invoice.igstInvoicePercent)
+             this.invoice.igstInvoicePercent = this.invoice.igstPerfomaPercent;
+          if(!this.invoice.invoiceDate)
+            this.invoice.invoiceDate = this.invoice.performaDate;
         }
         this.getClients();
         this.calculateTotal();

@@ -43,6 +43,11 @@ export class InvoiceSearchComponent implements OnInit {
       )
   }
 
+  clearResult():void{
+    this.searchResult = new SearchResult();
+    this.invoices=[];
+  }
+
   submit(pageNumber: number = 0): void {
     console.log(this.searchInvoice)
     if (this.searchInvoice.category!=="") {
@@ -57,8 +62,13 @@ export class InvoiceSearchComponent implements OnInit {
           this.invoices.forEach(
             invoice => {
               invoice.clientName = this.clients.find(client => client.id == invoice.clientId).name;
-              invoice.url = APIURLS.printIInvoiceUrl.concat(invoice.performaId);
-              invoice.purl = APIURLS.printPInvoiceUrl.concat(invoice.performaId);
+              if(this.searchInvoice.category=='MANUFACTURING'){
+                invoice.url = APIURLS.printManIInvoiceUrl.concat(invoice.performaId);
+                invoice.purl = APIURLS.printManPInvoiceUrl.concat(invoice.performaId);
+              }else{
+                invoice.url = APIURLS.printIInvoiceUrl.concat(invoice.performaId);
+                invoice.purl = APIURLS.printPInvoiceUrl.concat(invoice.performaId);
+              }
             }
           );
         },
