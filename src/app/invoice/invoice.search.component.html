@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-md-3">
             <label for="category">Category </label>
-            <select id="category" name="category " class="form-control underlined" required="false" [(ngModel)]="searchInvoice.category">
+            <select id="category" name="category " class="form-control underlined" required="false" [(ngModel)]="searchInvoice.category"  (change)="clearResult()" >
                   <option value="SERVICE">SERVICE</option>
                   <option value="MANUFACTURING">MANUFACTURING</option>                  
                 </select>
@@ -104,7 +104,7 @@
           <td>
             <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId && searchInvoice.category=='SERVICE'">{{invoice.invoiceId}}</a>
             <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="!invoice.invoiceId && searchInvoice.category=='SERVICE'" class="btn btn-success">Generate Invoice</a>
-             <a routerLink="/generate-manu-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId && searchInvoice.category=='MANUFACTURING'">{{invoice.invoiceId}}</a>
+            <a routerLink="/generate-manu-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId && searchInvoice.category=='MANUFACTURING'">{{invoice.invoiceId}}</a>
             <a routerLink="/generate-manu-invoice/{{invoice.id}}" *ngIf="!invoice.invoiceId && searchInvoice.category=='MANUFACTURING'" class="btn btn-success">Generate Invoice</a>
 
           </td>

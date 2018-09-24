@@ -1,6 +1,6 @@
 <h3>Performa Invoice (Manufacturing)</h3>
 
-<div class="card">
+<div class="card" *ngIf="manufacturingInvoice.id">
   <div class="card-body">
     <div class="row">
       <!-- <div class="col-md-1 "><b>Client</b></div>
@@ -63,7 +63,7 @@
       </tr>
       <tr>
         <td WIDTH="30%">
-          <textarea type="text" class="form-control" required="true" [(ngModel)]="manufacturingInvoice.itemDescription" (change)="calculateAmount()">
+          <textarea type="text" class="form-control" required="true" [(ngModel)]="manufacturingInvoice.itemDescription" (change)="calculateAmount()" [disabled]="manufacturingInvoice.type==='INVOICE'">
           </textarea>
         </td>
         <td WIDTH="10%">
@@ -74,10 +74,10 @@
          {{manufacturingInvoice.sacCode}}
         </td>
         <td WIDTH="10%">
-          <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="manufacturingInvoice.quantity" (change)="calculateAmount()"
+          <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="manufacturingInvoice.quantity" (change)="calculateAmount()" [disabled]="manufacturingInvoice.type==='INVOICE'"
           />
         </td>
-        <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0" [(ngModel)]="manufacturingInvoice.performaRate" (change)="calculateAmount()"
+        <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0" [(ngModel)]="manufacturingInvoice.performaRate" (change)="calculateAmount()" [disabled]="manufacturingInvoice.type==='INVOICE'"
           />
         </td>
         <td WIDTH="10%">
@@ -95,6 +95,9 @@
         <tr>
            <td colspan="3"></td>
           <td colspan="3" align="right">
+             <a target="_blank" style="color:white;background-color:#432fb5" class="btn" [href]="this.manufacturingInvoice.purl">
+                  <i class="fa fa-print"></i>
+             </a>
             <button class="btn btn-info" (click)="calculateAmount()">Calculate Amount</button>
             <button class="btn btn-info" (click)="save()">Save</button>
             <a class="btn btn-warning" routerLink="/generate-manu-invoice/{{manufacturingInvoice.id}}" routerLinkActive="active">View As Invoice</a>
@@ -103,4 +106,8 @@
       </tfoot>
     </table>
   </div>
+</div>
+
+<div class="alert alert-danger" role="alert" *ngIf="!(manufacturingInvoice.id)" >
+   No records found
 </div>

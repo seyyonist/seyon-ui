@@ -4,6 +4,7 @@ import { InvoiceService } from '../invoice/invoice.service';
 import { Particulars, InvoiceData, Invoice, SACCode, ManufacturingInvoice } from './invoice.manu.domain';
 import { Client } from '../client/client.domain';
 import { ClientService } from '../client/client.service';
+import {APIURLS} from '../app.constants'
 
 @Component({
   selector: 'app-manufacturing-gen-invoice',
@@ -52,6 +53,7 @@ export class ManufacturingGenInvoiceComponent implements OnInit {
             this.manufacturingInvoice.calculatedInvoiceAmount = suc.calculatedPerformaAmount
           if(this.manufacturingInvoice.invoiceId=='')
             this.manufacturingInvoice.invoiceId=suc.proFormaId.replace("PI","IN");
+          this.manufacturingInvoice.url=APIURLS.printManIInvoiceUrl.concat(suc.proFormaId)
           this.getClients();
           this.getSacCodes();
         },

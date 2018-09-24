@@ -4,6 +4,7 @@ import { InvoiceService } from '../invoice/invoice.service';
 import { Particulars, InvoiceData, Invoice, SACCode, ManufacturingInvoice } from './invoice.manu.domain';
 import { Client } from '../client/client.domain';
 import { ClientService } from '../client/client.service';
+import {APIURLS} from '../app.constants'
 
 @Component({
   selector: 'app-manufacturing-invoice',
@@ -19,9 +20,7 @@ export class ManufacturingInvoiceComponent implements OnInit {
   sacCodes: SACCode[] = [];
   selSacCode: SACCode = new SACCode();
   selSacId: number;
-
   constructor(private route: ActivatedRoute, private invoiceService: InvoiceService, private clientService: ClientService) {
-
     this.route.params.subscribe(params => {
       this.proformaId = params['proformaId']
       //get the bill details for that particular proforma id.
@@ -32,6 +31,7 @@ export class ManufacturingInvoiceComponent implements OnInit {
       this.invoiceService.getManufacturingInvoice(this.proformaId).subscribe(
         suc => {
           this.manufacturingInvoice = suc
+          this.manufacturingInvoice.purl=APIURLS.printManPInvoiceUrl.concat(suc.proFormaId)
           this.getClients();
           this.getSacCodes();
         },
