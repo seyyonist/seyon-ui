@@ -48,6 +48,8 @@ export class Invoice {
     status:string="NEW";
     url:string="/api/invoice/IhtmlReport?performaId=";
     purl:string="/api/invoice/PhtmlReport?performaId=";
+    reimbPerfomaAmount:number=0;
+    reimbInvoiceAmount:number=0;
 }
 
 

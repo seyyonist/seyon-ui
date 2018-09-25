@@ -178,8 +178,11 @@ export class InvoiceComponent implements OnInit {
 
     this.invoice.totalPerfomaAmount = (this.invoice.totalPerfomaBeforeTax + this.invoice.cgstPerfoma + this.invoice.sgstPerfoma
       + this.invoice.igstPerfoma)
+    this.invoice.totalPerfomaAmount=this.invoice.totalPerfomaAmount + this.invoice.reimbPerfomaAmount;
     this.invoice.totalPerfomaAmount.toFixed(2);
   }
+
+
 
   savePerformaInvoice(): void {
     this.success = false;
