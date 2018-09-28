@@ -110,7 +110,7 @@
           </td>
           <td>
             <a routerLink="/performaView/{{invoice.id}}" *ngIf="invoice.performaId && searchInvoice.category=='SERVICE'">{{invoice.performaId}}</a>
-            <a routerLink="/manufacturingProforma/{{invoice.id}}" *ngIf="invoice.proFormaId && searchInvoice.category=='MANUFACTURING'">{{invoice.proFormaId}}</a>
+            <a routerLink="/manufacturingInvoice/{{invoice.id}}" *ngIf="invoice.proFormaId && searchInvoice.category=='MANUFACTURING'">{{invoice.proFormaId}}</a>
           </td>
           <td>{{invoice.clientName}}</td>
           <td>{{invoice.performaDate | date:'yyyy-MM-dd'}}</td>
