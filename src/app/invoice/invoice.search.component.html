@@ -9,6 +9,13 @@
       <div class="form-group">
         <div class="row">
           <div class="col-md-3">
+            <label for="category">Category </label>
+            <select id="category" name="category " class="form-control underlined" required="false" [(ngModel)]="searchInvoice.category"  (change)="clearResult()" >
+                  <option value="SERVICE">SERVICE</option>
+                  <option value="MANUFACTURING">MANUFACTURING</option>                  
+                </select>
+          </div>
+          <div class="col-md-3">
             <label for="name">Performa Id </label>
             <input type="text" class="form-control underlined" name="performa Id" id="performaId" required="false" [(ngModel)]="searchInvoice.performaId"
             />
@@ -25,19 +32,20 @@
                   <option value="CANCELED">CANCELED</option>                  
                 </select>
           </div>
-          <div class="col-md-3">
+         
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+           <div class="col-md-3">
             <label for="client">Client </label>
             <select id="client" name="client " class="form-control underlined" required="false" [(ngModel)]="searchInvoice.clientId">
               <option></option>
               <option *ngFor="let cli of clients" [ngValue]="cli.id">{{cli.name}}</option>
             </select>
           </div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label for="startDt">Performa/Invoice </label>
             <select id="status" name="status " class="form-control underlined" required="false" [(ngModel)]="searchInvoice.type">
                   <option></option>
@@ -45,12 +53,12 @@
                   <option value="INVOICE">INVOICE </option>               
                 </select>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label for="startDt">Start Date </label>
             <input type="date" class="form-control underlined" name="startDt" id="startDt" required="false" [(ngModel)]="searchInvoice.invoiceStDate"
             />
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label for="endDt">End Date</label>
             <input type="date" class="form-control underlined" name="endDt" id="endDt" required="false" [(ngModel)]="searchInvoice.invoiceEdDate"
             />
@@ -94,11 +102,15 @@
       <tbody>
         <tr *ngFor="let invoice of invoices">
           <td>
-            <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId">{{invoice.invoiceId}}</a>
-            <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="!invoice.invoiceId" class="btn btn-success">Generate Invoice</a>
+            <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId && searchInvoice.category=='SERVICE'">{{invoice.invoiceId}}</a>
+            <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="!invoice.invoiceId && searchInvoice.category=='SERVICE'" class="btn btn-success">Generate Invoice</a>
+            <a routerLink="/generate-manu-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId && searchInvoice.category=='MANUFACTURING'">{{invoice.invoiceId}}</a>
+            <a routerLink="/generate-manu-invoice/{{invoice.id}}" *ngIf="!invoice.invoiceId && searchInvoice.category=='MANUFACTURING'" class="btn btn-success">Generate Invoice</a>
+
           </td>
           <td>
-            <a routerLink="/performaView/{{invoice.id}}" *ngIf="invoice.performaId">{{invoice.performaId}}</a>
+            <a routerLink="/performaView/{{invoice.id}}" *ngIf="invoice.performaId && searchInvoice.category=='SERVICE'">{{invoice.performaId}}</a>
+            <a routerLink="/manufacturingInvoice/{{invoice.id}}" *ngIf="invoice.proFormaId && searchInvoice.category=='MANUFACTURING'">{{invoice.proFormaId}}</a>
           </td>
           <td>{{invoice.clientName}}</td>
           <td>{{invoice.performaDate | date:'yyyy-MM-dd'}}</td>

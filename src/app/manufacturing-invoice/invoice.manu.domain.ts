@@ -20,7 +20,6 @@ export class Invoice {
     clientId: number;
     invoiceId: string = "";
     performaId: string = "";
-    proFormaId: string = "";
     sacCode: string = "";
     invoiceType: string = ""; // Right now it is hardcoded; need to change it when manufacturing invoice logic is added
     category:string="";
@@ -49,8 +48,6 @@ export class Invoice {
     status:string="NEW";
     url:string="/api/invoice/IhtmlReport?performaId=";
     purl:string="/api/invoice/PhtmlReport?performaId=";
-    reimbPerfomaAmount:number=0;
-    reimbInvoiceAmount:number=0;
 }
 
 
@@ -89,10 +86,16 @@ export class ManufacturingInvoice{
 	invoiceRate:number=0;
 	calculatedInvoiceAmount:number;
 	calculatedPerformaAmount:number;
+    grossInvoiceAmount:number;
+	grossPerformaAmount:number;
 	status:string = 'NEW';
 	createdBy:string="";
 	createdDate:Date = new Date();
-	type:string = "PERFORMA";// or INVOICE
+    type:string = "PERFORMA";// or INVOICE
+    url:string="/api/manuFacturingInvoice/IhtmlReport?performaId=";
+    purl:string="/api/manuFacturingInvoice/PhtmlReport?performaId=";
+    reimbPerfomaAmount:number=0;
+    reimbInvoiceAmount:number=0;
 }
 
 export class InvoiceData {

@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute,Router } from "@angular/router";
 import { ClientService } from '../client/client.service';
 import { Client } from '../client/client.domain';
-import { Particulars, InvoiceData, Invoice, SACCode } from './invoice.domain';
-import { InvoiceService } from './invoice.service';
+import { Particulars, InvoiceData, Invoice, SACCode,ManufacturingInvoice } from './invoice.manu.domain';
+import { InvoiceService } from '../invoice/invoice.service';
 import { APIURLS } from '../app.constants';
 import { CompanyGlobalVar } from '../globals';
 
 @Component({
-  selector: 'app-invoice',
-  templateUrl: './invoice.component.html',
-  styleUrls: ['./invoice.component.css']
+  selector: 'app-manu-invoice',
+  templateUrl: './invoice.manu.component.html',
+  styleUrls: ['./invoice.manu.component.css']
 })
-export class InvoiceComponent implements OnInit {
+export class InvoiceManuComponent implements OnInit {
 
   clients: Client[] = [];
   error: boolean = false;
@@ -28,10 +28,14 @@ export class InvoiceComponent implements OnInit {
   invoice: Invoice = new Invoice();
   sacCodes: SACCode[] = [];
   selSacId: number;
-  selSacCode: SACCode = new SACCode();
+
+
+  manufacturingInvoice:ManufacturingInvoice[]=[];
+  totalPerfomaBeforeTax:number=0;
 
   constructor(private route: ActivatedRoute, private clientService: ClientService
-    , private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar) {
+    , private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar,
+  private router:Router) {
     var invoiceIdParam
     this.route.params.subscribe(params => {
       invoiceIdParam = params['id']
@@ -58,19 +62,17 @@ export class InvoiceComponent implements OnInit {
         }
       )
     } else {
-      this.invoice = new Invoice();
-      this.particulars = [];
+      this.manufacturingInvoice=[];
       this.selClientId = null;
       this.getClients();
       this.getSacCodes();
       this.loadSelectedClient();
-      this.particulars.push(new Particulars());
+      this.manufacturingInvoice.push(new ManufacturingInvoice());
     }
 
   }
 
   ngOnInit() {
-
   }
 
   getInvoice(): void {
@@ -98,10 +100,6 @@ export class InvoiceComponent implements OnInit {
       .subscribe(
       sac => {
         this.sacCodes = sac;
-        if (this.invoice && this.invoice.id != 0) {
-          this.selSacCode = this.sacCodes.find(sc => sc.sacCode === this.invoice.sacCode);
-          this.selSacId = this.selSacCode.id
-        }
       },
       err => {
         this.error = true;
@@ -110,23 +108,24 @@ export class InvoiceComponent implements OnInit {
       )
   }
 
-  loadSelectedSac(): void {
+  loadSelectedSac(manuInv:ManufacturingInvoice): void {
     if (this.selectedClient.state == "") {
       alert("please select the client");
       return;
     }
-    this.selSacCode = this.sacCodes.find(sac => sac.id === this.selSacId);
+    let selSacCode: SACCode = new SACCode();
+    selSacCode = this.sacCodes.find(sac => sac.id === manuInv.sacCodeId);
 
     if (this.selectedClient.state == this.companyGlobalVar.state) {
-      this.invoice.cgstPerfomaPercent = this.selSacCode.cgstPercent;
-      this.invoice.sgstPerfomaPercent = this.selSacCode.sgstPercent;
-      this.invoice.igstPerfomaPercent = 0;
+      manuInv.cgstPerfomaPercent = selSacCode.cgstPercent;
+      manuInv.sgstPerfomaPercent = selSacCode.sgstPercent;
+      manuInv.igstPerfomaPercent = 0;
     } else {
-      this.invoice.cgstPerfomaPercent = 0;
-      this.invoice.sgstPerfomaPercent = 0;
-      this.invoice.igstPerfomaPercent = this.selSacCode.igstPercent;
+      manuInv.cgstPerfomaPercent = 0;
+      manuInv.sgstPerfomaPercent = 0;
+      manuInv.igstPerfomaPercent = selSacCode.igstPercent;
     }
-    this.invoice.sacCode = this.selSacCode.sacCode;
+    manuInv.sacCode = selSacCode.sacCode;
   }
 
   loadSelectedClient(): void {
@@ -150,90 +149,58 @@ export class InvoiceComponent implements OnInit {
   }
 
   addRow(): void {
-    this.particulars.push(new Particulars());
-    console.log(this.particulars);
+    this.manufacturingInvoice.push(new ManufacturingInvoice());
   }
 
 
-  calculateAmount(field: Particulars): void {
-    if (field.itemDescription !== "")
-      field.calculatedPerformaAmount = field.performaRate;
-    this.calculateTotal();
-
+  calculateAmount(field: ManufacturingInvoice): void {
+    if (field.itemDescription !== ""){
+      let amt =field.performaRate*field.quantity;
+      field.grossPerformaAmount=amt;
+      field.cgstPerfoma=Math.round((amt*field.cgstPerfomaPercent/100)*100)/100;
+      field.sgstPerfoma=Math.round((amt*field.sgstPerfomaPercent/100)*100)/100;
+      field.igstPerfoma=Math.round((amt*field.igstPerfomaPercent/100)*100)/100;
+      field.calculatedPerformaAmount = Math.round((amt+field.cgstPerfoma+field.sgstPerfoma+field.igstPerfoma)*100)/100;
+      this.calculateTotal();
+    }
   }
-
-
 
   calculateTotal(): void {
     var sum = 0
-    this.particulars.filter(part => part.itemDescription !== "").forEach(part => {
+    this.manufacturingInvoice.filter(part => part.itemDescription !== "").forEach(part => {
       sum = sum + part.calculatedPerformaAmount;
     })
-    this.invoice.totalPerfomaBeforeTax = sum;
-
-    //apply Tax
-    this.invoice.cgstPerfoma = (this.invoice.cgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100
-    this.invoice.sgstPerfoma = (this.invoice.sgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100
-    this.invoice.igstPerfoma = (this.invoice.igstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100
-
-    this.invoice.totalPerfomaAmount = (this.invoice.totalPerfomaBeforeTax + this.invoice.cgstPerfoma + this.invoice.sgstPerfoma
-      + this.invoice.igstPerfoma)
-    this.invoice.totalPerfomaAmount=this.invoice.totalPerfomaAmount + this.invoice.reimbPerfomaAmount;
-    this.invoice.totalPerfomaAmount.toFixed(2);
+    this.totalPerfomaBeforeTax = sum;
   }
-
-
 
   savePerformaInvoice(): void {
     this.success = false;
     this.error = false;
-    this.invoiceData.invoice = this.invoice;
-    this.invoiceData.particulars = this.particulars.filter(part => part.itemDescription !== "");
-    this.invoiceService.savePerforma(this.invoiceData).subscribe(
-      invoiceData => {
-        this.invoiceData = invoiceData;
-        this.invoice = invoiceData.invoice;
-        this.particulars = invoiceData.particulars
-        this.invoice.url = APIURLS.printIInvoiceUrl.concat(this.invoice.performaId);
-        this.invoice.purl = APIURLS.printPInvoiceUrl.concat(this.invoice.performaId);
-        this.success = true;
+    this.manufacturingInvoice.forEach(inv=>{
+      inv.clientId=this.selClientId;
+    })
+    console.log(this.manufacturingInvoice);
+
+    this.invoiceService.saveManufacProformaInvoice(this.manufacturingInvoice).subscribe(
+      manu=>{
+        this.manufacturingInvoice=manu
+        var performaIds=manu.map(inv=>inv.id).join(',');
+        this.router.navigate(['/invoiceManuSuccess',performaIds]);
       },
-      err => {
+      err=>{
         this.error = true;
-        this.errorMessage = "Error occured While saving the Invoice";
+        this.errorMessage = "Error occured please contact administrator";
+        
+        console.log(err);
       }
     )
   }
 
-  cancelInvoice(): void {
+  deletRow(particularId: number): void {
     this.success = false;
     this.error = false;
-    this.invoiceData.invoice = this.invoice;
-    this.invoiceData.particulars = this.particulars;
-    this.invoiceService.cancel(this.invoiceData.invoice.id).subscribe(
-      invoice => {
-        this.invoiceData.invoice = invoice;
-        this.success = true;
-      },
-      err => {
-        this.error = true;
-        this.errorMessage = "Error occured While saving the Invoice";
-      }
-    )
-  }
-
-  deletParticulars(particularId: number): void {
-    this.success = false;
-    this.error = false;
-    this.invoiceService.deleteParti(particularId).subscribe(
-      str => {
-        this.particulars.splice(this.particulars.map(part => part.id).indexOf(particularId), 1);
-        this.calculateTotal();
-      },
-      err => {
-        this.error = true;
-        this.errorMessage = "Error occured While saving the Invoice";
-      }
-    )
+    this.manufacturingInvoice.splice(this.manufacturingInvoice.map(part => part.id).indexOf(particularId), 1);
+    this.calculateTotal();
+     
   }
 }

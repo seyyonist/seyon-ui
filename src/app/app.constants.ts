@@ -17,6 +17,7 @@ export class Urls {
 export const APIURLS = {
     client: "/api/client",
     invoice: "/api/invoice",
+    manInvoice: "/api/manuFacturingInvoice",
     user: "/api/user",
     userrole: "/api/userrole",
     adduserrole: "/api/userrole/adduserrole",
@@ -25,5 +26,7 @@ export const APIURLS = {
     savevoucher : "/api/voucher/saveVoucher",
     voucher : "/api/voucher",
     printIInvoiceUrl:"/api/invoice/IhtmlReport?performaId=",
-    printPInvoiceUrl:"/api/invoice/PhtmlReport?performaId="
+    printPInvoiceUrl:"/api/invoice/PhtmlReport?performaId=",
+    printManIInvoiceUrl:"/api/manuFacturingInvoice/IhtmlReport?performaId=",
+    printManPInvoiceUrl:"/api/manuFacturingInvoice/PhtmlReport?performaId="
 }

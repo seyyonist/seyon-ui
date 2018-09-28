@@ -65,10 +65,10 @@ export class ClientComponent implements OnInit {
   }
 
   changeListener($event): void {
-    this.readThis($event.target);
+    //this.readThis($event.target);
   }
 
-  readThis(inputValue: any): void {
+  /*readThis(inputValue: any): void {
     if (inputValue.files.length === 0) {
       return;
     }
@@ -78,7 +78,7 @@ export class ClientComponent implements OnInit {
       this.client.logoImg = myReader.result;
     }
     myReader.readAsDataURL(file);
-  }
+  }*/
   onSearchChange(searchValue : string ):void {  
     this.filterClients=this.clients.filter(cl=>cl.name.toLowerCase().includes(searchValue.toLowerCase()));
   }

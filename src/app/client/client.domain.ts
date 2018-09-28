@@ -16,15 +16,12 @@ export class Client {
     gstin: String='';
     serviceTaxRegNo: string='';
     accountingType: string='';
-    logoImg: string='';
-    signatureImg: string='';
     email: string='';
-    bankName: string='';
-    bankAcctNumber: string='';
-    ifscCode: string='';
-    bankBranch: string='';
-    accountType: string='';
-    swiftCode: string='';
     companyId: Number;
     active: string='';
+    shipToAddrLine1: string='';
+	shipToAddrLine2: string='';
+	shipToAddrCity: string='';
+	shipToAddrState: string='';
+	shipToAddrPincode: string='';
 }
