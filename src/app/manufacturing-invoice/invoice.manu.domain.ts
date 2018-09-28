@@ -86,6 +86,8 @@ export class ManufacturingInvoice{
 	invoiceRate:number=0;
 	calculatedInvoiceAmount:number;
 	calculatedPerformaAmount:number;
+    grossInvoiceAmount:number;
+	grossPerformaAmount:number;
 	status:string = 'NEW';
 	createdBy:string="";
 	createdDate:Date = new Date();

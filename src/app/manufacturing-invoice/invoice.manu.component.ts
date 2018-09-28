@@ -156,11 +156,12 @@ export class InvoiceManuComponent implements OnInit {
   calculateAmount(field: ManufacturingInvoice): void {
     if (field.itemDescription !== ""){
       let amt =field.performaRate*field.quantity;
+      field.grossPerformaAmount=amt;
       field.cgstPerfoma=Math.round((amt*field.cgstPerfomaPercent/100)*100)/100;
       field.sgstPerfoma=Math.round((amt*field.sgstPerfomaPercent/100)*100)/100;
       field.igstPerfoma=Math.round((amt*field.igstPerfomaPercent/100)*100)/100;
       field.calculatedPerformaAmount = Math.round((amt+field.cgstPerfoma+field.sgstPerfoma+field.igstPerfoma)*100)/100;
-      this.calculateTotal()
+      this.calculateTotal();
     }
   }
 

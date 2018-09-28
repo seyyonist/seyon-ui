@@ -20,6 +20,7 @@ export class Invoice {
     clientId: number;
     invoiceId: string = "";
     performaId: string = "";
+    proFormaId: string = "";
     sacCode: string = "";
     invoiceType: string = ""; // Right now it is hardcoded; need to change it when manufacturing invoice logic is added
     category:string="";
