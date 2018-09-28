@@ -128,6 +128,7 @@ export class ManufacturingGenInvoiceComponent implements OnInit {
     let field: ManufacturingInvoice = this.manufacturingInvoice
     if (field.itemDescription !== "") {
       let amt = field.invoiceRate * field.quantity;
+      field.calculatedInvoiceAmount=amt;
       field.cgstInvoice = Math.round((amt * field.cgstInvoicePercent / 100) * 100) / 100;
       field.sgstInvoice = Math.round((amt * field.sgstInvoicePercent / 100) * 100) / 100;
       field.igstInvoice = Math.round((amt * field.igstInvoicePercent / 100) * 100) / 100;
