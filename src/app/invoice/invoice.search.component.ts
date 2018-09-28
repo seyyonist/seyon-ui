@@ -63,8 +63,8 @@ export class InvoiceSearchComponent implements OnInit {
             invoice => {
               invoice.clientName = this.clients.find(client => client.id == invoice.clientId).name;
               if(this.searchInvoice.category=='MANUFACTURING'){
-                invoice.url = APIURLS.printManIInvoiceUrl.concat(invoice.performaId);
-                invoice.purl = APIURLS.printManPInvoiceUrl.concat(invoice.performaId);
+                invoice.url = APIURLS.printManIInvoiceUrl.concat(invoice.proFormaId);
+                invoice.purl = APIURLS.printManPInvoiceUrl.concat(invoice.proFormaId);
               }else{
                 invoice.url = APIURLS.printIInvoiceUrl.concat(invoice.performaId);
                 invoice.purl = APIURLS.printPInvoiceUrl.concat(invoice.performaId);
