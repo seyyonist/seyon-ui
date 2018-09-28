@@ -65,6 +65,8 @@ export class GenInvoiceComponent implements OnInit {
              this.invoice.igstInvoicePercent = this.invoice.igstPerfomaPercent;
           if(!this.invoice.invoiceDate)
             this.invoice.invoiceDate = this.invoice.performaDate;
+          if(!this.invoice.reimbInvoiceAmount)
+            this.invoice.reimbInvoiceAmount=this.invoice.reimbPerfomaAmount
         }
         this.getClients();
         this.calculateTotal();
@@ -98,6 +100,11 @@ export class GenInvoiceComponent implements OnInit {
     this.invoice.totalInvoiceAmount = (this.invoice.totalInvoiceBeforeTax + this.invoice.cgstInvoice + this.invoice.sgstInvoice
       + this.invoice.igstInvoice)
     this.invoice.totalInvoiceAmount.toFixed(2);
+    this.includeReimbursement();
+  }
+
+  includeReimbursement(){
+    this.invoice.totalInvoiceAmount=this.invoice.totalInvoiceAmount + this.invoice.reimbInvoiceAmount;
   }
 
   getClients(): void {

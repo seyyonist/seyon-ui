@@ -94,6 +94,8 @@ export class ManufacturingInvoice{
     type:string = "PERFORMA";// or INVOICE
     url:string="/api/manuFacturingInvoice/IhtmlReport?performaId=";
     purl:string="/api/manuFacturingInvoice/PhtmlReport?performaId=";
+    reimbPerfomaAmount:number=0;
+    reimbInvoiceAmount:number=0;
 }
 
 export class InvoiceData {

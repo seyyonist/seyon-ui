@@ -60,16 +60,15 @@
          <th colspan="5">Particulars</th>
         </tr>
         <tr valign="top">
-         <th>Description</th>
+         <th colspan="2">Description</th>
          <th>Sac Code</th>
-         <th>Quantity</th>
          <th>Rate</th>
          <th>Amount</th>
         </tr>
         <tr valign="top" *ngFor="let field of particulars;let i=index">
-         <td >{{field.itemDescription}}</td>
+         <td  colspan="2">{{field.itemDescription}}</td>
          <td>{{invoice.sacCode}}</td>
-         <td  align="right">{{field.quantity}}</td>
+        
          <td  align="right"><input [disabled]="invoice.type==='INVOICE'" class="form-control" style="width:100px;" (change)="calculateAmount(field)" type="number" [(ngModel)]="field.invoiceRate"/></td>
          <td  align="right">{{field.calculatedInvoiceAmount}}</td>
         </tr>
@@ -97,6 +96,10 @@
           </td>
           <td  align="right">{{invoice.igstInvoicePercent}}</td>
           <td  align="right">{{invoice.igstInvoice}}</td>
+        </tr>
+        <tr>
+          <td colspan="4" align="right"><b>Reimbursement</b></td>
+          <td align="right"><b>{{invoice.reimbInvoiceAmount}}</b></td>
         </tr>
          <tr>
           <td colspan="4" align="right"><b>Total</b></td>
