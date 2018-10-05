@@ -65,11 +65,7 @@
          <td>{{manufacturingInvoice.sacCode}}</td>
          <td  align="right">{{manufacturingInvoice.quantity}}</td>
          <td  align="right"><input [disabled]="manufacturingInvoice.type==='INVOICE'" class="form-control" style="width:100px;" (change)="calculateAmount(manufacturingInvoice)" type="number" [(ngModel)]="manufacturingInvoice.invoiceRate"/></td>
-         <td  align="right">{{manufacturingInvoice.calculatedInvoiceAmount}}</td>
-        </tr>
-        <tr>
-          <td colspan="4" align="right"><b>Sum</b></td>
-          <td align="right">{{manufacturingInvoice.invoiceRate}}</td>
+         <td  align="right">{{manufacturingInvoice.grossInvoiceAmount}}</td>
         </tr>
         <tr>
           <td colspan="3" align="right">
