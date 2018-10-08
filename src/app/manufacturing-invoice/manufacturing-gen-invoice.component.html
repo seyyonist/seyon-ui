@@ -8,7 +8,7 @@
           <th>PerformA Id</th>
           <th>Invoice Id</th>
           <th>Invoice Date</th>
-          <th>Print</th>
+         <!-- <th>Print</th>-->
         </tr>
       </thead>
       <tbody>
@@ -18,11 +18,11 @@
           <td><input type="date" class="form-control underlined" name="invoiceDate" id="invoiceDate" required="true" [ngModel]="manufacturingInvoice.invoiceDate | date:'yyyy-MM-dd'"
                (ngModelChange)="manufacturingInvoice.invoiceDate = $event" [value]="date | date:'yyyy-MM-dd'"   [disabled]="manufacturingInvoice.type==='INVOICE'" />
           </td>
-          <td>
+         <!-- <td>
             <a target="_blank" style="color:white;background-color:#432fb5" class="btn" [href]="manufacturingInvoice.url">
                   <i class="fa fa-print"></i>
              </a>
-          </td>
+          </td>-->
         </tr>
       </tbody>
     </table>
