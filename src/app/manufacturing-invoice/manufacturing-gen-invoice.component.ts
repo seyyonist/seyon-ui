@@ -49,7 +49,9 @@ export class ManufacturingGenInvoiceComponent implements OnInit {
             this.manufacturingInvoice.invoiceRate = suc.performaRate
           if (!this.manufacturingInvoice.totalInvoiceAmount) 
             this.manufacturingInvoice.totalInvoiceAmount = suc.totalPerfomaAmount
-          if (!this.manufacturingInvoice.calculatedInvoiceAmount) 
+        if (!this.manufacturingInvoice.grossInvoiceAmount) 
+            this.manufacturingInvoice.grossInvoiceAmount = suc.grossPerformaAmount
+         if (!this.manufacturingInvoice.calculatedInvoiceAmount) 
             this.manufacturingInvoice.calculatedInvoiceAmount = suc.calculatedPerformaAmount
           if(this.manufacturingInvoice.invoiceId=='')
             this.manufacturingInvoice.invoiceId=suc.proFormaId.replace("PI","IN");

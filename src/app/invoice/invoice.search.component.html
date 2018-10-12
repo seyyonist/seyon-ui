@@ -115,8 +115,11 @@
           <td>{{invoice.clientName}}</td>
           <td>{{invoice.performaDate | date:'yyyy-MM-dd'}}</td>
           <td>{{invoice.invoiceDate | date:'yyyy-MM-dd'}}</td>
-          <td>{{invoice.totalPerfomaAmount}}</td>
-          <td>{{invoice.totalInvoiceAmount}}</td>
+          <td *ngIf="searchInvoice.category=='MANUFACTURING'">{{invoice.calculatedPerformaAmount}}</td>
+          <td *ngIf="searchInvoice.category=='MANUFACTURING'">{{invoice.calculatedInvoiceAmount}}</td>
+           <td *ngIf="searchInvoice.category=='SERVICE'">{{invoice.totalPerfomaAmount}}</td>
+          <td *ngIf="searchInvoice.category=='SERVICE'">{{invoice.totalInvoiceAmount}}</td>
+         
           <td>{{invoice.type}}</td>
           <td>{{invoice.status}}</td>
           <td>
