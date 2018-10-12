@@ -150,7 +150,9 @@
       <div class="form-group">
         <div class="row">
           <div class="col-sm-6">
-            <label for="file-logo">Logo</label> <input type="file" id="file-logo" />
+            <label for="file-logo">Logo</label>
+            <input type="file" id="file-logo" (change)="onFileChange($event)" />
+           
             <input type="hidden" name="logo" id="logo" [(ngModel)]="company.logoImg" />
           </div>
           <div class="col-sm-6">
