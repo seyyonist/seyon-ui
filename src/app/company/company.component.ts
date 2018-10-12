@@ -15,34 +15,33 @@ export class CompanyComponent implements OnInit {
   success: boolean = true;
   company: Company = new Company();
 
-
   constructor(private companyService: CompanyService) { }
 
-ngOnInit() {
-  this.getCompany();
-}
+  ngOnInit() {
+    this.getCompany();
+  }
 
-getCompany(): void {
-  this.success = false;
-  this.error = false;
-  this.companyService.getCompany()
-    .subscribe(
-    company => {
-      this.company = company;
+  getCompany(): void {
+    this.success = false;
+    this.error = false;
+    this.companyService.getCompany()
+      .subscribe(
+      company => {
+        this.company = company;
 
-    },
-    err => {
-      this.error = true;
-      this.errorMessage = "Error occured please contact administrator";
-    }
-    )
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured please contact administrator";
+      }
+      )
 
-}
+  }
 
 
-submitCompany(): void{
-  
-  this.success = false;
+  submitCompany(): void {
+
+    this.success = false;
     this.error = false;
     this.companyService.save(this.company)
       .subscribe(
@@ -58,5 +57,20 @@ submitCompany(): void{
       )
   }
 
+
+  readThis(inputValue: any): void {
+    var file: File = inputValue.files[0];
+    var myReader: FileReader = new FileReader();
+    var fileContents: string = "";
+    let self = this;
+    myReader.readAsDataURL(file);
+    myReader.onloadend = function (e) {
+      self.company.logoImg = myReader.result;
+    }
+  }
+
+  onFileChange($event): void {
+    this.readThis($event.target);
+  }
 
 }
