@@ -147,6 +147,8 @@
             </div>
           </div>
           <div class="form-group">
+            <input id="checkbox" type="checkbox" [checked]="false" (change)="updateAddrs($event)"/>Shipping address is the same as billing address
+            <br/>
             <label for="ship_Addr">Shipping Address</label>
             <div class="row">
               <div class="col-md-6">
