@@ -1,4 +1,4 @@
-<h3>PerformA Invoice (Service)</h3>
+<h3>Proforma Invoice (Service)</h3>
 <div class="alert alert-danger" role="alert" *ngIf="error">
   {{errorMessage}}
 </div>
@@ -55,13 +55,13 @@
         <th><button class="btn btn-success" (click)="addRow()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">AddRow</button></th>
       </tr>
       <tr>
-        <th colspan="6">Description</th>
+        <th colspan="7">Professional service rendered in connection with</th>
         <!--<th>Quantity</th>-->
         <th>Rate</th>
         <th>Amount</th>
       </tr>
       <tr *ngFor="let field of particulars;let i=index">
-
+          <td>{{i+1}}</td>
         <td><button class="btn btn-sm btn-danger" (click)="deletParticulars(field.id)" *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i class="fa fa-trash"></i></button></td>
 
         <td colspan="5" WIDTH="80%">
@@ -77,6 +77,14 @@
           <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedPerformaAmount"/>
         </td>
       </tr>
+        <tr>
+          <td colspan="6">
+          </td>
+          <th>
+            Enter Reimbursement Amount
+          </th>
+          <th><input type="number" class="form-control" required="false" min="0"  [(ngModel)]="invoice.reimbPerfomaAmount" (change)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/> </th>
+        </tr>
       <tfoot>
         <tr>
           <td colspan="6">
@@ -113,14 +121,7 @@
           <td>{{invoice.igstPerfomaPercent}}</td>
           <td>{{invoice.igstPerfoma}}</td>
         </tr>
-        <tr>
-          <td colspan="6">
-          </td>
-          <th>
-            Reimbursement =
-          </th>
-          <th><input type="number" class="form-control" required="false" min="0"  [(ngModel)]="invoice.reimbPerfomaAmount" (change)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/> </th>
-        </tr>
+      
         <tr>
           <td colspan="6">
           </td>

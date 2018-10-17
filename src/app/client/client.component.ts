@@ -89,7 +89,7 @@ export class ClientComponent implements OnInit {
   }
 
 
-  updateAddrs($event): void {
+ /* updateAddrs($event): void {
     console.debug("inside shippingIsSameAsBilling");
 
     if ($event.target.checked) {
@@ -107,5 +107,5 @@ export class ClientComponent implements OnInit {
       this.client.shipToAddrPincode = this.tempClient.shipToAddrPincode;
     }
 
-  }
+  }*/
 }
