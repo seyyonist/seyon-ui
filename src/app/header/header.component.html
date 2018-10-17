@@ -1,4 +1,4 @@
- <div class="user-profile">
+
       <div class="profile-userpic">
         <img src="https://www.w3schools.com/w3css/img_avatar3.png" class="img-responsive" alt="">
       </div>
@@ -12,7 +12,6 @@
 					</a>
         </div>
         <div class="profile-usertitle-job ">
-         {{role.roleCode}}
+         |<span *ngFor="let role of userRole">{{role.roleCode}}|</span>
         </div>
       </div>
-    </div>
