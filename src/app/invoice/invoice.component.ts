@@ -98,6 +98,7 @@ export class InvoiceComponent implements OnInit {
       .subscribe(
       sac => {
         this.sacCodes = sac;
+        //console.log("invoice id-"+this.invoice.id);
         if (this.invoice && this.invoice.id != 0) {
           this.selSacCode = this.sacCodes.find(sc => sc.sacCode === this.invoice.sacCode);
           this.selSacId = this.selSacCode.id
@@ -172,9 +173,9 @@ export class InvoiceComponent implements OnInit {
     this.invoice.totalPerfomaBeforeTax = sum;
 
     //apply Tax
-    this.invoice.cgstPerfoma = (this.invoice.cgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100
-    this.invoice.sgstPerfoma = (this.invoice.sgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100
-    this.invoice.igstPerfoma = (this.invoice.igstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100
+    this.invoice.cgstPerfoma = Math.ceil((this.invoice.cgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100);
+    this.invoice.sgstPerfoma = Math.ceil((this.invoice.sgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100);
+    this.invoice.igstPerfoma = Math.ceil((this.invoice.igstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100);
 
     this.invoice.totalPerfomaAmount = (this.invoice.totalPerfomaBeforeTax + this.invoice.cgstPerfoma + this.invoice.sgstPerfoma
       + this.invoice.igstPerfoma)

@@ -15,7 +15,7 @@ export class Particulars {
 }
 
 export class Invoice {
-    id: number;
+    id: number=0;
     companyId: number;
     clientId: number;
     invoiceId: string = "";
