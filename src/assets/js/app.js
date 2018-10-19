@@ -1,3 +1,5 @@
+new WOW().init();
+
 $("#show-sidebar").click(()=>{
 	$(".sidebar-fixed").toggle();
 }

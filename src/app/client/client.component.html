@@ -1,11 +1,10 @@
-
 <!-- Heading -->
 <div class="card mb-4 wow fadeIn">
   <!--Card content-->
   <div class="card-body d-sm-flex justify-content-between">
-      <h4 class="mb-2 mb-sm-0 pt-1">
-          <span>Manage Clients</span>
-      </h4>
+    <h4 class="mb-2 mb-sm-0 pt-1">
+      <span>Manage Clients</span>
+    </h4>
   </div>
 </div>
 <!-- Heading -->
@@ -19,7 +18,7 @@
 <div class="row">
   <div class="col-md-4">
     <div class="card">
-      <div class="card-header grey lighten-3" style="padding-left:5px;">
+      <div class="card-header grey lighten-4" >
         <div class="md-form input-group mb-3">
           <input type="text" class="form-control" id="search" (input)="onSearchChange($event.target.value)" />
           <label for="search">Search</label>
@@ -44,31 +43,33 @@
     </div>
   </div>
   <div class="col-md-8">
-    <div class="card">
-      <div class="card-body">
-        <form (ngSubmit)="submit()" name="clientForm" ngNativeValidate>
-          Client Id:{{client.id}}
-            <div class="row">
-              <div class="col-md-4">
-              <div class="md-form">
-                <label for="name">Name *</label>
+    <form (ngSubmit)="submit()" name="clientForm" ngNativeValidate>
+      <div class="card">
+        <div class="card-header primary-color white-text">
+          <h3> Client details for Id:{{client.id}} </h3>
+        </div>
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-md-6 border-right">
+              <h4 class="sub-header">
+                <span class="index">1</span>Client
+              </h4>
+              <div class="md-form ">
+                <label for="name" [class.active]="client.name!=''">Name *</label>
                 <input type="text" class="form-control underlined" name="name" id="name" required="true" [(ngModel)]="client.name" pattern=".{3,}"
                   title="3 characters minimum" />
                 <small>minimum 3 character</small>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="md-form">
-                <label for="contactPerson">Contact Person *</label>
+              <div class="md-form ">
+                <label for="contactPerson" [class.active]="client.contactPerson!=''">Contact Person *</label>
                 <input type="text" class="form-control underlined" name="contactPerson" id="contactPerson" required="true" [(ngModel)]="client.contactPerson"
                   pattern=".{3,}" title="3 characters minimum" />
                 <small>minimum 3 character</small>
               </div>
-              </div>
-              <div class="col-md-4">
-              <div class=" md-form">
-                <label for="companyType">Company Type *</label>
-                <select id="companyType" name="companyType" class="form-control browser-default custom-select" required="true" [(ngModel)]="client.companyType">
+              <div class=" md-form ">
+                <label for="companyType" [class.active]="client.companyType!=''">Company Type *</label>
+                <select id="companyType" name="companyType" class="browser-default custom-select md-select" required="true" [(ngModel)]="client.companyType">
                   <option value="Company" selected>Company</option>
                   <option value="Partnership">Partnership</option>
                   <option value="Individual">Individual</option>
@@ -76,147 +77,126 @@
                   <option value="LLP">LLP</option>
                 </select>
               </div>
-            </div>
-          </div>
-            <div class="row">
-              <div class="col-md-6 md-form">
-                <label for="phonePrimary">Primary Phone *</label>
+              <div class="md-form ">
+                <label for="phonePrimary" [class.active]="client.phonePrimary!=''">Primary Phone *</label>
                 <input type="tel" class="form-control underlined" pattern=".{10,12}" title="min 10, max 12 characters" name="phonePrimary"
                   id="phonePrimary" required="true" [(ngModel)]="client.phonePrimary" />
                 <small>min 10, max 12 characters</small>
               </div>
-              <div class="col-md-6 md-form">
-                <label for="email">Primary Email *</label>
+
+              <div class="md-form ">
+                <label for="email" [class.active]="client.email!=''">Primary Email *</label>
                 <input type="email" class="form-control underlined" name="email" id="email" required="true" [(ngModel)]="client.email" />
               </div>
-            </div>
-
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-6 md-form">
-                <label for="name">Secondary Phone</label>
+              <div class="md-form ">
+                <label for="name" [class.active]="client.phoneSecondary!=''">Secondary Phone</label>
                 <input type="tel" class="form-control underlined" name="phoneSecondary" id="phoneSecondary" required="false" [(ngModel)]="client.phoneSecondary"
                 />
               </div>
-              <div class="col-md-6 md-form">
-                <label for="faxNo">Fax</label>
+
+              <div class="md-form ">
+                <label for="faxNo" [class.active]="client.faxNo!=''">Fax</label>
                 <input type="tel" class="form-control underlined" name="faxNo" id="faxNo" required="false" [(ngModel)]="client.faxNo" />
               </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-6 md-form">
-                <label for="pan">PAN *</label>
+              <div class="md-form ">
+                <label for="pan" [class.active]="client.pan!=''">PAN *</label>
                 <input type="text" class="form-control underlined" name="pan" id="pan" pattern=".{10,}" title="min 10 characters" required="true"
                   [(ngModel)]="client.pan" />
                 <small>min 10 characters</small>
               </div>
-
-              <div class="col-md-6 md-form">
-                <label for="gstin">GSTIN *</label>
+              <div class="md-form ">
+                <label for="gstin" [class.active]="client.gstin!=''">GSTIN </label>
                 <input type="text" class="form-control underlined" name="gstin" id="gstin" pattern=".{15,20}" title="min 15,max 20 characters"
-                  required="true" [(ngModel)]="client.gstin" />
+                  required="false" [(ngModel)]="client.gstin" />
                 <small>min 15,Max 20 characters</small>
               </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="bill_Addr">Billing Address *</label>
-            <div class="row">
-              <div class="col-md-6 md-form">
-
-                <label for="addrLine1">Address line 1 *</label>
-                <input type="text" class="form-control underlined" name="addrLine1" pattern=".{3,}" title="min 3 characters" id="addrLine1"
-                  required="true" [(ngModel)]="client.addrLine1" />
-                <small>min 3 characters</small>
-              </div>
-              <div class="col-md-6 md-form">
-                <label for="addrLine2">Address line 2 </label>
-                <input type="text" class="form-control underlined" name="addrLine2" id="addrLine2" required="false" [(ngModel)]="client.addrLine2"
-                />
-
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-4 md-form">
-                <label for="city">City *</label>
-                <input type="text" class="form-control underlined" name="city" pattern=".{3,}" title="min 3 characters" id="city" required="true"
-                  [(ngModel)]="client.city" />
-                <small>min 3 characters</small>
-              </div>
-              <div class="col-md-4 md-form">
-                <label for="state">State *</label>
-                <input type="text" class="form-control underlined" name="state" pattern=".{2,}" title="min 2 characters" id="state" required="true"
-                  [(ngModel)]="client.state" />
-                <small>min 2 characters</small>
-              </div>
-              <div class="col-md-4 md-form">
-                <label for="pinCode">PinCode *</label>
-                <input type="text" class="form-control underlined" pattern=".{6,6}" title="min 6,max 6 characters" name="pincode" id="pincode"
-                  required="true" [(ngModel)]="client.pincode" />
-                <small>6 characters</small>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <input id="checkbox" type="checkbox" [checked]="false" (change)="updateAddrs($event)"/>Shipping address is the same as billing address
-            <br/>
-            <label for="ship_Addr">Shipping Address</label>
-            <div class="row">
-              <div class="col-md-6 md-form">
-                <label for="shipToAddrLine1">Address line 1 *</label>
-                <input type="text" class="form-control underlined" name="shipToAddrLine1" pattern=".{3,}" title="min 3 characters" id="shipToAddrLine1"
-                  required="true" [(ngModel)]="client.shipToAddrLine1" />
-                <small>min 3 characters</small>
-              </div>
-              <div class="col-md-6 md-form">
-                <label for="shipToAddrLine2">Address line 2 </label>
-                <input type="text" class="form-control underlined" name="shipToAddrLine2" id="shipToAddrLine2" required="false" [(ngModel)]="client.shipToAddrLine2"
-                />
-
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-4 md-form">
-                <label for="shipToAddrCity">City *</label>
-                <input type="text" class="form-control underlined" name="shipToAddrCity" pattern=".{3,}" title="min 3 characters" id="shipToAddrCity"
-                  required="true" [(ngModel)]="client.shipToAddrCity" />
-                <small>min 3 characters</small>
-              </div>
-              <div class="col-md-4 md-form">
-                <label for="shipToAddrState">State *</label>
-                <input type="text" class="form-control underlined" name="shipToAddrState" pattern=".{2,}" title="min 2 characters" id="shipToAddrState"
-                  required="true" [(ngModel)]="client.shipToAddrState" />
-                <small>min 2 characters</small>
-              </div>
-              <div class="col-md-4 md-form">
-                <label for="shipToAddrPincode">PinCode *</label>
-                <input type="text" class="form-control underlined" pattern=".{6,6}" title="min 6,max 6 characters" name="shipToAddrPincode"
-                  id="shipToAddrPincode" required="true" [(ngModel)]="client.shipToAddrPincode" />
-                <small>6 characters</small>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-6 md-form">
-                <label for="ServiceTaxRegNo">Service Tax Reg No</label>
+              <div class="md-form ">
+                <label for="ServiceTaxRegNo" [class.active]="client.serviceTaxRegNo!=''">Service Tax Reg No</label>
                 <input type="text" class="form-control underlined" pattern=".{15,20}" title="min 15,max 20 characters" name="ServiceTaxRegNo"
                   id="ServiceTaxRegNo" required="false" [(ngModel)]="client.serviceTaxRegNo" />
                 <small>min 15, max 20 characters</small>
               </div>
+            </div>
+            <div class="col-md-6">
+              <h4 class="sub-header">
+                <span class="index">2</span>Billing Address
+              </h4>
+              <div class="md-form ">
+                <label for="addrLine1" [class.active]="client.addrLine1!=''">Address line 1 *</label>
+                <input type="text" class="form-control underlined" name="addrLine1" pattern=".{3,}" title="min 3 characters" id="addrLine1"
+                  required="true" [(ngModel)]="client.addrLine1" />
+                <small>min 3 characters</small>
+              </div>
+              <div class="md-form ">
+                <label for="addrLine2" [class.active]="client.addrLine2!=''">Address line 2 </label>
+                <input type="text" class="form-control underlined" name="addrLine2" id="addrLine2" required="false" [(ngModel)]="client.addrLine2"
+                />
+              </div>
+              <div class="md-form ">
+                <label for="city" [class.active]="client.city!=''">City *</label>
+                <input type="text" class="form-control underlined" name="city" pattern=".{3,}" title="min 3 characters" id="city" required="true"
+                  [(ngModel)]="client.city" />
+                <small>min 3 characters</small>
+              </div>
+              <div class="md-form ">
+                <label for="state" [class.active]="client.state!=''">State *</label>
+                <input type="text" class="form-control underlined" name="state" pattern=".{2,}" title="min 2 characters" id="state" required="true"
+                  [(ngModel)]="client.state" />
+                <small>min 2 characters</small>
+              </div>
+              <div class="md-form ">
+                <label for="pinCode" [class.active]="client.pincode!=''">PinCode *</label>
+                <input type="text" class="form-control underlined" pattern=".{6,6}" title="min 6,max 6 characters" name="pincode" id="pincode"
+                  required="true" [(ngModel)]="client.pincode" />
+                <small>6 characters</small>
+              </div>
+              <h5 class="sub-header">
+                <span class="index">3</span>Shipping Address
+              </h5>
+              <div class="custom-control custom-checkbox mb-2">
+                <input id="checkbox" class="custom-control-input" type="checkbox" [checked]="false" (change)="updateAddrs($event)" id="shipCheck"
+                />
+                <label class="custom-control-label" for="shipCheck">Shipping  address is the same as billing address</label>
+              </div>
+
+              <div class="md-form ">
+                <label for="shipToAddrLine1" [class.active]="client.shipToAddrLine1!=''">Address line 1 *</label>
+                <input type="text" class="form-control underlined" name="shipToAddrLine1" pattern=".{3,}" title="min 3 characters" id="shipToAddrLine1"
+                  required="true" [(ngModel)]="client.shipToAddrLine1" />
+                <small>min 3 characters</small>
+              </div>
+              <div class="md-form ">
+                <label for="shipToAddrLine2" [class.active]="client.shipToAddrLine2!=''">Address line 2 </label>
+                <input type="text" class="form-control underlined" name="shipToAddrLine2" id="shipToAddrLine2" required="false" [(ngModel)]="client.shipToAddrLine2"
+                />
+              </div>
+              <div class="md-form ">
+                <label for="shipToAddrCity" [class.active]="client.shipToAddrCity!=''">City *</label>
+                <input type="text" class="form-control underlined" name="shipToAddrCity" pattern=".{3,}" title="min 3 characters" id="shipToAddrCity"
+                  required="true" [(ngModel)]="client.shipToAddrCity" />
+                <small>min 3 characters</small>
+              </div>
+              <div class="md-form ">
+                <label for="shipToAddrState" [class.active]="client.shipToAddrState!=''">State *</label>
+                <input type="text" class="form-control underlined" name="shipToAddrState" pattern=".{2,}" title="min 2 characters" id="shipToAddrState"
+                  required="true" [(ngModel)]="client.shipToAddrState" />
+                <small>min 2 characters</small>
+              </div>
+              <div class="md-form ">
+                <label for="shipToAddrPincode" [class.active]="client.shipToAddrPincode!=''">PinCode *</label>
+                <input type="text" class="form-control underlined" pattern=".{6,6}" title="min 6,max 6 characters" name="shipToAddrPincode"
+                  id="shipToAddrPincode" required="true" [(ngModel)]="client.shipToAddrPincode" />
+                <small>6 characters</small>
+              </div>
+              
 
             </div>
           </div>
-
+        </div>
+        <div class="card-footer" >
           <button type="submit" class="btn bg-primary float-right"><i class="fa fa-save"></i>&nbsp;Save Client</button>
-        </form>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

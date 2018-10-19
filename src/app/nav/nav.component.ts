@@ -12,7 +12,7 @@ import { CompanyGlobalVar } from '../globals';
 export class NavComponent implements OnInit {
 
   company: Company = new Company();
-  
+  show:boolean=true;
 
   constructor(private companyService: CompanyService,private companyGlobalVar: CompanyGlobalVar) { }
 
@@ -40,5 +40,4 @@ export class NavComponent implements OnInit {
     )
 
   }
-
 }
