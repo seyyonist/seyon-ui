@@ -98,6 +98,7 @@ export class InvoiceComponent implements OnInit {
       .subscribe(
       sac => {
         this.sacCodes = sac;
+        //console.log("invoice id-"+this.invoice.id);
         if (this.invoice && this.invoice.id != 0) {
           this.selSacCode = this.sacCodes.find(sc => sc.sacCode === this.invoice.sacCode);
           this.selSacId = this.selSacCode.id

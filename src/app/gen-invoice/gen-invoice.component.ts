@@ -44,6 +44,7 @@ export class GenInvoiceComponent implements OnInit {
     alert("Loading SAC Code");
   }
   loadSelectedPerformAInvoice(invoiceId: number): void {
+    console.log("inside loadSelectedPerformAInvoice");
     this.error = false;
     this.success = false;
     this.genInvoiceService.getInvoice(invoiceId).subscribe(
@@ -52,14 +53,16 @@ export class GenInvoiceComponent implements OnInit {
         this.invoice.url=APIURLS.printIInvoiceUrl.concat(this.invoice.performaId);
         this.invoice.purl=APIURLS.printPInvoiceUrl.concat(this.invoice.performaId);
         this.particulars = invoiceData.particulars;
+         //console.log("invoice type "+this.invoice.type);
         if (this.invoice.type != 'INVOICE') {
           this.particulars.forEach(par => {
             par.calculatedInvoiceAmount = par.calculatedPerformaAmount;
             par.invoiceRate = par.performaRate
           });
+          //console.log("invoice setting "+this.invoice.cgstInvoicePercent+this.invoice.sgstInvoicePercent);
           if(!this.invoice.cgstInvoicePercent)
             this.invoice.cgstInvoicePercent = this.invoice.cgstPerfomaPercent;
-          if(!this.invoice.cgstInvoicePercent)
+          if(!this.invoice.sgstInvoicePercent)
             this.invoice.sgstInvoicePercent = this.invoice.sgstPerfomaPercent;
           if(!this.invoice.igstInvoicePercent)
              this.invoice.igstInvoicePercent = this.invoice.igstPerfomaPercent;
@@ -93,9 +96,9 @@ export class GenInvoiceComponent implements OnInit {
     this.invoice.totalInvoiceBeforeTax = sum;
 
     //apply Tax
-    this.invoice.cgstInvoice = (this.invoice.cgstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100
-    this.invoice.sgstInvoice = (this.invoice.sgstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100
-    this.invoice.igstInvoice = (this.invoice.igstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100
+    this.invoice.cgstInvoice = Math.ceil((this.invoice.cgstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100);
+    this.invoice.sgstInvoice = Math.ceil((this.invoice.sgstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100);
+    this.invoice.igstInvoice = Math.ceil((this.invoice.igstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100);
 
     this.invoice.totalInvoiceAmount = (this.invoice.totalInvoiceBeforeTax + this.invoice.cgstInvoice + this.invoice.sgstInvoice
       + this.invoice.igstInvoice)
