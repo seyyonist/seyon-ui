@@ -57,11 +57,14 @@
         <br/>
       </div>
     </div>
+    <div class="clear-fix border-top p-3">
+        <h4 class="sub-header">
+          <span class="index">1</span>Particulars
+          <button class="btn btn-success float-right" (click)="addRow()">
+            <i class="fa fa-plus">&nbsp;</i>AddRow</button>  
+        </h4>
+        </div>
     <table class="table">
-      <tr>
-        <th colspan="8">Particulars</th>
-        <th><button class="btn btn-success" (click)="addRow()">AddRow</button></th>
-      </tr>
       <tr>
         <th colspan="4">Description</th>
         <th *ngIf="showSac">SAC Code</th>
@@ -72,7 +75,7 @@
       </tr>
       <tr *ngFor="let field of manufacturingInvoice;let i=index">
 
-        <td><button class="btn btn-sm btn-danger" (click)="deletRow(field.id)"><i class="fa fa-trash"></i></button></td>
+        <td><button class="btn btn-sm btn-danger pl-2 pr-2" (click)="deletRow(field.id)"><i class="fa fa-trash"></i></button></td>
 
         <td colspan="3" WIDTH="50%">
           <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)">

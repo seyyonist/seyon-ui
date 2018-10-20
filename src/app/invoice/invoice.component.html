@@ -60,11 +60,15 @@
         <br/>
       </div>
     </div>
+    <div class="clear-fix border-top p-3">
+    <h4 class="sub-header">
+      <span class="index">1</span>Particulars
+      <button class="btn btn-success float-right" (click)="addRow()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+        <i class="fa fa-plus">&nbsp;</i>AddRow</button>  
+    </h4>
+    </div>
+
     <table class="table">
-      <tr>
-        <th colspan="7">Particulars</th>
-        <th><button class="btn btn-success " (click)="addRow()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">AddRow</button></th>
-      </tr>
       <tr>
         <th colspan="7">Professional service rendered in connection with</th>
         <!--<th>Quantity</th>-->
