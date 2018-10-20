@@ -29,7 +29,7 @@ export class InvoiceComponent implements OnInit {
   sacCodes: SACCode[] = [];
   selSacId: number;
   selSacCode: SACCode = new SACCode();
-
+  showSac:boolean=false;
   constructor(private route: ActivatedRoute, private clientService: ClientService
     , private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar) {
     var invoiceIdParam
@@ -66,7 +66,9 @@ export class InvoiceComponent implements OnInit {
       this.loadSelectedClient();
       this.particulars.push(new Particulars());
     }
-
+    if(companyGlobalVar.gstNo!=''){
+      this.showSac=true;
+    }
   }
 
   ngOnInit() {
@@ -135,7 +137,8 @@ export class InvoiceComponent implements OnInit {
     if (this.selectedClient != null) {
       console.debug('selectedClient.state' + this.selectedClient.state);
       console.debug('companyGlobalVar.state' + this.companyGlobalVar.state);
-      if (this.selectedClient.state == this.companyGlobalVar.state) {
+      if(this.showSac){
+      if (this.selectedClient.state == this.companyGlobalVar.state ) {
         this.cgstDisplay = true;
         this.sgstDisplay = true;
         this.igstDisplay = false;
@@ -144,6 +147,7 @@ export class InvoiceComponent implements OnInit {
         this.sgstDisplay = false;
         this.igstDisplay = true;
       }
+    }
     }else{
       this.selectedClient= new Client();
     }

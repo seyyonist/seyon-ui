@@ -28,6 +28,7 @@ import {InvoiceManuComponent} from './manufacturing-invoice/invoice.manu.compone
 import {InvoiceManuSuccessComponent} from './manufacturing-invoice/invoice.manu.success.component';
 import { ManufacturingInvoiceComponent } from './manufacturing-invoice/manufacturing-invoice.component';
 import { ManufacturingGenInvoiceComponent } from './manufacturing-invoice/manufacturing-gen-invoice.component';
+import { HasRoleDirective } from './has-role.directive';
 
 const appRoutes: Routes = [
 
@@ -65,7 +66,8 @@ const appRoutes: Routes = [
     InvoiceManuComponent,
     InvoiceManuSuccessComponent,
     ManufacturingInvoiceComponent,
-    ManufacturingGenInvoiceComponent
+    ManufacturingGenInvoiceComponent,
+    HasRoleDirective
   ],
   imports: [
     RouterModule.forRoot(

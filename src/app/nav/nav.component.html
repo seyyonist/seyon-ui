@@ -1,38 +1,39 @@
 <div class="sidebar-fixed position-fixed primary-color-dark" *ngIf="show">
   <div class="white logo-container">
     <a class="logo-wrapper waves-effect">
-					<img src="/img/seyon-web-240x70.png" class="img-fluid" alt="">
-				</a>
-    <hr/>
+      <img src="/img/seyon-web-240x70.png" class="img-fluid" alt="">
+    </a>
   </div>
   <div class="user-profile">
-  <app-header></app-header>
+    <app-header></app-header>
   </div>
   <div class="sidebar-menu">
     <nav class="navigation">
       <ul class="mainmenu">
-        <li class="menu-item">
+        <li class="menu-item"  *appHasRole="['ADMIN','USER']">
           <a routerLink="/dashboard" class="waves-effect">
-							<i class="fa fa-user mr-3"></i>Dashboard
-					</a>
+            <i class="fa fa-user mr-3"></i>Dashboard
+          </a>
         </li>
-        <li class="menu-item">
-          <a routerLink="/client"  class="waves-effect"><i class="fa fa-address-book mr-3"></i>Manage Clients</a>
+        <li class="menu-item"  *appHasRole="['ADMIN']">
+          <a routerLink="/client" class="waves-effect"><i class="fa fa-address-book mr-3"></i>Manage Clients</a>
         </li>
-        <li class="menu-item">
-          <a routerLink="/users"  class="waves-effect"><i class="fa fa-user mr-3"></i>Manage User</a>
+        <li class="menu-item" *appHasRole="['ADMIN']">
+          <a routerLink="/users" class="waves-effect"><i class="fa fa-user mr-3"></i>Manage User</a>
         </li>
-        <li class="menu-item"><a><i class="fa fa-angle-down mr-3"></i>Invoice</a>
+        <li class="menu-item" *appHasRole="['ADMIN','USER']"><a><i class="fa fa-angle-down mr-3"></i>Invoice</a>
           <ul class="submenu">
-            <li class="menu-item"><a routerLink="/invoiceNew/0"  class="waves-effect"><i class="far fa-file-alt mr-3"></i>New Service ProformA</a></li>
-            <li class="menu-item"><a routerLink="/invoiceManu/0"  class="waves-effect"><i class="fas fa-file-alt mr-3"></i>New Manufacturing ProformA</a></li>
-            <li class="menu-item"><a routerLink="/invoice-search" lass="waves-effect"><i class="fa fa-search mr-3"></i>Search</a></li>
+            <li class="menu-item"  *appHasRole="['ADMIN','USER']" ><a routerLink="/invoiceNew/0" class="waves-effect"><i class="far fa-file-alt mr-3"></i>New
+                Service ProformA</a></li>
+            <li class="menu-item"  *appHasRole="['ADMIN','USER']" ><a routerLink="/invoiceManu/0" class="waves-effect"><i class="fas fa-file-alt mr-3"></i>New
+                Manufacturing ProformA</a></li>
+            <li class="menu-item"  *appHasRole="['ADMIN','USER']"><a routerLink="/invoice-search" lass="waves-effect"><i class="fa fa-search mr-3"></i>Search</a></li>
           </ul>
         </li>
-        <li class="menu-item"><a><i class="fa fa-angle-down mr-3"></i>Voucher</a>
+        <li class="menu-item"  *appHasRole="['ADMIN','USER']"><a><i class="fa fa-angle-down mr-3"></i>Voucher</a>
           <ul class="submenu">
-            <li class="menu-item"><a routerLink="/voucherNew/0"   class="waves-effect"><i class="fa fa-receipt mr-3"></i>New</a></li>
-            <li class="menu-item"><a routerLink="/voucher-search"  class="waves-effect"><i class="fa fa-search mr-3"></i>Search</a></li>
+            <li class="menu-item"  *appHasRole="['ADMIN','USER']"><a routerLink="/voucherNew/0" class="waves-effect"><i class="fa fa-receipt mr-3"></i>New</a></li>
+            <li class="menu-item"  *appHasRole="['ADMIN','USER']"><a routerLink="/voucher-search" class="waves-effect"><i class="fa fa-search mr-3"></i>Search</a></li>
           </ul>
         </li>
       </ul>
@@ -40,11 +41,11 @@
     </nav>
 
   </div>
-  <hr/>
+  <hr />
   <div class="companyMenu">
-    <span class="company-name">$company name </span>
+    <span class="company-name">Welcome : {{companyGlobalVar.companyName}} </span>
     <a routerLink="/company" routerLinkActive="active" title="edit profile" class="company-icon">
-					<i class="fa fa-cog"></i>
-				</a>
+      <i class="fa fa-cog"></i>
+    </a>
   </div>
 </div>

@@ -29,8 +29,8 @@
       </div>
       <div class="col-md-2"><b>Performa Id : </b></div>
       <div class="col-md-3">{{invoice.performaId}}</div>
-      <div class="col-md-2"><b>SAC code: </b></div>
-      <div class="col-md-2">
+      <div class="col-md-2" *ngIf="showSac"><b>SAC code: </b></div>
+      <div class="col-md-2" *ngIf="showSac">
         <select (change)="loadSelectedSac()" class="form-control underlined" [(ngModel)]="selSacId" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
         <option></option>
         <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === selSacId">{{sac.sacCode}}</option>
@@ -63,7 +63,7 @@
     <table class="table">
       <tr>
         <th colspan="7">Particulars</th>
-        <th><button class="btn btn-success" (click)="addRow()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">AddRow</button></th>
+        <th><button class="btn btn-success " (click)="addRow()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">AddRow</button></th>
       </tr>
       <tr>
         <th colspan="7">Professional service rendered in connection with</th>
@@ -73,7 +73,7 @@
       </tr>
       <tr *ngFor="let field of particulars;let i=index">
           <td>{{i+1}}</td>
-        <td><button class="btn btn-sm btn-danger" (click)="deletParticulars(field.id)" *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i class="fa fa-trash"></i></button></td>
+        <td><button class="btn btn-sm btn-danger pl-2 pr-2" (click)="deletParticulars(field.id)" *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i class="fa fa-trash"></i></button></td>
 
         <td colspan="5" WIDTH="80%">
           <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">

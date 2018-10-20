@@ -87,6 +87,7 @@
               <h4 class="sub-header">
                 <span class="index">3</span>User Role
               </h4>
+              <span *ngIf="!showRoles">Select a User to view or manage role </span>
               <div *ngIf="showRoles">
                 <div class="md-form input-group">
                   <select id="RoleSelect" name="roleSelect " class="browser-default custom-select md-select" [(ngModel)]="userRole.roleCode">
