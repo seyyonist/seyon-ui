@@ -176,6 +176,10 @@ export class InvoiceManuComponent implements OnInit {
   }
 
   savePerformaInvoice(): void {
+    if(!this.selClientId){
+      alert("please select the client");
+      return;
+    }
     this.success = false;
     this.error = false;
     this.manufacturingInvoice.forEach(inv=>{
