@@ -54,4 +54,16 @@ export class UserService {
     var url = Urls.getDomain().concat(APIURLS.user);
     return this.http.post<UserInfo>(url, user, { headers: httpOptions.headers });
   }
+
+  getRolesP(): Promise<string[]> {
+    var url = Urls.getDomain().concat(APIURLS.userrole).concat("/authenticated");
+   // console.log("getting user role in user service")
+    return this.http.get<string[]>(url, { headers: httpOptions.headers })
+      .toPromise()
+  }
+  getRoles(): Observable<string[]> {
+    var url = Urls.getDomain().concat(APIURLS.userrole).concat("/authenticated");
+   // console.log("getting user role in user service observable")
+    return this.http.get<string[]>(url, { headers: httpOptions.headers })
+  }
 }

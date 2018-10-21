@@ -1,92 +1,51 @@
-<aside class="sidebar">
-  <div class="sidebar-container">
-    <div class="sidebar-header">
-      <div class="brand">
-        <img src="assets/g313.png"/>
-    
-      </div>
-    </div>
-    <nav class="menu">
-      <ul class="sidebar-menu metismenu" id="sidebar-menu">
-        <li>
-          <a routerLink="/dashboard" routerLinkActive="active">
-           <i class="fa fa-home"></i> Dashboard </a>
-        </li>
-        <li>
-          <a routerLink="/client" routerLinkActive="active">
-           <i class="fa fa-group"></i> Manage Clients </a>
-        </li>
-        <li>
-          <a routerLink="/users" routerLinkActive="active">
-           <i class="fa fa-user"></i> Manage Users </a>
-        </li>
-        <li>
-          <a href="">
-            <i class="fa fa-file-text"></i> Invoice
-            <i class="fa arrow"></i>
-           </a>
-          <ul class="sidebar-nav">
-            <li>
-              <a routerLink="/invoiceNew/0" routerLinkActive="active">New Service ProformA</a>
-            </li>
-             <li>
-              <a routerLink="/invoiceManu/0" routerLinkActive="active">New Manufacturing ProformA</a>
-            </li>
-            <li>
-              <a routerLink="/invoice-search"> Search </a>
-            </li>
-          </ul>
-        </li>
-          <li>
-          <a href="">
-            <i class="fa fa-book"></i> Voucher
-            <i class="fa arrow"></i>
-           </a>
-          <ul class="sidebar-nav">
-            <li>
-              <a routerLink="/voucherNew/0" routerLinkActive="active">New</a>
-            </li>
-            <li>
-              <a routerLink="/voucher-search"> Search </a>
-            </li>
-          </ul>
-        </li>
-
-
-        <!-- <li class="active">
-          <a href="">
-          <i class="fa fa-th-large"></i> test Sub menu
-          <i class="fa arrow"></i>
-          </a>
-          <ul class="sidebar-nav">
-            <li >
-              <a routerLink="/dashboard" routerLinkActive="active"> Items List </a>
-            </li>
-            <li>
-              <a routerLink="/dashboard" routerLinkActive="active"> Item Editor </a>
-            </li>
-             <li>
-              <a routerLink="/dashboard" routerLinkActive="active"> Item Editor </a>
-            </li>
-          </ul>
-        </li>-->
-      </ul>
-    </nav>
+<div class="sidebar-fixed position-fixed primary-color-dark" *ngIf="show">
+  <div class="white logo-container">
+    <a class="logo-wrapper waves-effect">
+      <img src="/img/logo-red.png" class="img-fluid" alt="">
+    </a>
   </div>
-  <footer class="sidebar-footer">
-    <ul class="sidebar-menu metismenu" id="customize-menu">
-      <li>
-        <ul>
-          <li class="customize">
-            <a routerLink="/company" routerLinkActive="active">Edit</a>
-          </li>
-        </ul>
-        <a href="">
-         <i class="fa fa-cog"></i> Company </a>
-      </li>
-    </ul>
-  </footer>
-</aside>
-<div class="sidebar-overlay" id="sidebar-overlay"></div>
-<div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
-<div class="mobile-menu-handle"></div>
+  <div class="user-profile">
+    <app-header></app-header>
+  </div>
+  <div class="sidebar-menu">
+    <nav class="navigation">
+      <ul class="mainmenu">
+        <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
+          <a routerLink="/dashboard" class="waves-effect">
+            <i class="fa fa-user mr-3"></i>Dashboard
+          </a>
+        </li>
+        <li class="menu-item"  *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
+          <a routerLink="/client" class="waves-effect"><i class="fa fa-address-book mr-3"></i>Manage Clients</a>
+        </li>
+        <li class="menu-item" *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
+          <a routerLink="/users" class="waves-effect"><i class="fa fa-user mr-3"></i>Manage User</a>
+        </li>
+        <li class="menu-item" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a><i class="fa fa-angle-down mr-3"></i>Invoice</a>
+          <ul class="submenu">
+            <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" ><a routerLink="/invoiceNew/0" class="waves-effect"><i class="far fa-file-alt mr-3"></i>New
+                Service ProformA</a></li>
+            <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" ><a routerLink="/invoiceManu/0" class="waves-effect"><i class="fas fa-file-alt mr-3"></i>New
+                Manufacturing ProformA</a></li>
+            <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a routerLink="/invoice-search" lass="waves-effect"><i class="fa fa-search mr-3"></i>Search</a></li>
+          </ul>
+        </li>
+        <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a><i class="fa fa-angle-down mr-3"></i>Voucher</a>
+          <ul class="submenu">
+            <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a routerLink="/voucherNew/0" class="waves-effect"><i class="fa fa-receipt mr-3"></i>New</a></li>
+            <li class="menu-item" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a routerLink="/voucher-search" class="waves-effect"><i class="fa fa-search mr-3"></i>Search</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </nav>
+
+  </div>
+  <hr />
+  <div class="companyMenu">
+    <span class="company-name">Welcome : {{companyGlobalVar.companyName}} </span>
+    <a routerLink="/company" routerLinkActive="active" title="edit profile" class="company-icon">
+      <i class="fa fa-cog"></i>
+    </a>
+  </div>
+</div>

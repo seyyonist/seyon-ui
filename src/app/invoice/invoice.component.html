@@ -1,4 +1,15 @@
-<h3>Proforma Invoice (Service)</h3>
+<!-- Heading -->
+<div class="card mb-4 wow fadeIn">
+  <!--Card content-->
+  <div class="card-body d-sm-flex justify-content-between">
+    <h4 class="mb-2 mb-sm-0 pt-1">
+      <span>Proforma Invoice (Service)</span>
+    </h4>
+  </div>
+</div>
+<!-- Heading -->
+
+
 <div class="alert alert-danger" role="alert" *ngIf="error">
   {{errorMessage}}
 </div>
@@ -18,8 +29,8 @@
       </div>
       <div class="col-md-2"><b>Performa Id : </b></div>
       <div class="col-md-3">{{invoice.performaId}}</div>
-      <div class="col-md-2"><b>SAC code: </b></div>
-      <div class="col-md-2">
+      <div class="col-md-2" *ngIf="showSac"><b>SAC code: </b></div>
+      <div class="col-md-2" *ngIf="showSac">
         <select (change)="loadSelectedSac()" class="form-control underlined" [(ngModel)]="selSacId" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
         <option></option>
         <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === selSacId">{{sac.sacCode}}</option>
@@ -49,11 +60,15 @@
         <br/>
       </div>
     </div>
+    <div class="clear-fix border-top p-3">
+    <h4 class="sub-header">
+      <span class="index">1</span>Particulars
+      <button class="btn btn-success float-right" (click)="addRow()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+        <i class="fa fa-plus">&nbsp;</i>AddRow</button>  
+    </h4>
+    </div>
+
     <table class="table">
-      <tr>
-        <th colspan="7">Particulars</th>
-        <th><button class="btn btn-success" (click)="addRow()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">AddRow</button></th>
-      </tr>
       <tr>
         <th colspan="7">Professional service rendered in connection with</th>
         <!--<th>Quantity</th>-->
@@ -62,7 +77,7 @@
       </tr>
       <tr *ngFor="let field of particulars;let i=index">
           <td>{{i+1}}</td>
-        <td><button class="btn btn-sm btn-danger" (click)="deletParticulars(field.id)" *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i class="fa fa-trash"></i></button></td>
+        <td><button class="btn btn-sm btn-danger pl-2 pr-2" (click)="deletParticulars(field.id)" *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i class="fa fa-trash"></i></button></td>
 
         <td colspan="5" WIDTH="80%">
           <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
@@ -78,7 +93,7 @@
         </td>
       </tr>
         <tr>
-          <td colspan="6">
+          <td colspan="7">
           </td>
           <th>
             Enter Reimbursement Amount
@@ -87,7 +102,7 @@
         </tr>
       <tfoot>
         <tr>
-          <td colspan="6">
+          <td colspan="7">
           </td>
           <th>
             SUM =
@@ -95,7 +110,7 @@
           <td>{{invoice.totalPerfomaBeforeTax}}</td>
         </tr>
         <tr *ngIf="cgstDisplay">
-          <td colspan="5">
+          <td colspan="6">
           </td>
           <th style="text-align: right">
             CGST =
@@ -104,7 +119,7 @@
           <td>{{invoice.cgstPerfoma}}</td>
         </tr>
         <tr *ngIf="sgstDisplay">
-          <td colspan="5">
+          <td colspan="6">
           </td>
           <th style="text-align: right">
             SGST =
@@ -113,7 +128,7 @@
           <td>{{invoice.sgstPerfoma}}</td>
         </tr>
         <tr *ngIf="igstDisplay">
-          <td colspan="5">
+          <td colspan="6">
           </td>
           <th style="text-align: right">
             IGST =
@@ -123,7 +138,7 @@
         </tr>
       
         <tr>
-          <td colspan="6">
+          <td colspan="7">
           </td>
           <th>
             Total =

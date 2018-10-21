@@ -12,5 +12,5 @@ export class CompanyGlobalVar {
     gstNo: string = "";
     panNo: string = "";
     primaryEmail: string = "";
-    
+    userRoles:string[];
 } 
