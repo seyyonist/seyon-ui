@@ -103,7 +103,8 @@ export class InvoiceComponent implements OnInit {
         //console.log("invoice id-"+this.invoice.id);
         if (this.invoice && this.invoice.id != 0) {
           this.selSacCode = this.sacCodes.find(sc => sc.sacCode === this.invoice.sacCode);
-          this.selSacId = this.selSacCode.id
+          if(this.selSacCode)
+            this.selSacId = this.selSacCode.id
         }
       },
       err => {

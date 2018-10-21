@@ -20,27 +20,35 @@ export class HasRoleDirective implements OnInit {
   userRole: string[];
 
   constructor(private el: ElementRef, private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef, private http: HttpClient) {
+    private viewContainer: ViewContainerRef, private http: HttpClient, private companyVariable: CompanyGlobalVar) {
   }
 
   @Input()
   set appHasRole(val) {
-    this.permissions = val;
-    this.processRoles();
+    this.permissions = val.role;
+    this.userRole = val.userRole
+    //console.log(this.userRole);
+    this.updateView();
   }
 
   ngOnInit() {
   }
 
-  async processRoles() {
+  /*async processRoles() {
     if(!this.userRole){
+      console.log("User role fetching")
       this.userRole = await this.getRolesP();
     }
-   // console.log(this.permissions);
-  //  console.log(this.userRole);
     this.updateView()
   }
 
+   getRolesP(): Promise<string[]> {
+    var url = Urls.getDomain().concat(APIURLS.userrole).concat("/authenticated");
+    console.log("getting user role in directive")
+    return this.http.get<string[]>(url, { headers: httpOptions.headers })
+      .toPromise()
+  }
+*/
   private updateView() {
     if (this.checkPermission()) {
       this.viewContainer.createEmbeddedView(this.templateRef);
@@ -54,9 +62,9 @@ export class HasRoleDirective implements OnInit {
     if (this.userRole) {
       for (const checkPermission of this.permissions) {
         const permissionFound = this.userRole.find(x => x.toUpperCase() === checkPermission.toUpperCase());
-        console.log("searching and finding permission"+permissionFound);
-        if(permissionFound){
-          hasPermission=true;
+        // console.log("searching and finding permission"+permissionFound);
+        if (permissionFound) {
+          hasPermission = true;
           break;
         }
       }
@@ -64,11 +72,6 @@ export class HasRoleDirective implements OnInit {
     return hasPermission;
   }
 
-  getRolesP(): Promise<string[]> {
-    var url = Urls.getDomain().concat(APIURLS.userrole).concat("/authenticated");
-    console.log("getting user role in ajax")
-    return this.http.get<string[]>(url, { headers: httpOptions.headers })
-      .toPromise()
-  }
+
 
 }

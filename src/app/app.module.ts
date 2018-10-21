@@ -29,23 +29,24 @@ import {InvoiceManuSuccessComponent} from './manufacturing-invoice/invoice.manu.
 import { ManufacturingInvoiceComponent } from './manufacturing-invoice/manufacturing-invoice.component';
 import { ManufacturingGenInvoiceComponent } from './manufacturing-invoice/manufacturing-gen-invoice.component';
 import { HasRoleDirective } from './has-role.directive';
+import { AuthGuard } from './auth.guard';
 
 const appRoutes: Routes = [
 
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'client', component: ClientComponent },
-  { path: 'users', component: UsersComponent },
-	{ path: 'performaView/:id', component: InvoiceComponent },
-  { path: 'invoiceNew/:id', component: InvoiceComponent },
-  { path: 'invoice-search', component: InvoiceSearchComponent},
-  { path: 'generate-invoice/:id', component: GenInvoiceComponent},
-  { path: 'company', component: CompanyComponent },
-  { path: 'voucherNew/:id', component: VoucherComponent },
-  { path: 'voucher-search', component: VoucherSearchComponent },
-  { path: 'invoiceManu/:id',component:InvoiceManuComponent},
-  { path: 'invoiceManuSuccess/:ids',component:InvoiceManuSuccessComponent},
-  { path: 'manufacturingInvoice/:proformaId',component:ManufacturingInvoiceComponent},
-  { path: 'generate-manu-invoice/:proformaId',component:ManufacturingGenInvoiceComponent}
+  { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
+  { path: 'client', component: ClientComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']}  },
+  { path: 'users', component: UsersComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']} },
+	{ path: 'performaView/:id', component: InvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
+  { path: 'invoiceNew/:id', component: InvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
+  { path: 'invoice-search', component: InvoiceSearchComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
+  { path: 'generate-invoice/:id', component: GenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
+  { path: 'company', component: CompanyComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
+  { path: 'voucherNew/:id', component: VoucherComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER','CLIENT']} },
+  { path: 'voucher-search', component: VoucherSearchComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER','CLIENT']} },
+  { path: 'invoiceManu/:id',component:InvoiceManuComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
+  { path: 'invoiceManuSuccess/:ids',component:InvoiceManuSuccessComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
+  { path: 'manufacturingInvoice/:proformaId',component:ManufacturingInvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
+  { path: 'generate-manu-invoice/:proformaId',component:ManufacturingGenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}}
   
 ]
 
@@ -79,7 +80,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule
   ],
-  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar],
+  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
