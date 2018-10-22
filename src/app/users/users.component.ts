@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit {
   user: UserInfo = new UserInfo();
   userRole: UserRole = new UserRole();
   success: boolean = true;
-  showRoles: boolean = true;
+  showRoles: boolean = false;
 
   constructor(private userService: UserService) { }
 
@@ -34,7 +34,7 @@ export class UsersComponent implements OnInit {
       users => {
         this.users = users;
         this.filterUsers = users;
-        this.showRoles=true;
+        this.showRoles=false;
       },
       err => {
         this.error = true;
@@ -47,6 +47,7 @@ export class UsersComponent implements OnInit {
   edit(user: UserInfo): void {
     this.user = user;
     this.user.password="";
+    this.showRoles=true;
     this.getuserRole(user);
   }
 
@@ -59,6 +60,7 @@ export class UsersComponent implements OnInit {
       },
       err => {
         this.error = true;
+        this.showRoles=false;
         this.errorMessage = "Error occured while fetching roles contact administrator";
       }
       )

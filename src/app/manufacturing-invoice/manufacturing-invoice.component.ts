@@ -5,6 +5,7 @@ import { Particulars, InvoiceData, Invoice, SACCode, ManufacturingInvoice } from
 import { Client } from '../client/client.domain';
 import { ClientService } from '../client/client.service';
 import {APIURLS} from '../app.constants'
+import { CompanyGlobalVar } from '../globals';
 
 @Component({
   selector: 'app-manufacturing-invoice',
@@ -20,7 +21,10 @@ export class ManufacturingInvoiceComponent implements OnInit {
   sacCodes: SACCode[] = [];
   selSacCode: SACCode = new SACCode();
   selSacId: number;
-  constructor(private route: ActivatedRoute, private invoiceService: InvoiceService, private clientService: ClientService) {
+  showSac:boolean=false;
+
+  constructor(private route: ActivatedRoute, private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar
+    , private clientService: ClientService) {
     this.route.params.subscribe(params => {
       this.proformaId = params['proformaId']
       //get the bill details for that particular proforma id.
@@ -41,6 +45,10 @@ export class ManufacturingInvoiceComponent implements OnInit {
         }
       )
     });
+
+    if(companyGlobalVar.gstNo!=''){
+      this.showSac=true;
+    }
   }
 
   ngOnInit() {

@@ -1,0 +1,15 @@
+1B8C11
+42280A
+FFFFFF
+FFF9DC
+FF8925
+
+3: yarn add --dev eslint                
+4: yarn eslint -- --init                
+5: yarn add --dev eslint-plugin-react babel-eslint
+6: yarn add express ejs                 
+7: yarn add babel-cli babel-preset-react babel-preset-stage-2 babel-preset-env                              
+10: npm install -g babel-cli            
+11: yarn add react react-dom webpack    
+12: yarn add babel-loader
+13: yarn add babel-polyfill
