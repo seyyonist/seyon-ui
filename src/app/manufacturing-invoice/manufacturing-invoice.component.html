@@ -107,9 +107,9 @@
       <a target="_blank" style="color:white;background-color:#432fb5" class="btn" [href]="this.manufacturingInvoice.purl">
         <i class="fa fa-print"></i>
    </a>
-  <button class="btn btn-info" (click)="calculateAmount()">Calculate Amount</button>
-  <button class="btn btn-info" (click)="save()">Save</button>
-  <a class="btn btn-warning" routerLink="/generate-manu-invoice/{{manufacturingInvoice.id}}" routerLinkActive="active">View As Invoice</a>
+  <button class="btn btn-info" (click)="calculateAmount()"> <i class="fa fa-calculator">&nbsp;</i> Calculate Amount</button>
+  <button class="btn btn-info" (click)="save()"> <i class="fa fa-save">&nbsp;</i> Save</button>
+  <a class="btn btn-warning" routerLink="/generate-manu-invoice/{{manufacturingInvoice.id}}" routerLinkActive="active"><i class="fa fa-eye">&nbsp;</i>View As Invoice</a>
     </div>
   </div>
 </div>

@@ -69,12 +69,15 @@
     </div>
 
     <table class="table table-striped">
+      <thead class="blue lighten-5">
       <tr>
         <th colspan="7">Professional service rendered in connection with</th>
         <!--<th>Quantity</th>-->
         <th>Rate</th>
         <th>Amount</th>
       </tr>
+      </thead>
+      <tbody>
       <tr *ngFor="let field of particulars;let i=index">
           <td>{{i+1}}</td>
         <td><button class="btn btn-sm btn-danger pl-2 pr-2" (click)="deletParticulars(field.id)" *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i class="fa fa-trash"></i></button></td>
@@ -92,7 +95,10 @@
           <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedPerformaAmount"/>
         </td>
       </tr>
-        <tr>
+       
+      </tbody>
+      <tfoot>
+         <tr>
           <td colspan="7">
           </td>
           <th>
@@ -100,14 +106,13 @@
           </th>
           <th><input type="number" class="form-control" required="false" min="0"  [(ngModel)]="invoice.reimbPerfomaAmount" (change)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/> </th>
         </tr>
-      <tfoot>
         <tr>
           <td colspan="7">
           </td>
           <th>
             SUM =
           </th>
-          <td>{{invoice.totalPerfomaBeforeTax}}</td>
+          <th>{{invoice.totalPerfomaBeforeTax}}</th>
         </tr>
         <tr *ngIf="cgstDisplay">
           <td colspan="6">
@@ -145,37 +150,28 @@
           </th>
           <th>{{invoice.totalPerfomaAmount}}</th>
         </tr>
-        <tr>
-          <td colspan="4">
-          </td>
-          <td colspan="1" align="right">
-           
-          </td>
-          <td colspan="1">
-           
-          </td>
-          <td colspan="1">
-           
-          </td>
-          <td colspan="1">
-           
-          </td>
-        </tr>
       </tfoot>
     </table>
   </div>
 </div>
 
-<div class="card">
+<div class="card mt-4 wow fadeIn">
   <div class="card-body">
     <div class="row float-right">
      <a target="_blank" style="color:white;background-color:#432fb5" class="btn" [href]="invoice.purl" *ngIf="invoice.purl && invoice.performaId!=''">
             <i class="fa fa-print"></i>
       </a>&nbsp;
-      <a routerLink="/generate-invoice/{{invoice.id}}" class="btn btn-success">View as Invoice</a>&nbsp;
-     <button class="btn btn-secondary" (click)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Calculate Total</button>&nbsp;
-      <button class="btn btn-primary" (click)="savePerformaInvoice()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Save Invoice</button>&nbsp;
-       <button class="btn btn-warning" (click)="cancelInvoice()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">Cancel Invoice</button>
+      <a routerLink="/generate-invoice/{{invoice.id}}" class="btn btn-success" *ngIf="invoice.performaId!='' && invoice.status!='CANCELED'" >
+        <i class="fa fa-eye">&nbsp;</i>
+        View as Invoice
+      </a>&nbsp;
+     <button class="btn btn-secondary" (click)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+      <i class="fa fa-calculator">&nbsp;</i> Calculate Total
+      </button>&nbsp;
+      <button class="btn btn-primary" (click)="savePerformaInvoice()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+        <i class="fa fa-save">&nbsp;</i>Save Proforma</button>&nbsp;
+       <button class="btn btn-warning" (click)="cancelInvoice()" *ngIf="invoice.performaId!=''" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+         <i class="fa fa-ban">&nbsp;</i>Cancel Invoice</button>
     </div>
   </div>
 </div>

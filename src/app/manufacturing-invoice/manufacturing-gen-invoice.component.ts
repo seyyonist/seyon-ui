@@ -115,7 +115,7 @@ export class ManufacturingGenInvoiceComponent implements OnInit {
     this.invoiceService.saveManufacturingInvoice(this.manufacturingInvoice).subscribe(
       succ => {
         this.manufacturingInvoice = succ;
-        alert("Invoice saved ")
+        alert("Invoice Generated ")
       },
       err => {
         alert("Error while Saving the invoice");
