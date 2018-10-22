@@ -258,8 +258,22 @@
 }
 
 .md-select{
-
 	border:0;
 	border-bottom:solid 1px rgb(206, 212, 218);
+}
+.md-select:active,.md-select:focus {
+	outline: 0 !important;
+	border:0 !important;
+    border-bottom-color: solid 1px rgb(206, 212, 218) !important;
+  }
 
+input[type=text],input[type=email],input[type=tel],input[type=number],input[type=password],input[type=date],
+input[type=datetime-local],input[type=file],input[type=range],input[type=search],input[type=time],input[type=url],input[type=week]{
+	color:#000;
+	font-weight: 500;
+}
+
+select {
+	color:#000;
+	font-weight: 500;
 }
