@@ -43,11 +43,11 @@
       <div class="col-md-1"><b>Status : </b></div>
       <div class="col-md-2">{{invoice.status}}</div>
       <div class="col-md-2"><b>GSTIN : </b></div>
-      <div class="col-md-3">{{selectedClient.gstin}}</div>
+      <div class="col-md-2">{{selectedClient.gstin}}</div>
       <div class="col-md-2"><b>Proforma Date : </b></div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <input type="date" class="form-control underlined" name="proformaDate" id="proformaDate" required="true" [ngModel]="invoice.performaDate | date:'yyyy-MM-dd'"
-              (ngModelChange)="invoice.performaDate = $event" [value]="date | date:'yyyy-MM-dd'"  />
+              (ngModelChange)="invoice.performaDate = $event" [value]="date | date:'yyyy-MM-dd'" [min]="minProformaDate" />
       </div>
     </div>
     <div class="row">

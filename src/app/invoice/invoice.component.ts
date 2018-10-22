@@ -30,6 +30,7 @@ export class InvoiceComponent implements OnInit {
   selSacId: number;
   selSacCode: SACCode = new SACCode();
   showSac:boolean=false;
+  minProformaDate: string ="";
   constructor(private route: ActivatedRoute, private clientService: ClientService
     , private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar) {
     var invoiceIdParam
@@ -69,6 +70,7 @@ export class InvoiceComponent implements OnInit {
     if(companyGlobalVar.gstNo!=''){
       this.showSac=true;
     }
+    this.getMinProfomaDate();
   }
 
   ngOnInit() {
@@ -241,5 +243,22 @@ export class InvoiceComponent implements OnInit {
         this.errorMessage = "Error occured While saving the Invoice";
       }
     )
+  }
+
+  getMinProfomaDate(): void {
+
+    this.invoiceService.getMinProfomaDate()
+      .subscribe(
+      minProformaDate => {
+        this.minProformaDate = minProformaDate;
+        console.log("minProformaDate-"+ this.minProformaDate);
+        
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured please contact administrator";
+      }
+      )
+
   }
 }

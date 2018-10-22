@@ -93,4 +93,10 @@ export class InvoiceService {
     var url = Urls.getDomain().concat(APIURLS.manInvoice).concat("/invoice");
     return this.http.post<ManufacturingInvoice>(url, manufacturingInvoice, { headers: httpOptions.headers });
   }
+
+  getMinProfomaDate():Observable<string>{
+     var url = Urls.getDomain().concat(APIURLS.invoice).concat("/minProformaDate");
+    return this.http.get<string>(url, { headers: httpOptions.headers });
+  }
+
 }
