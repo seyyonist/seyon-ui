@@ -246,17 +246,17 @@ export class InvoiceComponent implements OnInit {
   }
 
   getMinProfomaDate(): void {
-
-    this.invoiceService.getMinProfomaDate()
-      .subscribe(
-      minProformaDate => {
-        this.minProformaDate = minProformaDate;
+    this.success = false;
+    this.error = false;
+    this.invoiceService.getMinProfomaDate().subscribe(
+      str => {
+        this.minProformaDate = str;
         console.log("minProformaDate-"+ this.minProformaDate);
-        
       },
       err => {
         this.error = true;
-        this.errorMessage = "Error occured please contact administrator";
+        this.errorMessage = "Error occured in getMinProfomaDate please contact administrator";
+        //console.log("err getMinProfomaDate-"+ err);
       }
       )
 

@@ -96,7 +96,9 @@ export class InvoiceService {
 
   getMinProfomaDate():Observable<string>{
      var url = Urls.getDomain().concat(APIURLS.invoice).concat("/minProformaDate");
-    return this.http.get<string>(url, { headers: httpOptions.headers });
+      //console.log("getMinProfomaDate url : " + url);
+      let options= { responseType: 'text' as 'json'};
+    return this.http.get<string>(url, options );
   }
 
 }
