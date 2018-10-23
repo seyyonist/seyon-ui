@@ -9,7 +9,7 @@
 </div>
 <!-- Heading -->
 
-<div class="card" *ngIf="manufacturingInvoice.id">
+<div class="card mb-3 wow fadeIn" *ngIf="manufacturingInvoice.id">
   <div class="card-body">
     <table width="100%">
       <thead>
@@ -38,7 +38,7 @@
   </div>
 </div>
 <br/>
-<div class="card" *ngIf="manufacturingInvoice.id">
+<div class="card mb-3 wow fadeIn" *ngIf="manufacturingInvoice.id">
   <div class="card-body">
     <table width="100%" border="1" style="border-collapse:collapse;border:#f2f2f2 solid 1px;">
       <thead>
@@ -108,8 +108,11 @@
   </div>
 </div>
 
-<div class="card" *ngIf="manufacturingInvoice.id">
+<div class="card mb-3 wow fadeIn" *ngIf="manufacturingInvoice.id">
   <div class="card-body">
+     <a target="_blank" style="color:white;background-color:#432fb5" class="btn float-right" [href]="manufacturingInvoice.url" *ngIf="manufacturingInvoice.url && manufacturingInvoice.invoiceId!=''">
+            <i class="fa fa-print"></i>
+      </a>&nbsp;
     <button class="btn btn-warning float-right" (click)="save()" [disabled]="manufacturingInvoice.type==='INVOICE'">
       <i class="fa fa-cogs">&nbsp;</i>
       Generate Invoice</button>

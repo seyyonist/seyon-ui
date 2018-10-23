@@ -15,7 +15,7 @@
   {{successMessage}}
 </div>
 
-<div class="card">
+<div class="card mb-3 wow fadeIn">
   <div class="card-body">
     <table width="100%">
       <thead>
@@ -44,7 +44,7 @@
   </div>
 </div>
 <br/>
-<div class="card">
+<div class="card mb-3 wow fadeIn">
   <div class="card-body">
     <table width="100%" border="1" style="border-collapse:collapse;border:#f2f2f2 solid 1px;">
       <thead>
@@ -120,8 +120,11 @@
     </table>
   </div>
 </div>
-<div class="card">
+<div class="card mb-3 wow fadeIn">
   <div class="card-body">
+    <a target="_blank" style="color:white;background-color:#432fb5" class="btn float-right" [href]="invoice.url" *ngIf="invoice.url && invoice.invoiceId!=''">
+            <i class="fa fa-print"></i>
+      </a>&nbsp;
     <button class="btn btn-primary float-right" [disabled]="invoice.type==='INVOICE'" (click)="generateInvoice()"><i class="fa fa-cogs">&nbsp;</i>Generate Invoice</button>
   </div>
 </div>
