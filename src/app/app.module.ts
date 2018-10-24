@@ -30,6 +30,8 @@ import { ManufacturingInvoiceComponent } from './manufacturing-invoice/manufactu
 import { ManufacturingGenInvoiceComponent } from './manufacturing-invoice/manufacturing-gen-invoice.component';
 import { HasRoleDirective } from './has-role.directive';
 import { AuthGuard } from './auth.guard';
+import {ExcelGeneratorService} from './excel/excel-generator.service';
+import { InvoiceReportComponent } from './reports/invoice-report/invoice-report.component';
 
 const appRoutes: Routes = [
 
@@ -46,7 +48,8 @@ const appRoutes: Routes = [
   { path: 'invoiceManu/:id',component:InvoiceManuComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
   { path: 'invoiceManuSuccess/:ids',component:InvoiceManuSuccessComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
   { path: 'manufacturingInvoice/:proformaId',component:ManufacturingInvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
-  { path: 'generate-manu-invoice/:proformaId',component:ManufacturingGenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}}
+  { path: 'generate-manu-invoice/:proformaId',component:ManufacturingGenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
+  { path: 'invoiceReport',component:InvoiceReportComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']}}
   
 ]
 
@@ -68,7 +71,8 @@ const appRoutes: Routes = [
     InvoiceManuSuccessComponent,
     ManufacturingInvoiceComponent,
     ManufacturingGenInvoiceComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    InvoiceReportComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -80,7 +84,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule
   ],
-  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard],
+  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,ExcelGeneratorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

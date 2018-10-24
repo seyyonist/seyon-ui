@@ -193,6 +193,10 @@ export class InvoiceComponent implements OnInit {
 
 
   savePerformaInvoice(): void {
+    if(!this.selClientId){
+      alert("please select the client");
+      return;
+    }
     this.success = false;
     this.error = false;
     this.invoiceData.invoice = this.invoice;
@@ -221,6 +225,7 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.cancel(this.invoiceData.invoice.id).subscribe(
       invoice => {
         this.invoiceData.invoice = invoice;
+        this.invoice.status="CANCELED";
         this.success = true;
       },
       err => {

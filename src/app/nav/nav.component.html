@@ -1,7 +1,7 @@
 <div class="sidebar-fixed position-fixed primary-color-dark" *ngIf="show">
   <div class="white logo-container">
     <a class="logo-wrapper waves-effect">
-      <img src="/img/logo-red.png" class="img-fluid" alt="">
+      <img src="/img/logo-blue.png" class="img-fluid" alt="">
     </a>
   </div>
   <div class="user-profile">
@@ -34,6 +34,11 @@
           <ul class="submenu">
             <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a routerLink="/voucherNew/0" class="waves-effect"><i class="fa fa-receipt mr-3"></i>New</a></li>
             <li class="menu-item" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a routerLink="/voucher-search" class="waves-effect"><i class="fa fa-search mr-3"></i>Search</a></li>
+          </ul>
+        </li>
+         <li class="menu-item"  *appHasRole="{'role':['ADMIN'],'userRole':userRole}"><a><i class="fa fa-angle-down mr-3"></i>Reports</a>
+          <ul class="submenu">
+            <li class="menu-item"  *appHasRole="{'role':['ADMIN'],'userRole':userRole}"><a routerLink="/invoiceReport" class="waves-effect"><i class="fa fa-file-invoice mr-3"></i>Invoice</a></li>
           </ul>
         </li>
       </ul>

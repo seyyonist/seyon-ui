@@ -66,6 +66,24 @@ export class InvoiceService {
     return this.http.post<SearchResult>(url, searchInvoice, { headers: httpOptions.headers });
   }
 
+
+  searchInvoiceReport(searchInvoice: SearchInvoice,category: string): Observable<Invoice[]> {
+
+    var url = Urls.getDomain();
+    console.log(url);
+    if(category==='SERVICE'){
+     url= url.concat(APIURLS.invoice).concat("/getInvoiceReport")
+      console.log("SERVICE"+url);
+    }
+    else if(category==='MANUFACTURING'){
+      url=url.concat(APIURLS.manInvoice).concat("/getInvoiceReport")
+     console.log(url);
+    }
+    console.log("Searching : " + url);
+    return this.http.post<Invoice[]>(url, searchInvoice, { headers: httpOptions.headers });
+  }
+
+
   getSACCode():Observable<SACCode[]>{
     var url = Urls.getDomain().concat(APIURLS.invoice).concat("/sac");
     return this.http.get<SACCode[]>(url, { headers: httpOptions.headers });
