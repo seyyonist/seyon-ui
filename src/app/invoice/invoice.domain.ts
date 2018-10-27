@@ -24,8 +24,8 @@ export class Invoice {
     sacCode: string = "";
     invoiceType: string = ""; // Right now it is hardcoded; need to change it when manufacturing invoice logic is added
     category:string="";
-    performaDate: Date;
-    invoiceDate: Date;
+    performaDate: Date = new Date();
+    invoiceDate: Date = new Date();
     cgstPerfomaPercent: number = 0;
     sgstPerfomaPercent: number = 0;
     igstPerfomaPercent: number = 0;

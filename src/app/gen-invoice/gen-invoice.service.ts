@@ -32,4 +32,10 @@ export class GenInvoiceService {
     return this.http.get<InvoiceData>(url, { headers: httpOptions.headers });
   }
 
+ getMinInvoiceDate():Observable<string>{
+     var url = Urls.getDomain().concat(APIURLS.invoice).concat("/minInvoiceDate");
+      //console.log("getMinInvoiceDate url : " + url);
+      let options= { responseType: 'text' as 'json'};
+    return this.http.get<string>(url, options );
+  }
 }
