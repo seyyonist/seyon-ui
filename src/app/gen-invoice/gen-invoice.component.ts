@@ -23,6 +23,8 @@ export class GenInvoiceComponent implements OnInit {
   invoice: Invoice = new Invoice();
   clients: Client[] = [];
   client: Client=new Client();
+  minInvoiceDate: string = "";
+  curDate:string = "";
 
   constructor(private route: ActivatedRoute, private genInvoiceService: GenInvoiceService,
     private clientService: ClientService) {
@@ -80,6 +82,7 @@ export class GenInvoiceComponent implements OnInit {
         console.log(err);
       }
     )
+    this.getMinInvoiceDate();
 
   }
 
@@ -145,4 +148,50 @@ export class GenInvoiceComponent implements OnInit {
       }
     )
   }
+
+
+   getMinInvoiceDate(): void {
+    this.success = false;
+    this.error = false;
+    this.curDate=this.getNowDate();
+    console.log("curDate-" + this.curDate);
+    this.genInvoiceService.getMinInvoiceDate().subscribe(
+      str => {
+        this.minInvoiceDate = str;
+        console.log("minInvoiceDate-" + this.minInvoiceDate);
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured in getMinInvoiceDate please contact administrator";
+        //console.log("err getMinProfomaDate-"+ err);
+      }
+    )
+
+  }
+
+  getNowDate(): string {
+    let returnDate = "";
+    let today = new Date();
+    //split
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //because January is 0! 
+    let yyyy = today.getFullYear();
+    //Interpolation date
+  
+    returnDate += yyyy;
+     if (mm < 10) {
+      returnDate += `-0${mm}-`;
+    } else {
+      returnDate += `-${mm}-`;
+    }
+
+      if (dd < 10) {
+      returnDate += `0${dd}`;
+    } else {
+      returnDate += `${dd}`;
+    }
+    return returnDate;
+  }
+
+
 }

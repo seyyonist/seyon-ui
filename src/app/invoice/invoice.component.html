@@ -38,12 +38,17 @@
       </div>
     </div>
     <div class="row">
+    </div>
+    <div class="row">
       <div class="col-md-1"><b>Status : </b></div>
       <div class="col-md-2">{{invoice.status}}</div>
       <div class="col-md-2"><b>GSTIN : </b></div>
-      <div class="col-md-3">{{selectedClient.gstin}}</div>
-      <div class="col-md-1"><b>Date : </b></div>
-      <div class="col-md-3">{{invoice.performaDate | date:"dd MMM yyyy HH:mm"}}</div>
+      <div class="col-md-2">{{selectedClient.gstin}}</div>
+      <div class="col-md-2"><b>Proforma Date : </b></div>
+      <div class="col-md-3">
+        <input type="date" class="form-control underlined" name="proformaDate" id="proformaDate" required="true" [ngModel]="invoice.performaDate | date:'yyyy-MM-dd'"
+              (ngModelChange)="invoice.performaDate = $event" [value]="date | date:'yyyy-MM-dd'" [min]="minProformaDate" [max]="curDate" />
+      </div>
     </div>
     <div class="row">
       <div class="col-md-1"><b>Name : </b></div>
@@ -102,7 +107,7 @@
           <td colspan="7">
           </td>
           <th>
-            Enter Reimbursement Amount
+            Enter Reimbursement Amount(if any)
           </th>
           <th><input type="number" class="form-control" required="false" min="0"  [(ngModel)]="invoice.reimbPerfomaAmount" (change)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/> </th>
         </tr>
