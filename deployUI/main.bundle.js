@@ -27,7 +27,7 @@ module.exports = ""
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-wrapper\">\n    <div class=\"app\" id=\"app\">\n        <app-header></app-header>\n        <app-nav></app-nav>\n        <article class=\"content\" style=\"padding: 70px 10px 85px 20px;\">\n            <router-outlet></router-outlet>\n        </article>\n        <footer class=\"footer\">\n            <div class=\"footer-block buttons\">\n                \n            </div>\n            <div class=\"footer-block author\">\n                <ul>\n               <!--     <li> created by\n                        <a href=\"https://github.com/modularcode\">ModularCode</a>\n                    </li>\n                    <li>\n                        <a href=\"https://github.com/modularcode/modular-admin-html#get-in-touch\">get in touch</a>\n                    </li>\n                    -->\n                </ul>\n            </div>\n        </footer>\n    </div>\n</div>\n<!-- Reference block for JS -->\n<div class=\"ref\" id=\"ref\">\n    <div class=\"color-primary\"></div>\n    <div class=\"chart\">\n        <div class=\"color-primary\"></div>\n        <div class=\"color-secondary\"></div>\n    </div>\n</div>"
+module.exports = "        <app-nav></app-nav>\n         <main class=\"pt-0 mx-lg-1\">\n        <div class=\"container-fluid mt-0\">\n            <router-outlet></router-outlet>\n        </div>\n         </main>\n        "
 
 /***/ }),
 
@@ -140,6 +140,10 @@ var APIURLS = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__manufacturing_invoice_invoice_manu_success_component__ = __webpack_require__("./src/app/manufacturing-invoice/invoice.manu.success.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__manufacturing_invoice_manufacturing_invoice_component__ = __webpack_require__("./src/app/manufacturing-invoice/manufacturing-invoice.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__manufacturing_invoice_manufacturing_gen_invoice_component__ = __webpack_require__("./src/app/manufacturing-invoice/manufacturing-gen-invoice.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__has_role_directive__ = __webpack_require__("./src/app/has-role.directive.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__auth_guard__ = __webpack_require__("./src/app/auth.guard.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__excel_excel_generator_service__ = __webpack_require__("./src/app/excel/excel-generator.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__reports_invoice_report_invoice_report_component__ = __webpack_require__("./src/app/reports/invoice-report/invoice-report.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -175,21 +179,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
+
+
 var appRoutes = [
-    { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_9__dashboard_dashboard_component__["a" /* DashboardComponent */] },
-    { path: 'client', component: __WEBPACK_IMPORTED_MODULE_10__client_client_component__["a" /* ClientComponent */] },
-    { path: 'users', component: __WEBPACK_IMPORTED_MODULE_12__users_users_component__["a" /* UsersComponent */] },
-    { path: 'performaView/:id', component: __WEBPACK_IMPORTED_MODULE_14__invoice_invoice_component__["a" /* InvoiceComponent */] },
-    { path: 'invoiceNew/:id', component: __WEBPACK_IMPORTED_MODULE_14__invoice_invoice_component__["a" /* InvoiceComponent */] },
-    { path: 'invoice-search', component: __WEBPACK_IMPORTED_MODULE_15__invoice_invoice_search_component__["a" /* InvoiceSearchComponent */] },
-    { path: 'generate-invoice/:id', component: __WEBPACK_IMPORTED_MODULE_22__gen_invoice_gen_invoice_component__["a" /* GenInvoiceComponent */] },
-    { path: 'company', component: __WEBPACK_IMPORTED_MODULE_17__company_company_component__["a" /* CompanyComponent */] },
-    { path: 'voucherNew/:id', component: __WEBPACK_IMPORTED_MODULE_19__voucher_voucher_component__["a" /* VoucherComponent */] },
-    { path: 'voucher-search', component: __WEBPACK_IMPORTED_MODULE_20__voucher_voucher_search_component__["a" /* VoucherSearchComponent */] },
-    { path: 'invoiceManu/:id', component: __WEBPACK_IMPORTED_MODULE_25__manufacturing_invoice_invoice_manu_component__["a" /* InvoiceManuComponent */] },
-    { path: 'invoiceManuSuccess/:ids', component: __WEBPACK_IMPORTED_MODULE_26__manufacturing_invoice_invoice_manu_success_component__["a" /* InvoiceManuSuccessComponent */] },
-    { path: 'manufacturingInvoice/:proformaId', component: __WEBPACK_IMPORTED_MODULE_27__manufacturing_invoice_manufacturing_invoice_component__["a" /* ManufacturingInvoiceComponent */] },
-    { path: 'generate-manu-invoice/:proformaId', component: __WEBPACK_IMPORTED_MODULE_28__manufacturing_invoice_manufacturing_gen_invoice_component__["a" /* ManufacturingGenInvoiceComponent */] }
+    { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_9__dashboard_dashboard_component__["a" /* DashboardComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN', 'USER'] } },
+    { path: 'client', component: __WEBPACK_IMPORTED_MODULE_10__client_client_component__["a" /* ClientComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN'] } },
+    { path: 'users', component: __WEBPACK_IMPORTED_MODULE_12__users_users_component__["a" /* UsersComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN'] } },
+    { path: 'performaView/:id', component: __WEBPACK_IMPORTED_MODULE_14__invoice_invoice_component__["a" /* InvoiceComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN', 'USER'] } },
+    { path: 'invoiceNew/:id', component: __WEBPACK_IMPORTED_MODULE_14__invoice_invoice_component__["a" /* InvoiceComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN', 'USER'] } },
+    { path: 'invoice-search', component: __WEBPACK_IMPORTED_MODULE_15__invoice_invoice_search_component__["a" /* InvoiceSearchComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN', 'USER'] } },
+    { path: 'generate-invoice/:id', component: __WEBPACK_IMPORTED_MODULE_22__gen_invoice_gen_invoice_component__["a" /* GenInvoiceComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN', 'USER'] } },
+    { path: 'company', component: __WEBPACK_IMPORTED_MODULE_17__company_company_component__["a" /* CompanyComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN', 'USER'] } },
+    { path: 'voucherNew/:id', component: __WEBPACK_IMPORTED_MODULE_19__voucher_voucher_component__["a" /* VoucherComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN', 'USER', 'CLIENT'] } },
+    { path: 'voucher-search', component: __WEBPACK_IMPORTED_MODULE_20__voucher_voucher_search_component__["a" /* VoucherSearchComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN', 'USER', 'CLIENT'] } },
+    { path: 'invoiceManu/:id', component: __WEBPACK_IMPORTED_MODULE_25__manufacturing_invoice_invoice_manu_component__["a" /* InvoiceManuComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN', 'USER'] } },
+    { path: 'invoiceManuSuccess/:ids', component: __WEBPACK_IMPORTED_MODULE_26__manufacturing_invoice_invoice_manu_success_component__["a" /* InvoiceManuSuccessComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN', 'USER'] } },
+    { path: 'manufacturingInvoice/:proformaId', component: __WEBPACK_IMPORTED_MODULE_27__manufacturing_invoice_manufacturing_invoice_component__["a" /* ManufacturingInvoiceComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN', 'USER'] } },
+    { path: 'generate-manu-invoice/:proformaId', component: __WEBPACK_IMPORTED_MODULE_28__manufacturing_invoice_manufacturing_gen_invoice_component__["a" /* ManufacturingGenInvoiceComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN', 'USER'] } },
+    { path: 'invoiceReport', component: __WEBPACK_IMPORTED_MODULE_32__reports_invoice_report_invoice_report_component__["a" /* InvoiceReportComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */]], data: { role: ['ADMIN'] } }
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -212,7 +221,9 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_25__manufacturing_invoice_invoice_manu_component__["a" /* InvoiceManuComponent */],
                 __WEBPACK_IMPORTED_MODULE_26__manufacturing_invoice_invoice_manu_success_component__["a" /* InvoiceManuSuccessComponent */],
                 __WEBPACK_IMPORTED_MODULE_27__manufacturing_invoice_manufacturing_invoice_component__["a" /* ManufacturingInvoiceComponent */],
-                __WEBPACK_IMPORTED_MODULE_28__manufacturing_invoice_manufacturing_gen_invoice_component__["a" /* ManufacturingGenInvoiceComponent */]
+                __WEBPACK_IMPORTED_MODULE_28__manufacturing_invoice_manufacturing_gen_invoice_component__["a" /* ManufacturingGenInvoiceComponent */],
+                __WEBPACK_IMPORTED_MODULE_29__has_role_directive__["a" /* HasRoleDirective */],
+                __WEBPACK_IMPORTED_MODULE_32__reports_invoice_report_invoice_report_component__["a" /* InvoiceReportComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* RouterModule */].forRoot(appRoutes, { enableTracing: false } // <-- debugging purposes only
@@ -222,11 +233,106 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_common_http__["b" /* HttpClientModule */]
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_11__client_client_service__["a" /* ClientService */], __WEBPACK_IMPORTED_MODULE_13__users_users_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_16__invoice_invoice_service__["a" /* InvoiceService */], __WEBPACK_IMPORTED_MODULE_18__company_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_21__voucher_voucher_service__["a" /* VoucherService */], __WEBPACK_IMPORTED_MODULE_23__gen_invoice_gen_invoice_service__["a" /* GenInvoiceService */], __WEBPACK_IMPORTED_MODULE_24__globals__["a" /* CompanyGlobalVar */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_11__client_client_service__["a" /* ClientService */], __WEBPACK_IMPORTED_MODULE_13__users_users_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_16__invoice_invoice_service__["a" /* InvoiceService */], __WEBPACK_IMPORTED_MODULE_18__company_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_21__voucher_voucher_service__["a" /* VoucherService */], __WEBPACK_IMPORTED_MODULE_23__gen_invoice_gen_invoice_service__["a" /* GenInvoiceService */], __WEBPACK_IMPORTED_MODULE_24__globals__["a" /* CompanyGlobalVar */], __WEBPACK_IMPORTED_MODULE_30__auth_guard__["a" /* AuthGuard */], __WEBPACK_IMPORTED_MODULE_31__excel_excel_generator_service__["a" /* ExcelGeneratorService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/auth.guard.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthGuard; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_constants__ = __webpack_require__("./src/app/app.constants.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__globals__ = __webpack_require__("./src/app/globals.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var httpOptions = {
+    headers: new __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["c" /* HttpHeaders */]({ 'Content-Type': 'application/json' })
+};
+var AuthGuard = /** @class */ (function () {
+    function AuthGuard(http, companyVariable) {
+        this.http = http;
+        this.companyVariable = companyVariable;
+    }
+    AuthGuard.prototype.canActivate = function (next, state) {
+        var allow = false;
+        //  console.log("Verifying the URL to access ", state.url);
+        this.permissions = next.data.role;
+        //  console.log("Allowed Roles" + this.permissions)
+        return this.process();
+    };
+    AuthGuard.prototype.canActivate1 = function (next, state) {
+        var allow = false;
+        //  console.log("Verifying the URL to access ", state.url);
+        this.permissions = next.data.role;
+        var _loop_1 = function (checkPermission) {
+            var permissionFound = this_1.companyVariable.userRoles.find(function (x) { return x.toUpperCase() === checkPermission.toUpperCase(); });
+            // console.log("searching and finding permission" + permissionFound);
+            if (permissionFound) {
+                return { value: true };
+            }
+        };
+        var this_1 = this;
+        //  console.log("Allowed Roles" + this.permissions)
+        for (var _i = 0, _a = this.permissions; _i < _a.length; _i++) {
+            var checkPermission = _a[_i];
+            var state_1 = _loop_1(checkPermission);
+            if (typeof state_1 === "object")
+                return state_1.value;
+        }
+        //console.log("returning false")
+        return false;
+    };
+    AuthGuard.prototype.process = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var url = __WEBPACK_IMPORTED_MODULE_1__app_constants__["b" /* Urls */].getDomain().concat(__WEBPACK_IMPORTED_MODULE_1__app_constants__["a" /* APIURLS */].userrole).concat("/authenticated");
+            // console.log("getting user role in Authguard")
+            _this.http.get(url, { headers: httpOptions.headers })
+                .subscribe(function (resp) {
+                var _loop_2 = function (checkPermission) {
+                    var permissionFound = resp.find(function (x) { return x.toUpperCase() === checkPermission.toUpperCase(); });
+                    //console.log("searching and finding permission" + permissionFound);
+                    if (permissionFound) {
+                        // console.log("returning true")
+                        resolve(true);
+                    }
+                };
+                for (var _i = 0, _a = _this.permissions; _i < _a.length; _i++) {
+                    var checkPermission = _a[_i];
+                    _loop_2(checkPermission);
+                }
+                resolve(false);
+            }, function (err) {
+                reject(err);
+            });
+        });
+    };
+    AuthGuard = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_3__globals__["a" /* CompanyGlobalVar */]])
+    ], AuthGuard);
+    return AuthGuard;
 }());
 
 
@@ -243,7 +349,7 @@ module.exports = ""
 /***/ "./src/app/client/client.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Manage Clients</h3>\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Saved\n</div>\n<div class=\"row\">\n  <div class=\"col-md-4\">\n    <div class=\"card\">\n      <div class=\"card-header\" style=\"padding-left:5px;\">\n        <div class=\"input-group mb-3\">\n          <input type=\"text\" class=\"form-control underlined\" placeholder=\"search\" (input)=\"onSearchChange($event.target.value)\" />\n          <div class=\"input-group-append\">\n            <button class=\"btn btn-primary\" (click)=\"new()\">\n              <i class=\"fa fa-plus-square\"></i> &nbsp;Add New</button>\n          </div>\n        </div>\n      </div>\n      <div style=\"overflow:auto;height:400px;background-color:white;\">\n        <ul class=\"list-group list-group-flush\">\n          <li *ngFor=\"let client of filterClients\" class=\"list-group-item\" (click)=\"edit(client)\" style=\"cursor: pointer;\">\n            {{client.name}}\n            <span class=\"float-right\">\n              <i class=\"fa fa-arrow-right\"></i>\n            </span>\n          </li>\n        </ul>\n        <div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-md-8\">\n    <div class=\"card\">\n      <div class=\"card-body\">\n        <form (ngSubmit)=\"submit()\" name=\"clientForm\" ngNativeValidate>\n          Client Id:{{client.id}}\n          <div class=\"form-group\">\n            <div class=\"row\">\n              <div class=\"col-md-4\">\n                <label for=\"name\">Name *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"name\" id=\"name\" required=\"true\" [(ngModel)]=\"client.name\" pattern=\".{3,}\"\n                  title=\"3 characters minimum\" />\n                <small>minimum 3 character</small>\n              </div>\n              <div class=\"col-md-4\">\n                <label for=\"contactPerson\">Contact Person *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"contactPerson\" id=\"contactPerson\" required=\"true\" [(ngModel)]=\"client.contactPerson\"\n                  pattern=\".{3,}\" title=\"3 characters minimum\" />\n                <small>minimum 3 character</small>\n              </div>\n              <div class=\"col-md-4\">\n                <label for=\"companyType\">Company Type *</label>\n                <select id=\"companyType\" name=\"companyType\" class=\"form-control underlined\" required=\"true\" [(ngModel)]=\"client.companyType\">\n                  <option value=\"Company\" selected>Company</option>\n                  <option value=\"Partnership\">Partnership</option>\n                  <option value=\"Individual\">Individual</option>\n                  <option value=\"Trust\">Trust</option>\n                  <option value=\"LLP\">LLP</option>\n                </select>\n              </div>\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"row\">\n              <div class=\"col-md-6\">\n                <label for=\"phonePrimary\">Primary Phone *</label>\n                <input type=\"tel\" class=\"form-control underlined\" pattern=\".{10,12}\" title=\"min 10, max 12 characters\" name=\"phonePrimary\"\n                  id=\"phonePrimary\" required=\"true\" [(ngModel)]=\"client.phonePrimary\" />\n                <small>min 10, max 12 characters</small>\n              </div>\n              <div class=\"col-md-6\">\n                <label for=\"email\">Primary Email *</label>\n                <input type=\"email\" class=\"form-control underlined\" name=\"email\" id=\"email\" required=\"true\" [(ngModel)]=\"client.email\" />\n              </div>\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"row\">\n              <div class=\"col-md-6\">\n                <label for=\"name\">Secondary Phone</label>\n                <input type=\"tel\" class=\"form-control underlined\" name=\"phoneSecondary\" id=\"phoneSecondary\" required=\"false\" [(ngModel)]=\"client.phoneSecondary\"\n                />\n              </div>\n              <div class=\"col-md-6\">\n                <label for=\"faxNo\">Fax</label>\n                <input type=\"tel\" class=\"form-control underlined\" name=\"faxNo\" id=\"faxNo\" required=\"false\" [(ngModel)]=\"client.faxNo\" />\n              </div>\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"row\">\n              <div class=\"col-md-6\">\n                <label for=\"pan\">PAN *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"pan\" id=\"pan\" pattern=\".{10,}\" title=\"min 10 characters\" required=\"true\"\n                  [(ngModel)]=\"client.pan\" />\n                <small>min 10 characters</small>\n              </div>\n\n              <div class=\"col-md-6\">\n                <label for=\"gstin\">GSTIN *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"gstin\" id=\"gstin\" pattern=\".{15,20}\" title=\"min 15,max 20 characters\"\n                  required=\"true\" [(ngModel)]=\"client.gstin\" />\n                <small>min 15,Max 20 characters</small>\n              </div>\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <label for=\"bill_Addr\">Billing Address *</label>\n            <div class=\"row\">\n              <div class=\"col-md-6\">\n\n                <label for=\"addrLine1\">Address line 1 *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"addrLine1\" pattern=\".{3,}\" title=\"min 3 characters\" id=\"addrLine1\"\n                  required=\"true\" [(ngModel)]=\"client.addrLine1\" />\n                <small>min 3 characters</small>\n              </div>\n              <div class=\"col-md-6\">\n                <label for=\"addrLine2\">Address line 2 </label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"addrLine2\" id=\"addrLine2\" required=\"false\" [(ngModel)]=\"client.addrLine2\"\n                />\n\n              </div>\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"row\">\n              <div class=\"col-md-4\">\n                <label for=\"city\">City *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"city\" pattern=\".{3,}\" title=\"min 3 characters\" id=\"city\" required=\"true\"\n                  [(ngModel)]=\"client.city\" />\n                <small>min 3 characters</small>\n              </div>\n              <div class=\"col-md-4\">\n                <label for=\"state\">State *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"state\" pattern=\".{2,}\" title=\"min 2 characters\" id=\"state\" required=\"true\"\n                  [(ngModel)]=\"client.state\" />\n                <small>min 2 characters</small>\n              </div>\n              <div class=\"col-md-4\">\n                <label for=\"pinCode\">PinCode *</label>\n                <input type=\"text\" class=\"form-control underlined\" pattern=\".{6,6}\" title=\"min 6,max 6 characters\" name=\"pincode\" id=\"pincode\"\n                  required=\"true\" [(ngModel)]=\"client.pincode\" />\n                <small>6 characters</small>\n              </div>\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <label for=\"ship_Addr\">Shipping Address</label>\n            <div class=\"row\">\n              <div class=\"col-md-6\">\n                <label for=\"shipToAddrLine1\">Address line 1 *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"shipToAddrLine1\" pattern=\".{3,}\" title=\"min 3 characters\" id=\"shipToAddrLine1\"\n                  required=\"true\" [(ngModel)]=\"client.shipToAddrLine1\" />\n                <small>min 3 characters</small>\n              </div>\n              <div class=\"col-md-6\">\n                <label for=\"shipToAddrLine2\">Address line 2 </label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"shipToAddrLine2\" id=\"shipToAddrLine2\" required=\"false\" [(ngModel)]=\"client.shipToAddrLine2\"\n                />\n\n              </div>\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"row\">\n              <div class=\"col-md-4\">\n                <label for=\"shipToAddrCity\">City *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"shipToAddrCity\" pattern=\".{3,}\" title=\"min 3 characters\" id=\"shipToAddrCity\"\n                  required=\"true\" [(ngModel)]=\"client.shipToAddrCity\" />\n                <small>min 3 characters</small>\n              </div>\n              <div class=\"col-md-4\">\n                <label for=\"shipToAddrState\">State *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"shipToAddrState\" pattern=\".{2,}\" title=\"min 2 characters\" id=\"shipToAddrState\"\n                  required=\"true\" [(ngModel)]=\"client.shipToAddrState\" />\n                <small>min 2 characters</small>\n              </div>\n              <div class=\"col-md-4\">\n                <label for=\"shipToAddrPincode\">PinCode *</label>\n                <input type=\"text\" class=\"form-control underlined\" pattern=\".{6,6}\" title=\"min 6,max 6 characters\" name=\"shipToAddrPincode\"\n                  id=\"shipToAddrPincode\" required=\"true\" [(ngModel)]=\"client.shipToAddrPincode\" />\n                <small>6 characters</small>\n              </div>\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"row\">\n              <div class=\"col-md-6\">\n                <label for=\"ServiceTaxRegNo\">Service Tax Reg No</label>\n                <input type=\"text\" class=\"form-control underlined\" pattern=\".{15,20}\" title=\"min 15,max 20 characters\" name=\"ServiceTaxRegNo\"\n                  id=\"ServiceTaxRegNo\" required=\"false\" [(ngModel)]=\"client.serviceTaxRegNo\" />\n                <small>min 15, max 20 characters</small>\n              </div>\n\n            </div>\n          </div>\n\n          <button type=\"submit\" class=\"btn bg-primary float-right\"><i class=\"fa fa-save\"></i>&nbsp;Save Client</button>\n        </form>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n    <h4 class=\"mb-2 mb-sm-0 pt-1\">\n      <span>Manage Clients</span>\n    </h4>\n  </div>\n</div>\n<!-- Heading -->\n\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Saved\n</div>\n<div class=\"row\">\n  <div class=\"col-md-4\">\n    <div class=\"card\">\n      <div class=\"card-header grey lighten-4\" >\n        <div class=\"md-form input-group mb-3\">\n          <input type=\"text\" class=\"form-control\" id=\"search\" (input)=\"onSearchChange($event.target.value)\" />\n          <label for=\"search\">Search</label>\n          <div class=\"input-group-append\">\n            <button class=\"btn primary-color waves-effect m-0\" (click)=\"new()\">\n              <i class=\"fa fa-plus-square\"></i> &nbsp;Add New</button>\n          </div>\n        </div>\n      </div>\n      <div style=\"overflow:auto;height:400px;background-color:white;\">\n        <ul class=\"list-group list-group-flush\">\n          <li *ngFor=\"let client of filterClients\" class=\"list-group-item\" (click)=\"edit(client)\" style=\"cursor: pointer;\">\n            {{client.name}}\n            <span class=\"float-right\">\n              <i class=\"fa fa-arrow-right\"></i>\n            </span>\n          </li>\n        </ul>\n        <div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-md-8\">\n    <form (ngSubmit)=\"submit()\" name=\"clientForm\" ngNativeValidate>\n      <div class=\"card\">\n        <div class=\"card-header primary-color white-text\">\n          <h3> Client details for Id:{{client.id}} </h3>\n        </div>\n        <div class=\"card-body\">\n\n          <div class=\"row\">\n            <div class=\"col-md-6 border-right\">\n              <h4 class=\"sub-header\">\n                <span class=\"index\">1</span>Client\n              </h4>\n              <div class=\"md-form \">\n                <label for=\"name\" [class.active]=\"client.name!=''\">Name *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"name\" id=\"name\" required=\"true\" [(ngModel)]=\"client.name\" pattern=\".{3,}\"\n                  title=\"3 characters minimum\" />\n                <small>minimum 3 character</small>\n              </div>\n              <div class=\"md-form \">\n                <label for=\"contactPerson\" [class.active]=\"client.contactPerson!=''\">Contact Person *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"contactPerson\" id=\"contactPerson\" required=\"true\" [(ngModel)]=\"client.contactPerson\"\n                  pattern=\".{3,}\" title=\"3 characters minimum\" />\n                <small>minimum 3 character</small>\n              </div>\n              <div class=\" md-form \">\n                <label for=\"companyType\" [class.active]=\"client.companyType!=''\">Company Type *</label>\n                <select id=\"companyType\" name=\"companyType\" class=\"browser-default custom-select md-select\" required=\"true\" [(ngModel)]=\"client.companyType\">\n                  <option value=\"Company\" selected>Company</option>\n                  <option value=\"Partnership\">Partnership</option>\n                  <option value=\"Individual\">Individual</option>\n                  <option value=\"Trust\">Trust</option>\n                  <option value=\"LLP\">LLP</option>\n                </select>\n              </div>\n              <div class=\"md-form \">\n                <label for=\"phonePrimary\" [class.active]=\"client.phonePrimary!=''\">Primary Phone *</label>\n                <input type=\"tel\" class=\"form-control underlined\" pattern=\".{10,12}\" title=\"min 10, max 12 characters\" name=\"phonePrimary\"\n                  id=\"phonePrimary\" required=\"true\" [(ngModel)]=\"client.phonePrimary\" />\n                <small>min 10, max 12 characters</small>\n              </div>\n\n              <div class=\"md-form \">\n                <label for=\"email\" [class.active]=\"client.email!=''\">Primary Email *</label>\n                <input type=\"email\" class=\"form-control underlined\" name=\"email\" id=\"email\" required=\"true\" [(ngModel)]=\"client.email\" />\n              </div>\n              <div class=\"md-form \">\n                <label for=\"name\" [class.active]=\"client.phoneSecondary!=''\">Secondary Phone</label>\n                <input type=\"tel\" class=\"form-control underlined\" name=\"phoneSecondary\" id=\"phoneSecondary\" required=\"false\" [(ngModel)]=\"client.phoneSecondary\"\n                />\n              </div>\n\n              <div class=\"md-form \">\n                <label for=\"faxNo\" [class.active]=\"client.faxNo!=''\">Fax</label>\n                <input type=\"tel\" class=\"form-control underlined\" name=\"faxNo\" id=\"faxNo\" required=\"false\" [(ngModel)]=\"client.faxNo\" />\n              </div>\n              <div class=\"md-form \">\n                <label for=\"pan\" [class.active]=\"client.pan!=''\">PAN *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"pan\" id=\"pan\" pattern=\"[A-Za-z]{5}\\d{4}[A-Za-z]{1}\" title=\"min 10 characters\" required=\"true\"\n                  [(ngModel)]=\"client.pan\" />\n                <small>AAAAA1111A</small>\n              </div>\n              <div class=\"md-form \">\n                <label for=\"gstin\" [class.active]=\"client.gstin!=''\">GSTIN * </label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"gstin\" id=\"gstin\" pattern=\"^([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-7]{1})([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$\" title=\"min 15,max 20 characters\"\n                  required=\"true\" [(ngModel)]=\"client.gstin\" />\n                <small>sample : 24AAACB5343E1Z7</small>\n              </div>\n              <div class=\"md-form \">\n                <label for=\"ServiceTaxRegNo\" [class.active]=\"client.serviceTaxRegNo!=''\">Service Tax Reg No</label>\n                <input type=\"text\" class=\"form-control underlined\" pattern=\".{15,20}\" title=\"min 15,max 20 characters\" name=\"ServiceTaxRegNo\"\n                  id=\"ServiceTaxRegNo\" required=\"false\" [(ngModel)]=\"client.serviceTaxRegNo\" />\n                <small>min 15, max 20 characters</small>\n              </div>\n            </div>\n            <div class=\"col-md-6\">\n              <h4 class=\"sub-header\">\n                <span class=\"index\">2</span>Billing Address\n              </h4>\n              <div class=\"md-form \">\n                <label for=\"addrLine1\" [class.active]=\"client.addrLine1!=''\">Address line 1 *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"addrLine1\" pattern=\".{3,}\" title=\"min 3 characters\" id=\"addrLine1\"\n                  required=\"true\" [(ngModel)]=\"client.addrLine1\" />\n                <small>min 3 characters</small>\n              </div>\n              <div class=\"md-form \">\n                <label for=\"addrLine2\" [class.active]=\"client.addrLine2!=''\">Address line 2 </label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"addrLine2\" id=\"addrLine2\" required=\"false\" [(ngModel)]=\"client.addrLine2\"\n                />\n              </div>\n              <div class=\"md-form \">\n                <label for=\"city\" [class.active]=\"client.city!=''\">City *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"city\" pattern=\".{3,}\" title=\"min 3 characters\" id=\"city\" required=\"true\"\n                  [(ngModel)]=\"client.city\" />\n                <small>min 3 characters</small>\n              </div>\n              <div class=\"md-form \">\n                <label for=\"state\" [class.active]=\"client.state!=''\">State *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"state\" pattern=\".{2,}\" title=\"min 2 characters\" id=\"state\" required=\"true\"\n                  [(ngModel)]=\"client.state\" />\n                <small>min 2 characters</small>\n              </div>\n              <div class=\"md-form \">\n                <label for=\"pinCode\" [class.active]=\"client.pincode!=''\">PinCode *</label>\n                <input type=\"text\" class=\"form-control underlined\" pattern=\".{6,6}\" title=\"min 6,max 6 characters\" name=\"pincode\" id=\"pincode\"\n                  required=\"true\" [(ngModel)]=\"client.pincode\" />\n                <small>6 characters</small>\n              </div>\n              <!-- <h5 class=\"sub-header\">\n                <span class=\"index\">3</span>Shipping Address\n              </h5>\n              <div class=\"custom-control custom-checkbox mb-2\">\n                <input id=\"checkbox\" class=\"custom-control-input\" type=\"checkbox\" [checked]=\"false\" (change)=\"updateAddrs($event)\" id=\"shipCheck\"\n                />\n                <label class=\"custom-control-label\" for=\"shipCheck\">Shipping  address is the same as billing address</label>\n              </div>\n\n              <div class=\"md-form \">\n                <label for=\"shipToAddrLine1\" [class.active]=\"client.shipToAddrLine1!=''\">Address line 1 *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"shipToAddrLine1\" pattern=\".{3,}\" title=\"min 3 characters\" id=\"shipToAddrLine1\"\n                  required=\"true\" [(ngModel)]=\"client.shipToAddrLine1\" />\n                <small>min 3 characters</small>\n              </div>\n              <div class=\"md-form \">\n                <label for=\"shipToAddrLine2\" [class.active]=\"client.shipToAddrLine2!=''\">Address line 2 </label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"shipToAddrLine2\" id=\"shipToAddrLine2\" required=\"false\" [(ngModel)]=\"client.shipToAddrLine2\"\n                />\n              </div>\n              <div class=\"md-form \">\n                <label for=\"shipToAddrCity\" [class.active]=\"client.shipToAddrCity!=''\">City *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"shipToAddrCity\" pattern=\".{3,}\" title=\"min 3 characters\" id=\"shipToAddrCity\"\n                  required=\"true\" [(ngModel)]=\"client.shipToAddrCity\" />\n                <small>min 3 characters</small>\n              </div>\n              <div class=\"md-form \">\n                <label for=\"shipToAddrState\" [class.active]=\"client.shipToAddrState!=''\">State *</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"shipToAddrState\" pattern=\".{2,}\" title=\"min 2 characters\" id=\"shipToAddrState\"\n                  required=\"true\" [(ngModel)]=\"client.shipToAddrState\" />\n                <small>min 2 characters</small>\n              </div>\n              <div class=\"md-form \">\n                <label for=\"shipToAddrPincode\" [class.active]=\"client.shipToAddrPincode!=''\">PinCode *</label>\n                <input type=\"text\" class=\"form-control underlined\" pattern=\".{6,6}\" title=\"min 6,max 6 characters\" name=\"shipToAddrPincode\"\n                  id=\"shipToAddrPincode\" required=\"true\" [(ngModel)]=\"client.shipToAddrPincode\" />\n                <small>6 characters</small>\n              </div> -->\n              \n\n            </div>\n          </div>\n        </div>\n        <div class=\"card-footer\" >\n          <button type=\"submit\" class=\"btn bg-primary float-right\"><i class=\"fa fa-save\"></i>&nbsp;Save Client</button>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -275,6 +381,7 @@ var ClientComponent = /** @class */ (function () {
         this.error = false;
         this.errorMessage = "";
         this.client = new __WEBPACK_IMPORTED_MODULE_1__client_domain__["a" /* Client */]();
+        this.tempClient = new __WEBPACK_IMPORTED_MODULE_1__client_domain__["a" /* Client */]();
         this.success = true;
     }
     ClientComponent.prototype.ngOnInit = function () {
@@ -295,11 +402,13 @@ var ClientComponent = /** @class */ (function () {
     };
     ClientComponent.prototype.edit = function (client) {
         this.client = client;
+        this.tempClient = client;
     };
     ClientComponent.prototype.new = function () {
         this.success = false;
         this.error = false;
         this.client = new __WEBPACK_IMPORTED_MODULE_1__client_domain__["a" /* Client */]();
+        this.tempClient = new __WEBPACK_IMPORTED_MODULE_1__client_domain__["a" /* Client */]();
     };
     ClientComponent.prototype.submit = function () {
         var _this = this;
@@ -371,11 +480,11 @@ var Client = /** @class */ (function () {
         this.accountingType = '';
         this.email = '';
         this.active = '';
-        this.shipToAddrLine1 = '';
-        this.shipToAddrLine2 = '';
-        this.shipToAddrCity = '';
-        this.shipToAddrState = '';
-        this.shipToAddrPincode = '';
+        /* shipToAddrLine1: string='';
+         shipToAddrLine2: string='';
+         shipToAddrCity: string='';
+         shipToAddrState: string='';
+         shipToAddrPincode: string='';*/
     }
     return Client;
 }());
@@ -440,7 +549,7 @@ module.exports = ""
 /***/ "./src/app/company/company.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card\">\n  <div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n    {{errorMessage}}\n  </div>\n  <div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n    Successfully Saved\n  </div>\n\n  <div class=\"card-header\" style=\"padding-left:20px;\">\n    <label for=\"companyName\">Company Name : </label>\n    <h5>{{company.companyName}}</h5>\n  </div>\n\n  <div class=\"card-body\">\n    <form (ngSubmit)=\"submitCompany()\" name=\"companyForm\" ngNativeValidate>\n\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <label for=\"email\">Owner Name</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"ownerName\" id=\"ownerName\" [(ngModel)]=\"company.ownerName\" />\n          </div>\n\n          <div class=\"col-sm-4\">\n            <label for=\"email\">Secondary Email</label>\n            <input type=\"email\" class=\"form-control underlined\" name=\"secondaryEmail\" id=\"secondaryEmail\" placeholder=\"Enter Secondary email address\"\n              [(ngModel)]=\"company.secondaryEmail\" />\n          </div>\n        </div>\n      </div>\n\n\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-6\">\n            <label for=\"firstname\">Address Line 1</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"addressLine1\" id=\"addressLine1\" [(ngModel)]=\"company.addressLine1\">\n          </div>\n          <div class=\"col-sm-6\">\n            <label for=\"firstname\">Address Line 2</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"addressLine2\" id=\"addressLine2\" [(ngModel)]=\"company.addressLine2\">\n          </div>\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <label for=\"firstname\">City</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"city\" id=\"city\" [(ngModel)]=\"company.city\" />\n          </div>\n          <div class=\"col-sm-4\">\n            <label for=\"firstname\">State</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"state\" id=\"state\" [(ngModel)]=\"company.state\" />\n          </div>\n          <div class=\"col-sm-4\">\n            <label for=\"firstname\">Pincode *</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"pinCode\" id=\"pinCode\" [(ngModel)]=\"company.pinCode\" />\n          </div>\n        </div>\n\n      </div>\n\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <label for=\"email\">Fax No</label>\n            <input type=\"tel\" class=\"form-control underlined\" name=\"fax\" id=\"fax\" [(ngModel)]=\"company.faxNo\" />\n          </div>\n          <div class=\"col-sm-4\">\n            <label for=\"email\">Primary Phone</label>\n            <input type=\"tel\" class=\"form-control underlined\" name=\"pphone\" id=\"pphone\" [(ngModel)]=\"company.phonePrimary\" />\n          </div>\n          <div class=\"col-sm-4\">\n            <label for=\"email\">Secondary Phone</label>\n            <input type=\"tel\" class=\"form-control underlined\" name=\"sphone\" id=\"sphone\" [(ngModel)]=\"company.phoneSecondary\" />\n          </div>\n        </div>\n      </div>\n\n\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <label for=\"email\">Bank Name</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"name\" id=\"name\" [(ngModel)]=\"company.bankName\" />\n          </div>\n          <div class=\"col-sm-4\">\n            <label for=\"email\">IFSC Code</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"name\" id=\"name\" [(ngModel)]=\"company.branchIFSCCode\" />\n          </div>\n          <div class=\"col-sm-4\">\n            <label for=\"email\">Branch</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"name\" id=\"name\" [(ngModel)]=\"company.branch\" />\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <label for=\"email\">Account Number</label> <input type=\"text\" class=\"form-control underlined\" name=\"accountNo\"\n              id=\"accountNo\" [(ngModel)]=\"company.accountNo\" />\n          </div>\n          <div class=\"col-sm-4\">\n            <label for=\"email\">Account Name</label> <input type=\"text\" class=\"form-control underlined\" name=\"accountName\"\n              id=\"accountName\" [(ngModel)]=\"company.accountName\" />\n          </div>\n          <div class=\"col-sm-4\">\n            <label for=\"email\">Account Type</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"accountType\" id=\"accountType\" [(ngModel)]=\"company.accountType\"\n            />\n          </div>\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <label for=\"firstname\">Tan Number</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"tanNo\" id=\"tanNo\" [(ngModel)]=\"company.tanNo\" />\n          </div>\n          <div class=\"col-sm-4\">\n            <label for=\"firstname\">GST Number</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"gstNo\" id=\"gstNo\" [(ngModel)]=\"company.gstNo\" />\n          </div>\n          <div class=\"col-sm-4\">\n            <label for=\"firstname\">PAN Number</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"panNo\" id=\"panNo\" [(ngModel)]=\"company.panNo\" />\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <label for=\"firstname\">Service TAX Reg number</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"serviceTaxRegNo\" id=\"serviceTaxRegNo\" [(ngModel)]=\"company.serviceTaxRegNo\"\n            />\n          </div>\n          <div class=\"col-sm-4\">\n            <label for=\"firstname\">Accounting Type</label> <input type=\"text\" class=\"form-control underlined\" name=\"accountingType\"\n              id=\"accountingType\" [(ngModel)]=\"company.accountingType\" />\n          </div>\n          <div class=\"col-sm-4\">\n            <label for=\"firstname\">Swift Code</label> <input type=\"text\" class=\"form-control underlined\" name=\"panNo\" id=\"panNo\"\n              [(ngModel)]=\"company.swiftCode\" />\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-6\">\n            <label for=\"file-logo\">Logo</label>\n            <input type=\"file\" id=\"file-logo\" (change)=\"onFileChange($event)\" />\n           \n            <input type=\"hidden\" name=\"logo\" id=\"logo\" [(ngModel)]=\"company.logoImg\" />\n          </div>\n          <div class=\"col-sm-6\">\n            <img height=\"100\" id=\"img-logo\" [src]=\"company.logoImg\" />\n          </div>\n        </div>\n      </div>\n\n\n      <button class=\"btn btn-success pull-right\" type=\"submit\">Save</button>\n    </form>\n  </div>\n</div>"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n    <h4 class=\"mb-2 mb-sm-0 pt-1\">\n      <span>Company</span>\n    </h4>\n  </div>\n</div>\n<!-- Heading -->\n\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Saved\n</div>\n<form (ngSubmit)=\"submitCompany()\" name=\"companyForm\" ngNativeValidate>\n  <div class=\"card\">\n    <div class=\"card-header primary-color white-text\">\n      <h5>Name : {{company.companyName}}</h5>\n    </div>\n    <div class=\"card-body\">\n      <div class=\"row\">\n        <div class=\"col-md-3 border-right\">\n          <h4 class=\"sub-header\">\n            <span class=\"index\">1</span>Company\n          </h4>\n          <div class=\"md-form \">\n            <label for=\"addressLine1\" [class.active]=\"true\">Address Line 1</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"addressLine1\" id=\"addressLine1\" [(ngModel)]=\"company.addressLine1\">\n          </div>\n          <div class=\"md-form \">\n            <label for=\"addressLine2\" [class.active]=\"true\">Address Line 2</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"addressLine2\" id=\"addressLine2\" [(ngModel)]=\"company.addressLine2\">\n          </div>\n          <div class=\"md-form \">\n            <label for=\"city\" [class.active]=\"true\">City</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"city\" id=\"city\" [(ngModel)]=\"company.city\" />\n          </div>\n          <div class=\"md-form \">\n            <label for=\"state\" [class.active]=\"true\">State</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"state\" id=\"state\" [(ngModel)]=\"company.state\" />\n          </div>\n          <div class=\"md-form \">\n            <label for=\"pinCode\" [class.active]=\"true\">Pincode *</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"pinCode\" id=\"pinCode\" [(ngModel)]=\"company.pinCode\" />\n          </div>\n        </div>\n\n        <div class=\"col-md-3 border-right\">\n          <h4 class=\"sub-header\">\n            <span class=\"index\">2</span>Owner\n          </h4>\n          <div class=\"md-form \">\n            <label for=\"ownerName\" [class.active]=\"true\">Owner Name</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"ownerName\" id=\"ownerName\" [(ngModel)]=\"company.ownerName\" />\n          </div>\n          <div class=\"md-form \">\n            <label for=\"primaryEmail\" [class.active]=\"true\">Primary Email</label>\n            <input type=\"email\" class=\"form-control underlined\" name=\"primaryEmail\" id=\"primaryEmail\" placeholder=\"Enter Secondary email address\"\n              [(ngModel)]=\"company.primaryEmail\" />\n          </div>\n          <div class=\"md-form \">\n            <label for=\"secondaryEmail\" [class.active]=\"true\">Secondary Email</label>\n            <input type=\"email\" class=\"form-control underlined\" name=\"secondaryEmail\" id=\"secondaryEmail\" placeholder=\"Enter Secondary email address\"\n              [(ngModel)]=\"company.secondaryEmail\" />\n          </div>\n\n\n          <div class=\"md-form \">\n            <label for=\"faxNo\" [class.active]=\"true\">Fax No</label>\n            <input type=\"tel\" class=\"form-control underlined\" name=\"faxNo\" id=\"faxNo\" [(ngModel)]=\"company.faxNo\" />\n          </div>\n\n          <div class=\"md-form \">\n            <label for=\"phonePrimary\" [class.active]=\"true\">Primary Phone</label>\n            <input type=\"tel\" class=\"form-control underlined\" name=\"phonePrimary\" id=\"phonePrimary\" [(ngModel)]=\"company.phonePrimary\"\n            />\n          </div>\n\n          <div class=\"md-form\">\n            <label for=\"phoneSecondary\" [class.active]=\"true\">Secondary Phone</label>\n            <input type=\"tel\" class=\"form-control underlined\" name=\"phoneSecondary\" id=\"phoneSecondary\" [(ngModel)]=\"company.phoneSecondary\"\n            />\n          </div>\n        </div>\n\n        <div class=\"col-md-3 border-right\">\n          <h4 class=\"sub-header\">\n            <span class=\"index\">3</span>Bank\n          </h4>\n          <div class=\"md-form \">\n            <label for=\"bankName\" [class.active]=\"true\">Bank Name</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"bankName\" id=\"bankName\" [(ngModel)]=\"company.bankName\" />\n          </div>\n          <div class=\"md-form \">\n            <label for=\"branchIFSCCode\" [class.active]=\"true\">IFSC Code</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"branchIFSCCode\" id=\"branchIFSCCode\" [(ngModel)]=\"company.branchIFSCCode\"\n            />\n          </div>\n          <div class=\"md-form \">\n            <label for=\"branch\" [class.active]=\"true\">Branch</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"branch\" id=\"branch\" [(ngModel)]=\"company.branch\" />\n          </div>\n          <div class=\"md-form \">\n            <label for=\"accountNo\" [class.active]=\"true\">Account Number</label> <input type=\"text\" class=\"form-control underlined\"\n              name=\"accountNo\" id=\"accountNo\" [(ngModel)]=\"company.accountNo\" />\n          </div>\n          <div class=\"md-form \">\n            <label for=\"accountName\" [class.active]=\"true\">Account Name</label> <input type=\"text\" class=\"form-control underlined\"\n              name=\"accountName\" id=\"accountName\" [(ngModel)]=\"company.accountName\" />\n          </div>\n          <div class=\"md-form \">\n            <label for=\"accountType\" [class.active]=\"true\">Account Type</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"accountType\" id=\"accountType\" [(ngModel)]=\"company.accountType\"\n            />\n          </div>\n        </div>\n        <div class=\"col-md-3\">\n          <h4 class=\"sub-header\">\n            <span class=\"index\">4</span>Other\n          </h4>\n\n          <div class=\"md-form \">\n            <label for=\"tanNo\" [class.active]=\"true\">Tan Number</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"tanNo\" id=\"tanNo\" [(ngModel)]=\"company.tanNo\" />\n          </div>\n\n          <div class=\"md-form \">\n            <label for=\"gstNo\" [class.active]=\"true\">GST Number</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"gstNo\" id=\"gstNo\" [(ngModel)]=\"company.gstNo\" />\n          </div>\n\n          <div class=\"md-form \">\n            <label for=\"panNo\" [class.active]=\"true\">PAN Number</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"panNo\" id=\"panNo\" [(ngModel)]=\"company.panNo\" />\n          </div>\n          <div class=\"md-form \">\n            <label for=\"serviceTaxRegNo\" [class.active]=\"true\">Service TAX Reg number</label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"serviceTaxRegNo\" id=\"serviceTaxRegNo\" [(ngModel)]=\"company.serviceTaxRegNo\"\n            />\n          </div>\n          <div class=\"md-form \">\n            <label for=\"accountingType\" [class.active]=\"true\">Accounting Type</label> <input type=\"text\" class=\"form-control underlined\"\n              name=\"accountingType\" id=\"accountingType\" [(ngModel)]=\"company.accountingType\" />\n          </div>\n\n          <div class=\"md-form \">\n            <label for=\"swiftCode\" [class.active]=\"true\">Swift Code</label> <input type=\"text\" class=\"form-control underlined\"\n              name=\"swiftCode\" id=\"swiftCode\" [(ngModel)]=\"company.swiftCode\" />\n          </div>\n\n          <div class=\"md-form \">\n            <label for=\"file-logo\" [class.active]=\"true\">Logo</label>\n            <input type=\"file\" id=\"file-logo\" (change)=\"onFileChange($event)\" />\n          </div>\n          <input type=\"hidden\" name=\"logo\" id=\"logo\" [(ngModel)]=\"company.logoImg\" />\n          <img height=\"100\" id=\"img-logo\" [src]=\"company.logoImg\" />\n        </div>\n      </div>\n\n    </div>\n    <div class=\"card-footer\">\n      <button class=\"btn btn-success float-right waves-effect m-0\" type=\"submit\">\n           <i class=\"fa fa-save\"></i>&nbsp;Save </button>\n    </div>\n  </div>\n</form>"
 
 /***/ }),
 
@@ -667,6 +776,54 @@ var DashboardComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/excel/excel-generator.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExcelGeneratorService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_file_saver__ = __webpack_require__("./node_modules/file-saver/dist/FileSaver.min.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_file_saver___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_file_saver__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_xlsx__ = __webpack_require__("./node_modules/xlsx/xlsx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_xlsx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_xlsx__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+var EXCEL_EXTENSION = '.xlsx';
+var ExcelGeneratorService = /** @class */ (function () {
+    function ExcelGeneratorService() {
+    }
+    ExcelGeneratorService.prototype.exportAsExcelFile = function (json, excelFileName) {
+        var worksheet = __WEBPACK_IMPORTED_MODULE_2_xlsx__["utils"].json_to_sheet(json);
+        var workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        var excelBuffer = __WEBPACK_IMPORTED_MODULE_2_xlsx__["write"](workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, excelFileName);
+    };
+    ExcelGeneratorService.prototype.saveAsExcelFile = function (buffer, fileName) {
+        var data = new Blob([buffer], { type: EXCEL_TYPE });
+        __WEBPACK_IMPORTED_MODULE_1_file_saver__["saveAs"](data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+    };
+    ExcelGeneratorService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [])
+    ], ExcelGeneratorService);
+    return ExcelGeneratorService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/gen-invoice/gen-invoice.component.css":
 /***/ (function(module, exports) {
 
@@ -677,7 +834,7 @@ module.exports = ""
 /***/ "./src/app/gen-invoice/gen-invoice.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Invoice Details</h3>\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  {{successMessage}}\n</div>\n\n<div class=\"card\">\n  <div class=\"card-body\">\n    <table width=\"100%\">\n      <thead>\n        <tr>\n          <th>PerformA Id</th>\n          <th>Invoice Id</th>\n          <th>Invoice Date</th>\n          <!--<th>Print</th>-->\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td>{{invoice.performaId}}</td>\n          <td>{{invoice.invoiceId}}</td>\n          <td><input type=\"date\" class=\"form-control underlined\" name=\"invoiceDate\" id=\"invoiceDate\" required=\"true\" [ngModel]=\"invoice.invoiceDate | date:'yyyy-MM-dd'\"\n              (ngModelChange)=\"invoice.invoiceDate = $event\" [value]=\"date | date:'yyyy-MM-dd'\"  [disabled]=\"invoice.type==='INVOICE'\" />\n          </td>\n          <!--<td>\n            <a target=\"_blank\" style=\"color:white;background-color:#432fb5\" class=\"btn\" [href]=\"invoice.url\">\n                  <i class=\"fa fa-print\"></i>\n             </a>\n          </td>-->\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n<br/>\n<div class=\"card\">\n  <div class=\"card-body\">\n    <table width=\"100%\" border=\"1\" style=\"border-collapse:collapse;border:#f2f2f2 solid 1px;\">\n      <thead>\n        <tr>\n          <th>Client Name</th>\n          <th colspan=\"3\">Address</th>\n          <th>GSTIN</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr valign=\"top\" >\n          <td>{{client.name}}</td>\n          <td colspan=\"3\">{{client.addrLine1}},\n            {{client.addrLine2}},<br/>\n            {{client.city}}, {{client.state}}<br/>\n            {{client.pincode}}<br/>\n            {{client.phonePrimary}},{{client.email}}\n            </td>\n          <td>{{client.gstin}}</td>\n        </tr>\n        <tr valign=\"top\">\n         <th colspan=\"5\">Particulars</th>\n        </tr>\n        <tr valign=\"top\">\n         <th colspan=\"2\">Description</th>\n         <th>Sac Code</th>\n         <th>Rate</th>\n         <th>Amount</th>\n        </tr>\n        <tr valign=\"top\" *ngFor=\"let field of particulars;let i=index\">\n         <td  colspan=\"2\">{{field.itemDescription}}</td>\n         <td>{{invoice.sacCode}}</td>\n        \n         <td  align=\"right\"><input [disabled]=\"invoice.type==='INVOICE'\" class=\"form-control\" style=\"width:100px;\" (change)=\"calculateAmount(field)\" type=\"number\" [(ngModel)]=\"field.invoiceRate\"/></td>\n         <td  align=\"right\">{{field.calculatedInvoiceAmount}}</td>\n        </tr>\n        <tr>\n          <td colspan=\"4\" align=\"right\"><b>Sum</b></td>\n          <td align=\"right\">{{invoice.totalInvoiceBeforeTax}}</td>\n        </tr>\n        <tr>\n          <td colspan=\"3\" align=\"right\">\n            CGST\n          </td>\n          <td  align=\"right\">{{invoice.cgstInvoicePercent}}</td>\n          <td  align=\"right\">{{invoice.cgstInvoice}}</td>\n        </tr>\n         <tr>\n          <td colspan=\"3\" align=\"right\">\n            SGST\n          </td>\n          <td align=\"right\">{{invoice.sgstInvoicePercent}}</td>\n          <td  align=\"right\">{{invoice.sgstInvoice}}</td>\n        </tr>\n         <tr>\n          <td colspan=\"3\" align=\"right\">\n            IGST\n          </td>\n          <td  align=\"right\">{{invoice.igstInvoicePercent}}</td>\n          <td  align=\"right\">{{invoice.igstInvoice}}</td>\n        </tr>\n        <tr>\n          <td colspan=\"4\" align=\"right\"><b>Reimbursement</b></td>\n          <td align=\"right\"><b>{{invoice.reimbInvoiceAmount}}</b></td>\n        </tr>\n         <tr>\n          <td colspan=\"4\" align=\"right\"><b>Total</b></td>\n          <td align=\"right\"><b>{{invoice.totalInvoiceAmount}}</b></td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n<div class=\"card\">\n  <div class=\"card-body\">\n    <button class=\"btn btn-primary float-right\" [disabled]=\"invoice.type==='INVOICE'\" (click)=\"generateInvoice()\">Generate Invoice</button>\n  </div>\n</div>"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n      <h4 class=\"mb-2 mb-sm-0 pt-1\">\n          <span>Invoice Details</span>\n      </h4>\n  </div>\n</div>\n<!-- Heading -->\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  {{successMessage}}\n</div>\n\n<div class=\"card mb-3 wow fadeIn\">\n  <div class=\"card-body\">\n    <table width=\"100%\">\n      <thead>\n        <tr>\n          <th>PerformA Id</th>\n          <th>Invoice Id</th>\n          <th>Invoice Date</th>\n          <!--<th>Print</th>-->\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td>{{invoice.performaId}}</td>\n          <td>{{invoice.invoiceId}}</td>\n          <td><!--<input type=\"date\" class=\"form-control underlined\" name=\"invoiceDate\" id=\"invoiceDate\" required=\"true\" [ngModel]=\"invoice.invoiceDate | date:'yyyy-MM-dd'\"\n              (ngModelChange)=\"invoice.invoiceDate = $event\" [value]=\"date | date:'yyyy-MM-dd'\"  [disabled]=\"invoice.type==='INVOICE'\" />-->\n               <input type=\"date\" class=\"form-control underlined\" name=\"invoiceDate\" id=\"invoiceDate\" required=\"true\" [ngModel]=\"invoice.invoiceDate | date:'yyyy-MM-dd'\"\n              (ngModelChange)=\"invoice.invoiceDate = $event\" [value]=\"date | date:'yyyy-MM-dd'\" [min]=\"minInvoiceDate\" [max]=\"curDate\" />\n          </td>\n          <!--<td>\n            <a target=\"_blank\" style=\"color:white;background-color:#432fb5\" class=\"btn\" [href]=\"invoice.url\">\n                  <i class=\"fa fa-print\"></i>\n             </a>\n          </td>-->\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n<br/>\n<div class=\"card mb-3 wow fadeIn\">\n  <div class=\"card-body\">\n    <table width=\"100%\" border=\"1\" style=\"border-collapse:collapse;border:#f2f2f2 solid 1px;\">\n      <thead>\n        <tr>\n          <th>Client Name</th>\n          <th colspan=\"3\">Address</th>\n          <th>GSTIN</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr valign=\"top\" >\n          <td>{{client.name}}</td>\n          <td colspan=\"3\">{{client.addrLine1}},\n            {{client.addrLine2}},<br/>\n            {{client.city}}, {{client.state}}<br/>\n            {{client.pincode}}<br/>\n            {{client.phonePrimary}},{{client.email}}\n            </td>\n          <td>{{client.gstin}}</td>\n        </tr>\n        <tr valign=\"top\">\n         <th colspan=\"5\">Particulars</th>\n        </tr>\n        <tr valign=\"top\">\n         <th colspan=\"2\" *ngIf=\"invoice.sacCode!=''\">Description</th>\n         <th colspan=\"3\" *ngIf=\"invoice.sacCode==''\">Description</th>\n         <th *ngIf=\"invoice.sacCode!=''\">Sac Code</th>\n         <th>Rate</th>\n         <th>Amount</th>\n        </tr>\n        <tr valign=\"top\" *ngFor=\"let field of particulars;let i=index\">\n         <td  colspan=\"2\"  *ngIf=\"invoice.sacCode!=''\" >{{field.itemDescription}}</td>\n          <td  colspan=\"3\"  *ngIf=\"invoice.sacCode==''\" >{{field.itemDescription}}</td>\n         <td *ngIf=\"invoice.sacCode!=''\" >{{invoice.sacCode}}</td>\n        \n         <td  align=\"right\"><input [disabled]=\"invoice.type==='INVOICE'\" class=\"form-control\" style=\"width:100px;\" (change)=\"calculateAmount(field)\" type=\"number\" [(ngModel)]=\"field.invoiceRate\"/></td>\n         <td  align=\"right\">{{field.calculatedInvoiceAmount}}</td>\n        </tr>\n        <tr>\n          <td colspan=\"4\" align=\"right\"><b>Sum</b></td>\n          <td align=\"right\">{{invoice.totalInvoiceBeforeTax}}</td>\n        </tr>\n        <tr *ngIf=\"invoice.cgstInvoicePercent!=0\">\n          <td colspan=\"3\" align=\"right\">\n            CGST\n          </td>\n          <td  align=\"right\">{{invoice.cgstInvoicePercent}}</td>\n          <td  align=\"right\">{{invoice.cgstInvoice}}</td>\n        </tr>\n         <tr *ngIf=\"invoice.sgstInvoicePercent!=0\">\n          <td colspan=\"3\" align=\"right\">\n            SGST\n          </td>\n          <td align=\"right\">{{invoice.sgstInvoicePercent}}</td>\n          <td  align=\"right\">{{invoice.sgstInvoice}}</td>\n        </tr>\n         <tr *ngIf=\"invoice.igstInvoicePercent!=0\">\n          <td colspan=\"3\" align=\"right\">\n            IGST\n          </td>\n          <td  align=\"right\">{{invoice.igstInvoicePercent}}</td>\n          <td  align=\"right\">{{invoice.igstInvoice}}</td>\n        </tr>\n        <tr>\n          <td colspan=\"4\" align=\"right\"><b>Reimbursement</b></td>\n          <td align=\"right\"><b>{{invoice.reimbInvoiceAmount}}</b></td>\n        </tr>\n         <tr>\n          <td colspan=\"4\" align=\"right\"><b>Total</b></td>\n          <td align=\"right\"><b>{{invoice.totalInvoiceAmount}}</b></td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n<div class=\"card mb-3 wow fadeIn\">\n  <div class=\"card-body\">\n    <a target=\"_blank\" style=\"color:white;background-color:#432fb5\" class=\"btn float-right\" [href]=\"invoice.url\" *ngIf=\"invoice.url && invoice.invoiceId!=''\">\n            <i class=\"fa fa-print\"></i>\n      </a>&nbsp;\n    <button class=\"btn btn-primary float-right\" [disabled]=\"invoice.type==='INVOICE'\" (click)=\"generateInvoice()\"><i class=\"fa fa-cogs\">&nbsp;</i>Generate Invoice</button>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -724,6 +881,8 @@ var GenInvoiceComponent = /** @class */ (function () {
         this.invoice = new __WEBPACK_IMPORTED_MODULE_2__invoice_invoice_domain__["a" /* Invoice */]();
         this.clients = [];
         this.client = new __WEBPACK_IMPORTED_MODULE_5__client_client_domain__["a" /* Client */]();
+        this.minInvoiceDate = "";
+        this.curDate = "";
         var invoiceIdParam;
         this.route.params.subscribe(function (params) {
             invoiceIdParam = params['id'];
@@ -740,6 +899,7 @@ var GenInvoiceComponent = /** @class */ (function () {
     };
     GenInvoiceComponent.prototype.loadSelectedPerformAInvoice = function (invoiceId) {
         var _this = this;
+        console.log("inside loadSelectedPerformAInvoice");
         this.error = false;
         this.success = false;
         this.genInvoiceService.getInvoice(invoiceId).subscribe(function (invoiceData) {
@@ -747,14 +907,16 @@ var GenInvoiceComponent = /** @class */ (function () {
             _this.invoice.url = __WEBPACK_IMPORTED_MODULE_6__app_constants__["a" /* APIURLS */].printIInvoiceUrl.concat(_this.invoice.performaId);
             _this.invoice.purl = __WEBPACK_IMPORTED_MODULE_6__app_constants__["a" /* APIURLS */].printPInvoiceUrl.concat(_this.invoice.performaId);
             _this.particulars = invoiceData.particulars;
+            //console.log("invoice type "+this.invoice.type);
             if (_this.invoice.type != 'INVOICE') {
                 _this.particulars.forEach(function (par) {
                     par.calculatedInvoiceAmount = par.calculatedPerformaAmount;
                     par.invoiceRate = par.performaRate;
                 });
+                //console.log("invoice setting "+this.invoice.cgstInvoicePercent+this.invoice.sgstInvoicePercent);
                 if (!_this.invoice.cgstInvoicePercent)
                     _this.invoice.cgstInvoicePercent = _this.invoice.cgstPerfomaPercent;
-                if (!_this.invoice.cgstInvoicePercent)
+                if (!_this.invoice.sgstInvoicePercent)
                     _this.invoice.sgstInvoicePercent = _this.invoice.sgstPerfomaPercent;
                 if (!_this.invoice.igstInvoicePercent)
                     _this.invoice.igstInvoicePercent = _this.invoice.igstPerfomaPercent;
@@ -770,6 +932,7 @@ var GenInvoiceComponent = /** @class */ (function () {
             _this.errorMessage = "Error occured while getting the invoice details";
             console.log(err);
         });
+        this.getMinInvoiceDate();
     };
     GenInvoiceComponent.prototype.calculateAmount = function (field) {
         field.calculatedInvoiceAmount = field.quantity * field.invoiceRate;
@@ -782,9 +945,9 @@ var GenInvoiceComponent = /** @class */ (function () {
         });
         this.invoice.totalInvoiceBeforeTax = sum;
         //apply Tax
-        this.invoice.cgstInvoice = (this.invoice.cgstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100;
-        this.invoice.sgstInvoice = (this.invoice.sgstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100;
-        this.invoice.igstInvoice = (this.invoice.igstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100;
+        this.invoice.cgstInvoice = Math.ceil((this.invoice.cgstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100);
+        this.invoice.sgstInvoice = Math.ceil((this.invoice.sgstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100);
+        this.invoice.igstInvoice = Math.ceil((this.invoice.igstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100);
         this.invoice.totalInvoiceAmount = (this.invoice.totalInvoiceBeforeTax + this.invoice.cgstInvoice + this.invoice.sgstInvoice
             + this.invoice.igstInvoice);
         this.invoice.totalInvoiceAmount.toFixed(2);
@@ -822,6 +985,44 @@ var GenInvoiceComponent = /** @class */ (function () {
             _this.error = true;
             _this.errorMessage = "Error occured While saving the Invoice";
         });
+    };
+    GenInvoiceComponent.prototype.getMinInvoiceDate = function () {
+        var _this = this;
+        this.success = false;
+        this.error = false;
+        this.curDate = this.getNowDate();
+        console.log("curDate-" + this.curDate);
+        this.genInvoiceService.getMinInvoiceDate().subscribe(function (str) {
+            _this.minInvoiceDate = str;
+            console.log("minInvoiceDate-" + _this.minInvoiceDate);
+        }, function (err) {
+            _this.error = true;
+            _this.errorMessage = "Error occured in getMinInvoiceDate please contact administrator";
+            //console.log("err getMinProfomaDate-"+ err);
+        });
+    };
+    GenInvoiceComponent.prototype.getNowDate = function () {
+        var returnDate = "";
+        var today = new Date();
+        //split
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //because January is 0! 
+        var yyyy = today.getFullYear();
+        //Interpolation date
+        returnDate += yyyy;
+        if (mm < 10) {
+            returnDate += "-0" + mm + "-";
+        }
+        else {
+            returnDate += "-" + mm + "-";
+        }
+        if (dd < 10) {
+            returnDate += "0" + dd;
+        }
+        else {
+            returnDate += "" + dd;
+        }
+        return returnDate;
     };
     GenInvoiceComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -878,6 +1079,12 @@ var GenInvoiceService = /** @class */ (function () {
         console.log(__WEBPACK_IMPORTED_MODULE_2__app_constants__["a" /* APIURLS */].invoice + "  " + url);
         return this.http.get(url, { headers: httpOptions.headers });
     };
+    GenInvoiceService.prototype.getMinInvoiceDate = function () {
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_constants__["b" /* Urls */].getDomain().concat(__WEBPACK_IMPORTED_MODULE_2__app_constants__["a" /* APIURLS */].invoice).concat("/minInvoiceDate");
+        //console.log("getMinInvoiceDate url : " + url);
+        var options = { responseType: 'text' };
+        return this.http.get(url, options);
+    };
     GenInvoiceService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
@@ -924,6 +1131,116 @@ var CompanyGlobalVar = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/has-role.directive.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HasRoleDirective; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__users_users_domain__ = __webpack_require__("./src/app/users/users.domain.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__globals__ = __webpack_require__("./src/app/globals.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var httpOptions = {
+    headers: new __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["c" /* HttpHeaders */]({ 'Content-Type': 'application/json' })
+};
+var HasRoleDirective = /** @class */ (function () {
+    function HasRoleDirective(el, templateRef, viewContainer, http, companyVariable) {
+        this.el = el;
+        this.templateRef = templateRef;
+        this.viewContainer = viewContainer;
+        this.http = http;
+        this.companyVariable = companyVariable;
+        this.permissions = [];
+        this.user = new __WEBPACK_IMPORTED_MODULE_1__users_users_domain__["a" /* UserInfo */]();
+    }
+    Object.defineProperty(HasRoleDirective.prototype, "appHasRole", {
+        set: function (val) {
+            this.permissions = val.role;
+            this.userRole = val.userRole;
+            //console.log(this.userRole);
+            this.updateView();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    HasRoleDirective.prototype.ngOnInit = function () {
+    };
+    /*async processRoles() {
+      if(!this.userRole){
+        console.log("User role fetching")
+        this.userRole = await this.getRolesP();
+      }
+      this.updateView()
+    }
+  
+     getRolesP(): Promise<string[]> {
+      var url = Urls.getDomain().concat(APIURLS.userrole).concat("/authenticated");
+      console.log("getting user role in directive")
+      return this.http.get<string[]>(url, { headers: httpOptions.headers })
+        .toPromise()
+    }
+  */
+    HasRoleDirective.prototype.updateView = function () {
+        if (this.checkPermission()) {
+            this.viewContainer.createEmbeddedView(this.templateRef);
+        }
+        else {
+            this.viewContainer.clear();
+        }
+    };
+    HasRoleDirective.prototype.checkPermission = function () {
+        var hasPermission = false;
+        if (this.userRole) {
+            var _loop_1 = function (checkPermission) {
+                var permissionFound = this_1.userRole.find(function (x) { return x.toUpperCase() === checkPermission.toUpperCase(); });
+                // console.log("searching and finding permission"+permissionFound);
+                if (permissionFound) {
+                    hasPermission = true;
+                    return "break";
+                }
+            };
+            var this_1 = this;
+            for (var _i = 0, _a = this.permissions; _i < _a.length; _i++) {
+                var checkPermission = _a[_i];
+                var state_1 = _loop_1(checkPermission);
+                if (state_1 === "break")
+                    break;
+            }
+        }
+        return hasPermission;
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [Object])
+    ], HasRoleDirective.prototype, "appHasRole", null);
+    HasRoleDirective = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["s" /* Directive */])({
+            selector: '[appHasRole]'
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* TemplateRef */],
+            __WEBPACK_IMPORTED_MODULE_0__angular_core__["_9" /* ViewContainerRef */], __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_3__globals__["a" /* CompanyGlobalVar */]])
+    ], HasRoleDirective);
+    return HasRoleDirective;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/header/header.component.css":
 /***/ (function(module, exports) {
 
@@ -934,7 +1251,7 @@ module.exports = ""
 /***/ "./src/app/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<header class=\"header\" style=\"height:40px;\">\n  <div class=\"header-block header-block-collapse d-lg-none d-xl-none\">\n    <button class=\"collapse-btn\" id=\"sidebar-collapse-btn\">\n                            <i class=\"fa fa-bars\"></i>\n                        </button>\n  </div>\n  <div class=\"header-block header-block-search\">\n\n  </div>\n  <div class=\"header-block header-block-nav\">\n    <ul class=\"nav-profile\">\n      <!-- <li class=\"notifications new\">\n        <a href=\"\" data-toggle=\"dropdown\">\n          <i class=\"fa fa-bell-o\"></i>\n            <sup>\n             <span class=\"counter\">8</span>\n            </sup>\n        </a>\n        <div class=\"dropdown-menu notifications-dropdown-menu\">\n          <ul class=\"notifications-container\">\n            <li>\n              <a href=\"\" class=\"notification-item\">\n                <div class=\"img-col\">\n                  <div class=\"img\" style=\"background-image: url('assets/faces/3.jpg')\"></div>\n                </div>\n                <div class=\"body-col\">\n                  <p>\n                    <span class=\"accent\">Zack Alien</span> pushed new commit:\n                    <span class=\"accent\">Fix page load performance issue</span>. </p>\n                </div>\n              </a>\n            </li>\n            <li>\n              <a href=\"\" class=\"notification-item\">\n                <div class=\"img-col\">\n                  <div class=\"img\" style=\"background-image: url('assets/faces/5.jpg')\"></div>\n                </div>\n                <div class=\"body-col\">\n                  <p>\n                    <span class=\"accent\">Amaya Hatsumi</span> started new task:\n                    <span class=\"accent\">Dashboard UI design.</span>. </p>\n                </div>\n              </a>\n            </li>\n            <li>\n              <a href=\"\" class=\"notification-item\">\n                <div class=\"img-col\">\n                  <div class=\"img\" style=\"background-image: url('assets/faces/8.jpg')\"></div>\n                </div>\n                <div class=\"body-col\">\n                  <p>\n                    <span class=\"accent\">Andy Nouman</span> deployed new version of\n                    <span class=\"accent\">NodeJS REST Api V3</span>\n                  </p>\n                </div>\n              </a>\n            </li>\n            \n          </ul>\n          <footer>\n            <ul>\n              <li>\n                <a href=\"\"> View All </a>\n              </li>\n            </ul>\n          </footer>\n        </div>\n      </li> -->\n      <li class=\"notifications new\">\n        <a href=\"\" data-toggle=\"dropdown\">\n          Roles:\n        </a>\n        <div class=\"dropdown-menu notifications-dropdown-menu\">\n          <ul class=\"notifications-container\">\n            <li *ngFor=\"let role of userRole\">\n              <div class=\"body-col\">\n                <p>\n                  <span>{{role.roleCode}}</span>\n                </p>\n              </div>\n            </li>\n          </ul>\n\n        </div>\n      </li>\n      <li class=\"profile dropdown\">\n        <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n          <div class=\"img\" style=\"font-size:18px;\"><i class=\"fa fa-user\"></i> </div>\n          <span class=\"name\"> {{user.name}} </span>\n        </a>\n        <div class=\"dropdown-menu profile-dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n          <a class=\"dropdown-item\" href=\"/logout\">\n            <i class=\"fa fa-power-off icon\"></i> Logout </a>\n        </div>\n      </li>\n    </ul>\n  </div>\n</header>"
+module.exports = "\n      <div class=\"profile-userpic\">\n        <img src=\"https://www.w3schools.com/w3css/img_avatar3.png\" class=\"img-responsive\" alt=\"\">\n      </div>\n      <div class=\"profile-usertitle\">\n        <small>Logged in as :</small>\n        <div class=\"profile-usertitle-name\">\n          {{user.name}}  |\n          <a href=\"#\" title=\"edit profile\">\n\t\t\t\t\t\t<i class=\"fa fa-cog\"></i>\n\t\t\t\t\t</a> | <a href=\"/logout\" title=\"logout\">\n\t\t\t\t\t\t<i class=\"fa fa-sign-out-alt\"></i>\n\t\t\t\t\t</a>\n        </div>\n        <div class=\"profile-usertitle-job \">\n         |<span *ngFor=\"let role of userRole\">{{role.roleCode}}|</span>\n        </div>\n      </div>\n"
 
 /***/ }),
 
@@ -1020,7 +1337,7 @@ module.exports = ""
 /***/ "./src/app/invoice/invoice.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>PerformA Invoice (Service)</h3>\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Saved\n</div>\n\n<div class=\"card\" >\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-1 \"><b>Client</b></div>\n      <div class=\"col-md-2\">\n        <select (change)=\"loadSelectedClient()\" class=\"form-control underlined\" [(ngModel)]=\"selClientId\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">\n        <option></option>\n        <option *ngFor=\"let cli of clients\" [ngValue]=\"cli.id\" [selected]=\"cli.id === selClientId\">{{cli.name}}</option>\n         </select>\n      </div>\n      <div class=\"col-md-2\"><b>Performa Id : </b></div>\n      <div class=\"col-md-3\">{{invoice.performaId}}</div>\n      <div class=\"col-md-2\"><b>SAC code: </b></div>\n      <div class=\"col-md-2\">\n        <select (change)=\"loadSelectedSac()\" class=\"form-control underlined\" [(ngModel)]=\"selSacId\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">\n        <option></option>\n        <option *ngFor=\"let sac of sacCodes\" [ngValue]=\"sac.id\" [selected]=\"sac.id === selSacId\">{{sac.sacCode}}</option>\n        </select>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-1\"><b>Status : </b></div>\n      <div class=\"col-md-2\">{{invoice.status}}</div>\n      <div class=\"col-md-2\"><b>GSTIN : </b></div>\n      <div class=\"col-md-3\">{{selectedClient.gstin}}</div>\n      <div class=\"col-md-1\"><b>Date : </b></div>\n      <div class=\"col-md-3\">{{invoice.performaDate | date:\"dd MMM yyyy HH:mm\"}}</div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-1\"><b>Name : </b></div>\n      <div class=\"col-md-2\">{{selectedClient.name}}</div>\n      <div class=\"col-md-2\"><b>Address : </b></div>\n      <div class=\"col-md-4\">\n        {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},\n        <br/> {{selectedClient.city}}, {{selectedClient.state}},\n        <br/>        {{selectedClient.pincode}}.\n        <br/>\n        <i>Phone : </i> {{selectedClient.phonePrimary}}.\n        <br/>\n        <i>Email : </i> {{selectedClient.email}}.\n        <br/>\n      </div>\n    </div>\n    <table class=\"table\">\n      <tr>\n        <th colspan=\"7\">Particulars</th>\n        <th><button class=\"btn btn-success\" (click)=\"addRow()\" *ngIf=\"!(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">AddRow</button></th>\n      </tr>\n      <tr>\n        <th colspan=\"6\">Description</th>\n        <!--<th>Quantity</th>-->\n        <th>Rate</th>\n        <th>Amount</th>\n      </tr>\n      <tr *ngFor=\"let field of particulars;let i=index\">\n\n        <td><button class=\"btn btn-sm btn-danger\" (click)=\"deletParticulars(field.id)\" *ngIf=\"field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')\"><i class=\"fa fa-trash\"></i></button></td>\n\n        <td colspan=\"5\" WIDTH=\"80%\">\n          <textarea type=\"text\" class=\"form-control\" required=\"true\" [(ngModel)]=\"field.itemDescription\" (change)=\"calculateAmount(field)\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">\n          </textarea>\n        </td>\n       <!-- <td WIDTH=\"10%\">\n          <input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\" size=\"3\" [(ngModel)]=\"field.quantity\"  (change)=\"calculateAmount(field)\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\"/>\n        </td>-->\n        <td WIDTH=\"10%\"><input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\"  [(ngModel)]=\"field.performaRate\" (change)=\"calculateAmount(field)\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\"/>\n        </td>\n        <td WIDTH=\"10%\">\n          <input type=\"number\" readoly class=\"form-control\" required=\"true\" readonly [(ngModel)]=\"field.calculatedPerformaAmount\"/>\n        </td>\n      </tr>\n      <tfoot>\n        <tr>\n          <td colspan=\"6\">\n          </td>\n          <th>\n            SUM =\n          </th>\n          <td>{{invoice.totalPerfomaBeforeTax}}</td>\n        </tr>\n        <tr *ngIf=\"cgstDisplay\">\n          <td colspan=\"5\">\n          </td>\n          <th style=\"text-align: right\">\n            CGST =\n          </th>\n          <td>{{invoice.cgstPerfomaPercent}}</td>\n          <td>{{invoice.cgstPerfoma}}</td>\n        </tr>\n        <tr *ngIf=\"sgstDisplay\">\n          <td colspan=\"5\">\n          </td>\n          <th style=\"text-align: right\">\n            SGST =\n          </th>\n          <td>{{invoice.sgstPerfomaPercent}}</td>\n          <td>{{invoice.sgstPerfoma}}</td>\n        </tr>\n        <tr *ngIf=\"igstDisplay\">\n          <td colspan=\"5\">\n          </td>\n          <th style=\"text-align: right\">\n            IGST =\n          </th>\n          <td>{{invoice.igstPerfomaPercent}}</td>\n          <td>{{invoice.igstPerfoma}}</td>\n        </tr>\n        <tr>\n          <td colspan=\"6\">\n          </td>\n          <th>\n            Reimbursement =\n          </th>\n          <th><input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\"  [(ngModel)]=\"invoice.reimbPerfomaAmount\" (change)=\"calculateTotal()\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\"/> </th>\n        </tr>\n        <tr>\n          <td colspan=\"6\">\n          </td>\n          <th>\n            Total =\n          </th>\n          <th>{{invoice.totalPerfomaAmount}}</th>\n        </tr>\n        <tr>\n          <td colspan=\"4\">\n          </td>\n          <td colspan=\"1\" align=\"right\">\n           \n          </td>\n          <td colspan=\"1\">\n           \n          </td>\n          <td colspan=\"1\">\n           \n          </td>\n          <td colspan=\"1\">\n           \n          </td>\n        </tr>\n      </tfoot>\n    </table>\n  </div>\n</div>\n\n<div class=\"card\">\n  <div class=\"card-body\">\n    <div class=\"row float-right\">\n     <a target=\"_blank\" style=\"color:white;background-color:#432fb5\" class=\"btn\" [href]=\"invoice.purl\" *ngIf=\"invoice.purl && invoice.performaId!=''\">\n            <i class=\"fa fa-print\"></i>\n      </a>&nbsp;\n      <a routerLink=\"/generate-invoice/{{invoice.id}}\" class=\"btn btn-success\">View as Invoice</a>&nbsp;\n     <button class=\"btn btn-secondary\" (click)=\"calculateTotal()\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">Calculate Total</button>&nbsp;\n      <button class=\"btn btn-primary\" (click)=\"savePerformaInvoice()\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">Save Invoice</button>&nbsp;\n       <button class=\"btn btn-warning\" (click)=\"cancelInvoice()\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">Cancel Invoice</button>\n    </div>\n  </div>\n</div>"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n    <h4 class=\"mb-2 mb-sm-0 pt-1\">\n      <span>Proforma Invoice (Service)</span>\n    </h4>\n  </div>\n</div>\n<!-- Heading -->\n\n\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Saved\n</div>\n\n<div class=\"card\" >\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-1 \"><b>Client</b></div>\n      <div class=\"col-md-2\">\n        <select (change)=\"loadSelectedClient()\" class=\"form-control underlined\" [(ngModel)]=\"selClientId\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">\n        <option></option>\n        <option *ngFor=\"let cli of clients\" [ngValue]=\"cli.id\" [selected]=\"cli.id === selClientId\">{{cli.name}}</option>\n         </select>\n      </div>\n      <div class=\"col-md-2\"><b>Performa Id : </b></div>\n      <div class=\"col-md-3\">{{invoice.performaId}}</div>\n      <div class=\"col-md-2\" *ngIf=\"showSac\"><b>SAC code: </b></div>\n      <div class=\"col-md-2\" *ngIf=\"showSac\">\n        <select (change)=\"loadSelectedSac()\" class=\"form-control underlined\" [(ngModel)]=\"selSacId\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">\n        <option></option>\n        <option *ngFor=\"let sac of sacCodes\" [ngValue]=\"sac.id\" [selected]=\"sac.id === selSacId\">{{sac.sacCode}}</option>\n        </select>\n      </div>\n    </div>\n    <div class=\"row\">\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-1\"><b>Status : </b></div>\n      <div class=\"col-md-2\">{{invoice.status}}</div>\n      <div class=\"col-md-2\"><b>GSTIN : </b></div>\n      <div class=\"col-md-2\">{{selectedClient.gstin}}</div>\n      <div class=\"col-md-2\"><b>Proforma Date : </b></div>\n      <div class=\"col-md-3\">\n        <input type=\"date\" class=\"form-control underlined\" name=\"proformaDate\" id=\"proformaDate\" required=\"true\" [ngModel]=\"invoice.performaDate | date:'yyyy-MM-dd'\"\n              (ngModelChange)=\"invoice.performaDate = $event\" [value]=\"date | date:'yyyy-MM-dd'\" [min]=\"minProformaDate\" [max]=\"curDate\" />\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-1\"><b>Name : </b></div>\n      <div class=\"col-md-2\">{{selectedClient.name}}</div>\n      <div class=\"col-md-2\"><b>Address : </b></div>\n      <div class=\"col-md-4\">\n        {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},\n        <br/> {{selectedClient.city}}, {{selectedClient.state}},\n        <br/>        {{selectedClient.pincode}}.\n        <br/>\n        <i>Phone : </i> {{selectedClient.phonePrimary}}.\n        <br/>\n        <i>Email : </i> {{selectedClient.email}}.\n        <br/>\n      </div>\n    </div>\n    <div class=\"clear-fix border-top p-3\">\n    <h4 class=\"sub-header\">\n      <span class=\"index\">1</span>Particulars\n      <button class=\"btn btn-success float-right\" (click)=\"addRow()\" *ngIf=\"!(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">\n        <i class=\"fa fa-plus\">&nbsp;</i>AddRow</button>  \n    </h4>\n    </div>\n\n    <table class=\"table table-striped\">\n      <thead class=\"blue lighten-5\">\n      <tr>\n        <th colspan=\"7\">Professional service rendered in connection with</th>\n        <!--<th>Quantity</th>-->\n        <th>Rate</th>\n        <th>Amount</th>\n      </tr>\n      </thead>\n      <tbody>\n      <tr *ngFor=\"let field of particulars;let i=index\">\n          <td>{{i+1}}</td>\n        <td><button class=\"btn btn-sm btn-danger pl-2 pr-2\" (click)=\"deletParticulars(field.id)\" *ngIf=\"field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')\"><i class=\"fa fa-trash\"></i></button></td>\n\n        <td colspan=\"5\" WIDTH=\"80%\">\n          <textarea type=\"text\" class=\"form-control\" required=\"true\" [(ngModel)]=\"field.itemDescription\" (change)=\"calculateAmount(field)\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">\n          </textarea>\n        </td>\n       <!-- <td WIDTH=\"10%\">\n          <input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\" size=\"3\" [(ngModel)]=\"field.quantity\"  (change)=\"calculateAmount(field)\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\"/>\n        </td>-->\n        <td WIDTH=\"10%\"><input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\"  [(ngModel)]=\"field.performaRate\" (change)=\"calculateAmount(field)\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\"/>\n        </td>\n        <td WIDTH=\"10%\">\n          <input type=\"number\" readoly class=\"form-control\" required=\"true\" readonly [(ngModel)]=\"field.calculatedPerformaAmount\"/>\n        </td>\n      </tr>\n       \n      </tbody>\n      <tfoot>\n         <tr>\n          <td colspan=\"7\">\n          </td>\n          <th>\n            Enter Reimbursement Amount(if any)\n          </th>\n          <th><input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\"  [(ngModel)]=\"invoice.reimbPerfomaAmount\" (change)=\"calculateTotal()\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\"/> </th>\n        </tr>\n        <tr>\n          <td colspan=\"7\">\n          </td>\n          <th>\n            SUM =\n          </th>\n          <th>{{invoice.totalPerfomaBeforeTax}}</th>\n        </tr>\n        <tr *ngIf=\"cgstDisplay\">\n          <td colspan=\"6\">\n          </td>\n          <th style=\"text-align: right\">\n            CGST =\n          </th>\n          <td>{{invoice.cgstPerfomaPercent}}</td>\n          <td>{{invoice.cgstPerfoma}}</td>\n        </tr>\n        <tr *ngIf=\"sgstDisplay\">\n          <td colspan=\"6\">\n          </td>\n          <th style=\"text-align: right\">\n            SGST =\n          </th>\n          <td>{{invoice.sgstPerfomaPercent}}</td>\n          <td>{{invoice.sgstPerfoma}}</td>\n        </tr>\n        <tr *ngIf=\"igstDisplay\">\n          <td colspan=\"6\">\n          </td>\n          <th style=\"text-align: right\">\n            IGST =\n          </th>\n          <td>{{invoice.igstPerfomaPercent}}</td>\n          <td>{{invoice.igstPerfoma}}</td>\n        </tr>\n      \n        <tr>\n          <td colspan=\"7\">\n          </td>\n          <th>\n            Total =\n          </th>\n          <th>{{invoice.totalPerfomaAmount}}</th>\n        </tr>\n      </tfoot>\n    </table>\n  </div>\n</div>\n\n<div class=\"card mt-4 wow fadeIn\">\n  <div class=\"card-body\">\n    <div class=\"row float-right\">\n     <a target=\"_blank\" style=\"color:white;background-color:#432fb5\" class=\"btn\" [href]=\"invoice.purl\" *ngIf=\"invoice.purl && invoice.performaId!=''\">\n            <i class=\"fa fa-print\"></i>\n      </a>&nbsp;\n      <a routerLink=\"/generate-invoice/{{invoice.id}}\" class=\"btn btn-success\" *ngIf=\"invoice.performaId!='' && invoice.status!='CANCELED'\" >\n        <i class=\"fa fa-eye\">&nbsp;</i>\n        View as Invoice\n      </a>&nbsp;\n     <button class=\"btn btn-secondary\" (click)=\"calculateTotal()\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">\n      <i class=\"fa fa-calculator\">&nbsp;</i> Calculate Total\n      </button>&nbsp;\n      <button class=\"btn btn-primary\" (click)=\"savePerformaInvoice()\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">\n        <i class=\"fa fa-save\">&nbsp;</i>Save Proforma</button>&nbsp;\n       <button class=\"btn btn-warning\" (click)=\"cancelInvoice()\" *ngIf=\"invoice.performaId!=''\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">\n         <i class=\"fa fa-ban\">&nbsp;</i>Cancel Invoice</button>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1074,6 +1391,9 @@ var InvoiceComponent = /** @class */ (function () {
         this.invoice = new __WEBPACK_IMPORTED_MODULE_4__invoice_domain__["a" /* Invoice */]();
         this.sacCodes = [];
         this.selSacCode = new __WEBPACK_IMPORTED_MODULE_4__invoice_domain__["d" /* SACCode */]();
+        this.showSac = false;
+        this.minProformaDate = "";
+        this.curDate = "";
         var invoiceIdParam;
         this.route.params.subscribe(function (params) {
             invoiceIdParam = params['id'];
@@ -1106,6 +1426,10 @@ var InvoiceComponent = /** @class */ (function () {
             this.loadSelectedClient();
             this.particulars.push(new __WEBPACK_IMPORTED_MODULE_4__invoice_domain__["c" /* Particulars */]());
         }
+        if (companyGlobalVar.gstNo != '') {
+            this.showSac = true;
+        }
+        this.getMinProfomaDate();
     }
     InvoiceComponent.prototype.ngOnInit = function () {
     };
@@ -1132,9 +1456,11 @@ var InvoiceComponent = /** @class */ (function () {
         this.invoiceService.getSACCode()
             .subscribe(function (sac) {
             _this.sacCodes = sac;
+            //console.log("invoice id-"+this.invoice.id);
             if (_this.invoice && _this.invoice.id != 0) {
                 _this.selSacCode = _this.sacCodes.find(function (sc) { return sc.sacCode === _this.invoice.sacCode; });
-                _this.selSacId = _this.selSacCode.id;
+                if (_this.selSacCode)
+                    _this.selSacId = _this.selSacCode.id;
             }
         }, function (err) {
             _this.error = true;
@@ -1166,15 +1492,17 @@ var InvoiceComponent = /** @class */ (function () {
         if (this.selectedClient != null) {
             console.debug('selectedClient.state' + this.selectedClient.state);
             console.debug('companyGlobalVar.state' + this.companyGlobalVar.state);
-            if (this.selectedClient.state == this.companyGlobalVar.state) {
-                this.cgstDisplay = true;
-                this.sgstDisplay = true;
-                this.igstDisplay = false;
-            }
-            else {
-                this.cgstDisplay = false;
-                this.sgstDisplay = false;
-                this.igstDisplay = true;
+            if (this.showSac) {
+                if (this.selectedClient.state == this.companyGlobalVar.state) {
+                    this.cgstDisplay = true;
+                    this.sgstDisplay = true;
+                    this.igstDisplay = false;
+                }
+                else {
+                    this.cgstDisplay = false;
+                    this.sgstDisplay = false;
+                    this.igstDisplay = true;
+                }
             }
         }
         else {
@@ -1198,9 +1526,9 @@ var InvoiceComponent = /** @class */ (function () {
         });
         this.invoice.totalPerfomaBeforeTax = sum;
         //apply Tax
-        this.invoice.cgstPerfoma = (this.invoice.cgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100;
-        this.invoice.sgstPerfoma = (this.invoice.sgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100;
-        this.invoice.igstPerfoma = (this.invoice.igstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100;
+        this.invoice.cgstPerfoma = Math.ceil((this.invoice.cgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100);
+        this.invoice.sgstPerfoma = Math.ceil((this.invoice.sgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100);
+        this.invoice.igstPerfoma = Math.ceil((this.invoice.igstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100);
         this.invoice.totalPerfomaAmount = (this.invoice.totalPerfomaBeforeTax + this.invoice.cgstPerfoma + this.invoice.sgstPerfoma
             + this.invoice.igstPerfoma);
         this.invoice.totalPerfomaAmount = this.invoice.totalPerfomaAmount + this.invoice.reimbPerfomaAmount;
@@ -1208,6 +1536,10 @@ var InvoiceComponent = /** @class */ (function () {
     };
     InvoiceComponent.prototype.savePerformaInvoice = function () {
         var _this = this;
+        if (!this.selClientId) {
+            alert("please select the client");
+            return;
+        }
         this.success = false;
         this.error = false;
         this.invoiceData.invoice = this.invoice;
@@ -1232,6 +1564,7 @@ var InvoiceComponent = /** @class */ (function () {
         this.invoiceData.particulars = this.particulars;
         this.invoiceService.cancel(this.invoiceData.invoice.id).subscribe(function (invoice) {
             _this.invoiceData.invoice = invoice;
+            _this.invoice.status = "CANCELED";
             _this.success = true;
         }, function (err) {
             _this.error = true;
@@ -1249,6 +1582,44 @@ var InvoiceComponent = /** @class */ (function () {
             _this.error = true;
             _this.errorMessage = "Error occured While saving the Invoice";
         });
+    };
+    InvoiceComponent.prototype.getMinProfomaDate = function () {
+        var _this = this;
+        this.success = false;
+        this.error = false;
+        this.curDate = this.getNowDate();
+        console.log("curDate-" + this.curDate);
+        this.invoiceService.getMinProfomaDate().subscribe(function (str) {
+            _this.minProformaDate = str;
+            console.log("minProformaDate-" + _this.minProformaDate);
+        }, function (err) {
+            _this.error = true;
+            _this.errorMessage = "Error occured in getMinProfomaDate please contact administrator";
+            //console.log("err getMinProfomaDate-"+ err);
+        });
+    };
+    InvoiceComponent.prototype.getNowDate = function () {
+        var returnDate = "";
+        var today = new Date();
+        //split
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //because January is 0! 
+        var yyyy = today.getFullYear();
+        //Interpolation date
+        returnDate += yyyy;
+        if (mm < 10) {
+            returnDate += "-0" + mm + "-";
+        }
+        else {
+            returnDate += "-" + mm + "-";
+        }
+        if (dd < 10) {
+            returnDate += "0" + dd;
+        }
+        else {
+            returnDate += "" + dd;
+        }
+        return returnDate;
     };
     InvoiceComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -1291,12 +1662,15 @@ var Particulars = /** @class */ (function () {
 
 var Invoice = /** @class */ (function () {
     function Invoice() {
+        this.id = 0;
         this.invoiceId = "";
         this.performaId = "";
         this.proFormaId = "";
         this.sacCode = "";
         this.invoiceType = ""; // Right now it is hardcoded; need to change it when manufacturing invoice logic is added
         this.category = "";
+        this.performaDate = new Date();
+        this.invoiceDate = new Date();
         this.cgstPerfomaPercent = 0;
         this.sgstPerfomaPercent = 0;
         this.igstPerfomaPercent = 0;
@@ -1394,7 +1768,7 @@ module.exports = ""
 /***/ "./src/app/invoice/invoice.search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Search Invoice </h3>\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n\n<div class=\"card\">\n  <div class=\"card-body\">\n    <form (ngSubmit)=\"submit()\" name=\"searchForm\" ngNativeValidate>\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-md-3\">\n            <label for=\"category\">Category </label>\n            <select id=\"category\" name=\"category \" class=\"form-control underlined\" required=\"false\" [(ngModel)]=\"searchInvoice.category\"  (change)=\"clearResult()\" >\n                  <option value=\"SERVICE\">SERVICE</option>\n                  <option value=\"MANUFACTURING\">MANUFACTURING</option>                  \n                </select>\n          </div>\n          <div class=\"col-md-3\">\n            <label for=\"name\">Performa Id </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"performa Id\" id=\"performaId\" required=\"false\" [(ngModel)]=\"searchInvoice.performaId\"\n            />\n          </div>\n          <div class=\"col-md-3\">\n            <label for=\"name\">Invoice Id </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"invoiceId\" id=\"invoiceId\" required=\"false\" [(ngModel)]=\"searchInvoice.invoiceId\"\n            />\n          </div>\n          <div class=\"col-md-3\">\n            <label for=\"status\">Status </label>\n            <select id=\"status\" name=\"status \" class=\"form-control underlined\" required=\"false\" [(ngModel)]=\"searchInvoice.status\">\n                  <option value=\"NEW\">NEW</option>\n                  <option value=\"CANCELED\">CANCELED</option>                  \n                </select>\n          </div>\n         \n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <div class=\"row\">\n           <div class=\"col-md-3\">\n            <label for=\"client\">Client </label>\n            <select id=\"client\" name=\"client \" class=\"form-control underlined\" required=\"false\" [(ngModel)]=\"searchInvoice.clientId\">\n              <option></option>\n              <option *ngFor=\"let cli of clients\" [ngValue]=\"cli.id\">{{cli.name}}</option>\n            </select>\n          </div>\n          <div class=\"col-md-3\">\n            <label for=\"startDt\">Performa/Invoice </label>\n            <select id=\"status\" name=\"status \" class=\"form-control underlined\" required=\"false\" [(ngModel)]=\"searchInvoice.type\">\n                  <option></option>\n                  <option value=\"PERFORMA\">PERFORMA </option>\n                  <option value=\"INVOICE\">INVOICE </option>               \n                </select>\n          </div>\n          <div class=\"col-md-3\">\n            <label for=\"startDt\">Start Date </label>\n            <input type=\"date\" class=\"form-control underlined\" name=\"startDt\" id=\"startDt\" required=\"false\" [(ngModel)]=\"searchInvoice.invoiceStDate\"\n            />\n          </div>\n          <div class=\"col-md-3\">\n            <label for=\"endDt\">End Date</label>\n            <input type=\"date\" class=\"form-control underlined\" name=\"endDt\" id=\"endDt\" required=\"false\" [(ngModel)]=\"searchInvoice.invoiceEdDate\"\n            />\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-md-6\">\n            <button type=\"submit\" class=\"btn btn-primary\">\n              <i class=\"fa fa-search\">&nbsp;</i>\n              Search</button>\n            <button type=\"reset\" class=\"btn btn-secondary\">\n              <i class=\"fa fa-refresh\">&nbsp;</i>\n              Reset</button>\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>\n\n<div class=\"card\">\n  <div class=\"card-body\">\n    <small style=\"color:#432fb5\">Displaying {{searchResult.numberOfElements}}/{{searchResult.totalElements}} items in this page</small>\n    <table class=\"table\">\n      <thead>\n        <tr>\n          <th>Invoice Id</th>\n          <th>Performa Id</th>\n          <th>Client</th>\n          <th>Performa Date</th>\n          <th>Invoice Date</th>\n          <th>Performa Amount</th>\n          <th>Invoice Amount</th>\n          <th>Type</th>\n          <th>Status</th>\n          <th>Print</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let invoice of invoices\">\n          <td>\n            <a routerLink=\"/generate-invoice/{{invoice.id}}\" *ngIf=\"invoice.invoiceId && searchInvoice.category=='SERVICE'\">{{invoice.invoiceId}}</a>\n            <a routerLink=\"/generate-invoice/{{invoice.id}}\" *ngIf=\"!invoice.invoiceId && searchInvoice.category=='SERVICE'\" class=\"btn btn-success\">Generate Invoice</a>\n            <a routerLink=\"/generate-manu-invoice/{{invoice.id}}\" *ngIf=\"invoice.invoiceId && searchInvoice.category=='MANUFACTURING'\">{{invoice.invoiceId}}</a>\n            <a routerLink=\"/generate-manu-invoice/{{invoice.id}}\" *ngIf=\"!invoice.invoiceId && searchInvoice.category=='MANUFACTURING'\" class=\"btn btn-success\">Generate Invoice</a>\n\n          </td>\n          <td>\n            <a routerLink=\"/performaView/{{invoice.id}}\" *ngIf=\"invoice.performaId && searchInvoice.category=='SERVICE'\">{{invoice.performaId}}</a>\n            <a routerLink=\"/manufacturingInvoice/{{invoice.id}}\" *ngIf=\"invoice.proFormaId && searchInvoice.category=='MANUFACTURING'\">{{invoice.proFormaId}}</a>\n          </td>\n          <td>{{invoice.clientName}}</td>\n          <td>{{invoice.performaDate | date:'yyyy-MM-dd'}}</td>\n          <td>{{invoice.invoiceDate | date:'yyyy-MM-dd'}}</td>\n          <td *ngIf=\"searchInvoice.category=='MANUFACTURING'\">{{invoice.calculatedPerformaAmount}}</td>\n          <td *ngIf=\"searchInvoice.category=='MANUFACTURING'\">{{invoice.calculatedInvoiceAmount}}</td>\n           <td *ngIf=\"searchInvoice.category=='SERVICE'\">{{invoice.totalPerfomaAmount}}</td>\n          <td *ngIf=\"searchInvoice.category=='SERVICE'\">{{invoice.totalInvoiceAmount}}</td>\n         \n          <td>{{invoice.type}}</td>\n          <td>{{invoice.status}}</td>\n          <td>\n              <div class=\"btn-group\">\n              <a target=\"_blank\" style=\"color:white;background-color:#432fb5;border:white solid 1px;\" class=\"btn btn-sm\" [href]=\"invoice.purl\">\n                  P\n              </a>\n              <a target=\"_blank\" *ngIf=\"invoice.invoiceId\" style=\"color:white;background-color:#3c3c3c;border:white solid 1px;\" class=\"btn btn-sm\" [href]=\"invoice.url\">\n                 I\n              </a>\n              </div>\n            </td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n<div class=\"card\">\n  <div class=\"card-body\">\n    <!--Table runat=\"server\" ID=\"tblPrint\" width=\"595px\" heigh=\"842px\" Border=\"1\" />-->\n    <nav aria-label=\"Page navigation example\">\n      <ul class=\"pagination\">\n        <li class=\"page-item\"><button class=\"btn btn-info\" [disabled]=\"searchResult.first\" (click)=\"submit(0)\">First</button></li>\n        <li class=\"page-item\" *ngFor=\"let pageNo of numbers\">\n          <button class=\"btn btn-info\" (click)=\"submit(pageNo)\">{{pageNo+1}}</button>\n        </li>\n        <li class=\"page-item\"><button class=\"btn btn-info\" [disabled]=\"searchResult.last\" (click)=\"submit(searchResult.totalElements-1)\">Last</button></li>\n      </ul>\n    </nav>\n    <small style=\"color:#432fb5\">Page Size is {{searchResult.size}}.</small>\n  </div>\n</div>"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n    <h4 class=\"mb-2 mb-sm-0 pt-1\">\n      <span>Search Invoice</span>\n    </h4>\n  </div>\n</div>\n<!-- Heading -->\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n\n<form (ngSubmit)=\"submit()\" name=\"searchForm\" ngNativeValidate>\n  <div class=\"card\">\n    <div class=\"card-header primary-color white-text\">\n      <h3> Search:</h3>\n    </div>\n    <div class=\"card-body\">\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-md-3\">\n          <div class=\"md-form mt-1\">\n            <label for=\"category\" class=\"active\">Category </label>\n            <select id=\"category\" name=\"category \" class=\"browser-default custom-select md-select\" required=\"false\" [(ngModel)]=\"searchInvoice.category\"\n              (change)=\"clearResult()\">\n                  <option value=\"SERVICE\">SERVICE</option>\n                  <option value=\"MANUFACTURING\">MANUFACTURING</option>                  \n                </select>\n          </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"md-form mt-1\">\n            <label for=\"name\">Performa Id </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"performa Id\" id=\"performaId\" required=\"false\" [(ngModel)]=\"searchInvoice.performaId\"\n            />\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"md-form mt-1\">\n            <label for=\"name\">Invoice Id </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"invoiceId\" id=\"invoiceId\" required=\"false\" [(ngModel)]=\"searchInvoice.invoiceId\"\n            />\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"md-form mt-1\">\n            <label for=\"status\" class=\"active\">Status </label>\n            <select id=\"status\" name=\"status \" class=\"browser-default custom-select md-select\" required=\"false\" [(ngModel)]=\"searchInvoice.status\">\n                  <option value=\"NEW\">NEW</option>\n                  <option value=\"CANCELED\">CANCELED</option>                  \n                </select>\n            </div>\n          </div>\n\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-md-3\">\n             <div class=\"md-form mt-1\">\n            <label for=\"client\" class=\"active\">Client </label>\n            <select id=\"client\" name=\"client \" class=\"browser-default custom-select md-select\" required=\"false\" [(ngModel)]=\"searchInvoice.clientId\">\n              <option></option>\n              <option *ngFor=\"let cli of clients\" [ngValue]=\"cli.id\">{{cli.name}}</option>\n            </select>\n             </div>\n          </div>\n          <div class=\"col-md-3\">\n             <div class=\"md-form mt-1\">\n            <label for=\"startDt\" class=\"active\">Performa/Invoice </label>\n            <select id=\"status\" name=\"status \" class=\"browser-default custom-select md-select\" required=\"false\" [(ngModel)]=\"searchInvoice.type\">\n                  <option></option>\n                  <option value=\"PERFORMA\">PERFORMA </option>\n                  <option value=\"INVOICE\">INVOICE </option>               \n                </select>\n             </div>\n          </div>\n          <div class=\"col-md-3\">\n             <div class=\"md-form mt-1\">\n            <label for=\"startDt\" class=\"active\">Start Date </label>\n            <input type=\"date\" class=\"form-control underlined\" name=\"startDt\" id=\"startDt\" required=\"false\" [(ngModel)]=\"searchInvoice.invoiceStDate\"\n            />\n             </div>\n          </div>\n          <div class=\"col-md-3\">\n             <div class=\"md-form mt-1\">\n            <label for=\"endDt\" class=\"active\">End Date</label>\n            <input type=\"date\" class=\"form-control underlined\" name=\"endDt\" id=\"endDt\" required=\"false\" [(ngModel)]=\"searchInvoice.invoiceEdDate\"\n            />\n             </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"card-footer\">\n      <button type=\"submit\" class=\"btn btn-primary float-right\">\n              <i class=\"fa fa-search\">&nbsp;</i>\n              Search</button>\n      <!-- <button type=\"reset\" class=\"btn btn-secondary float-right\">\n              <i class=\"fa fa-refresh\">&nbsp;</i>\n              Reset</button> -->\n    </div>\n  </div>\n</form>\n<br/>\n<h5 class=\"sub-header\">\n  Search Result\n</h5>\n<div class=\"card\">\n  <div class=\"card-header rgba-blue-light\">\n    <small>Displaying {{searchResult.numberOfElements}}/{{searchResult.totalElements}} items in this page</small>\n  </div>\n  <div class=\"card-body\">\n\n    <table class=\"table table-striped\">\n      <thead class=\"orange lighten-2\">\n        <tr>\n          <th>Invoice Id</th>\n          <th>Performa Id</th>\n          <th>Client</th>\n          <th>Performa Date</th>\n          <th>Invoice Date</th>\n          <th>Performa Amount</th>\n          <th>Invoice Amount</th>\n          <th>Type</th>\n          <th>Status</th>\n          <th>Print</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let invoice of invoices\">\n          <td>\n            <a routerLink=\"/generate-invoice/{{invoice.id}}\" *ngIf=\"invoice.invoiceId && searchInvoice.category=='SERVICE'\">{{invoice.invoiceId}}</a>\n            <a routerLink=\"/generate-invoice/{{invoice.id}}\" *ngIf=\"!invoice.invoiceId && searchInvoice.category=='SERVICE'\" class=\"btn btn-success\">Generate Invoice</a>\n            <a routerLink=\"/generate-manu-invoice/{{invoice.id}}\" *ngIf=\"invoice.invoiceId && searchInvoice.category=='MANUFACTURING'\">{{invoice.invoiceId}}</a>\n            <a routerLink=\"/generate-manu-invoice/{{invoice.id}}\" *ngIf=\"!invoice.invoiceId && searchInvoice.category=='MANUFACTURING'\"\n              class=\"btn btn-success\">Generate Invoice</a>\n\n          </td>\n          <td>\n            <a routerLink=\"/performaView/{{invoice.id}}\" *ngIf=\"invoice.performaId && searchInvoice.category=='SERVICE'\">{{invoice.performaId}}</a>\n            <a routerLink=\"/manufacturingInvoice/{{invoice.id}}\" *ngIf=\"invoice.proFormaId && searchInvoice.category=='MANUFACTURING'\">{{invoice.proFormaId}}</a>\n          </td>\n          <td>{{invoice.clientName}}</td>\n          <td>{{invoice.performaDate | date:'yyyy-MM-dd'}}</td>\n          <td>{{invoice.invoiceDate | date:'yyyy-MM-dd'}}</td>\n          <td *ngIf=\"searchInvoice.category=='MANUFACTURING'\">{{invoice.calculatedPerformaAmount}}</td>\n          <td *ngIf=\"searchInvoice.category=='MANUFACTURING'\">{{invoice.calculatedInvoiceAmount}}</td>\n          <td *ngIf=\"searchInvoice.category=='SERVICE'\">{{invoice.totalPerfomaAmount}}</td>\n          <td *ngIf=\"searchInvoice.category=='SERVICE'\">{{invoice.totalInvoiceAmount}}</td>\n\n          <td>{{invoice.type}}</td>\n          <td>{{invoice.status}}</td>\n          <td>\n            <div class=\"btn-group\">\n              <a target=\"_blank\" style=\"color:white;background-color:#432fb5;border:white solid 1px;\" class=\"btn btn-sm p-2\" [href]=\"invoice.purl\">\n                  P\n              </a>\n              <a target=\"_blank\" *ngIf=\"invoice.invoiceId\" style=\"color:white;background-color:#3c3c3c;border:white solid 1px;\" class=\"btn btn-sm p-2\"\n                [href]=\"invoice.url\">\n                 I\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n  <div class=\"card-footer\">\n    <!--Table runat=\"server\" ID=\"tblPrint\" width=\"595px\" heigh=\"842px\" Border=\"1\" />-->\n    <nav aria-label=\"Page navigation example\">\n      <ul class=\"pagination\">\n        <li class=\"page-item\"><button class=\"btn btn-info btn-sm\" [disabled]=\"searchResult.first\" (click)=\"submit(0)\">First</button></li>\n        <li class=\"page-item\" *ngFor=\"let pageNo of numbers\">\n          <button class=\"btn btn-info btn-sm\" (click)=\"submit(pageNo)\">{{pageNo+1}}</button>\n        </li>\n        <li class=\"page-item\"><button class=\"btn btn-info btn-sm\" [disabled]=\"searchResult.last\" (click)=\"submit(searchResult.totalElements-1)\">Last</button></li>\n      </ul>\n    </nav>\n    <small style=\"color:#432fb5\">Page Size is {{searchResult.size}}.</small>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1574,6 +1948,20 @@ var InvoiceService = /** @class */ (function () {
         console.log("Searching : " + url);
         return this.http.post(url, searchInvoice, { headers: httpOptions.headers });
     };
+    InvoiceService.prototype.searchInvoiceReport = function (searchInvoice, category) {
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_constants__["b" /* Urls */].getDomain();
+        console.log(url);
+        if (category === 'SERVICE') {
+            url = url.concat(__WEBPACK_IMPORTED_MODULE_2__app_constants__["a" /* APIURLS */].invoice).concat("/getInvoiceReport");
+            console.log("SERVICE" + url);
+        }
+        else if (category === 'MANUFACTURING') {
+            url = url.concat(__WEBPACK_IMPORTED_MODULE_2__app_constants__["a" /* APIURLS */].manInvoice).concat("/getInvoiceReport");
+            console.log(url);
+        }
+        console.log("Searching : " + url);
+        return this.http.post(url, searchInvoice, { headers: httpOptions.headers });
+    };
     InvoiceService.prototype.getSACCode = function () {
         var url = __WEBPACK_IMPORTED_MODULE_2__app_constants__["b" /* Urls */].getDomain().concat(__WEBPACK_IMPORTED_MODULE_2__app_constants__["a" /* APIURLS */].invoice).concat("/sac");
         return this.http.get(url, { headers: httpOptions.headers });
@@ -1597,6 +1985,12 @@ var InvoiceService = /** @class */ (function () {
         var url = __WEBPACK_IMPORTED_MODULE_2__app_constants__["b" /* Urls */].getDomain().concat(__WEBPACK_IMPORTED_MODULE_2__app_constants__["a" /* APIURLS */].manInvoice).concat("/invoice");
         return this.http.post(url, manufacturingInvoice, { headers: httpOptions.headers });
     };
+    InvoiceService.prototype.getMinProfomaDate = function () {
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_constants__["b" /* Urls */].getDomain().concat(__WEBPACK_IMPORTED_MODULE_2__app_constants__["a" /* APIURLS */].invoice).concat("/minProformaDate");
+        //console.log("getMinProfomaDate url : " + url);
+        var options = { responseType: 'text' };
+        return this.http.get(url, options);
+    };
     InvoiceService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
@@ -1618,7 +2012,7 @@ module.exports = ""
 /***/ "./src/app/manufacturing-invoice/invoice.manu.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>PerformA Invoice (Manufacturing)</h3>\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Saved\n</div>\n\n<div class=\"card\">\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-1 \"><b>Client</b></div>\n      <div class=\"col-md-3\">\n        <select (change)=\"loadSelectedClient()\" class=\"form-control underlined\" [(ngModel)]=\"selClientId\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">\n        <option></option>\n        <option *ngFor=\"let cli of clients\" [ngValue]=\"cli.id\" [selected]=\"cli.id === selClientId\">{{cli.name}}</option>\n         </select>\n      </div>\n      <div class=\"col-md-4\">\n        \n      </div>\n      <div class=\"col-md-4\">\n        <button class=\"btn btn-info\" (click)=\"calculateTotal()\">Calculate Amount</button>\n        <button class=\"btn btn-warning\" (click)=\"savePerformaInvoice()\">Generate Proforma</button>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-1\"><b>Status : </b></div>\n      <div class=\"col-md-2\">NEW</div>\n      <div class=\"col-md-2\"><b>GSTIN : </b></div>\n      <div class=\"col-md-3\">{{selectedClient.gstin}}</div>\n      <div class=\"col-md-1\"><b>Date : </b></div>\n      <div class=\"col-md-3\">{{invoice.performaDate | date:\"dd MMM yyyy HH:mm\"}}</div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-1\"><b>Name : </b></div>\n      <div class=\"col-md-2\">{{selectedClient.name}}</div>\n      <div class=\"col-md-2\"><b>Address : </b></div>\n      <div class=\"col-md-4\">\n        {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},\n        <br/> {{selectedClient.city}}, {{selectedClient.state}},\n        <br/> {{selectedClient.pincode}}.\n        <br/>\n        <i>Phone : </i> {{selectedClient.phonePrimary}}.\n        <br/>\n        <i>Email : </i> {{selectedClient.email}}.\n        <br/>\n      </div>\n    </div>\n    <table class=\"table\">\n      <tr>\n        <th colspan=\"8\">Particulars</th>\n        <th><button class=\"btn btn-success\" (click)=\"addRow()\">AddRow</button></th>\n      </tr>\n      <tr>\n        <th colspan=\"4\">Description</th>\n        <th>SAC Code</th>\n        <th>Quantity</th>\n        <th>Rate</th>\n        <th>gst</th>\n        <th>Amount</th>\n      </tr>\n      <tr *ngFor=\"let field of manufacturingInvoice;let i=index\">\n\n        <td><button class=\"btn btn-sm btn-danger\" (click)=\"deletRow(field.id)\"><i class=\"fa fa-trash\"></i></button></td>\n\n        <td colspan=\"3\" WIDTH=\"50%\">\n          <textarea type=\"text\" class=\"form-control\" required=\"true\" [(ngModel)]=\"field.itemDescription\" (change)=\"calculateAmount(field)\">\n          </textarea>\n        </td>\n        <td WIDTH=\"10%\">\n          <select (change)=\"loadSelectedSac(field)\" class=\"form-control underlined\" [(ngModel)]=\"field.sacCodeId\">\n        <option></option>\n        <option *ngFor=\"let sac of sacCodes\" [ngValue]=\"sac.id\" [selected]=\"sac.id === field.sacCodeId\">{{sac.sacCode}}</option>\n        </select>\n        </td>\n        <td WIDTH=\"10%\">\n          <input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\" size=\"3\" [(ngModel)]=\"field.quantity\" (change)=\"calculateAmount(field)\"\n          />\n        </td>\n        <td WIDTH=\"10%\"><input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\" [(ngModel)]=\"field.performaRate\" (change)=\"calculateAmount(field)\"\n          />\n        </td>\n        <td WIDTH=\"10%\">\n          <p *ngIf=\"field.cgstPerfomaPercent>0\">cgst={{field.cgstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>\n          <p *ngIf=\"field.sgstPerfomaPercent>0\">sgst={{field.sgstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>\n          <p *ngIf=\"field.igstPerfomaPercent>0\">igst={{field.igstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>\n        </td>\n        <td WIDTH=\"10%\">\n          <input type=\"number\" readoly class=\"form-control\" required=\"true\" readonly [(ngModel)]=\"field.calculatedPerformaAmount\" />\n        </td>\n      </tr>\n      <tfoot>\n        <tr>\n          <td colspan=\"7\">\n          </td>\n          <th>\n            SUM =\n          </th>\n          <td>{{totalPerfomaBeforeTax}}</td>\n        </tr>\n      </tfoot>\n    </table>\n  </div>\n</div>"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n    <h4 class=\"mb-2 mb-sm-0 pt-1\">\n      <span>PerformA Invoice (Manufacturing)</span>\n    </h4>\n  </div>\n</div>\n<!-- Heading -->\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Saved\n</div>\n\n<div class=\"card\">\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-1 \"><b>Client</b></div>\n      <div class=\"col-md-3\">\n        <select (change)=\"loadSelectedClient()\" class=\"form-control underlined\" [(ngModel)]=\"selClientId\" [disabled]=\"(invoice.status=='CANCELED' || invoice.type=='INVOICE')\">\n        <option></option>\n        <option *ngFor=\"let cli of clients\" [ngValue]=\"cli.id\" [selected]=\"cli.id === selClientId\">{{cli.name}}</option>\n         </select>\n      </div>\n      <div class=\"col-md-4\">\n\n      </div>\n      <div class=\"col-md-4\">\n\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-1\"><b>Status : </b></div>\n      <div class=\"col-md-2\">NEW</div>\n      <div class=\"col-md-2\"><b>GSTIN : </b></div>\n      <div class=\"col-md-3\">{{selectedClient.gstin}}</div>\n      <div class=\"col-md-1\"><b>Date : </b></div>\n      <div class=\"col-md-3\">{{invoice.performaDate | date:\"dd MMM yyyy HH:mm\"}}</div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-1\"><b>Name : </b></div>\n      <div class=\"col-md-2\">{{selectedClient.name}}</div>\n      <div class=\"col-md-2\"><b>Address : </b></div>\n      <div class=\"col-md-4\">\n        {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},\n        <br/> {{selectedClient.city}}, {{selectedClient.state}},\n        <br/> {{selectedClient.pincode}}.\n        <br/>\n        <i>Phone : </i> {{selectedClient.phonePrimary}}.\n        <br/>\n        <i>Email : </i> {{selectedClient.email}}.\n        <br/>\n      </div>\n    </div>\n    <div class=\"clear-fix border-top p-3\">\n      <h4 class=\"sub-header\">\n        <span class=\"index\">1</span>Particulars\n        <button class=\"btn btn-success float-right\" (click)=\"addRow()\">\n            <i class=\"fa fa-plus\">&nbsp;</i>AddRow</button>\n      </h4>\n    </div>\n    <table class=\"table table-striped\">\n      <thead class=\"blue lighten-5\">\n        <tr>\n          <th colspan=\"4\">Description</th>\n          <th *ngIf=\"showSac\">SAC Code</th>\n          <th>Quantity</th>\n          <th>Rate</th>\n          <th *ngIf=\"showSac\">gst</th>\n          <th>Amount</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let field of manufacturingInvoice;let i=index\">\n\n          <td width=\"40px\"><button class=\"btn btn-sm btn-danger pl-2 pr-2\" (click)=\"deletRow(field.id)\"><i class=\"fa fa-trash\"></i></button></td>\n\n          <td colspan=\"3\">\n            <textarea type=\"text\" class=\"form-control\" required=\"true\" [(ngModel)]=\"field.itemDescription\" (change)=\"calculateAmount(field)\">\n          </textarea>\n          </td>\n          <td WIDTH=\"10%\" *ngIf=\"showSac\">\n            <select (change)=\"loadSelectedSac(field)\" class=\"form-control underlined\" [(ngModel)]=\"field.sacCodeId\">\n        <option></option>\n        <option *ngFor=\"let sac of sacCodes\" [ngValue]=\"sac.id\" [selected]=\"sac.id === field.sacCodeId\">{{sac.sacCode}}</option>\n        </select>\n          </td>\n          <td WIDTH=\"10%\">\n            <input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\" size=\"3\" [(ngModel)]=\"field.quantity\" (change)=\"calculateAmount(field)\"\n            />\n          </td>\n          <td WIDTH=\"10%\"><input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\" [(ngModel)]=\"field.performaRate\" (change)=\"calculateAmount(field)\"\n            />\n          </td>\n          <td WIDTH=\"10%\" *ngIf=\"showSac\">\n            <p *ngIf=\"field.cgstPerfomaPercent>0\">cgst={{field.cgstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>\n            <p *ngIf=\"field.sgstPerfomaPercent>0\">sgst={{field.sgstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>\n            <p *ngIf=\"field.igstPerfomaPercent>0\">igst={{field.igstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>\n          </td>\n          <td WIDTH=\"10%\">\n            <input type=\"number\" readoly class=\"form-control\" required=\"true\" readonly [(ngModel)]=\"field.calculatedPerformaAmount\" />\n          </td>\n        </tr>\n      </tbody>\n      <tfoot>\n        <tr *ngIf=\"showSac\">\n          <td colspan=\"7\">\n          </td>\n          <th>\n            SUM =\n          </th>\n          <td>{{totalPerfomaBeforeTax}}</td>\n        </tr>\n        <tr *ngIf=\"!showSac\">\n          <td colspan=\"5\">\n          </td>\n          <th>\n            SUM =\n          </th>\n          <td>{{totalPerfomaBeforeTax}}</td>\n        </tr>\n      </tfoot>\n    </table>\n  </div>\n</div>\n\n<div class=\"card mt-4 wow fadeIn\">\n  <div class=\"card-body\">\n    <div class=\"row float-right\">\n      <button class=\"btn btn-info\" (click)=\"calculateTotal()\"> <i class=\"fa fa-calculator\">&nbsp;</i>Calculate Amount</button>&nbsp;\n      <button class=\"btn btn-primary\" (click)=\"savePerformaInvoice()\" ><i class=\"fa fa-cogs\">&nbsp;</i>Generate Proforma</button>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1672,6 +2066,7 @@ var InvoiceManuComponent = /** @class */ (function () {
         this.invoiceData = new __WEBPACK_IMPORTED_MODULE_4__invoice_manu_domain__["b" /* InvoiceData */]();
         this.invoice = new __WEBPACK_IMPORTED_MODULE_4__invoice_manu_domain__["a" /* Invoice */]();
         this.sacCodes = [];
+        this.showSac = false;
         this.manufacturingInvoice = [];
         this.totalPerfomaBeforeTax = 0;
         var invoiceIdParam;
@@ -1704,6 +2099,9 @@ var InvoiceManuComponent = /** @class */ (function () {
             this.getSacCodes();
             this.loadSelectedClient();
             this.manufacturingInvoice.push(new __WEBPACK_IMPORTED_MODULE_4__invoice_manu_domain__["c" /* ManufacturingInvoice */]());
+        }
+        if (companyGlobalVar.gstNo != '') {
+            this.showSac = true;
         }
     }
     InvoiceManuComponent.prototype.ngOnInit = function () {
@@ -1800,6 +2198,10 @@ var InvoiceManuComponent = /** @class */ (function () {
     };
     InvoiceManuComponent.prototype.savePerformaInvoice = function () {
         var _this = this;
+        if (!this.selClientId) {
+            alert("please select the client");
+            return;
+        }
         this.success = false;
         this.error = false;
         this.manufacturingInvoice.forEach(function (inv) {
@@ -1903,11 +2305,31 @@ var ManufacturingInvoice = /** @class */ (function () {
         this.invoiceType = "";
         this.invoiceDate = new Date();
         this.performaDate = new Date();
+        this.cgstPerfomaPercent = 0;
+        this.sgstPerfomaPercent = 0;
+        this.igstPerfomaPercent = 0;
+        this.cgstInvoicePercent = 0;
+        this.sgstInvoicePercent = 0;
+        this.igstInvoicePercent = 0;
+        this.totalPerfomaBeforeTax = 0;
+        this.totalInvoiceBeforeTax = 0;
+        this.totalPerfomaAmount = 0;
+        this.totalInvoiceAmount = 0;
+        this.cgstPerfoma = 0;
+        this.sgstPerfoma = 0;
+        this.igstPerfoma = 0;
+        this.cgstInvoice = 0;
+        this.sgstInvoice = 0;
+        this.igstInvoice = 0;
         this.index = "";
         this.itemDescription = "";
         this.quantity = 1;
         this.performaRate = 0;
         this.invoiceRate = 0;
+        this.calculatedInvoiceAmount = 0;
+        this.calculatedPerformaAmount = 0;
+        this.grossInvoiceAmount = 0;
+        this.grossPerformaAmount = 0;
         this.status = 'NEW';
         this.createdBy = "";
         this.createdDate = new Date();
@@ -1968,7 +2390,7 @@ module.exports = ""
 /***/ "./src/app/manufacturing-invoice/invoice.manu.success.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>PerformA Invoice (Manufacturing)</h3>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Created\n</div>\n\n<div class=\"card\">\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-12 \">\n        Proforma Invoices are created successfully , ids \n        <ol>\n        <li *ngFor=\"let id of ids\">\n          <a [routerLink]=\"['/manufacturingInvoice', id]\">{{id}}</a>  \n        </li>\n        </ol>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n      <h4 class=\"mb-2 mb-sm-0 pt-1\">\n          <span>PerformA Invoice (Manufacturing)</span>\n      </h4>\n  </div>\n</div>\n<!-- Heading -->\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Created\n</div>\n\n<div class=\"card\">\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-12 \">\n        Proforma Invoices are created successfully , ids \n        <ol>\n        <li *ngFor=\"let id of ids\">\n          <a [routerLink]=\"['/manufacturingInvoice', id]\">{{id}}</a>  \n        </li>\n        </ol>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -2028,7 +2450,7 @@ module.exports = ""
 /***/ "./src/app/manufacturing-invoice/manufacturing-gen-invoice.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Invoice (Manufacturing)</h3>\n\n<div class=\"card\" *ngIf=\"manufacturingInvoice.id\">\n  <div class=\"card-body\">\n    <table width=\"100%\">\n      <thead>\n        <tr>\n          <th>PerformA Id</th>\n          <th>Invoice Id</th>\n          <th>Invoice Date</th>\n         <!-- <th>Print</th>-->\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td>{{manufacturingInvoice.proFormaId}}</td>\n          <td>{{manufacturingInvoice.invoiceId}}</td>\n          <td><input type=\"date\" class=\"form-control underlined\" name=\"invoiceDate\" id=\"invoiceDate\" required=\"true\" [ngModel]=\"manufacturingInvoice.invoiceDate | date:'yyyy-MM-dd'\"\n               (ngModelChange)=\"manufacturingInvoice.invoiceDate = $event\" [value]=\"date | date:'yyyy-MM-dd'\"   [disabled]=\"manufacturingInvoice.type==='INVOICE'\" />\n          </td>\n         <!-- <td>\n            <a target=\"_blank\" style=\"color:white;background-color:#432fb5\" class=\"btn\" [href]=\"manufacturingInvoice.url\">\n                  <i class=\"fa fa-print\"></i>\n             </a>\n          </td>-->\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n<br/>\n<div class=\"card\" *ngIf=\"manufacturingInvoice.id\">\n  <div class=\"card-body\">\n    <table width=\"100%\" border=\"1\" style=\"border-collapse:collapse;border:#f2f2f2 solid 1px;\">\n      <thead>\n        <tr>\n          <th>Client Name</th>\n          <th colspan=\"3\">Address</th>\n          <th>GSTIN</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr valign=\"top\" >\n          <td>{{selectedClient.name}}</td>\n          <td colspan=\"3\">{{selectedClient.addrLine1}},\n            {{selectedClient.addrLine2}},<br/>\n            {{selectedClient.city}}, {{selectedClient.state}}<br/>\n            {{selectedClient.pincode}}<br/>\n            {{selectedClient.phonePrimary}},{{selectedClient.email}}\n            </td>\n          <td>{{selectedClient.gstin}}</td>\n        </tr>\n        <tr valign=\"top\">\n         <th colspan=\"5\">Particulars</th>\n        </tr>\n        <tr valign=\"top\">\n         <th>Description</th>\n         <th>Sac Code</th>\n         <th>Quantity</th>\n         <th>Rate</th>\n         <th>Amount</th>\n        </tr>\n        <tr valign=\"top\">\n         <td >{{manufacturingInvoice.itemDescription}}</td>\n         <td>{{manufacturingInvoice.sacCode}}</td>\n         <td  align=\"right\">{{manufacturingInvoice.quantity}}</td>\n         <td  align=\"right\"><input [disabled]=\"manufacturingInvoice.type==='INVOICE'\" class=\"form-control\" style=\"width:100px;\" (change)=\"calculateAmount(manufacturingInvoice)\" type=\"number\" [(ngModel)]=\"manufacturingInvoice.invoiceRate\"/></td>\n         <td  align=\"right\">{{manufacturingInvoice.grossInvoiceAmount}}</td>\n        </tr>\n        <tr>\n          <td colspan=\"3\" align=\"right\">\n            CGST\n          </td>\n          <td  align=\"right\">{{manufacturingInvoice.cgstInvoicePercent}}</td>\n          <td  align=\"right\">{{manufacturingInvoice.cgstInvoice}}</td>\n        </tr>\n         <tr>\n          <td colspan=\"3\" align=\"right\">\n            SGST\n          </td>\n          <td align=\"right\">{{manufacturingInvoice.sgstInvoicePercent}}</td>\n          <td  align=\"right\">{{manufacturingInvoice.sgstInvoice}}</td>\n        </tr>\n         <tr>\n          <td colspan=\"3\" align=\"right\">\n            IGST\n          </td>\n          <td  align=\"right\">{{manufacturingInvoice.igstInvoicePercent}}</td>\n          <td  align=\"right\">{{manufacturingInvoice.igstInvoice}}</td>\n        </tr>\n         <tr>\n          <td colspan=\"4\" align=\"right\"><b>Total</b></td>\n          <td align=\"right\"><b>{{manufacturingInvoice.calculatedInvoiceAmount}}</b></td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n\n<div class=\"card\" *ngIf=\"manufacturingInvoice.id\">\n  <div class=\"card-body\">\n    <button class=\"btn btn-warning float-right\" (click)=\"save()\" [disabled]=\"manufacturingInvoice.type==='INVOICE'\">Generate Invoice</button>\n  </div>\n</div>\n\n\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"!(manufacturingInvoice.id)\" >\n   No records found\n</div>\n"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n      <h4 class=\"mb-2 mb-sm-0 pt-1\">\n          <span>Invoice (Manufacturing)</span>\n      </h4>\n  </div>\n</div>\n<!-- Heading -->\n\n<div class=\"card mb-3 wow fadeIn\" *ngIf=\"manufacturingInvoice.id\">\n  <div class=\"card-body\">\n    <table width=\"100%\">\n      <thead>\n        <tr>\n          <th>PerformA Id</th>\n          <th>Invoice Id</th>\n          <th>Invoice Date</th>\n         <!-- <th>Print</th>-->\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td>{{manufacturingInvoice.proFormaId}}</td>\n          <td>{{manufacturingInvoice.invoiceId}}</td>\n          <td><input type=\"date\" class=\"form-control underlined\" name=\"invoiceDate\" id=\"invoiceDate\" required=\"true\" [ngModel]=\"manufacturingInvoice.invoiceDate | date:'yyyy-MM-dd'\"\n               (ngModelChange)=\"manufacturingInvoice.invoiceDate = $event\" [value]=\"date | date:'yyyy-MM-dd'\"   [disabled]=\"manufacturingInvoice.type==='INVOICE'\" />\n          </td>\n         <!-- <td>\n            <a target=\"_blank\" style=\"color:white;background-color:#432fb5\" class=\"btn\" [href]=\"manufacturingInvoice.url\">\n                  <i class=\"fa fa-print\"></i>\n             </a>\n          </td>-->\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n<br/>\n<div class=\"card mb-3 wow fadeIn\" *ngIf=\"manufacturingInvoice.id\">\n  <div class=\"card-body\">\n    <table width=\"100%\" border=\"1\" style=\"border-collapse:collapse;border:#f2f2f2 solid 1px;\">\n      <thead>\n        <tr>\n          <th>Client Name</th>\n          <th colspan=\"3\">Address</th>\n          <th>GSTIN</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr valign=\"top\" >\n          <td>{{selectedClient.name}}</td>\n          <td colspan=\"3\">{{selectedClient.addrLine1}},\n            {{selectedClient.addrLine2}},<br/>\n            {{selectedClient.city}}, {{selectedClient.state}}<br/>\n            {{selectedClient.pincode}}<br/>\n            {{selectedClient.phonePrimary}},{{selectedClient.email}}\n            </td>\n          <td>{{selectedClient.gstin}}</td>\n        </tr>\n        <tr valign=\"top\">\n         <th colspan=\"5\">Particulars</th>\n        </tr>\n        <tr valign=\"top\">\n         <th *ngIf=\"manufacturingInvoice.sacCode==0\" colspan=\"2\">Description</th>\n         <th *ngIf=\"manufacturingInvoice.sacCode!=0\" >Description</th>\n         <th *ngIf=\"manufacturingInvoice.sacCode!=0\">Sac Code</th>\n         <th>Quantity</th>\n         <th>Rate</th>\n         <th>Amount</th>\n        </tr>\n        <tr valign=\"top\">\n         <td *ngIf=\"manufacturingInvoice.sacCode==0\" colspan=\"2\">{{manufacturingInvoice.itemDescription}}</td>\n         <td *ngIf=\"manufacturingInvoice.sacCode!=0\" >{{manufacturingInvoice.itemDescription}}</td>\n         <td *ngIf=\"manufacturingInvoice.sacCode!=0\">{{manufacturingInvoice.sacCode}}</td>\n         <td  align=\"right\">{{manufacturingInvoice.quantity}}</td>\n         <td  align=\"right\"><input [disabled]=\"manufacturingInvoice.type==='INVOICE'\" class=\"form-control\" style=\"width:100px;\" (change)=\"calculateAmount(manufacturingInvoice)\" type=\"number\" [(ngModel)]=\"manufacturingInvoice.invoiceRate\"/></td>\n         <td  align=\"right\">{{manufacturingInvoice.grossInvoiceAmount}}</td>\n        </tr>\n        <tr *ngIf=\"manufacturingInvoice.cgstInvoicePercent!=0\">\n          <td colspan=\"3\" align=\"right\">\n            CGST\n          </td>\n          <td  align=\"right\">{{manufacturingInvoice.cgstInvoicePercent}}</td>\n          <td  align=\"right\">{{manufacturingInvoice.cgstInvoice}}</td>\n        </tr>\n         <tr *ngIf=\"manufacturingInvoice.cgstInvoicePercent!=0\">\n          <td colspan=\"3\" align=\"right\">\n            SGST\n          </td>\n          <td align=\"right\">{{manufacturingInvoice.cgstInvoicePercent}}</td>\n          <td  align=\"right\">{{manufacturingInvoice.sgstInvoice}}</td>\n        </tr>\n         <tr *ngIf=\"manufacturingInvoice.igstInvoicePercent!=0\">\n          <td colspan=\"3\" align=\"right\">\n            IGST\n          </td>\n          <td  align=\"right\">{{manufacturingInvoice.igstInvoicePercent}}</td>\n          <td  align=\"right\">{{manufacturingInvoice.igstInvoice}}</td>\n        </tr>\n         <tr>\n          <td colspan=\"4\" align=\"right\"><b>Total</b></td>\n          <td align=\"right\"><b>{{manufacturingInvoice.calculatedInvoiceAmount}}</b></td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n\n<div class=\"card mb-3 wow fadeIn\" *ngIf=\"manufacturingInvoice.id\">\n  <div class=\"card-body\">\n     <a target=\"_blank\" style=\"color:white;background-color:#432fb5\" class=\"btn float-right\" [href]=\"manufacturingInvoice.url\" *ngIf=\"manufacturingInvoice.url && manufacturingInvoice.invoiceId!=''\">\n            <i class=\"fa fa-print\"></i>\n      </a>&nbsp;\n    <button class=\"btn btn-warning float-right\" (click)=\"save()\" [disabled]=\"manufacturingInvoice.type==='INVOICE'\">\n      <i class=\"fa fa-cogs\">&nbsp;</i>\n      Generate Invoice</button>\n  </div>\n</div>\n\n\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"!(manufacturingInvoice.id)\" >\n   No records found\n</div>\n"
 
 /***/ }),
 
@@ -2127,6 +2549,7 @@ var ManufacturingGenInvoiceComponent = /** @class */ (function () {
     ManufacturingGenInvoiceComponent.prototype.loadSelectedClient = function () {
         var _this = this;
         this.selectedClient = this.clients.find(function (cli) { return cli.id === _this.manufacturingInvoice.clientId; });
+        console.log(this.clients);
     };
     ManufacturingGenInvoiceComponent.prototype.getSacCodes = function () {
         var _this = this;
@@ -2135,7 +2558,8 @@ var ManufacturingGenInvoiceComponent = /** @class */ (function () {
             _this.sacCodes = sac;
             if (_this.manufacturingInvoice && _this.manufacturingInvoice.id != 0) {
                 _this.selSacCode = _this.sacCodes.find(function (sc) { return sc.sacCode === _this.manufacturingInvoice.sacCode; });
-                _this.selSacId = _this.selSacCode.id;
+                if (_this.selSacCode)
+                    _this.selSacId = _this.selSacCode.id;
             }
         }, function (err) {
             alert("Error while retrieveing the SAC Code");
@@ -2149,7 +2573,7 @@ var ManufacturingGenInvoiceComponent = /** @class */ (function () {
         this.manufacturingInvoice.type = "INVOICE";
         this.invoiceService.saveManufacturingInvoice(this.manufacturingInvoice).subscribe(function (succ) {
             _this.manufacturingInvoice = succ;
-            alert("Invoice saved ");
+            alert("Invoice Generated ");
         }, function (err) {
             alert("Error while Saving the invoice");
             console.log("Error :" + err);
@@ -2193,7 +2617,7 @@ module.exports = ""
 /***/ "./src/app/manufacturing-invoice/manufacturing-invoice.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Performa Invoice (Manufacturing)</h3>\n\n<div class=\"card\" *ngIf=\"manufacturingInvoice.id\">\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <!-- <div class=\"col-md-1 \"><b>Client</b></div>\n      <div class=\"col-md-3\">\n        <select (change)=\"loadSelectedClient()\" class=\"form-control underlined\" [(ngModel)]=\"selClientId\" [disabled]=\"(manufacturingInvoice.status=='CANCELED' || manufacturingInvoice.type=='INVOICE')\">\n        <option></option>\n        <option *ngFor=\"let cli of clients\" [ngValue]=\"cli.id\" [selected]=\"cli.id === selClientId\">{{cli.name}}</option>\n         </select>\n      </div> -->\n      <div class=\"col-md-2\">\n        <b>Performa Id</b>\n      </div>\n      <div class=\"col-md-2\">\n        {{manufacturingInvoice.proFormaId}}\n      </div>\n      <div class=\"col-md-2\">\n        <b>Invoice Id</b>\n      </div>\n      <div class=\"col-md-2\">\n        {{manufacturingInvoice.invoiceId}}\n      </div>\n      <div class=\"col-md-4\">\n        \n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-1\"><b>Status : </b></div>\n      <div class=\"col-md-2\">NEW</div>\n      <div class=\"col-md-2\"><b>GSTIN : </b></div>\n      <div class=\"col-md-3\">{{selectedClient.gstin}}</div>\n      <div class=\"col-md-1\"><b>Date : </b></div>\n      <div class=\"col-md-3\" >{{manufacturingInvoice.performaDate | date:\"dd MMM yyyy HH:mm\"}}</div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-1\"><b>Client Name : </b></div>\n      <div class=\"col-md-2\">{{selectedClient.name}}</div>\n      <div class=\"col-md-2\"><b>Address : </b></div>\n      <div class=\"col-md-4\">\n        {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},\n        <br/> {{selectedClient.city}}, {{selectedClient.state}},\n        <br/> {{selectedClient.pincode}}.\n        <br/>\n        <i>Phone : </i> {{selectedClient.phonePrimary}}.\n        <br/>\n        <i>Email : </i> {{selectedClient.email}}.\n        <br/>\n      </div>\n    </div>\n    <table class=\"table\">\n      <tr>\n        <th colspan=\"6\">Particulars</th>\n      </tr>\n      <tr>\n        <th WIDTH=\"30%\">Description</th>\n        <th>SAC Code</th>\n        <th>Quantity</th>\n        <th>Rate</th>\n        <th>gst</th>\n        <th>Amount</th>\n      </tr>\n      <tr>\n        <td WIDTH=\"30%\">\n          <textarea type=\"text\" class=\"form-control\" required=\"true\" [(ngModel)]=\"manufacturingInvoice.itemDescription\" (change)=\"calculateAmount()\" [disabled]=\"manufacturingInvoice.type==='INVOICE'\">\n          </textarea>\n        </td>\n        <td WIDTH=\"10%\">\n         <!-- <select (change)=\"loadSelectedSac(manufacturingInvoice)\" class=\"form-control underlined\" [(ngModel)]=\"manufacturingInvoice.sacCodeId\">\n        <option></option>\n        <option *ngFor=\"let sac of sacCodes\" [ngValue]=\"sac.id\" [selected]=\"sac.id === manufacturingInvoice.sacCodeId\">{{sac.sacCode}}</option>\n        </select>-->\n         {{manufacturingInvoice.sacCode}}\n        </td>\n        <td WIDTH=\"10%\">\n          <input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\" size=\"3\" [(ngModel)]=\"manufacturingInvoice.quantity\" (change)=\"calculateAmount()\" [disabled]=\"manufacturingInvoice.type==='INVOICE'\"\n          />\n        </td>\n        <td WIDTH=\"10%\"><input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\" [(ngModel)]=\"manufacturingInvoice.performaRate\" (change)=\"calculateAmount()\" [disabled]=\"manufacturingInvoice.type==='INVOICE'\"\n          />\n        </td>\n        <td WIDTH=\"10%\">\n          <p *ngIf=\"manufacturingInvoice.cgstPerfomaPercent>0\">cgst={{manufacturingInvoice.cgstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>\n          <p *ngIf=\"manufacturingInvoice.sgstPerfomaPercent>0\">sgst={{manufacturingInvoice.sgstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>\n          <p *ngIf=\"manufacturingInvoice.igstPerfomaPercent>0\">igst={{manufacturingInvoice.igstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>\n        </td>\n        <td WIDTH=\"10%\">\n          <input type=\"number\" readoly class=\"form-control\" required=\"true\" readonly [(ngModel)]=\"manufacturingInvoice.calculatedPerformaAmount\" />\n        </td>\n      </tr>\n\n     \n      <tfoot>\n        <tr>\n           <td colspan=\"3\"></td>\n          <td colspan=\"3\" align=\"right\">\n             <a target=\"_blank\" style=\"color:white;background-color:#432fb5\" class=\"btn\" [href]=\"this.manufacturingInvoice.purl\">\n                  <i class=\"fa fa-print\"></i>\n             </a>\n            <button class=\"btn btn-info\" (click)=\"calculateAmount()\">Calculate Amount</button>\n            <button class=\"btn btn-info\" (click)=\"save()\">Save</button>\n            <a class=\"btn btn-warning\" routerLink=\"/generate-manu-invoice/{{manufacturingInvoice.id}}\" routerLinkActive=\"active\">View As Invoice</a>\n          </td>\n        </tr>\n      </tfoot>\n    </table>\n  </div>\n</div>\n\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"!(manufacturingInvoice.id)\" >\n   No records found\n</div>\n"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n      <h4 class=\"mb-2 mb-sm-0 pt-1\">\n          <span>PerformA Invoice (Manufacturing)</span>\n      </h4>\n  </div>\n</div>\n<!-- Heading -->\n\n<div class=\"card\" *ngIf=\"manufacturingInvoice.id\">\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <!-- <div class=\"col-md-1 \"><b>Client</b></div>\n      <div class=\"col-md-3\">\n        <select (change)=\"loadSelectedClient()\" class=\"form-control underlined\" [(ngModel)]=\"selClientId\" [disabled]=\"(manufacturingInvoice.status=='CANCELED' || manufacturingInvoice.type=='INVOICE')\">\n        <option></option>\n        <option *ngFor=\"let cli of clients\" [ngValue]=\"cli.id\" [selected]=\"cli.id === selClientId\">{{cli.name}}</option>\n         </select>\n      </div> -->\n      <div class=\"col-md-2\">\n        <b>Performa Id</b>\n      </div>\n      <div class=\"col-md-2\">\n        {{manufacturingInvoice.proFormaId}}\n      </div>\n      <div class=\"col-md-2\">\n        <b>Invoice Id</b>\n      </div>\n      <div class=\"col-md-2\">\n        {{manufacturingInvoice.invoiceId}}\n      </div>\n      <div class=\"col-md-4\">\n        \n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-1\"><b>Status : </b></div>\n      <div class=\"col-md-2\">NEW</div>\n      <div class=\"col-md-2\"><b>GSTIN : </b></div>\n      <div class=\"col-md-3\">{{selectedClient.gstin}}</div>\n      <div class=\"col-md-1\"><b>Date : </b></div>\n      <div class=\"col-md-3\" >{{manufacturingInvoice.performaDate | date:\"dd MMM yyyy HH:mm\"}}</div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-1\"><b>Client Name : </b></div>\n      <div class=\"col-md-2\">{{selectedClient.name}}</div>\n      <div class=\"col-md-2\"><b>Address : </b></div>\n      <div class=\"col-md-4\">\n        {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},\n        <br/> {{selectedClient.city}}, {{selectedClient.state}},\n        <br/> {{selectedClient.pincode}}.\n        <br/>\n        <i>Phone : </i> {{selectedClient.phonePrimary}}.\n        <br/>\n        <i>Email : </i> {{selectedClient.email}}.\n        <br/>\n      </div>\n    </div>\n   <hr/>\n   <h4 class=\"sub-header\">\n    <span class=\"index\">1</span>Particulars\n  </h4>\n\n    <table class=\"table table-striped\">\n      <tr>\n        <th WIDTH=\"30%\">Description</th>\n        <th *ngIf=\"showSac\">SAC Code</th>\n        <th>Quantity</th>\n        <th>Rate</th>\n        <th *ngIf=\"showSac\">gst</th>\n        <th>Amount</th>\n      </tr>\n      <tr>\n        <td WIDTH=\"30%\">\n          <textarea type=\"text\" class=\"form-control\" required=\"true\" [(ngModel)]=\"manufacturingInvoice.itemDescription\" (change)=\"calculateAmount()\" [disabled]=\"manufacturingInvoice.type==='INVOICE'\">\n          </textarea>\n        </td>\n        <td WIDTH=\"10%\" *ngIf=\"showSac\">\n         <!-- <select (change)=\"loadSelectedSac(manufacturingInvoice)\" class=\"form-control underlined\" [(ngModel)]=\"manufacturingInvoice.sacCodeId\">\n        <option></option>\n        <option *ngFor=\"let sac of sacCodes\" [ngValue]=\"sac.id\" [selected]=\"sac.id === manufacturingInvoice.sacCodeId\">{{sac.sacCode}}</option>\n        </select>-->\n         {{manufacturingInvoice.sacCode}}\n        </td>\n        <td WIDTH=\"10%\">\n          <input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\" size=\"3\" [(ngModel)]=\"manufacturingInvoice.quantity\" (change)=\"calculateAmount()\" [disabled]=\"manufacturingInvoice.type==='INVOICE'\"\n          />\n        </td>\n        <td WIDTH=\"10%\"><input type=\"number\" class=\"form-control\" required=\"false\" min=\"0\" [(ngModel)]=\"manufacturingInvoice.performaRate\" (change)=\"calculateAmount()\" [disabled]=\"manufacturingInvoice.type==='INVOICE'\"\n          />\n        </td>\n        <td WIDTH=\"10%\" *ngIf=\"showSac\">\n          <p *ngIf=\"manufacturingInvoice.cgstPerfomaPercent>0\">cgst={{manufacturingInvoice.cgstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>\n          <p *ngIf=\"manufacturingInvoice.sgstPerfomaPercent>0\">sgst={{manufacturingInvoice.sgstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>\n          <p *ngIf=\"manufacturingInvoice.igstPerfomaPercent>0\">igst={{manufacturingInvoice.igstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>\n        </td>\n        <td WIDTH=\"10%\">\n          <input type=\"number\" readoly class=\"form-control\" required=\"true\" readonly [(ngModel)]=\"manufacturingInvoice.calculatedPerformaAmount\" />\n        </td>\n      </tr>\n    </table>\n  </div>\n  <div class=\"card-footer\">\n    <div class=\"row float-right\">\n      <a target=\"_blank\" style=\"color:white;background-color:#432fb5\" class=\"btn\" [href]=\"this.manufacturingInvoice.purl\">\n        <i class=\"fa fa-print\"></i>\n   </a>\n  <button class=\"btn btn-info\" (click)=\"calculateAmount()\"> <i class=\"fa fa-calculator\">&nbsp;</i> Calculate Amount</button>\n  <button class=\"btn btn-info\" (click)=\"save()\"> <i class=\"fa fa-save\">&nbsp;</i> Save</button>\n  <a class=\"btn btn-warning\" routerLink=\"/generate-manu-invoice/{{manufacturingInvoice.id}}\" routerLinkActive=\"active\"><i class=\"fa fa-eye\">&nbsp;</i>View As Invoice</a>\n    </div>\n  </div>\n</div>\n\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"!(manufacturingInvoice.id)\" >\n   No records found\n</div>\n"
 
 /***/ }),
 
@@ -2209,6 +2633,7 @@ module.exports = "<h3>Performa Invoice (Manufacturing)</h3>\n\n<div class=\"card
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__client_client_domain__ = __webpack_require__("./src/app/client/client.domain.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__client_client_service__ = __webpack_require__("./src/app/client/client.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_constants__ = __webpack_require__("./src/app/app.constants.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__globals__ = __webpack_require__("./src/app/globals.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2225,11 +2650,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ManufacturingInvoiceComponent = /** @class */ (function () {
-    function ManufacturingInvoiceComponent(route, invoiceService, clientService) {
+    function ManufacturingInvoiceComponent(route, invoiceService, companyGlobalVar, clientService) {
         var _this = this;
         this.route = route;
         this.invoiceService = invoiceService;
+        this.companyGlobalVar = companyGlobalVar;
         this.clientService = clientService;
         this.proformaId = "";
         this.manufacturingInvoice = new __WEBPACK_IMPORTED_MODULE_3__invoice_manu_domain__["c" /* ManufacturingInvoice */]();
@@ -2237,6 +2664,7 @@ var ManufacturingInvoiceComponent = /** @class */ (function () {
         this.clients = [];
         this.sacCodes = [];
         this.selSacCode = new __WEBPACK_IMPORTED_MODULE_3__invoice_manu_domain__["e" /* SACCode */]();
+        this.showSac = false;
         this.route.params.subscribe(function (params) {
             _this.proformaId = params['proformaId'];
             //get the bill details for that particular proforma id.
@@ -2253,6 +2681,9 @@ var ManufacturingInvoiceComponent = /** @class */ (function () {
                 console.log("Error :" + err);
             });
         });
+        if (companyGlobalVar.gstNo != '') {
+            this.showSac = true;
+        }
     }
     ManufacturingInvoiceComponent.prototype.ngOnInit = function () {
     };
@@ -2315,7 +2746,8 @@ var ManufacturingInvoiceComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/manufacturing-invoice/manufacturing-invoice.component.html"),
             styles: [__webpack_require__("./src/app/manufacturing-invoice/manufacturing-invoice.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__invoice_invoice_service__["a" /* InvoiceService */], __WEBPACK_IMPORTED_MODULE_5__client_client_service__["a" /* ClientService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__invoice_invoice_service__["a" /* InvoiceService */], __WEBPACK_IMPORTED_MODULE_7__globals__["a" /* CompanyGlobalVar */],
+            __WEBPACK_IMPORTED_MODULE_5__client_client_service__["a" /* ClientService */]])
     ], ManufacturingInvoiceComponent);
     return ManufacturingInvoiceComponent;
 }());
@@ -2334,7 +2766,7 @@ module.exports = ""
 /***/ "./src/app/nav/nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<aside class=\"sidebar\">\n  <div class=\"sidebar-container\">\n    <div class=\"sidebar-header\">\n      <div class=\"brand\">\n        <img src=\"assets/g313.png\"/>\n    \n      </div>\n    </div>\n    <nav class=\"menu\">\n      <ul class=\"sidebar-menu metismenu\" id=\"sidebar-menu\">\n        <li>\n          <a routerLink=\"/dashboard\" routerLinkActive=\"active\">\n           <i class=\"fa fa-home\"></i> Dashboard </a>\n        </li>\n        <li>\n          <a routerLink=\"/client\" routerLinkActive=\"active\">\n           <i class=\"fa fa-group\"></i> Manage Clients </a>\n        </li>\n        <li>\n          <a routerLink=\"/users\" routerLinkActive=\"active\">\n           <i class=\"fa fa-user\"></i> Manage Users </a>\n        </li>\n        <li>\n          <a href=\"\">\n            <i class=\"fa fa-file-text\"></i> Invoice\n            <i class=\"fa arrow\"></i>\n           </a>\n          <ul class=\"sidebar-nav\">\n            <li>\n              <a routerLink=\"/invoiceNew/0\" routerLinkActive=\"active\">New Service ProformA</a>\n            </li>\n             <li>\n              <a routerLink=\"/invoiceManu/0\" routerLinkActive=\"active\">New Manufacturing ProformA</a>\n            </li>\n            <li>\n              <a routerLink=\"/invoice-search\"> Search </a>\n            </li>\n          </ul>\n        </li>\n          <li>\n          <a href=\"\">\n            <i class=\"fa fa-book\"></i> Voucher\n            <i class=\"fa arrow\"></i>\n           </a>\n          <ul class=\"sidebar-nav\">\n            <li>\n              <a routerLink=\"/voucherNew/0\" routerLinkActive=\"active\">New</a>\n            </li>\n            <li>\n              <a routerLink=\"/voucher-search\"> Search </a>\n            </li>\n          </ul>\n        </li>\n\n\n        <!-- <li class=\"active\">\n          <a href=\"\">\n          <i class=\"fa fa-th-large\"></i> test Sub menu\n          <i class=\"fa arrow\"></i>\n          </a>\n          <ul class=\"sidebar-nav\">\n            <li >\n              <a routerLink=\"/dashboard\" routerLinkActive=\"active\"> Items List </a>\n            </li>\n            <li>\n              <a routerLink=\"/dashboard\" routerLinkActive=\"active\"> Item Editor </a>\n            </li>\n             <li>\n              <a routerLink=\"/dashboard\" routerLinkActive=\"active\"> Item Editor </a>\n            </li>\n          </ul>\n        </li>-->\n      </ul>\n    </nav>\n  </div>\n  <footer class=\"sidebar-footer\">\n    <ul class=\"sidebar-menu metismenu\" id=\"customize-menu\">\n      <li>\n        <ul>\n          <li class=\"customize\">\n            <a routerLink=\"/company\" routerLinkActive=\"active\">Edit</a>\n          </li>\n        </ul>\n        <a href=\"\">\n         <i class=\"fa fa-cog\"></i> Company </a>\n      </li>\n    </ul>\n  </footer>\n</aside>\n<div class=\"sidebar-overlay\" id=\"sidebar-overlay\"></div>\n<div class=\"sidebar-mobile-menu-handle\" id=\"sidebar-mobile-menu-handle\"></div>\n<div class=\"mobile-menu-handle\"></div>"
+module.exports = "<div class=\"sidebar-fixed position-fixed primary-color-dark\" *ngIf=\"show\">\n  <div class=\"white logo-container\">\n    <a class=\"logo-wrapper waves-effect\">\n      <img src=\"/img/logo-blue.png\" class=\"img-fluid\" alt=\"\">\n    </a>\n  </div>\n  <div class=\"user-profile\">\n    <app-header></app-header>\n  </div>\n  <div class=\"sidebar-menu\">\n    <nav class=\"navigation\">\n      <ul class=\"mainmenu\">\n        <li class=\"menu-item\"  *appHasRole=\"{'role':['ADMIN','USER'],'userRole':userRole}\">\n          <a routerLink=\"/dashboard\" class=\"waves-effect\">\n            <i class=\"fa fa-user mr-3\"></i>Dashboard\n          </a>\n        </li>\n        <li class=\"menu-item\"  *appHasRole=\"{'role':['ADMIN'],'userRole':userRole}\">\n          <a routerLink=\"/client\" class=\"waves-effect\"><i class=\"fa fa-address-book mr-3\"></i>Manage Clients</a>\n        </li>\n        <li class=\"menu-item\" *appHasRole=\"{'role':['ADMIN'],'userRole':userRole}\">\n          <a routerLink=\"/users\" class=\"waves-effect\"><i class=\"fa fa-user mr-3\"></i>Manage User</a>\n        </li>\n        <li class=\"menu-item\" *appHasRole=\"{'role':['ADMIN','USER'],'userRole':userRole}\"><a><i class=\"fa fa-angle-down mr-3\"></i>Invoice</a>\n          <ul class=\"submenu\">\n            <li class=\"menu-item\"  *appHasRole=\"{'role':['ADMIN','USER'],'userRole':userRole}\" ><a routerLink=\"/invoiceNew/0\" class=\"waves-effect\"><i class=\"far fa-file-alt mr-3\"></i>New\n                Service ProformA</a></li>\n            <li class=\"menu-item\"  *appHasRole=\"{'role':['ADMIN','USER'],'userRole':userRole}\" ><a routerLink=\"/invoiceManu/0\" class=\"waves-effect\"><i class=\"fas fa-file-alt mr-3\"></i>New\n                Manufacturing ProformA</a></li>\n            <li class=\"menu-item\"  *appHasRole=\"{'role':['ADMIN','USER'],'userRole':userRole}\"><a routerLink=\"/invoice-search\" lass=\"waves-effect\"><i class=\"fa fa-search mr-3\"></i>Search</a></li>\n          </ul>\n        </li>\n        <li class=\"menu-item\"  *appHasRole=\"{'role':['ADMIN','USER'],'userRole':userRole}\"><a><i class=\"fa fa-angle-down mr-3\"></i>Voucher</a>\n          <ul class=\"submenu\">\n            <li class=\"menu-item\"  *appHasRole=\"{'role':['ADMIN','USER'],'userRole':userRole}\"><a routerLink=\"/voucherNew/0\" class=\"waves-effect\"><i class=\"fa fa-receipt mr-3\"></i>New</a></li>\n            <li class=\"menu-item\" *appHasRole=\"{'role':['ADMIN','USER'],'userRole':userRole}\"><a routerLink=\"/voucher-search\" class=\"waves-effect\"><i class=\"fa fa-search mr-3\"></i>Search</a></li>\n          </ul>\n        </li>\n         <li class=\"menu-item\"  *appHasRole=\"{'role':['ADMIN'],'userRole':userRole}\"><a><i class=\"fa fa-angle-down mr-3\"></i>Reports</a>\n          <ul class=\"submenu\">\n            <li class=\"menu-item\"  *appHasRole=\"{'role':['ADMIN'],'userRole':userRole}\"><a routerLink=\"/invoiceReport\" class=\"waves-effect\"><i class=\"fa fa-file-invoice mr-3\"></i>Invoice</a></li>\n          </ul>\n        </li>\n      </ul>\n\n    </nav>\n\n  </div>\n  <hr />\n  <div class=\"companyMenu\">\n    <span class=\"company-name\">Welcome : {{companyGlobalVar.companyName}} </span>\n    <a routerLink=\"/company\" routerLinkActive=\"active\" title=\"edit profile\" class=\"company-icon\">\n      <i class=\"fa fa-cog\"></i>\n    </a>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -2347,6 +2779,7 @@ module.exports = "<aside class=\"sidebar\">\n  <div class=\"sidebar-container\">
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__company_company_domain__ = __webpack_require__("./src/app/company/company.domain.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__company_company_service__ = __webpack_require__("./src/app/company/company.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__globals__ = __webpack_require__("./src/app/globals.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__users_users_service__ = __webpack_require__("./src/app/users/users.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2360,11 +2793,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var NavComponent = /** @class */ (function () {
-    function NavComponent(companyService, companyGlobalVar) {
+    function NavComponent(companyService, companyGlobalVar, userService) {
         this.companyService = companyService;
         this.companyGlobalVar = companyGlobalVar;
+        this.userService = userService;
         this.company = new __WEBPACK_IMPORTED_MODULE_1__company_company_domain__["a" /* Company */]();
+        this.show = true;
     }
     NavComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -2384,6 +2820,13 @@ var NavComponent = /** @class */ (function () {
         }, function (err) {
             console.error("Not able to set companyGlobalVar");
         });
+        this.userService.getRoles().subscribe(function (resp) {
+            if (resp.length === 0)
+                alert("No roles defined for this user.\nPlease contact your company adminstrator");
+            _this.userRole = resp;
+        }, function (err) {
+            alert("Failed to get the user roles");
+        });
     };
     NavComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -2391,9 +2834,131 @@ var NavComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/nav/nav.component.html"),
             styles: [__webpack_require__("./src/app/nav/nav.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__company_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__globals__["a" /* CompanyGlobalVar */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__company_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__globals__["a" /* CompanyGlobalVar */], __WEBPACK_IMPORTED_MODULE_4__users_users_service__["a" /* UserService */]])
     ], NavComponent);
     return NavComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/reports/invoice-report/invoice-report.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/reports/invoice-report/invoice-report.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n    <h4 class=\"mb-2 mb-sm-0 pt-1\">\n      <span>Invoice Report</span>\n    </h4>\n  </div>\n</div>\n<!-- Heading -->\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n\n<form (ngSubmit)=\"submit()\" name=\"searchForm\" ngNativeValidate>\n  <div class=\"card\">\n    <div class=\"card-header primary-color white-text\">\n      <h3> Search:</h3>\n    </div>\n    <div class=\"card-body\">\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-md-3\">\n          <div class=\"md-form mt-1\">\n            <label for=\"category\" class=\"active\">Category </label>\n            <select id=\"category\" name=\"category \" class=\"browser-default custom-select md-select\" required=\"false\" [(ngModel)]=\"searchInvoice.category\"\n              (change)=\"clearResult()\">\n                  <option value=\"SERVICE\">SERVICE</option>\n                  <option value=\"MANUFACTURING\">MANUFACTURING</option>                  \n                </select>\n          </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"md-form mt-1\">\n            <label for=\"name\">Performa Id </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"performa Id\" id=\"performaId\" required=\"false\" [(ngModel)]=\"searchInvoice.performaId\"\n            />\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"md-form mt-1\">\n            <label for=\"name\">Invoice Id </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"invoiceId\" id=\"invoiceId\" required=\"false\" [(ngModel)]=\"searchInvoice.invoiceId\"\n            />\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"md-form mt-1\">\n            <label for=\"status\" class=\"active\">Status </label>\n            <select id=\"status\" name=\"status \" class=\"browser-default custom-select md-select\" required=\"false\" [(ngModel)]=\"searchInvoice.status\">\n                  <option value=\"NEW\">NEW</option>\n                  <option value=\"CANCELED\">CANCELED</option>                  \n                </select>\n            </div>\n          </div>\n\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-md-3\">\n             <div class=\"md-form mt-1\">\n            <label for=\"client\" class=\"active\">Client </label>\n            <select id=\"client\" name=\"client \" class=\"browser-default custom-select md-select\" required=\"false\" [(ngModel)]=\"searchInvoice.clientId\">\n              <option></option>\n              <option *ngFor=\"let cli of clients\" [ngValue]=\"cli.id\">{{cli.name}}</option>\n            </select>\n             </div>\n          </div>\n          <div class=\"col-md-3\">\n             <div class=\"md-form mt-1\">\n            <label for=\"startDt\" class=\"active\">Performa/Invoice </label>\n            <select id=\"status\" name=\"status \" class=\"browser-default custom-select md-select\" required=\"false\" [(ngModel)]=\"searchInvoice.type\">\n                  <option></option>\n                  <option value=\"PERFORMA\">PERFORMA </option>\n                  <option value=\"INVOICE\">INVOICE </option>               \n                </select>\n             </div>\n          </div>\n          <div class=\"col-md-3\">\n             <div class=\"md-form mt-1\">\n            <label for=\"startDt\" class=\"active\">Start Date </label>\n            <input type=\"date\" class=\"form-control underlined\" name=\"startDt\" id=\"startDt\" required=\"false\" [(ngModel)]=\"searchInvoice.invoiceStDate\"\n            />\n             </div>\n          </div>\n          <div class=\"col-md-3\">\n             <div class=\"md-form mt-1\">\n            <label for=\"endDt\" class=\"active\">End Date</label>\n            <input type=\"date\" class=\"form-control underlined\" name=\"endDt\" id=\"endDt\" required=\"false\" [(ngModel)]=\"searchInvoice.invoiceEdDate\"\n            />\n             </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"card-footer\">\n      <button type=\"submit\" class=\"btn btn-primary float-right\">\n              <i class=\"fa fa-search\">&nbsp;</i>\n              Search</button>      \n      <!-- <button type=\"reset\" class=\"btn btn-secondary float-right\">\n              <i class=\"fa fa-refresh\">&nbsp;</i>\n              Reset</button> -->\n    </div>\n  </div>\n</form>\n<br/>\n<h5 class=\"sub-header\">\n  Result       \n</h5>\n\n<div class=\"card\">\n  <div class=\"card-header rgba-blue-light clear-fix\">\n    <small>Displaying items {{invoices.length}}in this page</small>\n    <button class=\"btn btn-warning float-right\" (click)=\"generateExcel()\" *ngIf=\"invoices.length>0\">\n              <i class=\"fa fa-file-excel\">&nbsp;</i>\n              Export to Excel</button> \n  </div>\n  <div class=\"card-body\">\n\n    <table class=\"table table-striped\">\n      <thead class=\"orange lighten-2\">\n        <tr>\n          <th>Invoice Id</th>\n          <th>Performa Id</th>\n          <th>Client</th>\n          <th>Performa Date</th>\n          <th>Invoice Date</th>\n          <th>Performa Amount</th>\n          <th>Invoice Amount</th>\n          <th>Type</th>\n          <th>Status</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let invoice of invoices\">\n          <td>\n            <span *ngIf=\"invoice.invoiceId && searchInvoice.category=='SERVICE'\">{{invoice.invoiceId}}</span>\n            <span *ngIf=\"invoice.invoiceId && searchInvoice.category=='MANUFACTURING'\">{{invoice.invoiceId}}</span>\n          </td>\n          <td>\n            <a routerLink=\"/performaView/{{invoice.id}}\" *ngIf=\"invoice.performaId && searchInvoice.category=='SERVICE'\">{{invoice.performaId}}</a>\n            <a routerLink=\"/manufacturingInvoice/{{invoice.id}}\" *ngIf=\"invoice.proFormaId && searchInvoice.category=='MANUFACTURING'\">{{invoice.proFormaId}}</a>\n          </td>\n          <td>{{invoice.clientName}}</td>\n          <td>{{invoice.performaDate | date:'yyyy-MM-dd'}}</td>\n          <td>{{invoice.invoiceDate | date:'yyyy-MM-dd'}}</td>\n          <td *ngIf=\"searchInvoice.category=='MANUFACTURING'\">{{invoice.calculatedPerformaAmount}}</td>\n          <td *ngIf=\"searchInvoice.category=='MANUFACTURING'\">{{invoice.calculatedInvoiceAmount}}</td>\n          <td *ngIf=\"searchInvoice.category=='SERVICE'\">{{invoice.totalPerfomaAmount}}</td>\n          <td *ngIf=\"searchInvoice.category=='SERVICE'\">{{invoice.totalInvoiceAmount}}</td>\n          <td>{{invoice.type}}</td>\n          <td>{{invoice.status}}</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/reports/invoice-report/invoice-report.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InvoiceReportComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__excel_excel_generator_service__ = __webpack_require__("./src/app/excel/excel-generator.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__invoice_invoice_service__ = __webpack_require__("./src/app/invoice/invoice.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__invoice_invoice_domain__ = __webpack_require__("./src/app/invoice/invoice.domain.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__client_client_service__ = __webpack_require__("./src/app/client/client.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var InvoiceReportComponent = /** @class */ (function () {
+    function InvoiceReportComponent(excelGenerator, invoiceService, clientService) {
+        this.excelGenerator = excelGenerator;
+        this.invoiceService = invoiceService;
+        this.clientService = clientService;
+        this.success = true;
+        this.error = false;
+        this.errorMessage = "";
+        this.searchInvoice = new __WEBPACK_IMPORTED_MODULE_3__invoice_invoice_domain__["e" /* SearchInvoice */]();
+        this.clients = [];
+        this.invoices = [];
+        this.searchResult = new __WEBPACK_IMPORTED_MODULE_3__invoice_invoice_domain__["f" /* SearchResult */]();
+        this.numbers = [];
+    }
+    InvoiceReportComponent.prototype.ngOnInit = function () {
+        this.getClients();
+    };
+    InvoiceReportComponent.prototype.getClients = function () {
+        var _this = this;
+        this.success = false;
+        this.error = false;
+        this.clientService.getForCompany()
+            .subscribe(function (clients) {
+            _this.clients = clients;
+        }, function (err) {
+            _this.error = true;
+            _this.errorMessage = "Error occured please contact administrator";
+        });
+    };
+    InvoiceReportComponent.prototype.clearResult = function () {
+        this.searchResult = new __WEBPACK_IMPORTED_MODULE_3__invoice_invoice_domain__["f" /* SearchResult */]();
+        this.invoices = [];
+    };
+    InvoiceReportComponent.prototype.submit = function (pageNumber) {
+        var _this = this;
+        if (pageNumber === void 0) { pageNumber = 0; }
+        console.log(this.searchInvoice);
+        if (this.searchInvoice.category !== "") {
+            console.log("category :" + this.searchInvoice.category);
+            this.invoiceService.searchInvoiceReport(this.searchInvoice, this.searchInvoice.category)
+                .subscribe(function (searchResult) {
+                _this.invoices = searchResult;
+                _this.invoices.forEach(function (invoice) {
+                    try {
+                        invoice.clientName = _this.clients.find(function (client) { return client.id == invoice.clientId; }).name;
+                    }
+                    catch (e) {
+                        console.error(e);
+                    }
+                });
+            }, function (err) {
+                _this.error = true;
+                _this.errorMessage = "Error occured While searching the Invoice";
+            });
+        }
+        else {
+            alert("Please select the category");
+            return;
+        }
+    };
+    InvoiceReportComponent.prototype.generateExcel = function () {
+        var inv = [];
+        this.invoices.forEach(function (invo) {
+            var values = Object.keys(invo).map(function (key) { return invo[key]; });
+            inv.push(values);
+        });
+        console.log(inv);
+        this.excelGenerator.exportAsExcelFile(inv, 'InvoiceReport');
+    };
+    InvoiceReportComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-invoice-report',
+            template: __webpack_require__("./src/app/reports/invoice-report/invoice-report.component.html"),
+            styles: [__webpack_require__("./src/app/reports/invoice-report/invoice-report.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__excel_excel_generator_service__["a" /* ExcelGeneratorService */], __WEBPACK_IMPORTED_MODULE_2__invoice_invoice_service__["a" /* InvoiceService */], __WEBPACK_IMPORTED_MODULE_4__client_client_service__["a" /* ClientService */]])
+    ], InvoiceReportComponent);
+    return InvoiceReportComponent;
 }());
 
 
@@ -2410,7 +2975,7 @@ module.exports = ""
 /***/ "./src/app/users/users.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Manage Users</h3>\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Saved\n</div>\n<div class=\"row\">\n  <div class=\"col-md-4\">\n    <div class=\"card\">\n      <div class=\"card-header\" style=\"padding-left:5px;\">\n        <div class=\"input-group mb-3\">\n          <input type=\"text\" class=\"form-control underlined\" placeholder=\"search\" />\n          <div class=\"input-group-append\">\n            <button class=\"btn btn-primary\" (click)=\"new()\">Add New</button>\n          </div>\n        </div>\n      </div>\n      <div style=\"overflow:auto;height:400px;background-color:white;\">\n        <ul class=\"list-group list-group-flush\">\n          <li *ngFor=\"let user of users\" class=\"list-group-item\" (click)=\"edit(user)\">{{user.name}}</li>\n        </ul>\n        <div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-md-8\">\n    <div class=\"card\">\n      <div class=\"card-body\">\n        <form (ngSubmit)=\"submit()\" name=\"userForm\" ngNativeValidate>\n          <div class=\"form-group\">\n            <div class=\"row\">\n              <div class=\"col-md-4\">\n                <label for=\"name\">User Name</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"name\" id=\"name\" required=\"true\" [(ngModel)]=\"user.name\" />\n              </div>\n              <div class=\"col-md-4\">\n                <label for=\"email\">Email</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"email\" id=\"email\" required=\"true\" [(ngModel)]=\"user.email\" />\n              </div>\n              <div class=\"col-md-4\">\n                <label for=\"active\">Active</label>\n                <select id=\"active\" name=\"active \" class=\"form-control underlined\" required=\"true\" [(ngModel)]=\"user.active\">\n                  <option value=\"true\" selected>Active </option>\n                  <option value=\"false\">InActive </option>\n                </select>\n              </div>\n            </div>\n            <br>\n            <div *ngIf=\"showRoles\">\n                <b>User Roles:</b>\n              <div class=\"row\">\n                <div class=\"col-md-4\">\n                  <select id=\"RoleSelect\" name=\"roleSelect \" class=\"form-control underlined\" [(ngModel)]=\"userRole.roleCode\">\n                    <option value=\"ADMIN\" selected>ADMIN</option>\n                    <option value=\"USER\">USER</option>\n                    <option value=\"CLIENT\">CLIENT</option>\n                  </select>\n                </div>\n                <div class=\"col-md-4\">\n                  <button type=\"button\" name=\"addRole\" (click)=\"adduserRole(userRole.roleCode)\" class=\"btn btn-success\">Add Role</button>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-md-4\">\n                  <ul class=\"list-group list-group-flush\">\n                    <li *ngFor=\"let userRole of userRoles\" class=\"list-group-item\" style=\"cursor: pointer;\">\n                      {{userRole.roleCode}}\n                      <span class=\"float-right\">\n                        <i (click)=\"deleteUserRole(userRole.id)\" class=\"fa fa-trash\"></i>\n                      </span>\n                    </li>\n                  </ul>\n                </div>\n              </div>\n            </div>\n            <hr/>\n            <div class=\"row\">\n              <br/>\n              <div class=\"col-md-2\">\n                <label for=\"password\">Password</label>\n              </div>\n              <div class=\"col-md-5\">\n                <input type=\"password\" class=\"form-control underlined\" name=\"password\" id=\"password\" placeholder=\"Enter password\" required=\"true\"\n                  [(ngModel)]=\"user.password\"> </div>\n              <div class=\"col-md-5\">\n                <input type=\"password\" class=\"form-control underlined\" name=\"retype_password\" id=\"retype_password\" placeholder=\"Re-type password\"\n                  required=\"\"> </div>\n\n            </div>\n\n          </div>\n          <button type=\"submit\" class=\"btn btn-success float-right\">Save</button>\n        </form>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n    <h4 class=\"mb-2 mb-sm-0 pt-1\">\n      <span>Manage User</span>\n    </h4>\n  </div>\n</div>\n<!-- Heading -->\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Saved\n</div>\n<div class=\"row\">\n  <div class=\"col-md-4\">\n    <div class=\"card\">\n      <div class=\"card-header grey lighten-4\" >\n        <div class=\"md-form input-group mb-3\">\n          <label for=\"search\">Search</label>\n          <input type=\"text\" class=\"form-control\" id=\"search\" />\n          <div class=\"input-group-append\">\n            <button class=\"btn primary-color waves-effect m-0\" (click)=\"new()\">\n               <i class=\"fa fa-plus-square\"></i> &nbsp;Add New</button>\n          </div>\n        </div>\n      </div>\n      <div style=\"overflow:auto;height:400px;background-color:white;\">\n        <ul class=\"list-group list-group-flush\">\n          <li *ngFor=\"let user of users\" class=\"list-group-item\" (click)=\"edit(user)\" style=\"cursor: pointer;\">\n            {{user.name}}\n            <span class=\"float-right\">\n              <i class=\"fa fa-arrow-right\"></i>\n            </span>\n          </li>\n        </ul>\n        <div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-md-8\">\n    <form (ngSubmit)=\"submit()\" name=\"userForm\" ngNativeValidate>\n      <div class=\"card\">\n        <div class=\"card-header primary-color white-text\" >\n          <h5> User </h5>\n        </div>\n        <div class=\"card-body\">\n\n          <div class=\"row\">\n            <div class=\"col-md-6 border-right\">\n              <h4 class=\"sub-header\">\n                <span class=\"index\">1</span>User\n              </h4>\n              <div class=\"md-form\">\n                <label for=\"name\" [class.active]=\"user.name!=''\">User Name</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"name\" id=\"name\" required=\"true\" [(ngModel)]=\"user.name\" />\n              </div>\n\n              <div class=\"md-form\">\n                <label for=\"email\" [class.active]=\"user.email!=''\">Email</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"email\" id=\"email\" required=\"true\" [(ngModel)]=\"user.email\" />\n              </div>\n              <div class=\"md-form\">\n                <label for=\"active\" [class.active]=\"user.active!=''\">Active</label>\n                <select id=\"active\" name=\"active \" class=\"browser-default custom-select md-select\" required=\"true\" [(ngModel)]=\"user.active\">\n                  <option value=\"true\" selected>Active </option>\n                  <option value=\"false\">InActive </option>\n                </select>\n              </div>\n              <h5 class=\"sub-header\">\n                <span class=\"index\">2</span>Password:\n              </h5>\n              <div class=\"md-form\">\n                <label for=\"password\" [class.active]=\"user.password!=''\">Password</label>\n                <input type=\"password\" class=\"form-control underlined\" name=\"password\" id=\"password\" required=\"true\" [(ngModel)]=\"user.password\">\n              </div>\n              <div class=\"md-form\">\n                <label for=\"retype_password\" [class.active]=\"user.password!=''\">reenter password</label>\n                <input type=\"password\" class=\"form-control underlined\" name=\"retype_password\" id=\"retype_password\" required=\"\">\n              </div>\n\n            </div>\n            <div class=\"col-md-6\">\n              <h4 class=\"sub-header\">\n                <span class=\"index\">3</span>User Role\n              </h4>\n              <span *ngIf=\"!showRoles\">Select a User to view or manage role </span>\n              <div *ngIf=\"showRoles\">\n                <div class=\"md-form input-group\">\n                  <select id=\"RoleSelect\" name=\"roleSelect \" class=\"browser-default custom-select md-select\" [(ngModel)]=\"userRole.roleCode\">\n                    <option value=\"ADMIN\" selected>ADMIN</option>\n                    <option value=\"USER\">USER</option>\n                    <option value=\"CLIENT\">CLIENT</option>\n                  </select>\n                  <div class=\"input-group-append\">\n                    <button type=\"button\" name=\"addRole\" (click)=\"adduserRole(userRole.roleCode)\" class=\"btn btn-success btn-sm waves-effect m-0\">\n                      <i class=\"fa fa-plus-square\"></i>&nbsp;Add Role</button>\n                  </div>\n                </div>\n                <ul class=\"list-group list-group-flush\">\n                  <li *ngFor=\"let userRole of userRoles\" class=\"list-group-item\" style=\"cursor: pointer;\">\n                    {{userRole.roleCode}}\n                    <span class=\"float-right\">\n                        <i (click)=\"deleteUserRole(userRole.id)\" class=\"fa fa-trash\"></i>\n                      </span>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </div>\n\n        </div>\n\n        <div class=\"card-footer\">\n          <button type=\"submit\" class=\"btn btn-success float-right waves-effect m-0\">\n                <i class=\"fa fa-save\"></i>&nbsp;Save</button>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -2446,7 +3011,7 @@ var UsersComponent = /** @class */ (function () {
         this.user = new __WEBPACK_IMPORTED_MODULE_1__users_domain__["a" /* UserInfo */]();
         this.userRole = new __WEBPACK_IMPORTED_MODULE_1__users_domain__["b" /* UserRole */]();
         this.success = true;
-        this.showRoles = true;
+        this.showRoles = false;
     }
     UsersComponent.prototype.ngOnInit = function () {
         this.getUsers();
@@ -2459,7 +3024,7 @@ var UsersComponent = /** @class */ (function () {
             .subscribe(function (users) {
             _this.users = users;
             _this.filterUsers = users;
-            _this.showRoles = true;
+            _this.showRoles = false;
         }, function (err) {
             _this.error = true;
             _this.errorMessage = "Error occured please contact administrator";
@@ -2468,6 +3033,7 @@ var UsersComponent = /** @class */ (function () {
     UsersComponent.prototype.edit = function (user) {
         this.user = user;
         this.user.password = "";
+        this.showRoles = true;
         this.getuserRole(user);
     };
     UsersComponent.prototype.getuserRole = function (user) {
@@ -2478,6 +3044,7 @@ var UsersComponent = /** @class */ (function () {
             _this.showRoles = true;
         }, function (err) {
             _this.error = true;
+            _this.showRoles = false;
             _this.errorMessage = "Error occured while fetching roles contact administrator";
         });
     };
@@ -2641,6 +3208,17 @@ var UserService = /** @class */ (function () {
         var url = __WEBPACK_IMPORTED_MODULE_2__app_constants__["b" /* Urls */].getDomain().concat(__WEBPACK_IMPORTED_MODULE_2__app_constants__["a" /* APIURLS */].user);
         return this.http.post(url, user, { headers: httpOptions.headers });
     };
+    UserService.prototype.getRolesP = function () {
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_constants__["b" /* Urls */].getDomain().concat(__WEBPACK_IMPORTED_MODULE_2__app_constants__["a" /* APIURLS */].userrole).concat("/authenticated");
+        // console.log("getting user role in user service")
+        return this.http.get(url, { headers: httpOptions.headers })
+            .toPromise();
+    };
+    UserService.prototype.getRoles = function () {
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_constants__["b" /* Urls */].getDomain().concat(__WEBPACK_IMPORTED_MODULE_2__app_constants__["a" /* APIURLS */].userrole).concat("/authenticated");
+        // console.log("getting user role in user service observable")
+        return this.http.get(url, { headers: httpOptions.headers });
+    };
     UserService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
@@ -2662,7 +3240,7 @@ module.exports = ""
 /***/ "./src/app/voucher/voucher.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card\">\n  <div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n    {{errorMessage}}\n  </div>\n  <div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n    Successfully Saved\n  </div>\n\n  <div class=\"card-header\" style=\"padding-left:20px;\">\n    <label for=\"vendorName\">Voucher Entry </label>\n\n  </div>\n\n  <div class=\"card-body\">\n    <form (ngSubmit)=\"saveVoucher()\" name=\"voucherForm\" ngNativeValidate>\n\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <label for=\"vendorName\">Vendor Name : </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"vendorName\" id=\"vendorName\" placeholder=\"Enter vendorName\" [(ngModel)]=\"voucher.vendorName\"\n            />\n          </div>\n\n          <div class=\"col-sm-4\">\n            <label for=\"voucherId\">Voucher Id </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"voucherId\" id=\"voucherId\" placeholder=\"Enter voucherId\" [(ngModel)]=\"voucher.voucherId\"\n            />\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <label for=\"particulars\">Particulars : </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"particulars\" id=\"particulars\" placeholder=\"Enter particulars\" [(ngModel)]=\"voucher.particulars\"\n            />\n          </div>\n        </div>\n      </div>\n       <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <label for=\"totalAmount\">Total Amount : </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"totalAmount\" id=\"totalAmount\" placeholder=\"Enter totalAmount\" [(ngModel)]=\"voucher.totalAmount\"\n            />\n          </div>\n\n          <div class=\"col-sm-4\">\n            <label for=\"voucherDate\">Voucher Date </label>\n            <input type=\"date\" class=\"form-control underlined\" name=\"voucherDate\" id=\"voucherDate\" placeholder=\"Enter voucherDate\" [(ngModel)]=\"voucher.voucherDate\"\n            />\n          </div>\n        </div>\n      </div>\n\n      <button class=\"btn btn-success pull-right\" type=\"submit\">Save</button>\n    </form>\n  </div>\n</div>"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n    <h4 class=\"mb-2 mb-sm-0 pt-1\">\n      <span>New Voucher</span>\n    </h4>\n  </div>\n</div>\n<!-- Heading -->\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Saved\n</div>\n\n<form (ngSubmit)=\"saveVoucher()\" name=\"voucherForm\" ngNativeValidate>\n  <div class=\"card\">\n    <div class=\"card-header primary-color white-text\" style=\"padding-left:20px;\">\n      <label for=\"vendorName\">Voucher Entry </label>\n    </div>\n    <div class=\"card-body\">\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <div class=\"md-form mt-1\">\n            <label for=\"vendorName\">Vendor Name : </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"vendorName\" id=\"vendorName\" [(ngModel)]=\"voucher.vendorName\" />\n          </div>\n          </div>\n          <div class=\"col-sm-4\">\n            <div class=\"md-form mt-1\">\n            <label for=\"voucherId\">Voucher Id </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"voucherId\" id=\"voucherId\" [(ngModel)]=\"voucher.voucherId\"/>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <div class=\"md-form mt-1\">\n            <label for=\"particulars\">Particulars : </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"particulars\" id=\"particulars\"  [(ngModel)]=\"voucher.particulars\"/>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-sm-4\">\n            <div class=\"md-form mt-1\">\n            <label for=\"totalAmount\">Total Amount : </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"totalAmount\" id=\"totalAmount\"  [(ngModel)]=\"voucher.totalAmount\"/>\n            </div>\n          </div>\n          <div class=\"col-sm-4\">\n            <div class=\"md-form mt-1\">\n            <label for=\"voucherDate\" class=\"active\">Voucher Date </label>\n            <input type=\"date\" class=\"form-control underlined\" name=\"voucherDate\" id=\"voucherDate\" [(ngModel)]=\"voucher.voucherDate\"\n            />\n            </div>\n          </div>\n        </div>\n      </div>\n      \n    </div>\n    <div class=\"card-footer\">\n      <button class=\"btn btn-success float-right \" type=\"submit\"> <i class=\"fa fa-save\"></i>&nbsp;Save</button>\n    </div>\n  </div>\n</form>"
 
 /***/ }),
 
@@ -2777,7 +3355,7 @@ module.exports = ""
 /***/ "./src/app/voucher/voucher.search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Search Voucher </h3>\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n\n<div class=\"card\">\n  <div class=\"card-body\">\n    <form (ngSubmit)=\"submit()\" name=\"searchForm\">\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-md-4\">\n            <label for=\"name\">Voucher Id </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"voucherId\" id=\"voucherId\" required=\"false\" [(ngModel)]=\"searchVoucher.voucherId\"/>\n          </div>\n          \n           <div class=\"col-md-4\">\n            <label for=\"name\">Vendor Name </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"vendorName\" id=\"vendorName\" required=\"false\" [(ngModel)]=\"searchVoucher.vendorName\"/>\n          </div>\n        </div>\n      </div>\n\n       <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-md-6\">\n            <label for=\"startDt\">Start Date </label>\n            <input type=\"date\" class=\"form-control underlined\" name=\"startDate\" id=\"startDate\" required=\"false\" [(ngModel)]=\"searchVoucher.startDate\"/>\n          </div>\n          <div class=\"col-md-6\">\n            <label for=\"endDt\">End Date</label>\n            <input type=\"date\"  class=\"form-control underlined\" name=\"endDate\" id=\"endDate\" required=\"false\" [(ngModel)]=\"searchVoucher.endDate\"/>\n          </div>\n        </div>\n      </div>\n       <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-md-6\">\n            <button type=\"submit\" class=\"btn btn-primary\">\n              <i class=\"fa fa-search\">&nbsp;</i>\n              Search</button>\n          </div>\n        </div>\n       </div>\n    </form>\n  </div>\n</div>\n\n<div class=\"card\">\n  <div class=\"card-body\">\n    <table class=\"table\">\n      <thead>\n      <tr>\n        <td>Id</td>\n        <td>Voucher Id</td>\n        <td>Vendor Name</td>\n        <td>Particulars</td>\n        <td>Total Amount</td>\n        <td>Voucher Date</td>\n      </tr>\n      </thead>\n    <tbody>\n      <tr *ngFor=\"let voucher of vouchers\">\n        <td>{{voucher.id}}</td>\n        <td>{{voucher.voucherId}}</td>\n        <td>{{voucher.vendorName}}</td>\n        <td>{{voucher.particulars}}</td>\n        <td>{{voucher.totalAmount}}</td>\n        <td>{{voucher.voucherDate | date:'yyyy-MM-dd hh:mm aa'}}</td>\n     \n      </tr>\n    </tbody>\n    </table>\n  </div>\n</div>"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n    <h4 class=\"mb-2 mb-sm-0 pt-1\">\n      <span>Search Voucher</span>\n    </h4>\n  </div>\n</div>\n<!-- Heading -->\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n\n<form (ngSubmit)=\"submit()\" name=\"searchForm\">\n  <div class=\"card\">\n    <div class=\"card-header primary-color white-text\">\n      <h3> Search:</h3>\n      </div>\n    <div class=\"card-body\">\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-md-4\">\n            <div class=\"md-form mt-1\">\n            <label for=\"name\">Voucher Id </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"voucherId\" id=\"voucherId\" required=\"false\" [(ngModel)]=\"searchVoucher.voucherId\"\n            />\n            </div>\n          </div>\n          <div class=\"col-md-4\">\n            <div class=\"md-form mt-1\">\n            <label for=\"name\">Vendor Name </label>\n            <input type=\"text\" class=\"form-control underlined\" name=\"vendorName\" id=\"vendorName\" required=\"false\" [(ngModel)]=\"searchVoucher.vendorName\"\n            />\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"row\">\n          <div class=\"col-md-6\">\n            <div class=\"md-form mt-1\">\n            <label for=\"startDt\" class=\"active\">Start Date </label>\n            <input type=\"date\" class=\"form-control underlined\" name=\"startDate\" id=\"startDate\" required=\"false\" [(ngModel)]=\"searchVoucher.startDate\"\n            />\n            </div>\n          </div>\n          <div class=\"col-md-6\">\n            <div class=\"md-form mt-1\">\n            <label for=\"endDt\" class=\"active\">End Date</label>\n            <input type=\"date\" class=\"form-control underlined\" name=\"endDate\" id=\"endDate\" required=\"false\" [(ngModel)]=\"searchVoucher.endDate\"\n            />\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"card-footer\">\n      <button type=\"submit\" class=\"btn btn-primary float-right waves-effect m-0\">\n              <i class=\"fa fa-search\">&nbsp;</i>\n              Search</button>\n    </div>\n  </div>\n</form>\n<br/>\n<h5 class=\"sub-header\">\n  Search Result\n</h5>\n<div class=\"card\">\n  <div class=\"card-header rgba-blue-light\">\n    <small>list of vouchers</small>\n  </div>\n  <div class=\"card-body\">\n    <table class=\"table table-striped\">\n      <thead class=\"orange lighten-2\">\n        <tr>\n          <th>Id</th>\n          <th>Voucher Id</th>\n          <th>Vendor Name</th>\n          <th>Particulars</th>\n          <th>Total Amount</th>\n          <th>Voucher Date</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let voucher of vouchers\">\n          <td>{{voucher.id}}</td>\n          <td>{{voucher.voucherId}}</td>\n          <td>{{voucher.vendorName}}</td>\n          <td>{{voucher.particulars}}</td>\n          <td>{{voucher.totalAmount}}</td>\n          <td>{{voucher.voucherDate | date:'yyyy-MM-dd hh:mm aa'}}</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -2930,12 +3508,33 @@ Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* pl
 /***/ }),
 
 /***/ 0:
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./src/main.ts");
 
 
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 3:
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
 /***/ })
 
-},[0]);
+},[1]);
 //# sourceMappingURL=main.bundle.js.map
