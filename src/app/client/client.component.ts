@@ -15,22 +15,25 @@ export class ClientComponent implements OnInit {
   error: boolean = false;
   errorMessage: string = "";
   client: Client = new Client();
-  success:boolean=true;
+  tempClient: Client = new Client();
+  success: boolean = true;
 
   constructor(private clientService: ClientService) { }
+
+
 
   ngOnInit() {
     this.getClients();
   }
 
   getClients(): void {
-    this.success=false;
+    this.success = false;
     this.error = false;
     this.clientService.getForCompany()
       .subscribe(
       clients => {
         this.clients = clients;
-        this.filterClients=clients;
+        this.filterClients = clients;
       },
       err => {
         this.error = true;
@@ -41,21 +44,23 @@ export class ClientComponent implements OnInit {
 
   edit(client: Client): void {
     this.client = client;
+    this.tempClient=client;
   }
   new(): void {
-     this.success=false;
+    this.success = false;
     this.error = false;
     this.client = new Client();
+    this.tempClient=new Client();
   }
   submit(): void {
-    this.success=false;
+    this.success = false;
     this.error = false;
     this.clientService.save(this.client)
       .subscribe(
       client => {
         this.client = client
         this.getClients();
-        this.success=true;
+        this.success = true;
       },
       err => {
         this.error = true;
@@ -79,7 +84,28 @@ export class ClientComponent implements OnInit {
     }
     myReader.readAsDataURL(file);
   }*/
-  onSearchChange(searchValue : string ):void {  
-    this.filterClients=this.clients.filter(cl=>cl.name.toLowerCase().includes(searchValue.toLowerCase()));
+  onSearchChange(searchValue: string): void {
+    this.filterClients = this.clients.filter(cl => cl.name.toLowerCase().includes(searchValue.toLowerCase()));
   }
+
+
+ /* updateAddrs($event): void {
+    console.debug("inside shippingIsSameAsBilling");
+
+    if ($event.target.checked) {
+      this.client.shipToAddrLine1 = this.client.addrLine1;
+      this.client.shipToAddrLine2 = this.client.addrLine2;
+      this.client.shipToAddrCity = this.client.city;
+      this.client.shipToAddrState = this.client.state;
+      this.client.shipToAddrPincode = this.client.pincode;
+    }
+    else {
+      this.client.shipToAddrLine1 =  this.tempClient.shipToAddrLine1;
+      this.client.shipToAddrLine2 =  this.tempClient.shipToAddrLine2;
+      this.client.shipToAddrCity = this.tempClient.shipToAddrCity;
+      this.client.shipToAddrState = this.tempClient.shipToAddrState;
+      this.client.shipToAddrPincode = this.tempClient.shipToAddrPincode;
+    }
+
+  }*/
 }

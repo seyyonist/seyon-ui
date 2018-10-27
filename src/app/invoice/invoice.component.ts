@@ -29,7 +29,9 @@ export class InvoiceComponent implements OnInit {
   sacCodes: SACCode[] = [];
   selSacId: number;
   selSacCode: SACCode = new SACCode();
-
+  showSac: boolean = false;
+  minProformaDate: string = "";
+  curDate:string = "";
   constructor(private route: ActivatedRoute, private clientService: ClientService
     , private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar) {
     var invoiceIdParam
@@ -66,7 +68,10 @@ export class InvoiceComponent implements OnInit {
       this.loadSelectedClient();
       this.particulars.push(new Particulars());
     }
-
+    if (companyGlobalVar.gstNo != '') {
+      this.showSac = true;
+    }
+    this.getMinProfomaDate();
   }
 
   ngOnInit() {
@@ -98,9 +103,11 @@ export class InvoiceComponent implements OnInit {
       .subscribe(
       sac => {
         this.sacCodes = sac;
+        //console.log("invoice id-"+this.invoice.id);
         if (this.invoice && this.invoice.id != 0) {
           this.selSacCode = this.sacCodes.find(sc => sc.sacCode === this.invoice.sacCode);
-          this.selSacId = this.selSacCode.id
+          if (this.selSacCode)
+            this.selSacId = this.selSacCode.id
         }
       },
       err => {
@@ -134,17 +141,19 @@ export class InvoiceComponent implements OnInit {
     if (this.selectedClient != null) {
       console.debug('selectedClient.state' + this.selectedClient.state);
       console.debug('companyGlobalVar.state' + this.companyGlobalVar.state);
-      if (this.selectedClient.state == this.companyGlobalVar.state) {
-        this.cgstDisplay = true;
-        this.sgstDisplay = true;
-        this.igstDisplay = false;
-      } else {
-        this.cgstDisplay = false;
-        this.sgstDisplay = false;
-        this.igstDisplay = true;
+      if (this.showSac) {
+        if (this.selectedClient.state == this.companyGlobalVar.state) {
+          this.cgstDisplay = true;
+          this.sgstDisplay = true;
+          this.igstDisplay = false;
+        } else {
+          this.cgstDisplay = false;
+          this.sgstDisplay = false;
+          this.igstDisplay = true;
+        }
       }
-    }else{
-      this.selectedClient= new Client();
+    } else {
+      this.selectedClient = new Client();
     }
     this.invoice.clientId = this.selClientId;
   }
@@ -172,19 +181,23 @@ export class InvoiceComponent implements OnInit {
     this.invoice.totalPerfomaBeforeTax = sum;
 
     //apply Tax
-    this.invoice.cgstPerfoma = (this.invoice.cgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100
-    this.invoice.sgstPerfoma = (this.invoice.sgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100
-    this.invoice.igstPerfoma = (this.invoice.igstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100
+    this.invoice.cgstPerfoma = Math.ceil((this.invoice.cgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100);
+    this.invoice.sgstPerfoma = Math.ceil((this.invoice.sgstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100);
+    this.invoice.igstPerfoma = Math.ceil((this.invoice.igstPerfomaPercent * this.invoice.totalPerfomaBeforeTax) / 100);
 
     this.invoice.totalPerfomaAmount = (this.invoice.totalPerfomaBeforeTax + this.invoice.cgstPerfoma + this.invoice.sgstPerfoma
       + this.invoice.igstPerfoma)
-    this.invoice.totalPerfomaAmount=this.invoice.totalPerfomaAmount + this.invoice.reimbPerfomaAmount;
+    this.invoice.totalPerfomaAmount = this.invoice.totalPerfomaAmount + this.invoice.reimbPerfomaAmount;
     this.invoice.totalPerfomaAmount.toFixed(2);
   }
 
 
 
   savePerformaInvoice(): void {
+    if (!this.selClientId) {
+      alert("please select the client");
+      return;
+    }
     this.success = false;
     this.error = false;
     this.invoiceData.invoice = this.invoice;
@@ -213,6 +226,7 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.cancel(this.invoiceData.invoice.id).subscribe(
       invoice => {
         this.invoiceData.invoice = invoice;
+        this.invoice.status = "CANCELED";
         this.success = true;
       },
       err => {
@@ -236,4 +250,49 @@ export class InvoiceComponent implements OnInit {
       }
     )
   }
+
+  getMinProfomaDate(): void {
+    this.success = false;
+    this.error = false;
+    this.curDate=this.getNowDate();
+    console.log("curDate-" + this.curDate);
+    this.invoiceService.getMinProfomaDate().subscribe(
+      str => {
+        this.minProformaDate = str;
+        console.log("minProformaDate-" + this.minProformaDate);
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured in getMinProfomaDate please contact administrator";
+        //console.log("err getMinProfomaDate-"+ err);
+      }
+    )
+
+  }
+
+
+  getNowDate(): string {
+    let returnDate = "";
+    let today = new Date();
+    //split
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //because January is 0! 
+    let yyyy = today.getFullYear();
+    //Interpolation date
+  
+    returnDate += yyyy;
+     if (mm < 10) {
+      returnDate += `-0${mm}-`;
+    } else {
+      returnDate += `-${mm}-`;
+    }
+
+      if (dd < 10) {
+      returnDate += `0${dd}`;
+    } else {
+      returnDate += `${dd}`;
+    }
+    return returnDate;
+  }
+
 }

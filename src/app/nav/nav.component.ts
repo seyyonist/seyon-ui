@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Company } from '../company/company.domain';
 import { CompanyService } from '../company/company.service';
 import { CompanyGlobalVar } from '../globals';
+import { UserService } from '../users/users.service';
 
 
 @Component({
@@ -12,9 +13,10 @@ import { CompanyGlobalVar } from '../globals';
 export class NavComponent implements OnInit {
 
   company: Company = new Company();
-  
+  show:boolean=true;
+  userRole:string[];
 
-  constructor(private companyService: CompanyService,private companyGlobalVar: CompanyGlobalVar) { }
+  constructor(private companyService: CompanyService,private companyGlobalVar: CompanyGlobalVar,private userService:UserService) { }
 
   ngOnInit() {
 
@@ -38,7 +40,15 @@ export class NavComponent implements OnInit {
       console.error("Not able to set companyGlobalVar");
     }
     )
-
+    this.userService.getRoles().subscribe(
+      resp=>{
+        if(resp.length===0)
+          alert("No roles defined for this user.\nPlease contact your company adminstrator");
+        this.userRole=resp;
+      },
+      err=>{
+        alert("Failed to get the user roles")
+      }
+    )
   }
-
 }

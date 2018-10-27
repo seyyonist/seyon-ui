@@ -23,6 +23,8 @@ export class GenInvoiceComponent implements OnInit {
   invoice: Invoice = new Invoice();
   clients: Client[] = [];
   client: Client=new Client();
+  minInvoiceDate: string = "";
+  curDate:string = "";
 
   constructor(private route: ActivatedRoute, private genInvoiceService: GenInvoiceService,
     private clientService: ClientService) {
@@ -44,6 +46,7 @@ export class GenInvoiceComponent implements OnInit {
     alert("Loading SAC Code");
   }
   loadSelectedPerformAInvoice(invoiceId: number): void {
+    console.log("inside loadSelectedPerformAInvoice");
     this.error = false;
     this.success = false;
     this.genInvoiceService.getInvoice(invoiceId).subscribe(
@@ -52,14 +55,16 @@ export class GenInvoiceComponent implements OnInit {
         this.invoice.url=APIURLS.printIInvoiceUrl.concat(this.invoice.performaId);
         this.invoice.purl=APIURLS.printPInvoiceUrl.concat(this.invoice.performaId);
         this.particulars = invoiceData.particulars;
+         //console.log("invoice type "+this.invoice.type);
         if (this.invoice.type != 'INVOICE') {
           this.particulars.forEach(par => {
             par.calculatedInvoiceAmount = par.calculatedPerformaAmount;
             par.invoiceRate = par.performaRate
           });
+          //console.log("invoice setting "+this.invoice.cgstInvoicePercent+this.invoice.sgstInvoicePercent);
           if(!this.invoice.cgstInvoicePercent)
             this.invoice.cgstInvoicePercent = this.invoice.cgstPerfomaPercent;
-          if(!this.invoice.cgstInvoicePercent)
+          if(!this.invoice.sgstInvoicePercent)
             this.invoice.sgstInvoicePercent = this.invoice.sgstPerfomaPercent;
           if(!this.invoice.igstInvoicePercent)
              this.invoice.igstInvoicePercent = this.invoice.igstPerfomaPercent;
@@ -77,6 +82,7 @@ export class GenInvoiceComponent implements OnInit {
         console.log(err);
       }
     )
+    this.getMinInvoiceDate();
 
   }
 
@@ -93,9 +99,9 @@ export class GenInvoiceComponent implements OnInit {
     this.invoice.totalInvoiceBeforeTax = sum;
 
     //apply Tax
-    this.invoice.cgstInvoice = (this.invoice.cgstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100
-    this.invoice.sgstInvoice = (this.invoice.sgstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100
-    this.invoice.igstInvoice = (this.invoice.igstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100
+    this.invoice.cgstInvoice = Math.ceil((this.invoice.cgstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100);
+    this.invoice.sgstInvoice = Math.ceil((this.invoice.sgstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100);
+    this.invoice.igstInvoice = Math.ceil((this.invoice.igstInvoicePercent * this.invoice.totalInvoiceBeforeTax) / 100);
 
     this.invoice.totalInvoiceAmount = (this.invoice.totalInvoiceBeforeTax + this.invoice.cgstInvoice + this.invoice.sgstInvoice
       + this.invoice.igstInvoice)
@@ -142,4 +148,50 @@ export class GenInvoiceComponent implements OnInit {
       }
     )
   }
+
+
+   getMinInvoiceDate(): void {
+    this.success = false;
+    this.error = false;
+    this.curDate=this.getNowDate();
+    console.log("curDate-" + this.curDate);
+    this.genInvoiceService.getMinInvoiceDate().subscribe(
+      str => {
+        this.minInvoiceDate = str;
+        console.log("minInvoiceDate-" + this.minInvoiceDate);
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured in getMinInvoiceDate please contact administrator";
+        //console.log("err getMinProfomaDate-"+ err);
+      }
+    )
+
+  }
+
+  getNowDate(): string {
+    let returnDate = "";
+    let today = new Date();
+    //split
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //because January is 0! 
+    let yyyy = today.getFullYear();
+    //Interpolation date
+  
+    returnDate += yyyy;
+     if (mm < 10) {
+      returnDate += `-0${mm}-`;
+    } else {
+      returnDate += `-${mm}-`;
+    }
+
+      if (dd < 10) {
+      returnDate += `0${dd}`;
+    } else {
+      returnDate += `${dd}`;
+    }
+    return returnDate;
+  }
+
+
 }

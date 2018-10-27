@@ -1,4 +1,13 @@
-<h3>PerformA Invoice (Manufacturing)</h3>
+<!-- Heading -->
+<div class="card mb-4 wow fadeIn">
+  <!--Card content-->
+  <div class="card-body d-sm-flex justify-content-between">
+    <h4 class="mb-2 mb-sm-0 pt-1">
+      <span>PerformA Invoice (Manufacturing)</span>
+    </h4>
+  </div>
+</div>
+<!-- Heading -->
 <div class="alert alert-danger" role="alert" *ngIf="error">
   {{errorMessage}}
 </div>
@@ -17,11 +26,10 @@
          </select>
       </div>
       <div class="col-md-4">
-        
+
       </div>
       <div class="col-md-4">
-        <button class="btn btn-info" (click)="calculateTotal()">Calculate Amount</button>
-        <button class="btn btn-warning" (click)="savePerformaInvoice()">Generate Proforma</button>
+
       </div>
     </div>
     <div class="row">
@@ -47,52 +55,67 @@
         <br/>
       </div>
     </div>
-    <table class="table">
-      <tr>
-        <th colspan="8">Particulars</th>
-        <th><button class="btn btn-success" (click)="addRow()">AddRow</button></th>
-      </tr>
-      <tr>
-        <th colspan="4">Description</th>
-        <th>SAC Code</th>
-        <th>Quantity</th>
-        <th>Rate</th>
-        <th>gst</th>
-        <th>Amount</th>
-      </tr>
-      <tr *ngFor="let field of manufacturingInvoice;let i=index">
+    <div class="clear-fix border-top p-3">
+      <h4 class="sub-header">
+        <span class="index">1</span>Particulars
+        <button class="btn btn-success float-right" (click)="addRow()">
+            <i class="fa fa-plus">&nbsp;</i>AddRow</button>
+      </h4>
+    </div>
+    <table class="table table-striped">
+      <thead class="blue lighten-5">
+        <tr>
+          <th colspan="4">Description</th>
+          <th *ngIf="showSac">SAC Code</th>
+          <th>Quantity</th>
+          <th>Rate</th>
+          <th *ngIf="showSac">gst</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let field of manufacturingInvoice;let i=index">
 
-        <td><button class="btn btn-sm btn-danger" (click)="deletRow(field.id)"><i class="fa fa-trash"></i></button></td>
+          <td width="40px"><button class="btn btn-sm btn-danger pl-2 pr-2" (click)="deletRow(field.id)"><i class="fa fa-trash"></i></button></td>
 
-        <td colspan="3" WIDTH="50%">
-          <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)">
+          <td colspan="3">
+            <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)">
           </textarea>
-        </td>
-        <td WIDTH="10%">
-          <select (change)="loadSelectedSac(field)" class="form-control underlined" [(ngModel)]="field.sacCodeId">
+          </td>
+          <td WIDTH="10%" *ngIf="showSac">
+            <select (change)="loadSelectedSac(field)" class="form-control underlined" [(ngModel)]="field.sacCodeId">
         <option></option>
         <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === field.sacCodeId">{{sac.sacCode}}</option>
         </select>
-        </td>
-        <td WIDTH="10%">
-          <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="field.quantity" (change)="calculateAmount(field)"
-          />
-        </td>
-        <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.performaRate" (change)="calculateAmount(field)"
-          />
-        </td>
-        <td WIDTH="10%">
-          <p *ngIf="field.cgstPerfomaPercent>0">cgst={{field.cgstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>
-          <p *ngIf="field.sgstPerfomaPercent>0">sgst={{field.sgstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>
-          <p *ngIf="field.igstPerfomaPercent>0">igst={{field.igstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>
-        </td>
-        <td WIDTH="10%">
-          <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedPerformaAmount" />
-        </td>
-      </tr>
+          </td>
+          <td WIDTH="10%">
+            <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="field.quantity" (change)="calculateAmount(field)"
+            />
+          </td>
+          <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.performaRate" (change)="calculateAmount(field)"
+            />
+          </td>
+          <td WIDTH="10%" *ngIf="showSac">
+            <p *ngIf="field.cgstPerfomaPercent>0">cgst={{field.cgstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>
+            <p *ngIf="field.sgstPerfomaPercent>0">sgst={{field.sgstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>
+            <p *ngIf="field.igstPerfomaPercent>0">igst={{field.igstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>
+          </td>
+          <td WIDTH="10%">
+            <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedPerformaAmount" />
+          </td>
+        </tr>
+      </tbody>
       <tfoot>
-        <tr>
+        <tr *ngIf="showSac">
           <td colspan="7">
+          </td>
+          <th>
+            SUM =
+          </th>
+          <td>{{totalPerfomaBeforeTax}}</td>
+        </tr>
+        <tr *ngIf="!showSac">
+          <td colspan="5">
           </td>
           <th>
             SUM =
@@ -101,5 +124,14 @@
         </tr>
       </tfoot>
     </table>
+  </div>
+</div>
+
+<div class="card mt-4 wow fadeIn">
+  <div class="card-body">
+    <div class="row float-right">
+      <button class="btn btn-info" (click)="calculateTotal()"> <i class="fa fa-calculator">&nbsp;</i>Calculate Amount</button>&nbsp;
+      <button class="btn btn-primary" (click)="savePerformaInvoice()" ><i class="fa fa-cogs">&nbsp;</i>Generate Proforma</button>
+    </div>
   </div>
 </div>

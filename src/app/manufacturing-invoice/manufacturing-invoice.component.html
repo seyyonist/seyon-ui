@@ -1,4 +1,13 @@
-<h3>Performa Invoice (Manufacturing)</h3>
+<!-- Heading -->
+<div class="card mb-4 wow fadeIn">
+  <!--Card content-->
+  <div class="card-body d-sm-flex justify-content-between">
+      <h4 class="mb-2 mb-sm-0 pt-1">
+          <span>PerformA Invoice (Manufacturing)</span>
+      </h4>
+  </div>
+</div>
+<!-- Heading -->
 
 <div class="card" *ngIf="manufacturingInvoice.id">
   <div class="card-body">
@@ -49,16 +58,18 @@
         <br/>
       </div>
     </div>
-    <table class="table">
-      <tr>
-        <th colspan="6">Particulars</th>
-      </tr>
+   <hr/>
+   <h4 class="sub-header">
+    <span class="index">1</span>Particulars
+  </h4>
+
+    <table class="table table-striped">
       <tr>
         <th WIDTH="30%">Description</th>
-        <th>SAC Code</th>
+        <th *ngIf="showSac">SAC Code</th>
         <th>Quantity</th>
         <th>Rate</th>
-        <th>gst</th>
+        <th *ngIf="showSac">gst</th>
         <th>Amount</th>
       </tr>
       <tr>
@@ -66,7 +77,7 @@
           <textarea type="text" class="form-control" required="true" [(ngModel)]="manufacturingInvoice.itemDescription" (change)="calculateAmount()" [disabled]="manufacturingInvoice.type==='INVOICE'">
           </textarea>
         </td>
-        <td WIDTH="10%">
+        <td WIDTH="10%" *ngIf="showSac">
          <!-- <select (change)="loadSelectedSac(manufacturingInvoice)" class="form-control underlined" [(ngModel)]="manufacturingInvoice.sacCodeId">
         <option></option>
         <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === manufacturingInvoice.sacCodeId">{{sac.sacCode}}</option>
@@ -80,7 +91,7 @@
         <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0" [(ngModel)]="manufacturingInvoice.performaRate" (change)="calculateAmount()" [disabled]="manufacturingInvoice.type==='INVOICE'"
           />
         </td>
-        <td WIDTH="10%">
+        <td WIDTH="10%" *ngIf="showSac">
           <p *ngIf="manufacturingInvoice.cgstPerfomaPercent>0">cgst={{manufacturingInvoice.cgstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>
           <p *ngIf="manufacturingInvoice.sgstPerfomaPercent>0">sgst={{manufacturingInvoice.sgstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>
           <p *ngIf="manufacturingInvoice.igstPerfomaPercent>0">igst={{manufacturingInvoice.igstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>
@@ -89,22 +100,17 @@
           <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="manufacturingInvoice.calculatedPerformaAmount" />
         </td>
       </tr>
-
-     
-      <tfoot>
-        <tr>
-           <td colspan="3"></td>
-          <td colspan="3" align="right">
-             <a target="_blank" style="color:white;background-color:#432fb5" class="btn" [href]="this.manufacturingInvoice.purl">
-                  <i class="fa fa-print"></i>
-             </a>
-            <button class="btn btn-info" (click)="calculateAmount()">Calculate Amount</button>
-            <button class="btn btn-info" (click)="save()">Save</button>
-            <a class="btn btn-warning" routerLink="/generate-manu-invoice/{{manufacturingInvoice.id}}" routerLinkActive="active">View As Invoice</a>
-          </td>
-        </tr>
-      </tfoot>
     </table>
+  </div>
+  <div class="card-footer">
+    <div class="row float-right">
+      <a target="_blank" style="color:white;background-color:#432fb5" class="btn" [href]="this.manufacturingInvoice.purl">
+        <i class="fa fa-print"></i>
+   </a>
+  <button class="btn btn-info" (click)="calculateAmount()"> <i class="fa fa-calculator">&nbsp;</i> Calculate Amount</button>
+  <button class="btn btn-info" (click)="save()"> <i class="fa fa-save">&nbsp;</i> Save</button>
+  <a class="btn btn-warning" routerLink="/generate-manu-invoice/{{manufacturingInvoice.id}}" routerLinkActive="active"><i class="fa fa-eye">&nbsp;</i>View As Invoice</a>
+    </div>
   </div>
 </div>
 

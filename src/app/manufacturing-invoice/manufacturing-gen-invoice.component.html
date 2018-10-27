@@ -1,6 +1,15 @@
-<h3>Invoice (Manufacturing)</h3>
+<!-- Heading -->
+<div class="card mb-4 wow fadeIn">
+  <!--Card content-->
+  <div class="card-body d-sm-flex justify-content-between">
+      <h4 class="mb-2 mb-sm-0 pt-1">
+          <span>Invoice (Manufacturing)</span>
+      </h4>
+  </div>
+</div>
+<!-- Heading -->
 
-<div class="card" *ngIf="manufacturingInvoice.id">
+<div class="card mb-3 wow fadeIn" *ngIf="manufacturingInvoice.id">
   <div class="card-body">
     <table width="100%">
       <thead>
@@ -29,7 +38,7 @@
   </div>
 </div>
 <br/>
-<div class="card" *ngIf="manufacturingInvoice.id">
+<div class="card mb-3 wow fadeIn" *ngIf="manufacturingInvoice.id">
   <div class="card-body">
     <table width="100%" border="1" style="border-collapse:collapse;border:#f2f2f2 solid 1px;">
       <thead>
@@ -54,34 +63,36 @@
          <th colspan="5">Particulars</th>
         </tr>
         <tr valign="top">
-         <th>Description</th>
-         <th>Sac Code</th>
+         <th *ngIf="manufacturingInvoice.sacCode==0" colspan="2">Description</th>
+         <th *ngIf="manufacturingInvoice.sacCode!=0" >Description</th>
+         <th *ngIf="manufacturingInvoice.sacCode!=0">Sac Code</th>
          <th>Quantity</th>
          <th>Rate</th>
          <th>Amount</th>
         </tr>
         <tr valign="top">
-         <td >{{manufacturingInvoice.itemDescription}}</td>
-         <td>{{manufacturingInvoice.sacCode}}</td>
+         <td *ngIf="manufacturingInvoice.sacCode==0" colspan="2">{{manufacturingInvoice.itemDescription}}</td>
+         <td *ngIf="manufacturingInvoice.sacCode!=0" >{{manufacturingInvoice.itemDescription}}</td>
+         <td *ngIf="manufacturingInvoice.sacCode!=0">{{manufacturingInvoice.sacCode}}</td>
          <td  align="right">{{manufacturingInvoice.quantity}}</td>
          <td  align="right"><input [disabled]="manufacturingInvoice.type==='INVOICE'" class="form-control" style="width:100px;" (change)="calculateAmount(manufacturingInvoice)" type="number" [(ngModel)]="manufacturingInvoice.invoiceRate"/></td>
          <td  align="right">{{manufacturingInvoice.grossInvoiceAmount}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="manufacturingInvoice.cgstInvoicePercent!=0">
           <td colspan="3" align="right">
             CGST
           </td>
           <td  align="right">{{manufacturingInvoice.cgstInvoicePercent}}</td>
           <td  align="right">{{manufacturingInvoice.cgstInvoice}}</td>
         </tr>
-         <tr>
+         <tr *ngIf="manufacturingInvoice.cgstInvoicePercent!=0">
           <td colspan="3" align="right">
             SGST
           </td>
-          <td align="right">{{manufacturingInvoice.sgstInvoicePercent}}</td>
+          <td align="right">{{manufacturingInvoice.cgstInvoicePercent}}</td>
           <td  align="right">{{manufacturingInvoice.sgstInvoice}}</td>
         </tr>
-         <tr>
+         <tr *ngIf="manufacturingInvoice.igstInvoicePercent!=0">
           <td colspan="3" align="right">
             IGST
           </td>
@@ -97,9 +108,14 @@
   </div>
 </div>
 
-<div class="card" *ngIf="manufacturingInvoice.id">
+<div class="card mb-3 wow fadeIn" *ngIf="manufacturingInvoice.id">
   <div class="card-body">
-    <button class="btn btn-warning float-right" (click)="save()" [disabled]="manufacturingInvoice.type==='INVOICE'">Generate Invoice</button>
+     <a target="_blank" style="color:white;background-color:#432fb5" class="btn float-right" [href]="manufacturingInvoice.url" *ngIf="manufacturingInvoice.url && manufacturingInvoice.invoiceId!=''">
+            <i class="fa fa-print"></i>
+      </a>&nbsp;
+    <button class="btn btn-warning float-right" (click)="save()" [disabled]="manufacturingInvoice.type==='INVOICE'">
+      <i class="fa fa-cogs">&nbsp;</i>
+      Generate Invoice</button>
   </div>
 </div>
 

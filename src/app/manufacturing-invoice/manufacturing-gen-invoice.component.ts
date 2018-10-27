@@ -86,6 +86,7 @@ export class ManufacturingGenInvoiceComponent implements OnInit {
 
   loadSelectedClient(): void {
     this.selectedClient = this.clients.find(cli => cli.id === this.manufacturingInvoice.clientId);
+    console.log(this.clients);
   }
 
   getSacCodes(): void {
@@ -95,7 +96,8 @@ export class ManufacturingGenInvoiceComponent implements OnInit {
         this.sacCodes = sac;
         if (this.manufacturingInvoice && this.manufacturingInvoice.id != 0) {
           this.selSacCode = this.sacCodes.find(sc => sc.sacCode === this.manufacturingInvoice.sacCode);
-          this.selSacId = this.selSacCode.id
+          if(this.selSacCode)
+            this.selSacId = this.selSacCode.id
         }
       },
       err => {
@@ -113,7 +115,7 @@ export class ManufacturingGenInvoiceComponent implements OnInit {
     this.invoiceService.saveManufacturingInvoice(this.manufacturingInvoice).subscribe(
       succ => {
         this.manufacturingInvoice = succ;
-        alert("Invoice saved ")
+        alert("Invoice Generated ")
       },
       err => {
         alert("Error while Saving the invoice");

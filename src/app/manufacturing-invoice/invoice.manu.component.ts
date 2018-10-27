@@ -28,7 +28,7 @@ export class InvoiceManuComponent implements OnInit {
   invoice: Invoice = new Invoice();
   sacCodes: SACCode[] = [];
   selSacId: number;
-
+  showSac:boolean=false;
 
   manufacturingInvoice:ManufacturingInvoice[]=[];
   totalPerfomaBeforeTax:number=0;
@@ -69,7 +69,9 @@ export class InvoiceManuComponent implements OnInit {
       this.loadSelectedClient();
       this.manufacturingInvoice.push(new ManufacturingInvoice());
     }
-
+    if(companyGlobalVar.gstNo!=''){
+      this.showSac=true;
+    }
   }
 
   ngOnInit() {
@@ -174,6 +176,10 @@ export class InvoiceManuComponent implements OnInit {
   }
 
   savePerformaInvoice(): void {
+    if(!this.selClientId){
+      alert("please select the client");
+      return;
+    }
     this.success = false;
     this.error = false;
     this.manufacturingInvoice.forEach(inv=>{

@@ -1,0 +1,158 @@
+<!-- Heading -->
+<div class="card mb-4 wow fadeIn">
+  <!--Card content-->
+  <div class="card-body d-sm-flex justify-content-between">
+    <h4 class="mb-2 mb-sm-0 pt-1">
+      <span>Invoice Report</span>
+    </h4>
+  </div>
+</div>
+<!-- Heading -->
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  {{errorMessage}}
+</div>
+
+<form (ngSubmit)="submit()" name="searchForm" ngNativeValidate>
+  <div class="card">
+    <div class="card-header primary-color white-text">
+      <h3> Search:</h3>
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+          <div class="md-form mt-1">
+            <label for="category" class="active">Category </label>
+            <select id="category" name="category " class="browser-default custom-select md-select" required="false" [(ngModel)]="searchInvoice.category"
+              (change)="clearResult()">
+                  <option value="SERVICE">SERVICE</option>
+                  <option value="MANUFACTURING">MANUFACTURING</option>                  
+                </select>
+          </div>
+          </div>
+          <div class="col-md-3">
+            <div class="md-form mt-1">
+            <label for="name">Performa Id </label>
+            <input type="text" class="form-control underlined" name="performa Id" id="performaId" required="false" [(ngModel)]="searchInvoice.performaId"
+            />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="md-form mt-1">
+            <label for="name">Invoice Id </label>
+            <input type="text" class="form-control underlined" name="invoiceId" id="invoiceId" required="false" [(ngModel)]="searchInvoice.invoiceId"
+            />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="md-form mt-1">
+            <label for="status" class="active">Status </label>
+            <select id="status" name="status " class="browser-default custom-select md-select" required="false" [(ngModel)]="searchInvoice.status">
+                  <option value="NEW">NEW</option>
+                  <option value="CANCELED">CANCELED</option>                  
+                </select>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+             <div class="md-form mt-1">
+            <label for="client" class="active">Client </label>
+            <select id="client" name="client " class="browser-default custom-select md-select" required="false" [(ngModel)]="searchInvoice.clientId">
+              <option></option>
+              <option *ngFor="let cli of clients" [ngValue]="cli.id">{{cli.name}}</option>
+            </select>
+             </div>
+          </div>
+          <div class="col-md-3">
+             <div class="md-form mt-1">
+            <label for="startDt" class="active">Performa/Invoice </label>
+            <select id="status" name="status " class="browser-default custom-select md-select" required="false" [(ngModel)]="searchInvoice.type">
+                  <option></option>
+                  <option value="PERFORMA">PERFORMA </option>
+                  <option value="INVOICE">INVOICE </option>               
+                </select>
+             </div>
+          </div>
+          <div class="col-md-3">
+             <div class="md-form mt-1">
+            <label for="startDt" class="active">Start Date </label>
+            <input type="date" class="form-control underlined" name="startDt" id="startDt" required="false" [(ngModel)]="searchInvoice.invoiceStDate"
+            />
+             </div>
+          </div>
+          <div class="col-md-3">
+             <div class="md-form mt-1">
+            <label for="endDt" class="active">End Date</label>
+            <input type="date" class="form-control underlined" name="endDt" id="endDt" required="false" [(ngModel)]="searchInvoice.invoiceEdDate"
+            />
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary float-right">
+              <i class="fa fa-search">&nbsp;</i>
+              Search</button>      
+      <!-- <button type="reset" class="btn btn-secondary float-right">
+              <i class="fa fa-refresh">&nbsp;</i>
+              Reset</button> -->
+    </div>
+  </div>
+</form>
+<br/>
+<h5 class="sub-header">
+  Result       
+</h5>
+
+<div class="card">
+  <div class="card-header rgba-blue-light clear-fix">
+    <small>Displaying items {{invoices.length}}in this page</small>
+    <button class="btn btn-warning float-right" (click)="generateExcel()" *ngIf="invoices.length>0">
+              <i class="fa fa-file-excel">&nbsp;</i>
+              Export to Excel</button> 
+  </div>
+  <div class="card-body">
+
+    <table class="table table-striped">
+      <thead class="orange lighten-2">
+        <tr>
+          <th>Invoice Id</th>
+          <th>Performa Id</th>
+          <th>Client</th>
+          <th>Performa Date</th>
+          <th>Invoice Date</th>
+          <th>Performa Amount</th>
+          <th>Invoice Amount</th>
+          <th>Type</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invoice of invoices">
+          <td>
+            <span *ngIf="invoice.invoiceId && searchInvoice.category=='SERVICE'">{{invoice.invoiceId}}</span>
+            <span *ngIf="invoice.invoiceId && searchInvoice.category=='MANUFACTURING'">{{invoice.invoiceId}}</span>
+          </td>
+          <td>
+            <a routerLink="/performaView/{{invoice.id}}" *ngIf="invoice.performaId && searchInvoice.category=='SERVICE'">{{invoice.performaId}}</a>
+            <a routerLink="/manufacturingInvoice/{{invoice.id}}" *ngIf="invoice.proFormaId && searchInvoice.category=='MANUFACTURING'">{{invoice.proFormaId}}</a>
+          </td>
+          <td>{{invoice.clientName}}</td>
+          <td>{{invoice.performaDate | date:'yyyy-MM-dd'}}</td>
+          <td>{{invoice.invoiceDate | date:'yyyy-MM-dd'}}</td>
+          <td *ngIf="searchInvoice.category=='MANUFACTURING'">{{invoice.calculatedPerformaAmount}}</td>
+          <td *ngIf="searchInvoice.category=='MANUFACTURING'">{{invoice.calculatedInvoiceAmount}}</td>
+          <td *ngIf="searchInvoice.category=='SERVICE'">{{invoice.totalPerfomaAmount}}</td>
+          <td *ngIf="searchInvoice.category=='SERVICE'">{{invoice.totalInvoiceAmount}}</td>
+          <td>{{invoice.type}}</td>
+          <td>{{invoice.status}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
