@@ -39,6 +39,8 @@ export class InvoiceComponent implements OnInit {
       invoiceIdParam = params['id']
       console.log(invoiceIdParam);
     });
+
+    this.minProformaDate = "";
     if (invoiceIdParam != 0) {
       console.log("fetching the invoice for the id :" + invoiceIdParam)
       this.invoiceService.getInvoice(invoiceIdParam).subscribe(
