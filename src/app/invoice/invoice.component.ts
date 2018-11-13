@@ -203,6 +203,7 @@ export class InvoiceComponent implements OnInit {
     this.success = false;
     this.error = false;
     this.invoiceData.invoice = this.invoice;
+    this.invoiceData.invoice.invoiceDate=this.invoice.performaDate;
     this.invoiceData.particulars = this.particulars.filter(part => part.itemDescription !== "");
     this.invoiceService.savePerforma(this.invoiceData).subscribe(
       invoiceData => {
