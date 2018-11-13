@@ -49,6 +49,7 @@ export class GenInvoiceComponent implements OnInit {
     console.log("inside loadSelectedPerformAInvoice");
     this.error = false;
     this.success = false;
+    this.minInvoiceDate="";
     this.genInvoiceService.getInvoice(invoiceId).subscribe(
       invoiceData => {
         this.invoice = invoiceData.invoice;
