@@ -77,13 +77,7 @@ export class InvoiceReportComponent implements OnInit {
     }
   }
   generateExcel():void{
-    let inv=[];
-    this.invoices.forEach(invo=>{
-      let values = Object.keys(invo).map(key => invo[key]);
-      inv.push(values);
-    });
-    console.log(inv);
-    this.excelGenerator.exportAsExcelFile(inv,'InvoiceReport');
+     this.excelGenerator.exportAsExcelFile(this.invoices,'InvoiceReport');
   }
   
 }
