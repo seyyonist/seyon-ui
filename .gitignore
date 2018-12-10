@@ -5,7 +5,6 @@
 /dist-server
 /tmp
 /out-tsc
-/deployUI
 
 # dependencies
 /node_modules
