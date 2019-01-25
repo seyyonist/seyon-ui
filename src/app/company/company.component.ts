@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Company } from './company.domain';
 import { CompanyService } from './company.service';
+import { CompanyGlobalVar } from '../globals';
 
 @Component({
   selector: 'app-company',
@@ -15,7 +16,7 @@ export class CompanyComponent implements OnInit {
   success: boolean = true;
   company: Company = new Company();
 
-  constructor(private companyService: CompanyService) { }
+  constructor(private companyService: CompanyService,private companyGlobalVar: CompanyGlobalVar) { }
 
   ngOnInit() {
     this.getCompany();
@@ -28,7 +29,11 @@ export class CompanyComponent implements OnInit {
       .subscribe(
       company => {
         this.company = company;
-
+        if(this.company.gstNo!=""){
+          this.companyGlobalVar.gstNo=this.company.gstNo;
+        }else{
+          this.companyGlobalVar.gstNo="";
+        }
       },
       err => {
         this.error = true;

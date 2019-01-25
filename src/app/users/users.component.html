@@ -55,12 +55,12 @@
                 <span class="index">1</span>User
               </h4>
               <div class="md-form">
-                <label for="name" [class.active]="user.name!=''">User Name</label>
+                <label for="name" [class.active]="user.name!=''">Name</label>
                 <input type="text" class="form-control underlined" name="name" id="name" required="true" [(ngModel)]="user.name" />
               </div>
 
               <div class="md-form">
-                <label for="email" [class.active]="user.email!=''">Email</label>
+                <label for="email" [class.active]="user.email!=''">Gmail</label>
                 <input type="text" class="form-control underlined" name="email" id="email" required="true" [(ngModel)]="user.email" />
               </div>
               <div class="md-form">
@@ -70,7 +70,7 @@
                   <option value="false">InActive </option>
                 </select>
               </div>
-              <h5 class="sub-header">
+              <!-- <h5 class="sub-header">
                 <span class="index">2</span>Password:
               </h5>
               <div class="md-form">
@@ -80,7 +80,7 @@
               <div class="md-form">
                 <label for="retype_password" [class.active]="user.password!=''">reenter password</label>
                 <input type="password" class="form-control underlined" name="retype_password" id="retype_password" required="">
-              </div>
+              </div> -->
 
             </div>
             <div class="col-md-6">
