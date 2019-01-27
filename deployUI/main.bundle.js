@@ -561,6 +561,7 @@ module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__company_domain__ = __webpack_require__("./src/app/company/company.domain.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__company_service__ = __webpack_require__("./src/app/company/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__globals__ = __webpack_require__("./src/app/globals.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -573,9 +574,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var CompanyComponent = /** @class */ (function () {
-    function CompanyComponent(companyService) {
+    function CompanyComponent(companyService, companyGlobalVar) {
         this.companyService = companyService;
+        this.companyGlobalVar = companyGlobalVar;
         this.error = false;
         this.errorMessage = "";
         this.success = true;
@@ -591,6 +594,12 @@ var CompanyComponent = /** @class */ (function () {
         this.companyService.getCompany()
             .subscribe(function (company) {
             _this.company = company;
+            if (_this.company.gstNo != "") {
+                _this.companyGlobalVar.gstNo = _this.company.gstNo;
+            }
+            else {
+                _this.companyGlobalVar.gstNo = "";
+            }
         }, function (err) {
             _this.error = true;
             _this.errorMessage = "Error occured please contact administrator";
@@ -629,7 +638,7 @@ var CompanyComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/company/company.component.html"),
             styles: [__webpack_require__("./src/app/company/company.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__company_service__["a" /* CompanyService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__globals__["a" /* CompanyGlobalVar */]])
     ], CompanyComponent);
     return CompanyComponent;
 }());
@@ -902,6 +911,7 @@ var GenInvoiceComponent = /** @class */ (function () {
         console.log("inside loadSelectedPerformAInvoice");
         this.error = false;
         this.success = false;
+        this.minInvoiceDate = "";
         this.genInvoiceService.getInvoice(invoiceId).subscribe(function (invoiceData) {
             _this.invoice = invoiceData.invoice;
             _this.invoice.url = __WEBPACK_IMPORTED_MODULE_6__app_constants__["a" /* APIURLS */].printIInvoiceUrl.concat(_this.invoice.performaId);
@@ -1251,7 +1261,7 @@ module.exports = ""
 /***/ "./src/app/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n      <div class=\"profile-userpic\">\n        <img src=\"https://www.w3schools.com/w3css/img_avatar3.png\" class=\"img-responsive\" alt=\"\">\n      </div>\n      <div class=\"profile-usertitle\">\n        <small>Logged in as :</small>\n        <div class=\"profile-usertitle-name\">\n          {{user.name}}  |\n          <a href=\"#\" title=\"edit profile\">\n\t\t\t\t\t\t<i class=\"fa fa-cog\"></i>\n\t\t\t\t\t</a> | <a href=\"/logout\" title=\"logout\">\n\t\t\t\t\t\t<i class=\"fa fa-sign-out-alt\"></i>\n\t\t\t\t\t</a>\n        </div>\n        <div class=\"profile-usertitle-job \">\n         |<span *ngFor=\"let role of userRole\">{{role.roleCode}}|</span>\n        </div>\n      </div>\n"
+module.exports = "\n      <div class=\"profile-userpic\">\n        <img src=\"https://www.w3schools.com/w3css/img_avatar3.png\" class=\"img-responsive\" alt=\"\">\n      </div>\n      <div class=\"profile-usertitle\">\n        <small>Logged in as :</small>\n        <div class=\"profile-usertitle-name\">\n          {{user.name}}\n           <!-- |\n          <a href=\"#\" title=\"edit profile\">\n\t\t\t\t\t\t<i class=\"fa fa-cog\"></i>\n          </a> -->\n           | <a href=\"/logout\" title=\"logout\">\n\t\t\t\t\t\t<i class=\"fa fa-sign-out-alt\"></i>\n\t\t\t\t\t</a>\n        </div>\n        <div class=\"profile-usertitle-job \">\n         |<span *ngFor=\"let role of userRole\">{{role.roleCode}}|</span>\n        </div>\n      </div>\n"
 
 /***/ }),
 
@@ -1399,6 +1409,7 @@ var InvoiceComponent = /** @class */ (function () {
             invoiceIdParam = params['id'];
             console.log(invoiceIdParam);
         });
+        this.minProformaDate = "";
         if (invoiceIdParam != 0) {
             console.log("fetching the invoice for the id :" + invoiceIdParam);
             this.invoiceService.getInvoice(invoiceIdParam).subscribe(function (invoiceData) {
@@ -1543,6 +1554,7 @@ var InvoiceComponent = /** @class */ (function () {
         this.success = false;
         this.error = false;
         this.invoiceData.invoice = this.invoice;
+        this.invoiceData.invoice.invoiceDate = this.invoice.performaDate;
         this.invoiceData.particulars = this.particulars.filter(function (part) { return part.itemDescription !== ""; });
         this.invoiceService.savePerforma(this.invoiceData).subscribe(function (invoiceData) {
             _this.invoiceData = invoiceData;
@@ -2942,13 +2954,7 @@ var InvoiceReportComponent = /** @class */ (function () {
         }
     };
     InvoiceReportComponent.prototype.generateExcel = function () {
-        var inv = [];
-        this.invoices.forEach(function (invo) {
-            var values = Object.keys(invo).map(function (key) { return invo[key]; });
-            inv.push(values);
-        });
-        console.log(inv);
-        this.excelGenerator.exportAsExcelFile(inv, 'InvoiceReport');
+        this.excelGenerator.exportAsExcelFile(this.invoices, 'InvoiceReport');
     };
     InvoiceReportComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -2975,7 +2981,7 @@ module.exports = ""
 /***/ "./src/app/users/users.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n    <h4 class=\"mb-2 mb-sm-0 pt-1\">\n      <span>Manage User</span>\n    </h4>\n  </div>\n</div>\n<!-- Heading -->\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Saved\n</div>\n<div class=\"row\">\n  <div class=\"col-md-4\">\n    <div class=\"card\">\n      <div class=\"card-header grey lighten-4\" >\n        <div class=\"md-form input-group mb-3\">\n          <label for=\"search\">Search</label>\n          <input type=\"text\" class=\"form-control\" id=\"search\" />\n          <div class=\"input-group-append\">\n            <button class=\"btn primary-color waves-effect m-0\" (click)=\"new()\">\n               <i class=\"fa fa-plus-square\"></i> &nbsp;Add New</button>\n          </div>\n        </div>\n      </div>\n      <div style=\"overflow:auto;height:400px;background-color:white;\">\n        <ul class=\"list-group list-group-flush\">\n          <li *ngFor=\"let user of users\" class=\"list-group-item\" (click)=\"edit(user)\" style=\"cursor: pointer;\">\n            {{user.name}}\n            <span class=\"float-right\">\n              <i class=\"fa fa-arrow-right\"></i>\n            </span>\n          </li>\n        </ul>\n        <div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-md-8\">\n    <form (ngSubmit)=\"submit()\" name=\"userForm\" ngNativeValidate>\n      <div class=\"card\">\n        <div class=\"card-header primary-color white-text\" >\n          <h5> User </h5>\n        </div>\n        <div class=\"card-body\">\n\n          <div class=\"row\">\n            <div class=\"col-md-6 border-right\">\n              <h4 class=\"sub-header\">\n                <span class=\"index\">1</span>User\n              </h4>\n              <div class=\"md-form\">\n                <label for=\"name\" [class.active]=\"user.name!=''\">User Name</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"name\" id=\"name\" required=\"true\" [(ngModel)]=\"user.name\" />\n              </div>\n\n              <div class=\"md-form\">\n                <label for=\"email\" [class.active]=\"user.email!=''\">Email</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"email\" id=\"email\" required=\"true\" [(ngModel)]=\"user.email\" />\n              </div>\n              <div class=\"md-form\">\n                <label for=\"active\" [class.active]=\"user.active!=''\">Active</label>\n                <select id=\"active\" name=\"active \" class=\"browser-default custom-select md-select\" required=\"true\" [(ngModel)]=\"user.active\">\n                  <option value=\"true\" selected>Active </option>\n                  <option value=\"false\">InActive </option>\n                </select>\n              </div>\n              <h5 class=\"sub-header\">\n                <span class=\"index\">2</span>Password:\n              </h5>\n              <div class=\"md-form\">\n                <label for=\"password\" [class.active]=\"user.password!=''\">Password</label>\n                <input type=\"password\" class=\"form-control underlined\" name=\"password\" id=\"password\" required=\"true\" [(ngModel)]=\"user.password\">\n              </div>\n              <div class=\"md-form\">\n                <label for=\"retype_password\" [class.active]=\"user.password!=''\">reenter password</label>\n                <input type=\"password\" class=\"form-control underlined\" name=\"retype_password\" id=\"retype_password\" required=\"\">\n              </div>\n\n            </div>\n            <div class=\"col-md-6\">\n              <h4 class=\"sub-header\">\n                <span class=\"index\">3</span>User Role\n              </h4>\n              <span *ngIf=\"!showRoles\">Select a User to view or manage role </span>\n              <div *ngIf=\"showRoles\">\n                <div class=\"md-form input-group\">\n                  <select id=\"RoleSelect\" name=\"roleSelect \" class=\"browser-default custom-select md-select\" [(ngModel)]=\"userRole.roleCode\">\n                    <option value=\"ADMIN\" selected>ADMIN</option>\n                    <option value=\"USER\">USER</option>\n                    <option value=\"CLIENT\">CLIENT</option>\n                  </select>\n                  <div class=\"input-group-append\">\n                    <button type=\"button\" name=\"addRole\" (click)=\"adduserRole(userRole.roleCode)\" class=\"btn btn-success btn-sm waves-effect m-0\">\n                      <i class=\"fa fa-plus-square\"></i>&nbsp;Add Role</button>\n                  </div>\n                </div>\n                <ul class=\"list-group list-group-flush\">\n                  <li *ngFor=\"let userRole of userRoles\" class=\"list-group-item\" style=\"cursor: pointer;\">\n                    {{userRole.roleCode}}\n                    <span class=\"float-right\">\n                        <i (click)=\"deleteUserRole(userRole.id)\" class=\"fa fa-trash\"></i>\n                      </span>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </div>\n\n        </div>\n\n        <div class=\"card-footer\">\n          <button type=\"submit\" class=\"btn btn-success float-right waves-effect m-0\">\n                <i class=\"fa fa-save\"></i>&nbsp;Save</button>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>"
+module.exports = "<!-- Heading -->\n<div class=\"card mb-4 wow fadeIn\">\n  <!--Card content-->\n  <div class=\"card-body d-sm-flex justify-content-between\">\n    <h4 class=\"mb-2 mb-sm-0 pt-1\">\n      <span>Manage User</span>\n    </h4>\n  </div>\n</div>\n<!-- Heading -->\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"error\">\n  {{errorMessage}}\n</div>\n<div class=\"alert alert-success\" role=\"alert\" *ngIf=\"success\">\n  Successfully Saved\n</div>\n<div class=\"row\">\n  <div class=\"col-md-4\">\n    <div class=\"card\">\n      <div class=\"card-header grey lighten-4\" >\n        <div class=\"md-form input-group mb-3\">\n          <label for=\"search\">Search</label>\n          <input type=\"text\" class=\"form-control\" id=\"search\" />\n          <div class=\"input-group-append\">\n            <button class=\"btn primary-color waves-effect m-0\" (click)=\"new()\">\n               <i class=\"fa fa-plus-square\"></i> &nbsp;Add New</button>\n          </div>\n        </div>\n      </div>\n      <div style=\"overflow:auto;height:400px;background-color:white;\">\n        <ul class=\"list-group list-group-flush\">\n          <li *ngFor=\"let user of users\" class=\"list-group-item\" (click)=\"edit(user)\" style=\"cursor: pointer;\">\n            {{user.name}}\n            <span class=\"float-right\">\n              <i class=\"fa fa-arrow-right\"></i>\n            </span>\n          </li>\n        </ul>\n        <div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-md-8\">\n    <form (ngSubmit)=\"submit()\" name=\"userForm\" ngNativeValidate>\n      <div class=\"card\">\n        <div class=\"card-header primary-color white-text\" >\n          <h5> User </h5>\n        </div>\n        <div class=\"card-body\">\n\n          <div class=\"row\">\n            <div class=\"col-md-6 border-right\">\n              <h4 class=\"sub-header\">\n                <span class=\"index\">1</span>User\n              </h4>\n              <div class=\"md-form\">\n                <label for=\"name\" [class.active]=\"user.name!=''\">Name</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"name\" id=\"name\" required=\"true\" [(ngModel)]=\"user.name\" />\n              </div>\n\n              <div class=\"md-form\">\n                <label for=\"email\" [class.active]=\"user.email!=''\">Gmail</label>\n                <input type=\"text\" class=\"form-control underlined\" name=\"email\" id=\"email\" required=\"true\" [(ngModel)]=\"user.email\" />\n              </div>\n              <div class=\"md-form\">\n                <label for=\"active\" [class.active]=\"user.active!=''\">Active</label>\n                <select id=\"active\" name=\"active \" class=\"browser-default custom-select md-select\" required=\"true\" [(ngModel)]=\"user.active\">\n                  <option value=\"true\" selected>Active </option>\n                  <option value=\"false\">InActive </option>\n                </select>\n              </div>\n              <!-- <h5 class=\"sub-header\">\n                <span class=\"index\">2</span>Password:\n              </h5>\n              <div class=\"md-form\">\n                <label for=\"password\" [class.active]=\"user.password!=''\">Password</label>\n                <input type=\"password\" class=\"form-control underlined\" name=\"password\" id=\"password\" required=\"true\" [(ngModel)]=\"user.password\">\n              </div>\n              <div class=\"md-form\">\n                <label for=\"retype_password\" [class.active]=\"user.password!=''\">reenter password</label>\n                <input type=\"password\" class=\"form-control underlined\" name=\"retype_password\" id=\"retype_password\" required=\"\">\n              </div> -->\n\n            </div>\n            <div class=\"col-md-6\">\n              <h4 class=\"sub-header\">\n                <span class=\"index\">3</span>User Role\n              </h4>\n              <span *ngIf=\"!showRoles\">Select a User to view or manage role </span>\n              <div *ngIf=\"showRoles\">\n                <div class=\"md-form input-group\">\n                  <select id=\"RoleSelect\" name=\"roleSelect \" class=\"browser-default custom-select md-select\" [(ngModel)]=\"userRole.roleCode\">\n                    <option value=\"ADMIN\" selected>ADMIN</option>\n                    <option value=\"USER\">USER</option>\n                    <option value=\"CLIENT\">CLIENT</option>\n                  </select>\n                  <div class=\"input-group-append\">\n                    <button type=\"button\" name=\"addRole\" (click)=\"adduserRole(userRole.roleCode)\" class=\"btn btn-success btn-sm waves-effect m-0\">\n                      <i class=\"fa fa-plus-square\"></i>&nbsp;Add Role</button>\n                  </div>\n                </div>\n                <ul class=\"list-group list-group-flush\">\n                  <li *ngFor=\"let userRole of userRoles\" class=\"list-group-item\" style=\"cursor: pointer;\">\n                    {{userRole.roleCode}}\n                    <span class=\"float-right\">\n                        <i (click)=\"deleteUserRole(userRole.id)\" class=\"fa fa-trash\"></i>\n                      </span>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </div>\n\n        </div>\n\n        <div class=\"card-footer\">\n          <button type=\"submit\" class=\"btn btn-success float-right waves-effect m-0\">\n                <i class=\"fa fa-save\"></i>&nbsp;Save</button>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>"
 
 /***/ }),
 
