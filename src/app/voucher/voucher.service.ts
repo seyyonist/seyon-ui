@@ -32,4 +32,8 @@ export class VoucherService {
     return this.http.post<SearchVoucherResult>(url, searchVoucher, { headers: httpOptions.headers });
   }
   
+  getVoucher(id:number): Observable<Voucher> {
+    var url = Urls.getDomain().concat(APIURLS.voucher).concat("?id=").concat(id.toString());
+    return this.http.get<Voucher>(url,{ headers: httpOptions.headers });
+  }
 }
