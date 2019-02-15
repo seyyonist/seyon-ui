@@ -51,7 +51,7 @@ export class VoucherComponent implements OnInit {
       .subscribe(
       voucher => {
         this.voucher = voucher;
-        this.getVoucher();
+        this.getVoucher(this.voucher.id);
         this.success = true;
       },
       err => {
