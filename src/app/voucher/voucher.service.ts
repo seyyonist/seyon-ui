@@ -8,6 +8,7 @@ import { Urls, APIURLS } from '../app.constants';
 import { Voucher} from './voucher.domain';
 import { SearchVoucher } from './voucher.domain';
 import { SearchVoucherResult } from './voucher.domain';
+import { text } from '@angular/core/src/render3/instructions';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -32,4 +33,13 @@ export class VoucherService {
     return this.http.post<SearchVoucherResult>(url, searchVoucher, { headers: httpOptions.headers });
   }
   
+  getVoucher(id:number): Observable<Voucher> {
+    var url = Urls.getDomain().concat(APIURLS.voucher).concat("?id=").concat(id.toString());
+    return this.http.get<Voucher>(url,{ headers: httpOptions.headers });
+  }
+  deleteVoucher(id:number): Observable<string> {
+    var url = Urls.getDomain().concat(APIURLS.voucher).concat("?id=").concat(id.toString());
+    return this.http.delete<string>(url,{responseType:'text' as 'json'});
+  }
+
 }

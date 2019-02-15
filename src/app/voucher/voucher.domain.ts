@@ -2,11 +2,30 @@ export class Voucher {
     id: number;
     vendorName: string = "";
     voucherId: string = "";
+    companyId: string ="";
+    vendorAddressLine1: string ="";
+    vendorAddressLine2: string ="";
+    vendorAddressCity: string ="";
+    vendorAddressState: string ="";
+    vendorAddressPincode: string ="";
+    vendorGst: string ="";
+    vendorPanNo: string ="";
+    vendorBankAcctNo: string ="";
+    vendorBankName: string ="";
+    vendorBankBranch: string ="";
+    vendorBankBranchIfscCode: string ="";
+    headOfAccount: string ="";
     particulars: string = "";
-    totalAmount: string = "";
+    totalAmount: number = 0;
+    cgstPercent: number = 0;
+    sgstPercent: number = 0;
+    igstPercent: number = 0;
+    netAmount: number = 0;
+    tdsPercent: number = 0;
+    netPayable: number = 0;
+    voucherDate: Date;
     createdBy: string = "";
     createdDate: Date;
-    voucherDate: Date;
     
 }
 

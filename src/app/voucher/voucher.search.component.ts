@@ -15,10 +15,32 @@ export class VoucherSearchComponent implements OnInit {
     errorMessage: string = "";
     searchVoucher: SearchVoucher=new SearchVoucher();
     vouchers:Voucher[]=[];
-
+    voucher:Voucher=new Voucher();
   constructor(private route: ActivatedRoute, private voucherService: VoucherService) { }
  
   ngOnInit() {
+  }
+
+  getVoucher(id:number):void{
+    this.voucherService.getVoucher(id).subscribe(
+      voucher=>{
+        this.voucher=voucher;
+      },
+      err=>{
+        alert("Error while getting voucher")
+      }
+    )
+  }
+
+  deleteVoucher(id:number):void{
+    this.voucherService.deleteVoucher(id).subscribe(
+      string=>{
+        alert(string);
+      },
+      err=>{
+        alert("Error while getting voucher")
+      }
+    )
   }
 
    submit(): void {
