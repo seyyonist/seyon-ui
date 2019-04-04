@@ -1,0 +1,57 @@
+<div class="sidebar-fixed position-fixed primary-color-dark" *ngIf="show">
+  <div class="white logo-container">
+    <a class="logo-wrapper waves-effect">
+      <img src="/img/logo-blue.png" class="img-fluid" alt="">
+    </a>
+  </div>
+  <div class="user-profile">
+    <app-header></app-header>
+  </div>
+  <div class="sidebar-menu">
+    <nav class="navigation">
+      <ul class="mainmenu">
+        <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
+          <a routerLink="/dashboard" class="waves-effect">
+            <i class="fa fa-user mr-3"></i>Dashboard
+          </a>
+        </li>
+        <li class="menu-item"  *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
+          <a routerLink="/client" class="waves-effect"><i class="fa fa-address-book mr-3"></i>Manage Clients</a>
+        </li>
+        <li class="menu-item" *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
+          <a routerLink="/users" class="waves-effect"><i class="fa fa-user mr-3"></i>Manage User</a>
+        </li>
+        <li class="menu-item" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a><i class="fa fa-angle-down mr-3"></i>Invoice</a>
+          <ul class="submenu">
+            <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" ><a routerLink="/invoiceNew/0" class="waves-effect"><i class="far fa-file-alt mr-3"></i>New
+                Service ProformA</a></li>
+            <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" ><a routerLink="/invoiceManu/0" class="waves-effect"><i class="fas fa-file-alt mr-3"></i>New
+                Manufacturing ProformA</a></li>
+            <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a routerLink="/invoice-search" lass="waves-effect"><i class="fa fa-search mr-3"></i>Search</a></li>
+          </ul>
+        </li>
+        <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a><i class="fa fa-angle-down mr-3"></i>Voucher</a>
+          <ul class="submenu">
+            <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a routerLink="/voucherNew/0" class="waves-effect"><i class="fa fa-receipt mr-3"></i>New</a></li>
+            <li class="menu-item" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a routerLink="/voucher-search" class="waves-effect"><i class="fa fa-search mr-3"></i>Search</a></li>
+          </ul>
+        </li>
+         <li class="menu-item"  *appHasRole="{'role':['ADMIN'],'userRole':userRole}"><a><i class="fa fa-angle-down mr-3"></i>Reports</a>
+          <ul class="submenu">
+            <li class="menu-item"  *appHasRole="{'role':['ADMIN'],'userRole':userRole}"><a routerLink="/invoiceReport" class="waves-effect"><i class="fa fa-file-invoice mr-3"></i>Invoice</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </nav>
+
+  </div>
+  <hr />
+  <div class="companyMenu fixed-bottom">
+    <span class="company-name">Welcome : {{companyGlobalVar.companyName}} </span>
+    <a routerLink="/company" routerLinkActive="active" title="edit profile" class="company-icon">
+      <i class="fa fa-cog"></i>
+    </a>
+  </div>
+</div>
+

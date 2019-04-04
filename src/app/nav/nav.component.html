@@ -1,56 +1,74 @@
-<div class="sidebar-fixed position-fixed primary-color-dark" *ngIf="show">
-  <div class="white logo-container">
-    <a class="logo-wrapper waves-effect">
-      <img src="/img/logo-blue.png" class="img-fluid" alt="">
-    </a>
-  </div>
-  <div class="user-profile">
-    <app-header></app-header>
-  </div>
-  <div class="sidebar-menu">
-    <nav class="navigation">
-      <ul class="mainmenu">
-        <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
-          <a routerLink="/dashboard" class="waves-effect">
-            <i class="fa fa-user mr-3"></i>Dashboard
-          </a>
-        </li>
-        <li class="menu-item"  *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
-          <a routerLink="/client" class="waves-effect"><i class="fa fa-address-book mr-3"></i>Manage Clients</a>
-        </li>
-        <li class="menu-item" *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
-          <a routerLink="/users" class="waves-effect"><i class="fa fa-user mr-3"></i>Manage User</a>
-        </li>
-        <li class="menu-item" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a><i class="fa fa-angle-down mr-3"></i>Invoice</a>
-          <ul class="submenu">
-            <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" ><a routerLink="/invoiceNew/0" class="waves-effect"><i class="far fa-file-alt mr-3"></i>New
-                Service ProformA</a></li>
-            <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" ><a routerLink="/invoiceManu/0" class="waves-effect"><i class="fas fa-file-alt mr-3"></i>New
-                Manufacturing ProformA</a></li>
-            <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a routerLink="/invoice-search" lass="waves-effect"><i class="fa fa-search mr-3"></i>Search</a></li>
-          </ul>
-        </li>
-        <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a><i class="fa fa-angle-down mr-3"></i>Voucher</a>
-          <ul class="submenu">
-            <li class="menu-item"  *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a routerLink="/voucherNew/0" class="waves-effect"><i class="fa fa-receipt mr-3"></i>New</a></li>
-            <li class="menu-item" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}"><a routerLink="/voucher-search" class="waves-effect"><i class="fa fa-search mr-3"></i>Search</a></li>
-          </ul>
-        </li>
-         <li class="menu-item"  *appHasRole="{'role':['ADMIN'],'userRole':userRole}"><a><i class="fa fa-angle-down mr-3"></i>Reports</a>
-          <ul class="submenu">
-            <li class="menu-item"  *appHasRole="{'role':['ADMIN'],'userRole':userRole}"><a routerLink="/invoiceReport" class="waves-effect"><i class="fa fa-file-invoice mr-3"></i>Invoice</a></li>
-          </ul>
-        </li>
-      </ul>
+<nav class="navbar navbar-expand-lg navbar-dark pl-3 primary-color">
 
-    </nav>
+  <!-- Navbar brand -->
+  <a class="navbar-brand waves-effect" href="#"><img src="/img/logo-blue.png" class="img-fluid logo-img" alt=""></a>
 
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
+        <a routerLink="/dashboard" class="waves-effect nav-link">
+          <i class="fas fa-tachometer-alt mr-1"></i>Dashboard
+        </a>
+      </li>
+      <li class="nav-item" *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
+        <a routerLink="/client" class="waves-effect nav-link"><i class="far fa-address-book mr-1"></i>Manage Clients</a>
+      </li>
+      <li class="nav-item" *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
+        <a routerLink="/users" class="waves-effect nav-link"><i class="fas fa-user mr-1"></i>Manage User</a>
+      </li>
+      <!-- Dropdown -->
+      <li class="nav-item dropdown" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false"><i class="fas fa-money-bill mr-1"></i>Invoice</a>
+        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+          <a *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" routerLink="/invoiceNew/0" class="waves-effect dropdown-item">
+            <i class="fas fa-money-bill-wave-alt mr-1"></i>New Service ProformA</a>
+          <a routerLink="/invoiceManu/0" class="waves-effect dropdown-item" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
+            <i class="fas fa-money-bill-wave mr-1"></i>New Manufacturing ProformA</a>
+          <a *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" routerLink="/invoice-search" lass="waves-effect dropdown-item"><i class="fa fa-search mr-1"></i>Search</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false"><i class="fas fa-money-check-alt mr-1"></i>Voucher</a>
+        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+          <a *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" routerLink="/voucherNew/0" class="waves-effect dropdown-item"><i class="fas fa-money-check mr-1"></i> New </a>
+          <a *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" routerLink="/voucher-search" lass="waves-effect dropdown-item"><i class="fa fa-search mr-1"></i>Search</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false"><i class="fas fa-chalkboard mr-1"></i>Report</a>
+        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+          <a *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" routerLink="/invoiceReport" class="waves-effect dropdown-item"><i class="fas fa-file-invoice mr-1"></i>Invoice </a>
+         
+        </div>
+      </li>
+
+    </ul>
+
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <i class="fas fa-user-circle"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+          <div style="width:15em">
+          <app-header></app-header>
+        </div>
+        </div>
+      </li>
+    </ul>
   </div>
-  <hr />
-  <div class="companyMenu">
-    <span class="company-name">Welcome : {{companyGlobalVar.companyName}} </span>
-    <a routerLink="/company" routerLinkActive="active" title="edit profile" class="company-icon">
-      <i class="fa fa-cog"></i>
-    </a>
-  </div>
-</div>
+
+</nav>
