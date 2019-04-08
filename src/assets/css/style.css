@@ -108,7 +108,7 @@
 }
 
 .companyMenu {
-	background-color: #f7bd0e;
+	background-color: #fd9f5d;
 	width: 100%;
 	color:black
 }
@@ -123,7 +123,7 @@
 
 .company-icon {
 	float: right;
-	border-left: 1px solid #e4ac00;
+	border-left: 1px solid #fd9347;
 	height: 100%;
 	padding: 10px;
 	font-size: 18px;

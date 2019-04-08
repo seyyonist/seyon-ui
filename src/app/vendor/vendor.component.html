@@ -1,0 +1,173 @@
+<!-- Heading -->
+<h3 class="mb-2 mb-sm-0 pt-1 pb-2">
+  <span>Manage vendors</span>
+</h3>
+<!-- Heading -->
+<div class="alert alert-danger" role="alert" *ngIf="error">
+{{errorMessage}}
+</div>
+<div class="alert alert-success" role="alert" *ngIf="success">
+Successfully Saved
+</div>
+<div class="row">
+<div class="col-md-4">
+  <div class="card">
+    <div class="card-header grey lighten-4" >
+      <div class="md-form input-group mb-3">
+        <input type="text" class="form-control" id="search" (input)="onSearchChange($event.target.value)" />
+        <label for="search">Search</label>
+        <div class="input-group-append">
+          <button class="btn primary-color waves-effect m-0" (click)="new()">
+            <i class="fa fa-plus-square"></i> &nbsp;Add New</button>
+        </div>
+      </div>
+    </div>
+    <div style="overflow:auto;height:400px;background-color:white;">
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let vendor of filterVendors" class="list-group-item" (click)="edit(vendor)" style="cursor: pointer;">
+          {{vendor.name}}
+          <span class="float-right">
+            <i class="fa fa-arrow-right"></i>
+          </span>
+        </li>
+      </ul>
+      <div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-8">
+  <form (ngSubmit)="submit()" name="vendorForm" ngNativeValidate>
+    <div class="card">
+      <div class="card-header stylish-color-dark white-text">
+        <h3> Vendor details for Id:{{vendor.id}} </h3>
+      </div>
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-md-6 border-right">
+            <h4 class="sub-header">
+              <span class="index">1</span>Vendor
+            </h4>
+            <div class="md-form ">
+              <label for="name" [class.active]="vendor.name!=''">Name *</label>
+              <input type="text" class="form-control underlined" name="name" id="name" required="true" [(ngModel)]="vendor.name" pattern=".{3,}"
+                title="3 characters minimum" />
+              <small>minimum 3 character</small>
+            </div>
+            <div class="md-form ">
+              <label for="contactPerson" [class.active]="vendor.contactPerson!=''">Contact Person *</label>
+              <input type="text" class="form-control underlined" name="contactPerson" id="contactPerson" required="true" [(ngModel)]="vendor.contactPerson"
+                pattern=".{3,}" title="3 characters minimum" />
+              <small>minimum 3 character</small>
+            </div>
+            <div class="md-form ">
+              <label for="phonePrimary" [class.active]="vendor.phonePrimary!=''">Primary Phone *</label>
+              <input type="tel" class="form-control underlined" pattern=".{10,12}" title="min 10, max 12 characters" name="phonePrimary"
+                id="phonePrimary" required="true" [(ngModel)]="vendor.phonePrimary" />
+              <small>min 10, max 12 characters</small>
+            </div>
+
+            <div class="md-form ">
+              <label for="email" [class.active]="vendor.email!=''">Primary Email *</label>
+              <input type="email" class="form-control underlined" name="email" id="email" required="true" [(ngModel)]="vendor.email" />
+            </div>
+            <div class="md-form ">
+              <label for="name" [class.active]="vendor.phoneSecondary!=''">Secondary Phone</label>
+              <input type="tel" class="form-control underlined" name="phoneSecondary" id="phoneSecondary" required="false" [(ngModel)]="vendor.phoneSecondary"
+              />
+            </div>
+
+            <div class="md-form ">
+              <label for="faxNo" [class.active]="vendor.faxNo!=''">Fax</label>
+              <input type="tel" class="form-control underlined" name="faxNo" id="faxNo" required="false" [(ngModel)]="vendor.faxNo" />
+            </div>
+            <div class="md-form ">
+              <label for="pan" [class.active]="vendor.pan!=''">PAN *</label>
+              <input type="text" class="form-control underlined" name="pan" id="pan" pattern="[A-Za-z]{5}\d{4}[A-Za-z]{1}" title="min 10 characters" required="true"
+                [(ngModel)]="vendor.pan" />
+              <small>AAAAA1111A</small>
+            </div>
+            <div class="md-form ">
+              <label for="gstin" [class.active]="vendor.gstin!=''">GSTIN * </label>
+              <input type="text" class="form-control underlined" name="gstin" id="gstin" pattern="^([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-7]{1})([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$" title="min 15,max 20 characters"
+                required="true" [(ngModel)]="vendor.gstin" />
+              <small>sample : 24AAACB5343E1Z7</small>
+            </div>
+            <div class="md-form ">
+              <label for="ServiceTaxRegNo" [class.active]="vendor.serviceTaxRegNo!=''">Service Tax Reg No</label>
+              <input type="text" class="form-control underlined" pattern=".{15,20}" title="min 15,max 20 characters" name="ServiceTaxRegNo"
+                id="ServiceTaxRegNo" required="false" [(ngModel)]="vendor.serviceTaxRegNo" />
+              <small>min 15, max 20 characters</small>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h4 class="sub-header">
+              <span class="index">2</span>Billing Address
+            </h4>
+            <div class="md-form ">
+              <label for="addrLine1" [class.active]="vendor.addrLine1!=''">Address line 1 *</label>
+              <input type="text" class="form-control underlined" name="addrLine1" pattern=".{3,}" title="min 3 characters" id="addrLine1"
+                required="true" [(ngModel)]="vendor.addrLine1" />
+              <small>min 3 characters</small>
+            </div>
+            <div class="md-form ">
+              <label for="addrLine2" [class.active]="vendor.addrLine2!=''">Address line 2 </label>
+              <input type="text" class="form-control underlined" name="addrLine2" id="addrLine2" required="false" [(ngModel)]="vendor.addrLine2"
+              />
+            </div>
+            <div class="md-form ">
+              <label for="city" [class.active]="vendor.city!=''">City *</label>
+              <input type="text" class="form-control underlined" name="city" pattern=".{3,}" title="min 3 characters" id="city" required="true"
+                [(ngModel)]="vendor.city" />
+              <small>min 3 characters</small>
+            </div>
+            <div class="md-form ">
+              <label for="state" [class.active]="vendor.state!=''">State *</label>
+              <input type="text" class="form-control underlined" name="state" pattern=".{2,}" title="min 2 characters" id="state" required="true"
+                [(ngModel)]="vendor.state" />
+              <small>min 2 characters</small>
+            </div>
+            <div class="md-form ">
+              <label for="pinCode" [class.active]="vendor.pincode!=''">PinCode *</label>
+              <input type="text" class="form-control underlined" pattern=".{6,6}" title="min 6,max 6 characters" name="pincode" id="pincode"
+                required="true" [(ngModel)]="vendor.pincode" />
+              <small>6 characters</small>
+            </div>
+
+            <h4 class="sub-header">
+                <span class="index">3</span>Bank Details
+              </h4>
+              <div class="md-form ">
+                <label for="vendorBankAcctNo" [class.active]="vendor.vendorBankAcctNo!=''">Account Number</label>
+                <input type="text" class="form-control underlined" name="vendorBankAcctNo" pattern=".{3,}" title="min 3 characters" id="addrLine1"
+                  required="false" [(ngModel)]="vendor.vendorBankAcctNo" />
+                <small>min 3 characters</small>
+              </div>
+              <div class="md-form ">
+                <label for="vendorBankName" [class.active]="vendor.vendorBankName!=''">Name</label>
+                <input type="text" class="form-control underlined" name="vendorBankName" id="vendorBankName" required="false" [(ngModel)]="vendor.vendorBankName"
+                />
+              </div>
+              <div class="md-form ">
+                <label for="vendorBankBranch" [class.active]="vendor.vendorBankBranch!=''">Branch Name</label>
+                <input type="text" class="form-control underlined" name="vendorBankBranch" pattern=".{3,}" title="min 3 characters" id="vendorBankBranch" required="false"
+                  [(ngModel)]="vendor.vendorBankBranch" />
+                <small>min 3 characters</small>
+              </div>
+              <div class="md-form ">
+                <label for="vendorBankBranchIfscCode" [class.active]="vendor.vendorBankBranchIfscCode!=''">IFSC code</label>
+                <input type="text" class="form-control underlined" name="vendorBankBranchIfscCode" pattern=".{2,}" title="min 2 characters" id="vendorBankBranchIfscCode" required="false"
+                  [(ngModel)]="vendor.vendorBankBranchIfscCode" />
+                <small>min 2 characters</small>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer" >
+        <button type="submit" class="btn bg-primary float-right"><i class="fa fa-save"></i>&nbsp;Save Vendor</button>
+      </div>
+    </div>
+  </form>
+</div>
+</div>

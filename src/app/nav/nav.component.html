@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark pl-3 primary-color">
 
   <!-- Navbar brand -->
-  <a class="navbar-brand waves-effect" href="#"><img src="/img/logo-blue.png" class="img-fluid logo-img" alt=""></a>
+  <a class="navbar-brand waves-effect bg-white p-1 m-0" href="#"><img src="/img/logo-blue.png" class="img-fluid logo-img" alt=""></a>
 
   <!-- Collapse button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
@@ -18,12 +18,6 @@
         <a routerLink="/dashboard" class="waves-effect nav-link">
           <i class="fas fa-tachometer-alt mr-1"></i>Dashboard
         </a>
-      </li>
-      <li class="nav-item" *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
-        <a routerLink="/client" class="waves-effect nav-link"><i class="far fa-address-book mr-1"></i>Manage Clients</a>
-      </li>
-      <li class="nav-item" *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
-        <a routerLink="/users" class="waves-effect nav-link"><i class="fas fa-user mr-1"></i>Manage User</a>
       </li>
       <!-- Dropdown -->
       <li class="nav-item dropdown" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
@@ -57,6 +51,17 @@
     </ul>
 
     <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-1" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fas fa-hammer"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-1">
+                <a routerLink="/client" class="dropdown-item waves-effect waves-light">Manage Clients</a>
+                <a routerLink="/users" class="dropdown-item waves-effect waves-light">Manage Users</a>
+                <a routerLink="/vendor" class="dropdown-item waves-effect waves-light">Manage Vendors</a>
+            </div>
+          </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
