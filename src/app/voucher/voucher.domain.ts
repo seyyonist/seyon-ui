@@ -2,19 +2,11 @@ export class Voucher {
     id: number;
     vendorName: string = "";
     voucherId: string = "";
-    companyId: string ="";
-    vendorAddressLine1: string ="";
-    vendorAddressLine2: string ="";
-    vendorAddressCity: string ="";
-    vendorAddressState: string ="";
-    vendorAddressPincode: string ="";
-    vendorGst: string ="";
-    vendorPanNo: string ="";
-    vendorBankAcctNo: string ="";
-    vendorBankName: string ="";
-    vendorBankBranch: string ="";
-    vendorBankBranchIfscCode: string ="";
-    headOfAccount: string ="";
+    invoiceId: string = "";
+    invoiceDate: Date;
+    companyId: string = "";
+    vendorId: string = "";
+    headOfAccount: string = "";
     particulars: string = "";
     totalAmount: number = 0;
     cgstPercent: number = 0;
@@ -26,25 +18,30 @@ export class Voucher {
     voucherDate: Date;
     createdBy: string = "";
     createdDate: Date;
-    
+
+}
+
+export class Vendor {
+    id: Number;
+    name: string = "";
 }
 
 
-export class SearchVoucher{
-    pageNumber:number=0;
-    voucherId:string= "";
-    vendorName:string= "";
-    startDate:Date;
-    endDate:Date;
+export class SearchVoucher {
+    pageNumber: number = 0;
+    voucherId: string = "";
+    vendorName: string = "";
+    startDate: Date;
+    endDate: Date;
 }
 
-export class SearchVoucherResult{
-    content:Voucher[];
-    first:boolean;
-    last:boolean;
-    number:number;
-    numberOfElements:number;
-    size:number;
-    totalElements:number;
-    totalPages:number;
+export class SearchVoucherResult {
+    content: Voucher[];
+    first: boolean;
+    last: boolean;
+    number: number;
+    numberOfElements: number;
+    size: number;
+    totalElements: number;
+    totalPages: number;
 }
