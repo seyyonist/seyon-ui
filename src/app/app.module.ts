@@ -32,11 +32,14 @@ import { HasRoleDirective } from './has-role.directive';
 import { AuthGuard } from './auth.guard';
 import {ExcelGeneratorService} from './excel/excel-generator.service';
 import { InvoiceReportComponent } from './reports/invoice-report/invoice-report.component';
+import { VendorComponent } from './vendor/vendor.component';
+import { VendorService } from './vendor/vendor.service';
 
 const appRoutes: Routes = [
 
   { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
   { path: 'client', component: ClientComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']}  },
+  { path: 'vendor', component: VendorComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']}  },
   { path: 'users', component: UsersComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']} },
 	{ path: 'performaView/:id', component: InvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
   { path: 'invoiceNew/:id', component: InvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
@@ -72,7 +75,8 @@ const appRoutes: Routes = [
     ManufacturingInvoiceComponent,
     ManufacturingGenInvoiceComponent,
     HasRoleDirective,
-    InvoiceReportComponent
+    InvoiceReportComponent,
+    VendorComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -84,7 +88,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule
   ],
-  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,ExcelGeneratorService],
+  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,ExcelGeneratorService,VendorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
