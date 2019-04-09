@@ -1,6 +1,6 @@
 <h3 class="mb-2 mb-sm-0 pt-1 pb-2">
-      <span>New Voucher</span>
-    </h3>
+  <span>New Voucher</span>
+</h3>
 
 <!-- Heading -->
 <div class="alert alert-danger" role="alert" *ngIf="error">
@@ -17,137 +17,173 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col-md-3 border-right">
-          <h4 class="sub-header">
-            <span class="index">1</span>Vendor
-          </h4>
-          <div class="md-form ">
-            <label for="addressLine1" [class.active]="true">Name</label>
-            <input type="text" class="form-control underlined" name="name" id="name" [(ngModel)]="voucher.vendorName">
-          </div>
-          <div class="md-form ">
-            <label for="addressLine1" [class.active]="true">Address Line 1</label>
-            <input type="text" class="form-control underlined" name="addressLine1" id="addressLine1" [(ngModel)]="voucher.vendorAddressLine1">
-          </div>
-          <div class="md-form ">
-            <label for="addressLine2" [class.active]="true">Address Line 2</label>
-            <input type="text" class="form-control underlined" name="addressLine2" id="addressLine2" [(ngModel)]="voucher.vendorAddressLine2">
-          </div>
-          <div class="md-form ">
-            <label for="city" [class.active]="true">City</label>
-            <input type="text" class="form-control underlined" name="city" id="city" [(ngModel)]="voucher.vendorAddressCity" />
-          </div>
-          <div class="md-form ">
-            <label for="state" [class.active]="true">State</label>
-            <input type="text" class="form-control underlined" name="state" id="state" [(ngModel)]="voucher.vendorAddressState" />
-          </div>
-          <div class="md-form ">
-            <label for="pinCode" [class.active]="true">Pincode *</label>
-            <input type="text" class="form-control underlined" name="pinCode" id="pinCode" [(ngModel)]="voucher.vendorAddressPincode" />
-          </div>
-          <div class="md-form">
-            <label for="headOfAccount" [class.active]="true">Head Of Account</label>
-            <input type="text" class="form-control underlined" name="headOfAccount" id="headOfAccount" [(ngModel)]="voucher.headOfAccount"
-            />
-          </div>
+        <div class="col-md-3 border-right ">
+          <label for="voucherId" [class.active]="true">Voucher Id</label>
+          <input type="text" class="form-control underlined" name="voucherId" id="voucherId" [(ngModel)]="voucher.voucherId" />
         </div>
 
-        <div class="col-md-3 border-right">
-          <h4 class="sub-header">
-            <span class="index">2</span>Other Details
-          </h4>
-          <div class="md-form ">
-            <label for="vendorGst" [class.active]="true">GST</label>
-            <input type="text" class="form-control underlined" name="vendorGst" id="vendorGst" [(ngModel)]="voucher.vendorGst" />
-          </div>
-          <div class="md-form ">
-            <label for="vendorPanNo" [class.active]="true">PAN</label>
-            <input type="text" class="form-control underlined" name="vendorPanNo" id="vendorPanNo" 
-              [(ngModel)]="voucher.vendorPanNo" />
-          </div>
-          <div class="md-form ">
-            <label for="vendorBankAcctNo" [class.active]="true">Bank Account Number</label>
-            <input type="text" class="form-control underlined" name="vendorBankAcctNo" id="vendorBankAcctNo"
-              [(ngModel)]="voucher.vendorBankAcctNo" />
-          </div>
-          <div class="md-form ">
-            <label for="vendorBankName" [class.active]="true">Bank Name</label>
-            <input type="text" class="form-control underlined" name="vendorBankName" id="vendorBankName" [(ngModel)]="voucher.vendorBankName" />
-          </div>
-          <div class="md-form ">
-            <label for="vendorBankBranch" [class.active]="true">Bank Branch</label>
-            <input type="text" class="form-control underlined" name="vendorBankBranch" id="vendorBankBranch" [(ngModel)]="voucher.vendorBankBranch"
-            />
-          </div>
-          <div class="md-form">
-            <label for="vendorBankBranchIfscCode" [class.active]="true">IFSC Code</label>
-            <input type="text" class="form-control underlined" name="vendorBankBranchIfscCode" id="vendorBankBranchIfscCode" [(ngModel)]="voucher.vendorBankBranchIfscCode"
-            />
-          </div>
-         
+        <div class="col-md-3 border-right ">
+          <label for="voucherDate" [class.active]="true">Voucher Date</label>
+          <input type="date" class="form-control underlined" name="voucherDate" id="voucherDate" [(ngModel)]="voucher.createdDate"
+            [value]="date | date:'yyyy-MM-dd'" [max]="curDate" />
         </div>
 
-        <div class="col-md-4">
-          <h4 class="sub-header">
-            <span class="index">3</span>Voucher
-          </h4>
-          <div class="md-form ">
-            <label for="voucherId" [class.active]="true">Voucher Id</label>
-            <input type="text" class="form-control underlined" name="voucherId" id="voucherId" [(ngModel)]="voucher.voucherId" />
-          </div>
-          <div class="md-form ">
-            <label for="particulars" [class.active]="true">Particulars</label>
-            <textarea rows="7"  type="text" class="form-control underlined" name="particulars" id="particulars" [(ngModel)]="voucher.particulars">
+        <div class="col-md-3 border-right ">
+          <label for="invoiceId" [class.active]="true">Invoice Id</label>
+          <input type="text" class="form-control underlined" name="invoiceId" id="invoiceId" [(ngModel)]="voucher.invoiceId" />
+        </div>
+
+        <div class="col-md-3">
+          <label for="invoiceDate" [class.active]="true">Invoice Date</label>
+          <input type="date" class="form-control underlined" name="invoiceDate" id="invoiceDate" [(ngModel)]="voucher.invoiceDate"
+            [value]="date | date:'yyyy-MM-dd'" />
+        </div>
+      </div>
+
+      <hr/>
+      <div class="row">
+
+        <div class="col-md-2 text-right">
+          <b>Select Vendor</b>
+        </div>
+        <div class="col-md-3 border-right">
+          <select [ngModelOptions]="{standalone: true}" (change)="loadSelectedVendor()" class="form-control underlined" [(ngModel)]="selVendorId">
+        <option></option>
+        <option *ngFor="let vendor of vendors" [ngValue]="vendor.id" [selected]="vendor.id === selVendorId">{{vendor.name}}</option>
+         </select>
+        </div>
+
+        <div class="col-md-2 text-right">
+          <b>Head of Account</b>
+        </div>
+        <div class="col-md-4 border-right">
+          <!--  <select [ngModelOptions]="{standalone: true}" (change)="loadSelectedVendor()" class="form-control underlined" [(ngModel)]="selVendorId">
+        <option></option>
+        <option *ngFor="let vendor of vendors" [ngValue]="vendor.id" [selected]="vendor.id === selVendorId">{{vendor.name}}</option>
+         </select>-->
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row">
+        <div class="col-md-12 border-right">
+          <b>Particulars</b>
+          <textarea rows="2" type="text" class="form-control underlined" name="particulars" id="particulars" [(ngModel)]="voucher.particulars">
             </textarea>
-          </div>
-          <div class="form">
-            <label for="voucherDate" [class.active]="true">Voucher Date</label>
-            <input type="date" class="form-control inp-border-bottom" name="voucherDate" id="voucherDate" [(ngModel)]="voucher.voucherDate" />
-          </div>
-          <div class="form" >
-            <label for="totalAmount">Total Amount : </label>
-            <input type="text" class="form-control inp-border-bottom" name="totalAmount" id="totalAmount"  [(ngModel)]="voucher.totalAmount"/>
-          </div>
+        </div>
+
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-1">
+          <b>Net Amount:</b>
+        </div>
+        <div class="col-md-1">
+          <input type="text" class="form-control inp-border-bottom" name="netAmount" id="netAmount" [(ngModel)]="voucher.netAmount"
+          />
         </div>
         <div class="col-md-2">
-          <h4 class="sub-header">
-            <span class="index">4</span>Tax
-          </h4>
+        </div>
+        <div class="col-md-2">
+          <b>Deductions</b>
+        </div>
 
-          <div class="md-form ">
-            <label for="cgstPercent" [class.active]="true">% CGST</label>
-            <input type="text" class="form-control underlined" name="cgstPercent" id="cgstPercent" [(ngModel)]="voucher.cgstPercent" />
-          </div>
-
-          <div class="md-form ">
-            <label for="sgstPercent" [class.active]="true">% SGST</label>
-            <input type="text" class="form-control underlined" name="sgstPercent" id="sgstPercent" [(ngModel)]="voucher.sgstPercent" />
-          </div>
-
-          <div class="md-form ">
-            <label for="igstPercent" [class.active]="true">% IGST</label>
-            <input type="text" class="form-control underlined" name="igstPercent" id="igstPercent" [(ngModel)]="voucher.igstPercent" />
-          </div>
-          <div class="md-form ">
-            <label for="tdsPercent" [class.active]="true">% TDS</label>
-            <input type="text" class="form-control underlined" name="tdsPercent" id="tdsPercent" [(ngModel)]="voucher.tdsPercent"
-            />
-          </div>
-          <div class="md-form ">
-            <label for="netAmount" [class.active]="true">Net Amount</label> 
-            <input type="text" class="form-control underlined" name="netAmount" id="netAmount" [(ngModel)]="voucher.netAmount" />
-          </div>
-
-          <div class="md-form ">
-            <label for="netPayable" [class.active]="true">Net Payable</label> 
-            <input type="text" class="form-control underlined"  name="netPayable" id="netPayable" [(ngModel)]="voucher.netPayable" />
-          </div>
       </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-1">
+          <b>CGST Amt:</b>
+        </div>
+        <div class="col-md-1">
+          <input type="text" class="form-control inp-border-bottom" name="cgstAmount" id="cgstAmount" [(ngModel)]="voucher.cgstAmount"
+          />
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-1">
+          <b>TDS Percentage</b>
+        </div>
+        <div class="col-md-1">
+          <input type="text" class="form-control inp-border-bottom" name="tdsPercent" id="tdsPercent" [(ngModel)]="voucher.tdsPercent"
+          />
+        </div>
+      </div>
+
+      <hr/>
+      <div class="row">
+        <div class="col-md-1">
+          <b>SGST Amt:</b>
+        </div>
+        <div class="col-md-1">
+          <input type="text" class="form-control inp-border-bottom" name="sgstAmount" id="sgstAmount" [(ngModel)]="voucher.sgstAmount"
+          />
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-1">
+          <b>TDS Amount</b>
+        </div>
+        <div class="col-md-1">
+          <input type="text" class="form-control inp-border-bottom" name="tdsAmount" id="tdsAmount" [(ngModel)]="voucher.tdsAmount"
+          />
+        </div>
+      </div>
+
+       <hr/>
+      <div class="row">
+        <div class="col-md-1">
+          <b>IGST Amt:</b>
+        </div>
+        <div class="col-md-1">
+          <input type="text" class="form-control inp-border-bottom" name="igstAmount" id="igstAmount" [(ngModel)]="voucher.igstAmount"
+          />
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-1">
+          <b>Others</b>
+        </div>
+        <div class="col-md-1">
+          <input type="text" class="form-control inp-border-bottom" name="others" id="others" [(ngModel)]="voucher.others"
+          />
+        </div>
+      </div>
+
+      <hr/>
+      <div class="row">
+        <div class="col-md-1">
+          <b>Reimbursement:</b>
+        </div>
+        <div class="col-md-1">
+          <input type="text" class="form-control inp-border-bottom" name="reimbursement" id="reimbursement" [(ngModel)]="voucher.reimbursement"
+          />
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-1">
+          <b>Amount Due</b>
+        </div>
+        <div class="col-md-1">
+          <input type="text" class="form-control inp-border-bottom" name="totalAmount" id="totalAmount" [(ngModel)]="voucher.totalAmount"
+          />
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-1">
+          <b>Total Net Amount:</b>
+        </div>
+        <div class="col-md-1">
+          <input type="text" class="form-control inp-border-bottom" name="totalNetAmount" id="totalNetAmount" [(ngModel)]="voucher.totalNetAmount"
+          />
+        </div>
       </div>
 
     </div>
-    <div class="card-footer">
-      <button class="btn btn-success float-right " type="submit"> <i class="fa fa-save"></i>&nbsp;Save</button>
-    </div>
+
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-success float-right " type="submit"> <i class="fa fa-save"></i>&nbsp;Save</button>
   </div>
 </form>

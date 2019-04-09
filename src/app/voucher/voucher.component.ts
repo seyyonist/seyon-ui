@@ -19,6 +19,7 @@ export class VoucherComponent implements OnInit {
   selectedVendor: Vendor = new Vendor();
   vendors: Vendor[] = [];
   selVendorId: number;
+  curDate:string = "";
 
   constructor(private voucherService: VoucherService, private route: ActivatedRoute) {
     var vId;
@@ -34,6 +35,7 @@ export class VoucherComponent implements OnInit {
   ngOnInit() {
     this.success = false;
     this.error = false;
+    this.curDate=this.getNowDate();
   }
 
   getVoucher(id: number): void {
@@ -87,6 +89,30 @@ export class VoucherComponent implements OnInit {
   loadSelectedVendors(): void {
      this.selectedVendor = this.vendors.find(vendors => vendors.id === this.selVendorId);
 
+  }
+
+  getNowDate(): string {
+    let returnDate = "";
+    let today = new Date();
+    //split
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //because January is 0! 
+    let yyyy = today.getFullYear();
+    //Interpolation date
+  
+    returnDate += yyyy;
+     if (mm < 10) {
+      returnDate += `-0${mm}-`;
+    } else {
+      returnDate += `-${mm}-`;
+    }
+
+      if (dd < 10) {
+      returnDate += `0${dd}`;
+    } else {
+      returnDate += `${dd}`;
+    }
+    return returnDate;
   }
 
 }
