@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+import { trigger, transition, animate, style } from '@angular/animations'
+
 import { InvoiceService } from './invoice.service';
 import { SearchInvoice, Invoice, SearchResult } from './invoice.domain';
 import { Client } from '../client/client.domain';
@@ -9,7 +11,18 @@ import { APIURLS } from '../app.constants';
 @Component({
   selector: 'app-invoice-search',
   templateUrl: './invoice.search.component.html',
-  styleUrls: ['./invoice.search.component.css']
+  styleUrls: ['./invoice.search.component.css'],
+  animations:[
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({transform: 'translateY(-100%)'}),
+        animate('200ms ease-in', style({transform: 'translateY(0%)'}))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({transform: 'translateY(-100%)'}))
+      ])
+    ])
+  ]
 })
 export class InvoiceSearchComponent implements OnInit {
 
@@ -21,6 +34,15 @@ export class InvoiceSearchComponent implements OnInit {
   invoices: Invoice[] = [];
   searchResult: SearchResult = new SearchResult();
   numbers: number[] = [];
+  visible:boolean=false
+
+  showSearch(){
+    if(this.visible)
+      this.visible=false
+    else
+      this.visible=true
+  }
+
   constructor(private route: ActivatedRoute, private invoiceService: InvoiceService, private clientService: ClientService) {
   }
 
@@ -69,12 +91,15 @@ export class InvoiceSearchComponent implements OnInit {
                 invoice.url = APIURLS.printIInvoiceUrl.concat(invoice.performaId);
                 invoice.purl = APIURLS.printPInvoiceUrl.concat(invoice.performaId);
               }
+              
             }
           );
+          this.visible=false;
         },
         err => {
           this.error = true;
           this.errorMessage = "Error occured While searching the Invoice";
+          this.visible=false;
         }
         )
     } else {

@@ -108,7 +108,7 @@
 }
 
 .companyMenu {
-	background-color: #fd9f5d;
+	background-color: #a9becc;
 	width: 100%;
 	color:black
 }
@@ -123,7 +123,7 @@
 
 .company-icon {
 	float: right;
-	border-left: 1px solid #fd9347;
+	border-left: 1px solid #8fa1ad;
 	height: 100%;
 	padding: 10px;
 	font-size: 18px;
@@ -271,4 +271,25 @@ input[type=datetime-local],input[type=file],input[type=range],input[type=search]
 select {
 	color:#000;
 	font-weight: 500;
+}
+
+.primary-color,.bg-primary,.btn-primary {
+	background-color: #07689F !important;
+}
+
+
+.searchBox{
+	position: absolute;
+	z-index: 543;
+}
+
+.btn-circle{
+	width: 30px;
+	height: 30px;
+	padding: 6px 0px;
+	border-radius: 100%;
+	text-align: center;
+	font-size: 14px;
+	line-height: 1.5;
+	margin:0
 }
