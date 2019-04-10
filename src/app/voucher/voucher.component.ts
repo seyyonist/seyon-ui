@@ -36,6 +36,7 @@ export class VoucherComponent implements OnInit {
     this.success = false;
     this.error = false;
     this.curDate=this.getNowDate();
+    this.getVendors();
   }
 
   getVoucher(id: number): void {

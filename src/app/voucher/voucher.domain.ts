@@ -18,6 +18,7 @@ export class Voucher {
     reimbursement: number = 0;
     totalNetAmount: number = 0;
     totalAmount: number = 0;
+    deductionRemark: string = "";
     voucherDate: Date;
     createdBy: string = "";
     createdDate: Date;

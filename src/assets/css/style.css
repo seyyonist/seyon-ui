@@ -144,6 +144,10 @@
 	border-radius: 50% !important;
 }
 
+.field-labels{
+	font-weight: 500;
+}
+
 .profile-usertitle {
 	text-align: center;
 	margin-top: 20px;
