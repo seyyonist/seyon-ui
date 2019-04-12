@@ -5,7 +5,7 @@ export class Voucher {
     invoiceId: string = "";
     invoiceDate: Date;
     companyId: string = "";
-    vendorId: string = "";
+    vendorId: number;
     headOfAccount: string = "";
     particulars: string = "";
     cgstAmount: number = 0;
@@ -26,7 +26,7 @@ export class Voucher {
 }
 
 export class Vendor {
-    id: Number;
+    id: number=0;
     name: string = "";
 }
 
