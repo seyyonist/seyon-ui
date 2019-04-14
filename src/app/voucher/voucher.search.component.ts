@@ -1,12 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+import { trigger, transition, animate, style } from '@angular/animations'
+
 import { VoucherService } from './voucher.service';
 import {SearchVoucher,Voucher} from './voucher.domain';
 
 @Component({
   selector: 'app-voucher.search',
   templateUrl: './voucher.search.component.html',
-  styleUrls: ['./voucher.search.component.css']
+  styleUrls: ['./voucher.search.component.css'],
+  animations:[
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({transform: 'translateY(-100%)'}),
+        animate('200ms ease-in', style({transform: 'translateY(0%)'}))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({transform: 'translateY(-100%)'}))
+      ])
+    ])
+  ]
 })
 export class VoucherSearchComponent implements OnInit {
 
@@ -16,6 +29,14 @@ export class VoucherSearchComponent implements OnInit {
     searchVoucher: SearchVoucher=new SearchVoucher();
     vouchers:Voucher[]=[];
     voucher:Voucher=new Voucher();
+    visible:boolean=false
+
+    showSearch(){
+      if(this.visible)
+        this.visible=false
+      else
+        this.visible=true
+    }
   constructor(private route: ActivatedRoute, private voucherService: VoucherService) { }
  
   ngOnInit() {
@@ -53,10 +74,12 @@ export class VoucherSearchComponent implements OnInit {
     .subscribe(
       searchResult=>{
         this.vouchers=searchResult.content
+        this.visible=false;
         },
       err=>{
         this.error=true;
         this.errorMessage = "Error occured While searching Voucher";
+        this.visible=false;
       }
     )
   }

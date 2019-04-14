@@ -6,23 +6,26 @@
 <div class="alert alert-danger" role="alert" *ngIf="error">
   {{errorMessage}}
 </div>
-
+<div class="searchBox" *ngIf="visible" [@slideInOut]>
 <form (ngSubmit)="submit()" name="searchForm">
   <div class="card">
     <div class="card-header stylish-color-dark white-text">
-      <h3> Search:</h3>
+      Search
+      <button type="button" class="close white-text" (click)="showSearch()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="card-body">
       <div class="form-group">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="md-form mt-1">
               <label for="name">Voucher Id </label>
               <input type="text" class="form-control underlined" name="voucherId" id="voucherId" required="false"
                 [(ngModel)]="searchVoucher.voucherId" />
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="md-form mt-1">
               <label for="name">Vendor Name </label>
               <input type="text" class="form-control underlined" name="vendorName" id="vendorName" required="false"
@@ -51,19 +54,19 @@
       </div>
     </div>
     <div class="card-footer">
-      <button type="submit" class="btn btn-primary float-right waves-effect m-0">
+      <button type="submit" class="btn btn-sm btn-primary float-right m-0">
         <i class="fa fa-search">&nbsp;</i>
-        Search</button>
+        Search</button>   
     </div>
   </div>
 </form>
-<br />
-<h5 class="sub-header">
-  Search Result
-</h5>
+</div>
 <div class="card">
   <div class="card-header rgba-blue-light">
-    <small>list of vouchers</small>
+    <small><button class="btn btn-circle purple darken-4" (click)="showSearch()" ><i  class="fa fa-search"></i></button>&nbsp;Displaying ielms for [
+      Voucher Id={{searchVoucher.voucherId}}, Voucher Name={{searchVoucher.vendorName}},Start date={{searchVoucher.startDate}},End Date={{searchVoucher.endDate}}
+      ] 
+     </small>
   </div>
   <div class="card-body">
     <table class="table table-striped">

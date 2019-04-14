@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { trigger, transition, animate, style } from '@angular/animations'
+
 import {ExcelGeneratorService} from '../../excel/excel-generator.service';
 import { InvoiceService } from '../../invoice/invoice.service';
 import { SearchInvoice, Invoice, SearchResult } from '../../invoice/invoice.domain';
@@ -9,7 +11,18 @@ import { APIURLS } from '../../app.constants';
 @Component({
   selector: 'app-invoice-report',
   templateUrl: './invoice-report.component.html',
-  styleUrls: ['./invoice-report.component.css']
+  styleUrls: ['./invoice-report.component.css'],
+  animations:[
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({transform: 'translateY(-100%)'}),
+        animate('200ms ease-in', style({transform: 'translateY(0%)'}))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({transform: 'translateY(-100%)'}))
+      ])
+    ])
+  ]
 })
 export class InvoiceReportComponent implements OnInit {
 
@@ -21,7 +34,14 @@ export class InvoiceReportComponent implements OnInit {
   invoices: Invoice[] = [];
   searchResult: SearchResult = new SearchResult();
   numbers: number[] = [];
+  visible:boolean=false
 
+  showSearch(){
+    if(this.visible)
+      this.visible=false
+    else
+      this.visible=true
+  }
   constructor(private excelGenerator:ExcelGeneratorService, private invoiceService: InvoiceService, private clientService: ClientService) {}
 
   ngOnInit() {
@@ -65,10 +85,12 @@ export class InvoiceReportComponent implements OnInit {
               }
             }
           );
+          this.visible=false;
         },
         err => {
           this.error = true;
           this.errorMessage = "Error occured While searching the Invoice";
+          this.visible=false;
         }
         )
     } else {
