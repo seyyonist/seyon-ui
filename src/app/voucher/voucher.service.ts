@@ -9,6 +9,7 @@ import { Voucher} from './voucher.domain';
 import { SearchVoucher } from './voucher.domain';
 import { SearchVoucherResult } from './voucher.domain';
 import { text } from '@angular/core/src/render3/instructions';
+import { Vendor } from './voucher.domain';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -40,6 +41,11 @@ export class VoucherService {
   deleteVoucher(id:number): Observable<string> {
     var url = Urls.getDomain().concat(APIURLS.voucher).concat("?id=").concat(id.toString());
     return this.http.delete<string>(url,{responseType:'text' as 'json'});
+  }
+
+  getVendors():Observable<Vendor[]>{
+    var url = Urls.getDomain().concat(APIURLS.vendor);
+    return this.http.get<Vendor[]>(url, { headers: httpOptions.headers });
   }
 
 }
