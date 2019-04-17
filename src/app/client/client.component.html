@@ -62,8 +62,8 @@
                 <small>minimum 3 character</small>
               </div>
               <div class=" md-form ">
-                <label for="companyType" [class.active]="client.companyType!=''">Company Type *</label>
-                <select id="companyType" name="companyType" class="browser-default custom-select md-select" required="true" [(ngModel)]="client.companyType">
+                <label for="status" [class.active]="client.status!=''">Company Status *</label>
+                <select id="status" name="status" class="browser-default custom-select md-select" required="true" [(ngModel)]="client.status">
                   <option value="Company" selected>Company</option>
                   <option value="Partnership">Partnership</option>
                   <option value="Individual">Individual</option>

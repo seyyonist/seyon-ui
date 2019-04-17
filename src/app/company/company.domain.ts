@@ -26,4 +26,5 @@ export class Company {
     accountType: string = "";
     swiftCode: string = "";
     termsAndCondns: string = "";
+    status:string="";
 }
