@@ -4,6 +4,8 @@ import { trigger, transition, animate, style } from '@angular/animations'
 
 import { VoucherService } from './voucher.service';
 import {SearchVoucher,Voucher} from './voucher.domain';
+import { Vendor } from '../vendor/vendor.domain';
+import { VendorService } from '../vendor/vendor.service';
 
 @Component({
   selector: 'app-voucher.search',
@@ -30,16 +32,18 @@ export class VoucherSearchComponent implements OnInit {
     vouchers:Voucher[]=[];
     voucher:Voucher=new Voucher();
     visible:boolean=false
-
+    vendors: Vendor[] = [];
+    
     showSearch(){
       if(this.visible)
         this.visible=false
       else
         this.visible=true
     }
-  constructor(private route: ActivatedRoute, private voucherService: VoucherService) { }
+  constructor(private route: ActivatedRoute, private voucherService: VoucherService,private vendorService: VendorService) { }
  
   ngOnInit() {
+    this.getVendors();
   }
 
   getVoucher(id:number):void{
@@ -84,5 +88,19 @@ export class VoucherSearchComponent implements OnInit {
     )
   }
 
+  getVendors(): void {
+    this.success = false;
+    this.error = false;
+    this.vendorService.getForCompany()
+      .subscribe(
+        vendors => {
+        this.vendors = vendors;
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured please contact administrator";
+      }
+      )
+  }
 
 }
