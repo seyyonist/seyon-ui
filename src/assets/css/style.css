@@ -108,7 +108,7 @@
 }
 
 .companyMenu {
-	background-color:#a9becc; 
+	background-color: #a9becc;
 	width: 100%;
 	color:black
 }
@@ -123,7 +123,7 @@
 
 .company-icon {
 	float: right;
-	border-left:1px solid #8fa1ad; 
+	border-left: 1px solid #8fa1ad;
 	height: 100%;
 	padding: 10px;
 	font-size: 18px;
@@ -142,10 +142,6 @@
 	-webkit-border-radius: 50% !important;
 	-moz-border-radius: 50% !important;
 	border-radius: 50% !important;
-}
-
-.field-labels{
-	font-weight: 500;
 }
 
 .profile-usertitle {
@@ -277,6 +273,27 @@ select {
 	font-weight: 500;
 }
 
-.primary-color,.bg-primary,.btn-primary {
-	background-color:#07689F !important;
-} 
+.primary-color,.bg-primary,.btn-primary {
+	background-color: #07689F !important;
+}
+
+
+.searchBox{
+	position: absolute;
+	z-index: 543;
+}
+
+.btn-circle{
+	width: 35px;
+	height: 30px;
+	padding: 6px 0px;
+	border-radius: 30%;
+	text-align: center;
+	font-size: 14px;
+	line-height: 1.5;
+	margin:0
+}
+
+.field-labels{
+	font-weight: 500;
+}

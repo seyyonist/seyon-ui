@@ -20,16 +20,18 @@
         <div class="row">
           <div class="col-md-6">
             <div class="md-form mt-1">
-              <label for="name">Voucher Id </label>
+              <label for="name" class="active">Voucher Id </label>
               <input type="text" class="form-control underlined" name="voucherId" id="voucherId" required="false"
                 [(ngModel)]="searchVoucher.voucherId" />
             </div>
           </div>
           <div class="col-md-6">
             <div class="md-form mt-1">
-              <label for="name">Vendor Name </label>
-              <input type="text" class="form-control underlined" name="vendorName" id="vendorName" required="false"
-                [(ngModel)]="searchVoucher.vendorName" />
+              <label for="vendorName" class="active">Vendor Name </label>
+                <select id="vendorName" name="vendorName " class="browser-default custom-select md-select" required="false" [(ngModel)]="searchVoucher.vendorName">
+                  <option></option>
+                  <option *ngFor="let ven of vendors" [ngValue]="ven.id">{{ven.name}}</option>
+                </select>
             </div>
           </div>
         </div>
@@ -63,7 +65,7 @@
 </div>
 <div class="card">
   <div class="card-header rgba-blue-light">
-    <small><button class="btn btn-circle purple darken-4" (click)="showSearch()" ><i  class="fa fa-search"></i></button>&nbsp;Displaying ielms for [
+    <small><button class="btn btn-circle purple darken-4" (click)="showSearch()" ><i  class="fa fa-search"></i></button>&nbsp;Displaying items for [
       Voucher Id={{searchVoucher.voucherId}}, Voucher Name={{searchVoucher.vendorName}},Start date={{searchVoucher.startDate}},End Date={{searchVoucher.endDate}}
       ] 
      </small>

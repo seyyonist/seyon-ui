@@ -41,6 +41,22 @@
             <label for="pinCode" [class.active]="true">Pincode *</label>
             <input type="text" class="form-control underlined" name="pinCode" id="pinCode" [(ngModel)]="company.pinCode" />
           </div>
+          <div class=" md-form ">
+            <label for="status" [class.active]="company.status!=''">Company Status *</label>
+            <select id="status" name="status" class="browser-default custom-select md-select" required="true" [(ngModel)]="company.status">
+              <option value="Artificial_Juridical_person">Artificial Juridical person</option>
+              <option value="Association_of_persons">Association of persons</option>
+              <option value="Body_of_Individuals">Body of Individuals</option>
+              <option value="Company" selected>Company</option>
+              <option value="Firm">Firm</option>
+              <option value="Government">Government</option>
+              <option value="Hindu_Undivided_family">Hindu Undivided family</option>
+              <option value="Individual">Individual</option>
+              <option value="Limited_Liability_partnership">Limited Liability partnership</option>
+              <option value="Local_Authority">Local Authority</option>
+              <option value="Trust">Trust</option>
+            </select>
+          </div>
         </div>
 
         <div class="col-md-3 border-right">

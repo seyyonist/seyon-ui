@@ -1,3 +1,7 @@
+<h3 class="mb-2 mb-sm-0 pt-1 pb-2">
+  <span>Voucher Entry</span>
+</h3>
+
 <!-- Heading -->
 <div class="alert alert-danger" role="alert" *ngIf="error">
   {{errorMessage}}
@@ -8,14 +12,11 @@
 
 <form (ngSubmit)="saveVoucher()" name="voucherForm" ngNativeValidate>
   <div class="card">
-    <div class="card-header stylish-color-dark white-text" style="padding-left:20px;">
-      <label for="vendorName">Voucher Entry </label>
-    </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-3 border-right field-labels">
           <label for="voucherId" [class.active]="true">Voucher Id</label>
-          <input type="text" readonly class="form-control underlined" name="voucherId" id="voucherId" [(ngModel)]="voucher.voucherId"
+          <input type="text" readonly class="form-control underlined" name="voucherId" id="voucherId" [(ngModel)]="voucher.id"
           />
         </div>
 
@@ -185,14 +186,17 @@
           <input type="text" class="form-control inp-border-bottom" name="deductionRemark" id="deductionRemark" [(ngModel)]="voucher.deductionRemark"
           />
         </div>
-
       </div>
-
-
-    </div>
-    <div class="card-footer">
-      <button class="btn btn-success float-right " type="submit"> <i class="fa fa-save"></i>&nbsp;Save</button>
     </div>
   </div>
+
+  <div class="card mt-4 wow fadeIn">
+    <div class="card-body">
+      <div class="row float-right">
+        <button class="btn btn-success" type="submit"> <i class="fa fa-save"></i>&nbsp;Save</button> 
+      </div>
+    </div>
+  </div>
+
 
 </form>
