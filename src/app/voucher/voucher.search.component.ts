@@ -78,6 +78,9 @@ export class VoucherSearchComponent implements OnInit {
     .subscribe(
       searchResult=>{
         this.vouchers=searchResult.content
+        this.vouchers.forEach(voucher=>{
+          voucher.vendorName = this.vendors.find(ven => ven.id == voucher.vendorId).name;
+        })
         this.visible=false;
         },
       err=>{
