@@ -2,49 +2,50 @@ export class Voucher {
     id: number;
     vendorName: string = "";
     voucherId: string = "";
-    companyId: string ="";
-    vendorAddressLine1: string ="";
-    vendorAddressLine2: string ="";
-    vendorAddressCity: string ="";
-    vendorAddressState: string ="";
-    vendorAddressPincode: string ="";
-    vendorGst: string ="";
-    vendorPanNo: string ="";
-    vendorBankAcctNo: string ="";
-    vendorBankName: string ="";
-    vendorBankBranch: string ="";
-    vendorBankBranchIfscCode: string ="";
-    headOfAccount: string ="";
+    invoiceId: string = "";
+    invoiceDate: Date;
+    companyId: string = "";
+    vendorId: number;
+    headOfAccount: string = "";
     particulars: string = "";
-    totalAmount: number = 0;
-    cgstPercent: number = 0;
-    sgstPercent: number = 0;
-    igstPercent: number = 0;
+    cgstAmount: number = 0;
+    sgstAmount: number = 0;
+    igstAmount: number = 0;
     netAmount: number = 0;
     tdsPercent: number = 0;
-    netPayable: number = 0;
+    tdsAmount: number = 0;
+    others: number = 0;
+    reimbursement: number = 0;
+    totalNetAmount: number = 0;
+    totalAmount: number = 0;
+    deductionRemark: string = "";
     voucherDate: Date;
     createdBy: string = "";
     createdDate: Date;
-    
+
+}
+
+export class Vendor {
+    id: number=0;
+    name: string = "";
 }
 
 
-export class SearchVoucher{
-    pageNumber:number=0;
-    voucherId:string= "";
-    vendorName:string= "";
-    startDate:Date;
-    endDate:Date;
+export class SearchVoucher {
+    pageNumber: number = 0;
+    voucherId: string = "";
+    vendorName: string = "";
+    startDate: Date;
+    endDate: Date;
 }
 
-export class SearchVoucherResult{
-    content:Voucher[];
-    first:boolean;
-    last:boolean;
-    number:number;
-    numberOfElements:number;
-    size:number;
-    totalElements:number;
-    totalPages:number;
+export class SearchVoucherResult {
+    content: Voucher[];
+    first: boolean;
+    last: boolean;
+    number: number;
+    numberOfElements: number;
+    size: number;
+    totalElements: number;
+    totalPages: number;
 }

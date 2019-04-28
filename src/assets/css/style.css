@@ -293,3 +293,7 @@ select {
 	line-height: 1.5;
 	margin:0
 }
+
+.field-labels{
+	font-weight: 500;
+}
