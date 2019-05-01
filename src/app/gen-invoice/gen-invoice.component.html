@@ -118,7 +118,7 @@
 </div>
 <div class="card mb-3 wow fadeIn">
   <div class="card-body">
-    <a target="_blank" style="color:white;background-color:#432fb5" class="btn float-right" [href]="invoice.url" *ngIf="invoice.url && invoice.invoiceId!=''">
+    <a target="_blank" style="color:white;background-color:#432fb5" class="btn float-right" [href]="invoice.url" *ngIf="invoice.url">
             <i class="fa fa-print"></i>
       </a>&nbsp;
     <button class="btn btn-primary float-right" [disabled]="invoice.type==='INVOICE'" (click)="generateInvoice()"><i class="fa fa-cogs">&nbsp;</i>Generate Invoice</button>
