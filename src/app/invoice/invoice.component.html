@@ -1,9 +1,9 @@
-<h3 class="mb-2 mb-sm-0 pt-1 pb-2">
-      <span>Proforma Invoice (Service)</span>
-    </h3>
+<div class="clearfix">
+  <h3 class="mb-2 mb-sm-0 pt-1 pb-2 float-left">Proforma Invoice (Service)</h3>
+  <button type="button" class="btn teal darken-3 float-right" (click)="createNewInvoice()">New Invoice</button>
+</div>
 
 <!-- Heading -->
-
 
 <div class="alert alert-danger" role="alert" *ngIf="error">
   {{errorMessage}}
@@ -12,7 +12,7 @@
   Successfully Saved
 </div>
 
-<div class="card" >
+<div class="card">
   <div class="card-body">
     <div class="row">
       <div class="col-md-1 "><b>Client</b></div>
@@ -42,7 +42,8 @@
       <div class="col-md-2"><b>Proforma Date : </b></div>
       <div class="col-md-3">
         <input type="date" class="form-control underlined" name="proformaDate" id="proformaDate" required="true" [ngModel]="invoice.performaDate | date:'yyyy-MM-dd'"
-              (ngModelChange)="invoice.performaDate = $event" [value]="date | date:'yyyy-MM-dd'" [min]="minProformaDate" [max]="curDate" />
+          (ngModelChange)="invoice.performaDate = $event" [value]="date | date:'yyyy-MM-dd'" [min]="minProformaDate" [max]="curDate"
+        />
       </div>
     </div>
     <div class="row">
@@ -52,7 +53,7 @@
       <div class="col-md-4">
         {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},
         <br/> {{selectedClient.city}}, {{selectedClient.state}},
-        <br/>        {{selectedClient.pincode}}.
+        <br/> {{selectedClient.pincode}}.
         <br/>
         <i>Phone : </i> {{selectedClient.phonePrimary}}.
         <br/>
@@ -61,50 +62,53 @@
       </div>
     </div>
     <div class="clear-fix border-top p-3">
-    <h4 class="sub-header">
-      <span class="index">1</span>Particulars
-      <button class="btn btn-success float-right" (click)="addRow()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
-        <i class="fa fa-plus">&nbsp;</i>AddRow</button>  
-    </h4>
+      <h4 class="sub-header">
+        <span class="index">1</span>Particulars
+        <button class="btn btn-success float-right" (click)="addRow()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+        <i class="fa fa-plus">&nbsp;</i>AddRow</button>
+      </h4>
     </div>
 
     <table class="table table-striped">
       <thead class="blue lighten-5">
-      <tr>
-        <th colspan="7">Professional service rendered in connection with</th>
-        <!--<th>Quantity</th>-->
-        <th>Rate</th>
-        <th>Amount</th>
-      </tr>
+        <tr>
+          <th colspan="7">Professional service rendered in connection with</th>
+          <!--<th>Quantity</th>-->
+          <th>Rate</th>
+          <th>Amount</th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let field of particulars;let i=index">
+        <tr *ngFor="let field of particulars;let i=index">
           <td>{{i+1}}</td>
-        <td><button class="btn btn-sm btn-danger pl-2 pr-2" (click)="deletParticulars(field.id)" *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i class="fa fa-trash"></i></button></td>
+          <td><button class="btn btn-sm btn-danger pl-2 pr-2" (click)="deletParticulars(field.id)" *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i class="fa fa-trash"></i></button></td>
 
-        <td colspan="5" WIDTH="80%">
-          <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+          <td colspan="5" WIDTH="80%">
+            <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)"
+              [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
           </textarea>
-        </td>
-       <!-- <td WIDTH="10%">
+          </td>
+          <!-- <td WIDTH="10%">
           <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="field.quantity"  (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/>
         </td>-->
-        <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0"  [(ngModel)]="field.performaRate" (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/>
-        </td>
-        <td WIDTH="10%">
-          <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedPerformaAmount"/>
-        </td>
-      </tr>
-       
+          <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.performaRate" (change)="calculateAmount(field)"
+              [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')" />
+          </td>
+          <td WIDTH="10%">
+            <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedPerformaAmount" />
+          </td>
+        </tr>
+
       </tbody>
       <tfoot>
-         <tr>
+        <tr>
           <td colspan="7">
           </td>
           <th>
             Enter Reimbursement Amount(if any)
           </th>
-          <th><input type="number" class="form-control" required="false" min="0"  [(ngModel)]="invoice.reimbPerfomaAmount" (change)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/> </th>
+          <th><input type="number" class="form-control" required="false" min="0" [(ngModel)]="invoice.reimbPerfomaAmount" (change)="calculateTotal()"
+              [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')" /> </th>
         </tr>
         <tr>
           <td colspan="7">
@@ -141,7 +145,7 @@
           <td>{{invoice.igstPerfomaPercent}}</td>
           <td>{{invoice.igstPerfoma}}</td>
         </tr>
-      
+
         <tr>
           <td colspan="7">
           </td>
@@ -158,19 +162,19 @@
 <div class="card mt-4 wow fadeIn">
   <div class="card-body">
     <div class="row float-right">
-     <a target="_blank" style="color:white;background-color:#432fb5" class="btn" [href]="invoice.purl" *ngIf="invoice.purl && invoice.performaId!=''">
+      <a target="_blank" style="color:white;background-color:#432fb5" class="btn" [href]="invoice.purl" *ngIf="invoice.purl && invoice.performaId!=''">
             <i class="fa fa-print"></i>
       </a>&nbsp;
-      <a routerLink="/generate-invoice/{{invoice.id}}" class="btn btn-success" *ngIf="invoice.performaId!='' && invoice.status!='CANCELED'" >
+      <a routerLink="/generate-invoice/{{invoice.id}}" class="btn btn-success" *ngIf="invoice.performaId!='' && invoice.status!='CANCELED'">
         <i class="fa fa-eye">&nbsp;</i>
         View as Invoice
       </a>&nbsp;
-     <button class="btn btn-secondary" (click)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+      <button class="btn btn-secondary" (click)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
       <i class="fa fa-calculator">&nbsp;</i> Calculate Total
       </button>&nbsp;
       <button class="btn btn-primary" (click)="savePerformaInvoice()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
         <i class="fa fa-save">&nbsp;</i>Save Proforma</button>&nbsp;
-       <button class="btn btn-warning" (click)="cancelInvoice()" *ngIf="invoice.performaId!=''" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+      <button class="btn btn-warning" (click)="cancelInvoice()" *ngIf="invoice.performaId!=''" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
          <i class="fa fa-ban">&nbsp;</i>Cancel Invoice</button>
     </div>
   </div>

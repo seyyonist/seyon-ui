@@ -34,6 +34,13 @@ export class VoucherComponent implements OnInit {
 
   }
 
+  createNewVoucher() {
+    this.success = false;
+    this.error = false;
+    this.voucher=new Voucher();
+    this.voucher.createdDate = new Date();
+  }
+
   ngOnInit() {
     this.success = false;
     this.error = false;
@@ -41,11 +48,7 @@ export class VoucherComponent implements OnInit {
     this.getVendors();
     if (!this.voucher.voucherId) {
       this.voucher.createdDate = new Date();
-     
-     
     }
-
-
   }
 
   getVoucher(id: number): void {

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute,Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ClientService } from '../client/client.service';
 import { Client } from '../client/client.domain';
-import { Particulars, InvoiceData, Invoice, SACCode,ManufacturingInvoice } from './invoice.manu.domain';
+import { Particulars, InvoiceData, Invoice, SACCode, ManufacturingInvoice } from './invoice.manu.domain';
 import { InvoiceService } from '../invoice/invoice.service';
 import { APIURLS } from '../app.constants';
 import { CompanyGlobalVar } from '../globals';
@@ -28,14 +28,14 @@ export class InvoiceManuComponent implements OnInit {
   invoice: Invoice = new Invoice();
   sacCodes: SACCode[] = [];
   selSacId: number;
-  showSac:boolean=false;
+  showSac: boolean = false;
 
-  manufacturingInvoice:ManufacturingInvoice[]=[];
-  totalPerfomaBeforeTax:number=0;
+  manufacturingInvoice: ManufacturingInvoice[] = [];
+  totalPerfomaBeforeTax: number = 0;
 
   constructor(private route: ActivatedRoute, private clientService: ClientService
     , private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar,
-  private router:Router) {
+    private router: Router) {
     var invoiceIdParam
     this.route.params.subscribe(params => {
       invoiceIdParam = params['id']
@@ -62,19 +62,30 @@ export class InvoiceManuComponent implements OnInit {
         }
       )
     } else {
-      this.manufacturingInvoice=[];
+      this.manufacturingInvoice = [];
       this.selClientId = null;
       this.getClients();
       this.getSacCodes();
       this.loadSelectedClient();
       this.manufacturingInvoice.push(new ManufacturingInvoice());
     }
-    if(companyGlobalVar.gstNo!=''){
-      this.showSac=true;
+    if (companyGlobalVar.gstNo != '') {
+      this.showSac = true;
     }
   }
 
   ngOnInit() {
+  }
+
+  createNewManuInvoice() {
+    this.success = false;
+    this.error = false;
+    this.manufacturingInvoice = [];
+    this.selClientId = null;
+    this.getClients();
+    this.getSacCodes();
+    this.loadSelectedClient();
+    this.manufacturingInvoice.push(new ManufacturingInvoice());
   }
 
   getInvoice(): void {
@@ -110,7 +121,7 @@ export class InvoiceManuComponent implements OnInit {
       )
   }
 
-  loadSelectedSac(manuInv:ManufacturingInvoice): void {
+  loadSelectedSac(manuInv: ManufacturingInvoice): void {
     if (this.selectedClient.state == "") {
       alert("please select the client");
       return;
@@ -144,8 +155,8 @@ export class InvoiceManuComponent implements OnInit {
         this.sgstDisplay = false;
         this.igstDisplay = true;
       }
-    }else{
-      this.selectedClient= new Client();
+    } else {
+      this.selectedClient = new Client();
     }
     this.invoice.clientId = this.selClientId;
   }
@@ -156,13 +167,13 @@ export class InvoiceManuComponent implements OnInit {
 
 
   calculateAmount(field: ManufacturingInvoice): void {
-    if (field.itemDescription !== ""){
-      let amt =field.performaRate*field.quantity;
-      field.grossPerformaAmount=amt;
-      field.cgstPerfoma=Math.round((amt*field.cgstPerfomaPercent/100)*100)/100;
-      field.sgstPerfoma=Math.round((amt*field.sgstPerfomaPercent/100)*100)/100;
-      field.igstPerfoma=Math.round((amt*field.igstPerfomaPercent/100)*100)/100;
-      field.calculatedPerformaAmount = Math.round((amt+field.cgstPerfoma+field.sgstPerfoma+field.igstPerfoma)*100)/100;
+    if (field.itemDescription !== "") {
+      let amt = field.performaRate * field.quantity;
+      field.grossPerformaAmount = amt;
+      field.cgstPerfoma = Math.round((amt * field.cgstPerfomaPercent / 100) * 100) / 100;
+      field.sgstPerfoma = Math.round((amt * field.sgstPerfomaPercent / 100) * 100) / 100;
+      field.igstPerfoma = Math.round((amt * field.igstPerfomaPercent / 100) * 100) / 100;
+      field.calculatedPerformaAmount = Math.round((amt + field.cgstPerfoma + field.sgstPerfoma + field.igstPerfoma) * 100) / 100;
       this.calculateTotal();
     }
   }
@@ -176,27 +187,27 @@ export class InvoiceManuComponent implements OnInit {
   }
 
   savePerformaInvoice(): void {
-    if(!this.selClientId){
+    if (!this.selClientId) {
       alert("please select the client");
       return;
     }
     this.success = false;
     this.error = false;
-    this.manufacturingInvoice.forEach(inv=>{
-      inv.clientId=this.selClientId;
+    this.manufacturingInvoice.forEach(inv => {
+      inv.clientId = this.selClientId;
     })
     console.log(this.manufacturingInvoice);
 
     this.invoiceService.saveManufacProformaInvoice(this.manufacturingInvoice).subscribe(
-      manu=>{
-        this.manufacturingInvoice=manu
-        var performaIds=manu.map(inv=>inv.id).join(',');
-        this.router.navigate(['/invoiceManuSuccess',performaIds]);
+      manu => {
+        this.manufacturingInvoice = manu
+        var performaIds = manu.map(inv => inv.id).join(',');
+        this.router.navigate(['/invoiceManuSuccess', performaIds]);
       },
-      err=>{
+      err => {
         this.error = true;
         this.errorMessage = "Error occured please contact administrator";
-        
+
         console.log(err);
       }
     )
@@ -207,6 +218,6 @@ export class InvoiceManuComponent implements OnInit {
     this.error = false;
     this.manufacturingInvoice.splice(this.manufacturingInvoice.map(part => part.id).indexOf(particularId), 1);
     this.calculateTotal();
-     
+
   }
 }

@@ -80,6 +80,18 @@ export class InvoiceComponent implements OnInit {
 
   }
 
+   createNewInvoice() {
+      this.success = false;
+      this.error = false;
+      this.invoice = new Invoice();
+      this.particulars = [];
+      this.selClientId = null;
+      this.getClients();
+      this.getSacCodes();
+      this.loadSelectedClient();
+      this.particulars.push(new Particulars());
+  }
+
   getInvoice(): void {
     this.invoice.id;
   }
