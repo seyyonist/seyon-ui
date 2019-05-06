@@ -1,67 +1,69 @@
 <h3 class="mb-2 mb-sm-0 pt-1 pb-2">
-      <span>Search Voucher</span>
-    </h3>
+  <span>Search Voucher</span>
+</h3>
 
 <!-- Heading -->
 <div class="alert alert-danger" role="alert" *ngIf="error">
   {{errorMessage}}
 </div>
 <div class="searchBox" *ngIf="visible" [@slideInOut]>
-<form (ngSubmit)="submit()" name="searchForm">
-  <div class="card">
-    <div class="card-header stylish-color-dark white-text">
-      Search
-      <button type="button" class="close white-text" (click)="showSearch()" aria-label="Close">
+  <form (ngSubmit)="submit()" name="searchForm">
+    <div class="card">
+      <div class="card-header stylish-color-dark white-text">
+        Search
+        <button type="button" class="close white-text" (click)="showSearch()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-    </div>
-    <div class="card-body">
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="md-form mt-1">
-              <label for="name" class="active">Voucher Id </label>
-              <input type="text" class="form-control underlined" name="voucherId" id="voucherId" required="false"
-                [(ngModel)]="searchVoucher.voucherId" />
+
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="md-form mt-1">
+                <label for="name" class="active">Voucher Id </label>
+                <input type="text" class="form-control underlined" name="voucherId" id="voucherId" required="false" [(ngModel)]="searchVoucher.voucherId"
+                />
+              </div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="md-form mt-1">
-              <label for="vendorName" class="active">Vendor Name </label>
+            <div class="col-md-6">
+              <div class="md-form mt-1">
+                <label for="vendorName" class="active">Vendor Name </label>
                 <select id="vendorName" name="vendorName " class="browser-default custom-select md-select" required="false" [(ngModel)]="searchVoucher.vendorName">
                   <option></option>
                   <option *ngFor="let ven of vendors" [ngValue]="ven.id">{{ven.name}}</option>
                 </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="md-form mt-1">
+                <label for="startDt" class="active">Start Date </label>
+                <input type="date" class="form-control underlined" name="startDate" id="startDate" required="false" [(ngModel)]="searchVoucher.startDate"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form mt-1">
+                <label for="endDt" class="active">End Date</label>
+                <input type="date" class="form-control underlined" name="endDate" id="endDate" required="false" [(ngModel)]="searchVoucher.endDate"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="md-form mt-1">
-              <label for="startDt" class="active">Start Date </label>
-              <input type="date" class="form-control underlined" name="startDate" id="startDate" required="false"
-                [(ngModel)]="searchVoucher.startDate" />
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="md-form mt-1">
-              <label for="endDt" class="active">End Date</label>
-              <input type="date" class="form-control underlined" name="endDate" id="endDate" required="false"
-                [(ngModel)]="searchVoucher.endDate" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card-footer">
-      <button type="submit" class="btn btn-sm btn-primary float-right m-0">
+      <div class="card-footer">
+        <button type="submit" class="btn btn-sm btn-primary float-right m-0">
         <i class="fa fa-search">&nbsp;</i>
-        Search</button>   
+        Search</button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
+    
 </div>
 <div class="card">
   <div class="card-header rgba-blue-light">
@@ -69,6 +71,9 @@
       Voucher Id={{searchVoucher.voucherId}}, Voucher Name={{searchVoucher.vendorName}},Start date={{searchVoucher.startDate}},End Date={{searchVoucher.endDate}}
       ] 
      </small>
+      <button class="btn btn-circle orange darken-4 float-right" (click)="generateVoucherExcel()" *ngIf="vouchers.length>0">
+              <i class="fa fa-file-excel"></i>
+              </button> 
   </div>
   <div class="card-body">
     <table class="table table-striped">
@@ -92,10 +97,9 @@
           <td>{{voucher.totalAmount}}</td>
           <td>{{voucher.voucherDate | date:'yyyy-MM-dd hh:mm aa'}}</td>
           <td>
-            <a routerLink="/voucherNew/{{voucher.id}}"
-              style="color:black;background-color:darksalmon;border:black solid 1px;" class="btn btn-sm p-2">E</a>
-            <a data-toggle="modal" data-target="#voucherDeleteModal"
-              style="color:white;background-color:Red;border:white solid 1px;" class="btn btn-sm p-2" (click)="getVoucher(voucher.id)">D</a>
+            <a routerLink="/voucherNew/{{voucher.id}}" style="color:black;background-color:darksalmon;border:black solid 1px;" class="btn btn-sm p-2">E</a>
+            <a data-toggle="modal" data-target="#voucherDeleteModal" style="color:white;background-color:Red;border:white solid 1px;"
+              class="btn btn-sm p-2" (click)="getVoucher(voucher.id)">D</a>
           </td>
         </tr>
       </tbody>
@@ -103,8 +107,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="voucherDeleteModal" tabindex="-1" role="dialog" aria-labelledby="voucherDeleteModal"
-  aria-hidden="true">
+<div class="modal fade" id="voucherDeleteModal" tabindex="-1" role="dialog" aria-labelledby="voucherDeleteModal" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header bg-danger">
@@ -115,39 +118,37 @@
       </div>
       <div class="modal-body">
         <div class="row">
-            <div class="col-md-6 ">
-                <b>Voucher ID :</b> {{voucher.id}}
-              </div>
-              <div class="col-md-6 ">
-                <b>On</b> : {{voucher.voucherDate}}
-              </div>
-              <div class="col-md-12 ">
-                  <b>Particulars :</b> {{voucher.particulars}}
-              </div>
-              <div class="col-md-6 ">
-                  <b>TotalAmount :</b> {{voucher.totalAmount}}
-              </div>
-              <div class="col-md-6 ">
-                  <b>NetAmount :</b> {{voucher.netAmount}}
-              </div>
-              <div class="col-md-12 ">
-                  <b> Address : </b>
-                  {{voucher.vendorName}},{{voucher.vendorAddressLine1}},
-                {{voucher.vendorAddressLine2}},{{voucher.vendorAddressCity}},{{voucher.vendorAddressState}}
-              </div>
-              <div class="col-md-6 ">
-                <b>Pan :</b> {{voucher.vendorPanNo}}
-              </div>
-              <div class="col-md-6 ">
-                  <b>Head Of Account :</b> {{voucher.headOfAccount}}
-                </div>
-              <div class="col-md-12 ">
-                  <b>Bank Details :</b> {{voucher.vendorBankAcctNo}},{{voucher.vendorBankName}},{{voucher.vendorBankBranch}},{{voucher.vendorBankBranchIfscCode}}
-              </div>
-              <div class="col-md-12 ">
-                  <b>GST :</b> <i>CGST</i>-{{voucher.cgstPercent}}%, <i>SGST</i>-{{voucher.sgstPercent}}% <i>IGST</i>-{{voucher.igstPercent}}%<br/>
-                  <b>TDS :</b> {{voucher.tdsPercent}}%
-              </div>
+          <div class="col-md-6 ">
+            <b>Voucher ID :</b> {{voucher.id}}
+          </div>
+          <div class="col-md-6 ">
+            <b>On</b> : {{voucher.voucherDate}}
+          </div>
+          <div class="col-md-12 ">
+            <b>Particulars :</b> {{voucher.particulars}}
+          </div>
+          <div class="col-md-6 ">
+            <b>TotalAmount :</b> {{voucher.totalAmount}}
+          </div>
+          <div class="col-md-6 ">
+            <b>NetAmount :</b> {{voucher.netAmount}}
+          </div>
+          <div class="col-md-12 ">
+            <b> Address : </b> {{voucher.vendorName}},{{voucher.vendorAddressLine1}}, {{voucher.vendorAddressLine2}},{{voucher.vendorAddressCity}},{{voucher.vendorAddressState}}
+          </div>
+          <div class="col-md-6 ">
+            <b>Pan :</b> {{voucher.vendorPanNo}}
+          </div>
+          <div class="col-md-6 ">
+            <b>Head Of Account :</b> {{voucher.headOfAccount}}
+          </div>
+          <div class="col-md-12 ">
+            <b>Bank Details :</b> {{voucher.vendorBankAcctNo}},{{voucher.vendorBankName}},{{voucher.vendorBankBranch}},{{voucher.vendorBankBranchIfscCode}}
+          </div>
+          <div class="col-md-12 ">
+            <b>GST :</b> <i>CGST</i>-{{voucher.cgstPercent}}%, <i>SGST</i>-{{voucher.sgstPercent}}% <i>IGST</i>-{{voucher.igstPercent}}%<br/>
+            <b>TDS :</b> {{voucher.tdsPercent}}%
+          </div>
         </div>
       </div>
       <div class="modal-footer">
