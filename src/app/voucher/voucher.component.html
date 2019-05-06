@@ -1,7 +1,6 @@
-<h3 class="mb-2 mb-sm-0 pt-1 pb-2">
-  <span>Voucher Entry</span>
-</h3>
-
+<div class="clearfix">
+  <h3 class="mb-2 mb-sm-0 pt-1 pb-2 float-left">Voucher Entry</h3>
+  <button type="button" class="btn teal darken-3 float-right" (click)="createNewVoucher()">New Voucher</button></div>
 <!-- Heading -->
 <div class="alert alert-danger" role="alert" *ngIf="error">
   {{errorMessage}}
@@ -16,13 +15,13 @@
       <div class="row">
         <div class="col-md-3 border-right field-labels">
           <label for="voucherId" [class.active]="true">Voucher Id</label>
-          <input type="text" readonly class="form-control underlined" name="voucherId" id="voucherId" [(ngModel)]="voucher.id"
+          <input type="text" readonly class="form-control underlined" name="voucherId" id="voucherId" [(ngModel)]="voucher.voucherId"
           />
         </div>
 
         <div class="col-md-3 border-right field-labels">
           <label for="voucherDate" [class.active]="true">Voucher Date</label>
-          <label  class="form-control underlined">{{voucher.createdDate | date:'yyyy-MM-dd'}}</label>
+          <label class="form-control underlined">{{voucher.createdDate | date:'yyyy-MM-dd'}}</label>
 
         </div>
 
@@ -34,7 +33,7 @@
         <div class="col-md-3 field-labels">
           <label for="invoiceDate" [class.active]="true">Invoice Date</label>
           <input type="date" class="form-control underlined" name="invoiceDate" id="invoiceDate" [(ngModel)]="voucher.invoiceDate"
-            [value]="date | date:'yyyy-MM-dd'" />
+            [value]="voucher.invoiceDate | date:'yyyy-MM-dd'" />
         </div>
       </div>
 
@@ -193,7 +192,7 @@
   <div class="card mt-4 wow fadeIn">
     <div class="card-body">
       <div class="row float-right">
-        <button class="btn btn-success" type="submit"> <i class="fa fa-save"></i>&nbsp;Save</button> 
+        <button class="btn btn-success" type="submit"> <i class="fa fa-save"></i>&nbsp;Save</button>
       </div>
     </div>
   </div>

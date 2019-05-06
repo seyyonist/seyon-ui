@@ -139,7 +139,10 @@ export class GenInvoiceComponent implements OnInit {
       invoiceData => {
         this.invoiceData = invoiceData;
         this.invoice = invoiceData.invoice;
-        this.particulars = invoiceData.particulars
+        this.particulars = invoiceData.particulars;
+        this.invoice.url=APIURLS.printIInvoiceUrl.concat(invoiceData.invoice.performaId);
+        this.invoice.purl=APIURLS.printPInvoiceUrl.concat(invoiceData.invoice.performaId);
+       
         this.success = true;
         this.successMessage = "Invoice successfully generated with id:" + this.invoice.invoiceId;
       },
