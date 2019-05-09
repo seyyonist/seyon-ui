@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,6 +15,18 @@ const httpOptions = {
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  chartOptions = {
+    responsive: true
+  };
+  
+  chartData = [
+    { data: [330, 600, 260, 700], label: 'Invoice' },
+    { data: [120, 455, 100, 340], label: 'Voucher' }
+    
+  ];
+
+    chartLabels = ['January', 'February', 'March', 'April','May','June','July','August','September','October', 'November','December'];
 
   clientCount:Number=0;
   vendorCount:Number=0;
