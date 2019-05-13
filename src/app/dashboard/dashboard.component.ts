@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
-import { ChartOptions, ChartType, ChartDataSets, BaseChartDirective } from 'chart.js';
+
+import { Chart } from 'chart.js';
 
 
 const httpOptions = {
@@ -19,16 +20,8 @@ const httpOptions = {
 })
 export class DashboardComponent implements OnInit {
 
-  @ViewChild("baseChart")
-  chart: BaseChartDirective;
-
-  chartOptions = {
-    responsive: true
-  };
-
-  chartData = [{ "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "label": "Invoice" }, { "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "label": "Profoma" }];
-
-  chartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  
+  chart = [];
 
   clientCount: Number = 0;
   vendorCount: Number = 0;
@@ -52,25 +45,95 @@ export class DashboardComponent implements OnInit {
   }
 
 
-
-
   getChartData(): void {
     console.log('chartData');
     var url = Urls.getDomain().concat(APIURLS.invoice).concat("/getInvoiceAndProfomaCountForCurrentYear");
-    let options = { headers: httpOptions.headers, responseType: 'text' as 'json' };
+    let options = { headers: httpOptions.headers };
     this.http.get<any>(url, options).subscribe(
       result => {
-        console.log(result);
 
-        if (this.chart !== undefined) {
-          this.chart.chart.destroy();
-          //this.chart.chart = 0;
+        this.chart = new Chart('canvas', {
+          type: 'bar',
+          data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            datasets: [{
+              label: result[1].label,
+              data: result[1].data,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)'
 
-          this.chartData = result;
-          //this.chart.labels = result.labels;
-          this.chart.ngOnInit();
-          //this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
-        }
+              ],
+              borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)'
+              ],
+              borderWidth: 1
+            },
+            {
+              label: result[0].label,
+              data: result[0].data,
+              backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)'
+              ],
+              borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
       },
       err => {
         console.log(err);
@@ -113,15 +176,14 @@ export class DashboardComponent implements OnInit {
     )
   }
   ngOnInit() {
-    this.getChartData();
     this.refresh();
   }
 
   refresh(): void {
-
     this.getClientCount();
     this.getVendorCount();
     this.getVoucherCount();
-    //this.getChartData();
+    this.chart=[];
+    this.getChartData();
   }
 }
