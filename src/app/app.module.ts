@@ -35,9 +35,11 @@ import {ExcelGeneratorService} from './excel/excel-generator.service';
 import { InvoiceReportComponent } from './reports/invoice-report/invoice-report.component';
 import { VendorComponent } from './vendor/vendor.component';
 import { VendorService } from './vendor/vendor.service';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+
 
 const appRoutes: Routes = [
-
+  { path: '', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
   { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
   { path: 'client', component: ClientComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']}  },
   { path: 'vendor', component: VendorComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']}  },
@@ -88,7 +90,8 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ChartsModule
   ],
   providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,ExcelGeneratorService,VendorService],
   bootstrap: [AppComponent]

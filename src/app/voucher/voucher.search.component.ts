@@ -62,6 +62,7 @@ export class VoucherSearchComponent implements OnInit {
     this.voucherService.deleteVoucher(id).subscribe(
       string => {
         alert(string);
+        
       },
       err => {
         alert("Error while getting voucher")
