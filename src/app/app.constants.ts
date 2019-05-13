@@ -30,4 +30,5 @@ export const APIURLS = {
     printManIInvoiceUrl:"/api/manuFacturingInvoice/IhtmlReport?performaId=",
     printManPInvoiceUrl:"/api/manuFacturingInvoice/PhtmlReport?performaId=",
     vendor : "/api/vendor",
+    headofaccount : "/api/headofaccount",
 }
