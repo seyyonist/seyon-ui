@@ -20,6 +20,7 @@ export const APIURLS = {
     manInvoice: "/api/manuFacturingInvoice",
     user: "/api/user",
     userrole: "/api/userrole",
+    getUserCompanies:"/api/company/getUserCompany",
     adduserrole: "/api/userrole/adduserrole",
     getcompany: "/api/company/getCompany",
     updatecompany: "/api/company/updateCompany",

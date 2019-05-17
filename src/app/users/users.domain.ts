@@ -16,5 +16,10 @@ export class UserRole {
 export class UserDetails {
     userInfo: UserInfo = new UserInfo();
     userRole: UserRole = new UserRole();
+}
 
+export class UserCompanies{
+    companyId:number;
+	companyName:string="";
+	roleCode:string[]=[];
 }
