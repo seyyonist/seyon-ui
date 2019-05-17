@@ -39,19 +39,17 @@
           <a *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" routerLink="/voucher-search" lass="waves-effect dropdown-item"><i class="fa fa-search mr-1"></i>Search</a>
         </div>
       </li>
-      <li class="nav-item dropdown" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
+      <li class="nav-item dropdown" *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false"><i class="fas fa-chalkboard mr-1"></i>Report</a>
         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
           <a *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" routerLink="/invoiceReport" class="waves-effect dropdown-item"><i class="fas fa-file-invoice mr-1"></i>Invoice </a>
-         
         </div>
       </li>
-
     </ul>
 
     <ul class="navbar-nav ml-auto nav-flex-icons">
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-1" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
               <i class="fas fa-hammer"></i>
@@ -72,6 +70,15 @@
           <app-header></app-header>
         </div>
         </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false" title="Switch Company">
+          <i class="fas fa-random"></i>
+        </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-1">
+            <a *ngFor="let comp of userCompanies" class="dropdown-item waves-effect waves-light" href="/selectedCompany?id={{comp.companyId}}">{{comp.companyName}} as <br/><small>{{comp.roleCode}}</small></a>
+          </div>
       </li>
     </ul>
   </div>

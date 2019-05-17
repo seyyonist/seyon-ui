@@ -3,7 +3,13 @@ import { Company } from '../company/company.domain';
 import { CompanyService } from '../company/company.service';
 import { CompanyGlobalVar } from '../globals';
 import { UserService } from '../users/users.service';
+import { UserCompanies } from '../users/users.domain';
+import { APIURLS, Urls } from '../app.constants';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Component({
   selector: 'app-nav',
@@ -15,8 +21,8 @@ export class NavComponent implements OnInit {
   company: Company = new Company();
   show:boolean=true;
   userRole:string[];
-
-  constructor(private companyService: CompanyService,private companyGlobalVar: CompanyGlobalVar,private userService:UserService) { }
+  userCompanies:UserCompanies[]=[];
+  constructor(private companyService: CompanyService,private companyGlobalVar: CompanyGlobalVar,private userService:UserService,private http: HttpClient) { }
 
   ngOnInit() {
 
@@ -48,6 +54,21 @@ export class NavComponent implements OnInit {
       },
       err=>{
         alert("Failed to get the user roles")
+      }
+    )
+    this.getUserCompanies();
+  }
+
+  getUserCompanies():void{
+    var url = Urls.getDomain().concat(APIURLS.getUserCompanies);
+    this.http.get<UserCompanies[]>(url, { headers: httpOptions.headers })
+    .subscribe(
+      result=>{
+       this.userCompanies=result;
+      },
+      err=>{
+       console.log(err);
+       alert("Error retrieving UserCompanies");
       }
     )
   }
