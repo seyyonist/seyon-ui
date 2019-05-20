@@ -24,7 +24,7 @@ Successfully Saved
     </div>
     <div style="overflow:auto;height:400px;background-color:white;">
       <ul class="list-group list-group-flush">
-        <li *ngFor="let vendor of filterVendors" class="list-group-item" (click)="edit(headOfAccount)" style="cursor: pointer;">
+        <li *ngFor="let headOfAccount of filterheadOfAccounts" class="list-group-item" (click)="edit(headOfAccount)" style="cursor: pointer;">
           {{headOfAccount.headOfAccountName}}
           <span class="float-right">
             <i class="fa fa-arrow-right"></i>

@@ -6,5 +6,5 @@ export class HeadOfAccount {
     mainGroup: string="";
     balanceSheet: string="";
     createdBy: string="";
-    createdDate: Date = new Date();
+    createdDate: Date;
 }
