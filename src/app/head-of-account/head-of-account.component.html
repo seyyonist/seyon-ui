@@ -1,0 +1,78 @@
+<!-- Heading -->
+<h3 class="mb-2 mb-sm-0 pt-1 pb-2">
+  <span>Manage Head of Account</span>
+</h3>
+<!-- Heading -->
+<div class="alert alert-danger" role="alert" *ngIf="error">
+{{errorMessage}}
+</div>
+<div class="alert alert-success" role="alert" *ngIf="success">
+Successfully Saved
+</div>
+<div class="row">
+<div class="col-md-4">
+  <div class="card">
+    <div class="card-header grey lighten-4" >
+      <div class="md-form input-group mb-3">
+        <input type="text" class="form-control" id="search" (input)="onSearchChange($event.target.value)" />
+        <label for="search">Search</label>
+        <div class="input-group-append">
+          <button class="btn primary-color waves-effect m-0" (click)="new()">
+            <i class="fa fa-plus-square"></i> &nbsp;Add New</button>
+        </div>
+      </div>
+    </div>
+    <div style="overflow:auto;height:400px;background-color:white;">
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let headOfAccount of filterheadOfAccounts" class="list-group-item" (click)="edit(headOfAccount)" style="cursor: pointer;">
+          {{headOfAccount.headOfAccountName}}
+          <span class="float-right">
+            <i class="fa fa-arrow-right"></i>
+          </span>
+        </li>
+      </ul>
+      <div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-8">
+  <form (ngSubmit)="submit()" name="headOfAccountForm" ngNativeValidate>
+    <div class="card">
+      <div class="card-header stylish-color-dark white-text">
+        <h3> Head Of Account details for {{headOfAccount.id}} </h3>
+      </div>
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="md-form ">
+              <label for="headOfAccountName" [class.active]="headOfAccount.headOfAccountName!=''">Head Of Account Name</label>
+              <input type="text" class="form-control underlined" name="headOfAccountName" id="headOfAccountName"
+                required="true" [(ngModel)]="headOfAccount.headOfAccountName" />
+            </div>
+            <div class="md-form ">
+              <label for="subGroup" [class.active]="headOfAccount.subGroup!=''">Sub Group</label>
+              <input type="text" class="form-control underlined" name="subGroup" id="subGroup"
+                required="true" [(ngModel)]="headOfAccount.subGroup" />
+            </div>
+            <div class="md-form ">
+              <label for="mainGroup" [class.active]="headOfAccount.mainGroup!=''">Main Group</label>
+              <input type="text" class="form-control underlined" name="mainGroup" id="mainGroup"
+                required="true" [(ngModel)]="headOfAccount.mainGroup" />
+            </div>
+            <div class="md-form ">
+              <label for="balanceSheet" [class.active]="headOfAccount.balanceSheet!=''">Balance Sheet</label>
+              <input type="text" class="form-control underlined" name="balanceSheet" id="balanceSheet"
+                required="true" [(ngModel)]="headOfAccount.balanceSheet" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer" >
+        <button type="submit" class="btn bg-primary float-right"><i class="fa fa-save"></i>&nbsp;Save</button>
+      </div>
+    </div>
+  </form>
+</div>
+</div>

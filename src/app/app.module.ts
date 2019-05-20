@@ -36,6 +36,8 @@ import { InvoiceReportComponent } from './reports/invoice-report/invoice-report.
 import { VendorComponent } from './vendor/vendor.component';
 import { VendorService } from './vendor/vendor.service';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { HeadOfAccountComponent } from './head-of-account/head-of-account.component';
+import { HeadOfAccountService } from './head-of-account/head-of-account.service';
 
 
 const appRoutes: Routes = [
@@ -44,6 +46,7 @@ const appRoutes: Routes = [
   { path: 'client', component: ClientComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']}  },
   { path: 'vendor', component: VendorComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']}  },
   { path: 'users', component: UsersComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']} },
+  { path: 'headofaccount', component: HeadOfAccountComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}  },
 	{ path: 'performaView/:id', component: InvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
   { path: 'invoiceNew/:id', component: InvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
   { path: 'invoice-search', component: InvoiceSearchComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
@@ -79,7 +82,8 @@ const appRoutes: Routes = [
     ManufacturingGenInvoiceComponent,
     HasRoleDirective,
     InvoiceReportComponent,
-    VendorComponent
+    VendorComponent,
+    HeadOfAccountComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -93,7 +97,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     ChartsModule
   ],
-  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,ExcelGeneratorService,VendorService],
+  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,ExcelGeneratorService,VendorService,HeadOfAccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
