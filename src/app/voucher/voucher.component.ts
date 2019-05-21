@@ -3,6 +3,8 @@ import { Voucher } from './voucher.domain';
 import { VoucherService } from './voucher.service';
 import { ActivatedRoute } from '@angular/router';
 import { Vendor } from './voucher.domain';
+import { HeadOfAccount } from '../head-of-account/head-of-account.domain';
+import { HeadOfAccountService } from '../head-of-account/head-of-account.service';
 
 @Component({
   selector: 'app-voucher',
@@ -21,8 +23,11 @@ export class VoucherComponent implements OnInit {
   selVendorId: number;
   curDate: string = "";
   nowDate: Date = new Date();
+  selHeadOfAccountId: Number;
+  selectedHeadOfAccount: HeadOfAccount;
+  headOfAccounts: HeadOfAccount[] = [];
 
-  constructor(private voucherService: VoucherService, private route: ActivatedRoute) {
+  constructor(private voucherService: VoucherService, private route: ActivatedRoute, private headOfAccountService: HeadOfAccountService) {
     var vId;
     this.route.params.subscribe(params => {
       vId = params['id']
@@ -37,8 +42,10 @@ export class VoucherComponent implements OnInit {
   createNewVoucher() {
     this.success = false;
     this.error = false;
-    this.voucher=new Voucher();
+    this.voucher = new Voucher();
     this.voucher.createdDate = new Date();
+    this.getHeadOfAccounts();
+    this.getVendors();
   }
 
   ngOnInit() {
@@ -46,6 +53,7 @@ export class VoucherComponent implements OnInit {
     this.error = false;
     this.curDate = this.getNowDate();
     this.getVendors();
+    this.getHeadOfAccounts();
     if (!this.voucher.voucherId) {
       this.voucher.createdDate = new Date();
     }
@@ -55,8 +63,9 @@ export class VoucherComponent implements OnInit {
     this.voucherService.getVoucher(id).subscribe(
       voucher => {
         this.voucher = voucher;
-         this.selectedVendorId=this.voucher.vendorId;
-         //this.selectedVendor.id=this.voucher.vendorId;
+        this.selectedVendorId = this.voucher.vendorId;
+        this.selHeadOfAccountId=this.voucher.headOfAccountId;
+        //this.selectedVendor.id=this.voucher.vendorId;
       },
       err => {
         alert("Error while getting voucher")
@@ -69,8 +78,8 @@ export class VoucherComponent implements OnInit {
     this.success = false;
     this.error = false;
     this.calculateVoucherTotal();
-    this.voucher.vendorId=this.selectedVendorId;
-   
+    this.voucher.vendorId = this.selectedVendorId;
+    this.voucher.headOfAccountId=this.selHeadOfAccountId;
     this.voucherService.save(this.voucher)
       .subscribe(
       voucher => {
@@ -105,8 +114,40 @@ export class VoucherComponent implements OnInit {
   }
 
   loadSelectedVendors(): void {
-   let selectedVendor = this.vendors.find(vendors => vendors.id === this.selectedVendorId);
-   this.selectedVendorId=selectedVendor.id;
+    let selectedVendor = this.vendors.find(vendors => vendors.id === this.selectedVendorId);
+    this.selectedVendorId = selectedVendor.id;
+
+  }
+
+  getHeadOfAccounts(): void {
+
+    this.success = false;
+    this.error = false;
+    this.headOfAccountService.getHeadofAccountForCompany()
+      .subscribe(
+      headOfAccounts => {
+        this.headOfAccounts = headOfAccounts;
+        if (this.voucher && this.voucher.id != 0) {
+          this.selectedHeadOfAccount = this.headOfAccounts.find(hoa => hoa.id === this.voucher.headOfAccountId);
+          if (this.selectedHeadOfAccount) {
+            this.selHeadOfAccountId = this.selectedHeadOfAccount.id;
+            this.loadSelectedHeadOfAccounts();
+          }
+           
+        }
+       // this.loadSelectedHeadOfAccounts();
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured please contact administrator";
+      }
+      );
+
+  }
+
+   loadSelectedHeadOfAccounts(): void {
+    let selectedHeadOfAccount = this.headOfAccounts.find(headOfAccount => headOfAccount.id === this.selHeadOfAccountId);
+    this.selHeadOfAccountId = selectedHeadOfAccount.id;
 
   }
 

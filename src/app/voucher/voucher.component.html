@@ -33,7 +33,7 @@
         <div class="col-md-3 field-labels">
           <label for="invoiceDate" [class.active]="true">Invoice Date</label>
           <input type="date" class="form-control underlined" name="invoiceDate" id="invoiceDate" [(ngModel)]="voucher.invoiceDate"
-            [value]="voucher.invoiceDate | date:'yyyy-MM-dd'" />
+            [value]="voucher.invoiceDate | date:'yyyy-MM-dd'" [max]="curDate" />
         </div>
       </div>
 
@@ -49,15 +49,16 @@
         <option *ngFor="let vendor of vendors" [ngValue]="vendor.id" [selected]="vendor.id === selectedVendorId">{{vendor.name}}</option>
          </select>
         </div>
-
-
-
         <div class="col-md-2 text-right field-labels">
           Head of Account
         </div>
         <div class="col-md-3 text-right field-labels">
-          <textarea rows="1" type="text" class="form-control underlined" name="headOfAccount" id="headOfAccount" [(ngModel)]="voucher.headOfAccount">
-            </textarea>
+          <!--<textarea rows="1" type="text" class="form-control underlined" name="headOfAccount" id="headOfAccount" [(ngModel)]="voucher.headOfAccount">
+            </textarea>-->
+          <select [ngModelOptions]="{standalone: true}" (change)="loadSelectedHeadOfAccounts()" class="form-control underlined" [(ngModel)]="selHeadOfAccountId">
+            <option></option>
+            <option *ngFor="let headOfAccount of headOfAccounts" [ngValue]="headOfAccount.id" [selected]="headOfAccount.id === selHeadOfAccountId">{{headOfAccount.headOfAccountName}}</option>
+         </select>
         </div>
       </div>
 

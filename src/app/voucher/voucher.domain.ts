@@ -6,7 +6,7 @@ export class Voucher {
     invoiceDate: Date;
     companyId: string = "";
     vendorId: number;
-    headOfAccount: string = "";
+    headOfAccountId: Number;
     particulars: string = "";
     cgstAmount: number = 0;
     sgstAmount: number = 0;
