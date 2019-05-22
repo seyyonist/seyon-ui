@@ -197,4 +197,19 @@ export class VoucherComponent implements OnInit {
     return returnDate;
   }
 
+   readThis(inputValue: any): void {
+    var file: File = inputValue.files[0];
+    var myReader: FileReader = new FileReader();
+    var fileContents: string = "";
+    let self = this;
+    myReader.readAsDataURL(file);
+    myReader.onloadend = function (e) {
+      self.voucher.voucherImg = myReader.result;
+    }
+  }
+
+  onFileChange($event): void {
+    this.readThis($event.target);
+  }
+
 }

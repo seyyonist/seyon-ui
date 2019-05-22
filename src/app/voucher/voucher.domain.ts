@@ -22,6 +22,7 @@ export class Voucher {
     voucherDate: Date;
     createdBy: string = "";
     createdDate: Date;
+    voucherImg: string = "";
 
 }
 

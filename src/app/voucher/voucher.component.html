@@ -99,12 +99,19 @@
         </div>
         <div class="col-md-2">
         </div>
-        <div class="col-md-1 field-labels">
+        <div class="col-md-2 field-labels">
           TDS Percentage
         </div>
         <div class="col-md-1">
           <input type="text" class="form-control inp-border-bottom" name="tdsPercent" id="tdsPercent" [(ngModel)]="voucher.tdsPercent"
           />
+        </div>
+        <div class="col-md-2 field-labels">
+          TDS Amount
+        </div>
+        <div class="col-md-1">
+          <input type="text" class="form-control inp-border-bottom" name="tdsAmount" id="tdsAmount" [(ngModel)]="voucher.tdsAmount"
+            (change)="calculateVoucherTotal()" />
         </div>
       </div>
 
@@ -120,12 +127,13 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-1 field-labels">
-          TDS Amount
+          Others
         </div>
         <div class="col-md-1">
-          <input type="text" class="form-control inp-border-bottom" name="tdsAmount" id="tdsAmount" [(ngModel)]="voucher.tdsAmount"
-            (change)="calculateVoucherTotal()" />
+          <input type="text" class="form-control inp-border-bottom" name="others" id="others" [(ngModel)]="voucher.others" (change)="calculateVoucherTotal()"
+          />
         </div>
+
       </div>
 
       <hr/>
@@ -139,13 +147,16 @@
         </div>
         <div class="col-md-2">
         </div>
+
         <div class="col-md-1 field-labels">
-          Others
+          Amount Due
         </div>
         <div class="col-md-1">
-          <input type="text" class="form-control inp-border-bottom" name="others" id="others" [(ngModel)]="voucher.others" (change)="calculateVoucherTotal()"
+          <input type="text" class="form-control inp-border-bottom" name="totalAmount" id="totalAmount" [(ngModel)]="voucher.totalAmount"
           />
         </div>
+        <button type="button" class="btn btn-info float-right" (click)="calculateVoucherTotal()">Calculate</button>
+
       </div>
 
       <hr/>
@@ -160,13 +171,13 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-1 field-labels">
-          Amount Due
+          Deduction Remarks
         </div>
-        <div class="col-md-1">
-          <input type="text" class="form-control inp-border-bottom" name="totalAmount" id="totalAmount" [(ngModel)]="voucher.totalAmount"
+        <div class="col-md-3">
+          <input type="text" class="form-control inp-border-bottom" name="deductionRemark" id="deductionRemark" [(ngModel)]="voucher.deductionRemark"
           />
         </div>
-        <button type="button" class="btn btn-info float-right" (click)="calculateVoucherTotal()">Calculate</button>
+
       </div>
       <hr/>
       <div class="row">
@@ -179,13 +190,14 @@
         </div>
         <div class="col-md-2">
         </div>
-        <div class="col-md-1 field-labels">
-          Deduction Remarks
+
+        <div class="col-md-3 field-labels">
+          <label for="file-logo" [class.active]="true">Voucher Bill</label>
+          <input type="file" id="file-logo" (change)="onFileChange($event)" />
+          <input type="hidden" name="logo" id="logo" [(ngModel)]="voucher.voucherImg" />
+          <img height="100" id="img-logo" [src]="voucher.voucherImg" />
         </div>
-        <div class="col-md-3">
-          <input type="text" class="form-control inp-border-bottom" name="deductionRemark" id="deductionRemark" [(ngModel)]="voucher.deductionRemark"
-          />
-        </div>
+
       </div>
     </div>
   </div>
