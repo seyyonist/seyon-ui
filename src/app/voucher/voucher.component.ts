@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Voucher } from './voucher.domain';
 import { VoucherService } from './voucher.service';
 import { ActivatedRoute } from '@angular/router';
-import { Vendor } from './voucher.domain';
+import { Vendor } from '../vendor/vendor.domain';
 import { HeadOfAccount } from '../head-of-account/head-of-account.domain';
 import { HeadOfAccountService } from '../head-of-account/head-of-account.service';
 
@@ -21,6 +21,8 @@ export class VoucherComponent implements OnInit {
   selectedVendorId: number;
   vendors: Vendor[] = [];
   selVendorId: number;
+  selVendorGstnId: String = "";
+  selVendorPanId: string = "";
   curDate: string = "";
   nowDate: Date = new Date();
   selHeadOfAccountId: Number;
@@ -116,7 +118,8 @@ export class VoucherComponent implements OnInit {
   loadSelectedVendors(): void {
     let selectedVendor = this.vendors.find(vendors => vendors.id === this.selectedVendorId);
     this.selectedVendorId = selectedVendor.id;
-
+    this.selVendorGstnId=selectedVendor.gstin;
+    this.selVendorPanId=selectedVendor.pan;
   }
 
   getHeadOfAccounts(): void {
@@ -135,7 +138,6 @@ export class VoucherComponent implements OnInit {
           }
            
         }
-       // this.loadSelectedHeadOfAccounts();
       },
       err => {
         this.error = true;
@@ -152,6 +154,7 @@ export class VoucherComponent implements OnInit {
   }
 
   calculateVoucherTotal(): void {
+    
     let totalNetAmount = +this.voucher.totalNetAmount;
     let netAmount = +this.voucher.netAmount;
     let igstAmount = +this.voucher.igstAmount;
@@ -161,9 +164,22 @@ export class VoucherComponent implements OnInit {
     let others = +this.voucher.others;
     let tdsAmount = +this.voucher.tdsAmount;
 
-    totalNetAmount = (netAmount + igstAmount + sgstAmount + cgstAmount);
+    if(this.selVendorGstnId!=''){
+      totalNetAmount = (netAmount + igstAmount + sgstAmount + cgstAmount);
+    }
+    else{
+      totalNetAmount = netAmount;
+    }
+    
     // console.log(totalNetAmount);
-    totalAmount = ((totalNetAmount) - (tdsAmount + others));
+
+    if(this.selVendorPanId!=''){
+      totalAmount = ((totalNetAmount) - (tdsAmount + others));
+    }
+    else{
+       totalAmount = totalNetAmount;
+    }
+    
     // console.log(totalAmount);
 
     this.voucher.totalNetAmount = totalNetAmount;
