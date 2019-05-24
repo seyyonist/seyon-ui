@@ -85,9 +85,8 @@
               <div *ngIf="showRoles">
                 <div class="md-form input-group">
                   <select id="RoleSelect" name="roleSelect " class="browser-default custom-select md-select" [(ngModel)]="userRole.roleCode">
-                    <option value="ADMIN" selected>ADMIN</option>
-                    <option value="USER">USER</option>
-                    <option value="CLIENT">CLIENT</option>
+                    <option></option>
+                    <option *ngFor="let roleCode of roleCodes" [ngValue]="roleCode" [selected]="roleCode === userRole.roleCode">{{roleCode}}</option>
                   </select>
                   <div class="input-group-append">
                     <button type="button" name="addRole" (click)="adduserRole(userRole.roleCode)" class="btn btn-success btn-sm waves-effect m-0">

@@ -48,4 +48,8 @@ export class VoucherService {
     return this.http.get<Vendor[]>(url, { headers: httpOptions.headers });
   }
 
+  approve(voucher: Voucher): Observable<Voucher> {
+    var url = Urls.getDomain().concat(APIURLS.approveVoucher);
+    return this.http.post<Voucher>(url, voucher, { headers: httpOptions.headers });
+  }
 }

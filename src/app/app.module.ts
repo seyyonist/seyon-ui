@@ -41,24 +41,24 @@ import { HeadOfAccountService } from './head-of-account/head-of-account.service'
 
 
 const appRoutes: Routes = [
-  { path: '', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
-  { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
-  { path: 'client', component: ClientComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']}  },
-  { path: 'vendor', component: VendorComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']}  },
-  { path: 'users', component: UsersComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']} },
-  { path: 'headofaccount', component: HeadOfAccountComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}  },
-	{ path: 'performaView/:id', component: InvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
-  { path: 'invoiceNew/:id', component: InvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
-  { path: 'invoice-search', component: InvoiceSearchComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
-  { path: 'generate-invoice/:id', component: GenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
-  { path: 'company', component: CompanyComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']} },
-  { path: 'voucherNew/:id', component: VoucherComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER','CLIENT']} },
-  { path: 'voucher-search', component: VoucherSearchComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER','CLIENT']} },
-  { path: 'invoiceManu/:id',component:InvoiceManuComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
-  { path: 'invoiceManuSuccess/:ids',component:InvoiceManuSuccessComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
-  { path: 'manufacturingInvoice/:proformaId',component:ManufacturingInvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
-  { path: 'generate-manu-invoice/:proformaId',component:ManufacturingGenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['ADMIN','USER']}},
-  { path: 'invoiceReport',component:InvoiceReportComponent,canActivate: [AuthGuard], data: {role: ['ADMIN']}}
+  { path: '', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: 'client', component: ClientComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}  },
+  { path: 'vendor', component: VendorComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}  },
+  { path: 'users', component: UsersComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']} },
+  { path: 'headofaccount', component: HeadOfAccountComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_AUDITOR']}  },
+	{ path: 'performaView/:id', component: InvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: 'invoiceNew/:id', component: InvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: 'invoice-search', component: InvoiceSearchComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
+  { path: 'generate-invoice/:id', component: GenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
+  { path: 'company', component: CompanyComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: 'voucherNew/:id', component: VoucherComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER','CLIENT']} },
+  { path: 'voucher-search', component: VoucherSearchComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER','CLIENT']} },
+  { path: 'invoiceManu/:id',component:InvoiceManuComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
+  { path: 'invoiceManuSuccess/:ids',component:InvoiceManuSuccessComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
+  { path: 'manufacturingInvoice/:proformaId',component:ManufacturingInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
+  { path: 'generate-manu-invoice/:proformaId',component:ManufacturingGenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
+  { path: 'invoiceReport',component:InvoiceReportComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}}
   
 ]
 

@@ -3,6 +3,7 @@ import { Voucher } from './voucher.domain';
 import { VoucherService } from './voucher.service';
 import { ActivatedRoute } from '@angular/router';
 import { Vendor } from './voucher.domain';
+import { UserService } from '../users/users.service';
 
 @Component({
   selector: 'app-voucher',
@@ -21,8 +22,9 @@ export class VoucherComponent implements OnInit {
   selVendorId: number;
   curDate: string = "";
   nowDate: Date = new Date();
+  userRole:string[];
 
-  constructor(private voucherService: VoucherService, private route: ActivatedRoute) {
+  constructor(private voucherService: VoucherService, private route: ActivatedRoute,private userService: UserService) {
     var vId;
     this.route.params.subscribe(params => {
       vId = params['id']
@@ -49,6 +51,16 @@ export class VoucherComponent implements OnInit {
     if (!this.voucher.voucherId) {
       this.voucher.createdDate = new Date();
     }
+    this.userService.getRoles().subscribe(
+      resp=>{
+        if(resp.length===0)
+          alert("No roles defined for this user.\nPlease contact your company adminstrator");
+        this.userRole=resp;
+      },
+      err=>{
+        alert("Failed to get the user roles")
+      }
+    )
   }
 
   getVoucher(id: number): void {
@@ -156,4 +168,21 @@ export class VoucherComponent implements OnInit {
     return returnDate;
   }
 
+    approveVoucher():void{
+      this.success = false;
+      this.error = false;
+      this.voucherService.approve(this.voucher)
+        .subscribe(
+        voucher => {
+          this.voucher = voucher;
+          // console.log("vendors-"+vendors1);
+          //this.loadSelectedVendors();
+        },
+        err => {
+          this.error = true;
+          this.errorMessage = "Error occured please contact administrator";
+          console.log(err);
+        }
+        );
+    }
 }

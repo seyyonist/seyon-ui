@@ -22,7 +22,7 @@ export class Voucher {
     voucherDate: Date;
     createdBy: string = "";
     createdDate: Date;
-
+    status:string="";
 }
 
 export class Vendor {
