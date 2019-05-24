@@ -23,6 +23,8 @@ export class Voucher {
     createdBy: string = "";
     createdDate: Date;
     voucherImg: string = "";
+    availGstInputCredit: boolean;
+    deductTds: boolean;
 
 }
 

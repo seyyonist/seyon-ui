@@ -17,6 +17,7 @@ export class VoucherComponent implements OnInit {
   error: boolean = false;
   errorMessage: string = "";
   success: boolean = true;
+  isTDSChecked: boolean = false;
   voucher: Voucher = new Voucher();
   selectedVendorId: number;
   vendors: Vendor[] = [];
@@ -48,6 +49,8 @@ export class VoucherComponent implements OnInit {
     this.voucher.createdDate = new Date();
     this.getHeadOfAccounts();
     this.getVendors();
+    this.voucher.availGstInputCredit=false;
+    this.voucher.deductTds=false;
   }
 
   ngOnInit() {
@@ -65,8 +68,14 @@ export class VoucherComponent implements OnInit {
     this.voucherService.getVoucher(id).subscribe(
       voucher => {
         this.voucher = voucher;
-        this.selectedVendorId = this.voucher.vendorId;
-        this.selHeadOfAccountId=this.voucher.headOfAccountId;
+        this.selectedVendorId = voucher.vendorId;
+        this.selHeadOfAccountId = voucher.headOfAccountId;
+        //this.loadSelectedVendors();
+        let selectedVendor = this.vendors.find(vendors => vendors.id === this.selectedVendorId);
+        this.selVendorPanId = selectedVendor.pan;
+        this.selVendorGstnId = selectedVendor.gstin;
+        this.isTDSChecked = voucher.deductTds;
+
         //this.selectedVendor.id=this.voucher.vendorId;
       },
       err => {
@@ -81,7 +90,7 @@ export class VoucherComponent implements OnInit {
     this.error = false;
     this.calculateVoucherTotal();
     this.voucher.vendorId = this.selectedVendorId;
-    this.voucher.headOfAccountId=this.selHeadOfAccountId;
+    this.voucher.headOfAccountId = this.selHeadOfAccountId;
     this.voucherService.save(this.voucher)
       .subscribe(
       voucher => {
@@ -118,8 +127,11 @@ export class VoucherComponent implements OnInit {
   loadSelectedVendors(): void {
     let selectedVendor = this.vendors.find(vendors => vendors.id === this.selectedVendorId);
     this.selectedVendorId = selectedVendor.id;
-    this.selVendorGstnId=selectedVendor.gstin;
-    this.selVendorPanId=selectedVendor.pan;
+    this.selVendorGstnId = selectedVendor.gstin;
+    this.selVendorPanId = selectedVendor.pan;
+    if (selectedVendor.pan != '') {
+      this.isTDSChecked = false;
+    }
   }
 
   getHeadOfAccounts(): void {
@@ -136,7 +148,7 @@ export class VoucherComponent implements OnInit {
             this.selHeadOfAccountId = this.selectedHeadOfAccount.id;
             this.loadSelectedHeadOfAccounts();
           }
-           
+
         }
       },
       err => {
@@ -147,14 +159,14 @@ export class VoucherComponent implements OnInit {
 
   }
 
-   loadSelectedHeadOfAccounts(): void {
+  loadSelectedHeadOfAccounts(): void {
     let selectedHeadOfAccount = this.headOfAccounts.find(headOfAccount => headOfAccount.id === this.selHeadOfAccountId);
     this.selHeadOfAccountId = selectedHeadOfAccount.id;
 
   }
 
   calculateVoucherTotal(): void {
-    
+
     let totalNetAmount = +this.voucher.totalNetAmount;
     let netAmount = +this.voucher.netAmount;
     let igstAmount = +this.voucher.igstAmount;
@@ -162,24 +174,25 @@ export class VoucherComponent implements OnInit {
     let cgstAmount = +this.voucher.cgstAmount;
     let totalAmount = +this.voucher.totalAmount;
     let others = +this.voucher.others;
+    let reimbursement =+this.voucher.reimbursement;
     let tdsAmount = +this.voucher.tdsAmount;
 
-    if(this.selVendorGstnId!=''){
+    if (this.selVendorGstnId != '') {
       totalNetAmount = (netAmount + igstAmount + sgstAmount + cgstAmount);
     }
-    else{
+    else {
       totalNetAmount = netAmount;
     }
-    
+
     // console.log(totalNetAmount);
 
-    if(this.selVendorPanId!=''){
-      totalAmount = ((totalNetAmount) - (tdsAmount + others));
+    if (this.selVendorPanId != '') {
+      totalAmount = ((totalNetAmount) - (tdsAmount + others + reimbursement));
     }
-    else{
-       totalAmount = totalNetAmount;
+    else {
+      totalAmount = ((totalNetAmount) - ( others + reimbursement ));
     }
-    
+
     // console.log(totalAmount);
 
     this.voucher.totalNetAmount = totalNetAmount;
@@ -213,7 +226,7 @@ export class VoucherComponent implements OnInit {
     return returnDate;
   }
 
-   readThis(inputValue: any): void {
+  readThis(inputValue: any): void {
     var file: File = inputValue.files[0];
     var myReader: FileReader = new FileReader();
     var fileContents: string = "";
@@ -226,6 +239,26 @@ export class VoucherComponent implements OnInit {
 
   onFileChange($event): void {
     this.readThis($event.target);
+  }
+
+  tdsDeductOption($event) {
+    this.isTDSChecked = $event.target.checked;
+    if (this.voucher.id) {
+      if (this.selVendorPanId != '' && (this.isTDSChecked)) {
+        //Do Nothing, voucher tds values goes as-is
+      }
+    }
+    else if (this.selVendorPanId != '' && !(this.isTDSChecked)) {
+      this.voucher.tdsAmount = 0;
+      this.voucher.tdsPercent = 0;
+    }
+
+  }
+
+
+  availInputCreditOption($event) {
+    this.voucher.availGstInputCredit = $event.target.checked;
+
   }
 
 }
