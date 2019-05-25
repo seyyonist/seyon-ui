@@ -91,6 +91,8 @@ export class VoucherComponent implements OnInit {
     this.calculateVoucherTotal();
     this.voucher.vendorId = this.selectedVendorId;
     this.voucher.headOfAccountId = this.selHeadOfAccountId;
+    console.log('inputcredit-' + this.voucher.availGstInputCredit);
+    console.log('deduct tds flag - ' + this.voucher.deductTds);
     this.voucherService.save(this.voucher)
       .subscribe(
       voucher => {
