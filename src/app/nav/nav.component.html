@@ -49,16 +49,16 @@
     </ul>
 
     <ul class="navbar-nav ml-auto nav-flex-icons">
-        <li class="nav-item dropdown" *appHasRole="{'role':['COMPANY_ADMIN'],'userRole':userRole}">
+        <li class="nav-item dropdown" *appHasRole="{'role':['COMPANY_ADMIN','COMPANY_AUDITOR'],'userRole':userRole}">
             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-1" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
               <i class="fas fa-hammer"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-1">
-                <a routerLink="/client" class="dropdown-item waves-effect waves-light">Manage Clients</a>
-                <a routerLink="/users" class="dropdown-item waves-effect waves-light">Manage Users</a>
-                <a routerLink="/vendor" class="dropdown-item waves-effect waves-light">Manage Vendors</a>
-                <a routerLink="/headofaccount" class="dropdown-item waves-effect waves-light">Manage Head Of Account</a>
+                <a *appHasRole="{'role':['COMPANY_ADMIN'],'userRole':userRole}" routerLink="/client" class="dropdown-item waves-effect waves-light">Manage Clients</a>
+                <a *appHasRole="{'role':['COMPANY_ADMIN'],'userRole':userRole}" routerLink="/users" class="dropdown-item waves-effect waves-light">Manage Users</a>
+                <a *appHasRole="{'role':['COMPANY_ADMIN'],'userRole':userRole}" routerLink="/vendor" class="dropdown-item waves-effect waves-light">Manage Vendors</a>
+                <a *appHasRole="{'role':['COMPANY_AUDITOR'],'userRole':userRole}" routerLink="/headofaccount" class="dropdown-item waves-effect waves-light">Manage Head Of Account</a>
             </div>
           </li>
       <li class="nav-item dropdown">
