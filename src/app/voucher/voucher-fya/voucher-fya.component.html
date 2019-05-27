@@ -1,0 +1,122 @@
+<h3 class="mb-2 mb-sm-0 pt-1 pb-2">
+  <span>For Your Approval</span>
+</h3>
+
+<!-- Heading -->
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  {{errorMessage}}
+</div>
+<div class="card">
+  <div class="card-header rgba-blue-light">
+    <small>&nbsp;
+      Displaying items on which your action is required
+    </small>
+    <button class="btn btn-circle orange darken-4 float-right" (click)="generateVoucherExcel()"
+      *ngIf="vouchers.length>0">
+      <i class="fa fa-file-excel"></i>
+    </button>
+  </div>
+
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead class="orange lighten-4">
+        <tr>
+          <th>Id</th>
+          <th>Voucher Id</th>
+          <th>Vendor Name</th>
+          <th>Particulars</th>
+          <th>Total Amount</th>
+          <th>Voucher Date</th>
+          <th>Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let voucher of vouchers">
+          <td>{{voucher.id}}</td>
+          <td>{{voucher.voucherId}}</td>
+          <td>{{voucher.vendorName}}</td>
+          <td>{{voucher.particulars}}</td>
+          <td>{{voucher.totalAmount}}</td>
+          <td>{{voucher.voucherDate | date:'yyyy-MM-dd hh:mm aa'}}</td>
+          <td>
+            <a routerLink="/voucherNew/{{voucher.id}}"
+              style="color:black;background-color:darksalmon;border:black solid 1px;" class="btn btn-sm p-2">E</a>
+            <a data-toggle="modal" data-target="#voucherDeleteModal"
+              style="color:white;background-color:Red;border:white solid 1px;" class="btn btn-sm p-2"
+              (click)="getVoucher(voucher.id)">D</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <!--Table runat="server" ID="tblPrint" width="595px" heigh="842px" Border="1" />-->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><button class="btn btn-info btn-sm" [disabled]="searchResult.first" (click)="submit(0)">First</button></li>
+        <li class="page-item" *ngFor="let pageNo of numbers">
+          <button class="btn btn-info btn-sm" (click)="submit(pageNo)">{{pageNo+1}}</button>
+        </li>
+        <li class="page-item"><button class="btn btn-info btn-sm" [disabled]="searchResult.last" (click)="submit(searchResult.totalElements-1)">Last</button></li>
+      </ul>
+    </nav>
+    <small style="color:#432fb5">Page Size is {{searchResult.size}}.</small>
+  </div>
+</div>
+
+<div class="modal fade" id="voucherDeleteModal" tabindex="-1" role="dialog" aria-labelledby="voucherDeleteModal"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Voucher</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6 ">
+            <b>Voucher ID :</b> {{voucher.id}}
+          </div>
+          <div class="col-md-6 ">
+            <b>On</b> : {{voucher.voucherDate}}
+          </div>
+          <div class="col-md-12 ">
+            <b>Particulars :</b> {{voucher.particulars}}
+          </div>
+          <div class="col-md-6 ">
+            <b>TotalAmount :</b> {{voucher.totalAmount}}
+          </div>
+          <div class="col-md-6 ">
+            <b>NetAmount :</b> {{voucher.netAmount}}
+          </div>
+          <div class="col-md-12 ">
+            <b> Address : </b> {{voucher.vendorName}},{{voucher.vendorAddressLine1}},
+            {{voucher.vendorAddressLine2}},{{voucher.vendorAddressCity}},{{voucher.vendorAddressState}}
+          </div>
+          <div class="col-md-6 ">
+            <b>Pan :</b> {{voucher.vendorPanNo}}
+          </div>
+          <div class="col-md-6 ">
+            <b>Head Of Account :</b> {{voucher.headOfAccountId}}
+          </div>
+          <div class="col-md-12 ">
+            <b>Bank Details :</b>
+            {{voucher.vendorBankAcctNo}},{{voucher.vendorBankName}},{{voucher.vendorBankBranch}},{{voucher.vendorBankBranchIfscCode}}
+          </div>
+          <div class="col-md-12 ">
+            <b>GST :</b> <i>CGST</i>-{{voucher.cgstPercent}}%, <i>SGST</i>-{{voucher.sgstPercent}}%
+            <i>IGST</i>-{{voucher.igstPercent}}%<br />
+            <b>TDS :</b> {{voucher.tdsPercent}}%
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">cancel</button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="deleteVoucher(voucher.id)"
+          data-dismiss="modal">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
