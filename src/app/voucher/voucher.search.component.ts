@@ -7,6 +7,8 @@ import { SearchVoucher, Voucher } from './voucher.domain';
 import { Vendor } from '../vendor/vendor.domain';
 import { VendorService } from '../vendor/vendor.service';
 import { ExcelGeneratorService } from '../excel/excel-generator.service';
+import { HeadOfAccount } from '../head-of-account/head-of-account.domain';
+import { HeadOfAccountService } from '../head-of-account/head-of-account.service';
 
 @Component({
   selector: 'app-voucher.search',
@@ -34,6 +36,7 @@ export class VoucherSearchComponent implements OnInit {
   voucher: Voucher = new Voucher();
   visible: boolean = false
   vendors: Vendor[] = [];
+  headOfAccounts: HeadOfAccount[] = [];
 
   showSearch() {
     if (this.visible)
@@ -41,7 +44,7 @@ export class VoucherSearchComponent implements OnInit {
     else
       this.visible = true
   }
-  constructor(private excelGenerator: ExcelGeneratorService, private route: ActivatedRoute, private voucherService: VoucherService, private vendorService: VendorService) { }
+  constructor(private excelGenerator: ExcelGeneratorService, private route: ActivatedRoute, private voucherService: VoucherService, private vendorService: VendorService, private headOfAccountService: HeadOfAccountService) { }
 
   ngOnInit() {
     this.getVendors();
@@ -106,6 +109,24 @@ export class VoucherSearchComponent implements OnInit {
         this.errorMessage = "Error occured please contact administrator";
       }
       )
+  }
+
+   getHeadOfAccounts(): void {
+
+    this.success = false;
+    this.error = false;
+    this.headOfAccountService.getHeadofAccountForCompany()
+      .subscribe(
+      headOfAccounts => {
+        this.headOfAccounts = headOfAccounts;
+       
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured please contact administrator";
+      }
+      );
+
   }
 
   generateVoucherExcel(): void {
