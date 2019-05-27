@@ -19,7 +19,7 @@ export class HeadOfAccountComponent implements OnInit {
   constructor(private headOfAccountService: HeadOfAccountService) { }
 
   ngOnInit() {
-    this.getHeadOfAccounts()
+    this.getHeadOfAccounts();
   }
 
   getHeadOfAccounts(): void {
