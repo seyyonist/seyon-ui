@@ -22,11 +22,13 @@ export class Voucher {
     voucherDate: Date;
     createdBy: string = "";
     createdDate: Date;
+    status:string="";
     voucherImg: string = "";
     availGstInputCredit: boolean;
     deductTds: boolean;
 
 }
+
 
 export class Vendor {
     id: number=0;

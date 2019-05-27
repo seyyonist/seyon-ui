@@ -19,11 +19,13 @@ export class UsersComponent implements OnInit {
   userRole: UserRole = new UserRole();
   success: boolean = true;
   showRoles: boolean = false;
-
+  roleCodes:string[]=[];
+  
   constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.getUsers();
+    this.getRoleCodes();
   }
 
   getUsers(): void {
@@ -118,7 +120,16 @@ export class UsersComponent implements OnInit {
       }
       )
   }
-
+  getRoleCodes():void{
+   this.userService.getRoleCodes().subscribe(
+    resp=>{
+      this.roleCodes=resp;
+    },
+    err=>{
+      alert("Error retriving the role codes");
+    }
+   ) 
+  }
   new(): void {
      this.success=false;
     this.error = false;

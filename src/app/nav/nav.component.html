@@ -14,51 +14,52 @@
 
     <!-- Links -->
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
+      <li class="nav-item" *appHasRole="{'role':['COMPANY_ADMIN','COMPANY_USER'],'userRole':userRole}">
         <a routerLink="/dashboard" class="waves-effect nav-link">
           <i class="fas fa-tachometer-alt mr-1"></i>Dashboard
         </a>
       </li>
       <!-- Dropdown -->
-      <li class="nav-item dropdown" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
+      <li class="nav-item dropdown" *appHasRole="{'role':['COMPANY_ADMIN','COMPANY_USER'],'userRole':userRole}">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false"><i class="fas fa-money-bill mr-1"></i>Invoice</a>
         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-          <a *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" routerLink="/invoiceNew/0" class="waves-effect dropdown-item">
+          <a *appHasRole="{'role':['COMPANY_ADMIN','COMPANY_USER'],'userRole':userRole}" routerLink="/invoiceNew/0" class="waves-effect dropdown-item">
             <i class="fas fa-money-bill-wave-alt mr-1"></i>New Service ProformA</a>
-          <a routerLink="/invoiceManu/0" class="waves-effect dropdown-item" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
+          <a routerLink="/invoiceManu/0" class="waves-effect dropdown-item" *appHasRole="{'role':['COMPANY_ADMIN','COMPANY_USER'],'userRole':userRole}">
             <i class="fas fa-money-bill-wave mr-1"></i>New Manufacturing ProformA</a>
-          <a *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" routerLink="/invoice-search" lass="waves-effect dropdown-item"><i class="fa fa-search mr-1"></i>Search</a>
+          <a *appHasRole="{'role':['COMPANY_ADMIN','COMPANY_USER'],'userRole':userRole}" routerLink="/invoice-search" lass="waves-effect dropdown-item"><i class="fa fa-search mr-1"></i>Search</a>
         </div>
       </li>
-      <li class="nav-item dropdown" *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}">
+      <li class="nav-item dropdown" *appHasRole="{'role':['COMPANY_ADMIN','COMPANY_USER'],'userRole':userRole}">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false"><i class="fas fa-money-check-alt mr-1"></i>Voucher</a>
         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-          <a *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" routerLink="/voucherNew/0" class="waves-effect dropdown-item"><i class="fas fa-money-check mr-1"></i> New </a>
-          <a *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" routerLink="/voucher-search" lass="waves-effect dropdown-item"><i class="fa fa-search mr-1"></i>Search</a>
+          <a *appHasRole="{'role':['COMPANY_ADMIN','COMPANY_USER'],'userRole':userRole}" routerLink="/voucherNew/0" class="waves-effect dropdown-item"><i class="fas fa-money-check mr-1"></i> New </a>
+          <a *appHasRole="{'role':['COMPANY_ADMIN','COMPANY_USER'],'userRole':userRole}" routerLink="/voucher-fya" class="waves-effect dropdown-item"><i class="fa fa-check-double mr-1"></i>FYA</a>
+          <a *appHasRole="{'role':['COMPANY_ADMIN','COMPANY_USER'],'userRole':userRole}" routerLink="/voucher-search" class="waves-effect dropdown-item"><i class="fa fa-search mr-1"></i>Search</a>
         </div>
       </li>
-      <li class="nav-item dropdown" *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
+      <li class="nav-item dropdown" *appHasRole="{'role':['COMPANY_ADMIN'],'userRole':userRole}">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false"><i class="fas fa-chalkboard mr-1"></i>Report</a>
         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-          <a *appHasRole="{'role':['ADMIN','USER'],'userRole':userRole}" routerLink="/invoiceReport" class="waves-effect dropdown-item"><i class="fas fa-file-invoice mr-1"></i>Invoice </a>
+          <a *appHasRole="{'role':['COMPANY_ADMIN','COMPANY_USER'],'userRole':userRole}" routerLink="/invoiceReport" class="waves-effect dropdown-item"><i class="fas fa-file-invoice mr-1"></i>Invoice </a>
         </div>
       </li>
     </ul>
 
     <ul class="navbar-nav ml-auto nav-flex-icons">
-        <li class="nav-item dropdown" *appHasRole="{'role':['ADMIN'],'userRole':userRole}">
+        <li class="nav-item dropdown" *appHasRole="{'role':['COMPANY_ADMIN','COMPANY_AUDITOR'],'userRole':userRole}">
             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-1" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
               <i class="fas fa-hammer"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-1">
-                <a routerLink="/client" class="dropdown-item waves-effect waves-light">Manage Clients</a>
-                <a routerLink="/users" class="dropdown-item waves-effect waves-light">Manage Users</a>
-                <a routerLink="/vendor" class="dropdown-item waves-effect waves-light">Manage Vendors</a>
-                <a routerLink="/headofaccount" class="dropdown-item waves-effect waves-light">Manage Head Of Account</a>
+                <a *appHasRole="{'role':['COMPANY_ADMIN'],'userRole':userRole}" routerLink="/client" class="dropdown-item waves-effect waves-light">Manage Clients</a>
+                <a *appHasRole="{'role':['COMPANY_ADMIN'],'userRole':userRole}" routerLink="/users" class="dropdown-item waves-effect waves-light">Manage Users</a>
+                <a *appHasRole="{'role':['COMPANY_ADMIN'],'userRole':userRole}" routerLink="/vendor" class="dropdown-item waves-effect waves-light">Manage Vendors</a>
+                <a *appHasRole="{'role':['COMPANY_AUDITOR'],'userRole':userRole}" routerLink="/headofaccount" class="dropdown-item waves-effect waves-light">Manage Head Of Account</a>
             </div>
           </li>
       <li class="nav-item dropdown">

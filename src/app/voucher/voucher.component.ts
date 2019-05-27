@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Voucher } from './voucher.domain';
 import { VoucherService } from './voucher.service';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../users/users.service';
 import { Vendor } from '../vendor/vendor.domain';
 import { HeadOfAccount } from '../head-of-account/head-of-account.domain';
 import { HeadOfAccountService } from '../head-of-account/head-of-account.service';
@@ -26,11 +27,12 @@ export class VoucherComponent implements OnInit {
   selVendorPanId: string = "";
   curDate: string = "";
   nowDate: Date = new Date();
+  userRole: string[];
   selHeadOfAccountId: Number;
   selectedHeadOfAccount: HeadOfAccount;
   headOfAccounts: HeadOfAccount[] = [];
 
-  constructor(private voucherService: VoucherService, private route: ActivatedRoute, private headOfAccountService: HeadOfAccountService) {
+  constructor(private voucherService: VoucherService, private route: ActivatedRoute, private headOfAccountService: HeadOfAccountService, private userService: UserService) {
     var vId;
     this.route.params.subscribe(params => {
       vId = params['id']
@@ -49,8 +51,8 @@ export class VoucherComponent implements OnInit {
     this.voucher.createdDate = new Date();
     this.getHeadOfAccounts();
     this.getVendors();
-    this.voucher.availGstInputCredit=false;
-    this.voucher.deductTds=false;
+    this.voucher.availGstInputCredit = false;
+    this.voucher.deductTds = false;
   }
 
   ngOnInit() {
@@ -62,6 +64,16 @@ export class VoucherComponent implements OnInit {
     if (!this.voucher.voucherId) {
       this.voucher.createdDate = new Date();
     }
+    this.userService.getRoles().subscribe(
+      resp => {
+        if (resp.length === 0)
+          alert("No roles defined for this user.\nPlease contact your company adminstrator");
+        this.userRole = resp;
+      },
+      err => {
+        alert("Failed to get the user roles")
+      }
+    )
   }
 
   getVoucher(id: number): void {
@@ -95,15 +107,15 @@ export class VoucherComponent implements OnInit {
     console.log('deduct tds flag - ' + this.voucher.deductTds);
     this.voucherService.save(this.voucher)
       .subscribe(
-      voucher => {
-        this.voucher = voucher;
-        //this.getVoucher(this.voucher.id);
-        this.success = true;
-      },
-      err => {
-        this.error = true;
-        this.errorMessage = "Error occured please contact administrator";
-      }
+        voucher => {
+          this.voucher = voucher;
+          //this.getVoucher(this.voucher.id);
+          this.success = true;
+        },
+        err => {
+          this.error = true;
+          this.errorMessage = "Error occured please contact administrator";
+        }
       )
   }
 
@@ -113,15 +125,15 @@ export class VoucherComponent implements OnInit {
     this.error = false;
     this.voucherService.getVendors()
       .subscribe(
-      vendors1 => {
-        this.vendors = vendors1;
-        // console.log("vendors-"+vendors1);
-        //this.loadSelectedVendors();
-      },
-      err => {
-        this.error = true;
-        this.errorMessage = "Error occured please contact administrator";
-      }
+        vendors1 => {
+          this.vendors = vendors1;
+          // console.log("vendors-"+vendors1);
+          //this.loadSelectedVendors();
+        },
+        err => {
+          this.error = true;
+          this.errorMessage = "Error occured please contact administrator";
+        }
       );
 
   }
@@ -142,21 +154,21 @@ export class VoucherComponent implements OnInit {
     this.error = false;
     this.headOfAccountService.getHeadofAccountForCompany()
       .subscribe(
-      headOfAccounts => {
-        this.headOfAccounts = headOfAccounts;
-        if (this.voucher && this.voucher.id != 0) {
-          this.selectedHeadOfAccount = this.headOfAccounts.find(hoa => hoa.id === this.voucher.headOfAccountId);
-          if (this.selectedHeadOfAccount) {
-            this.selHeadOfAccountId = this.selectedHeadOfAccount.id;
-            this.loadSelectedHeadOfAccounts();
-          }
+        headOfAccounts => {
+          this.headOfAccounts = headOfAccounts;
+          if (this.voucher && this.voucher.id != 0) {
+            this.selectedHeadOfAccount = this.headOfAccounts.find(hoa => hoa.id === this.voucher.headOfAccountId);
+            if (this.selectedHeadOfAccount) {
+              this.selHeadOfAccountId = this.selectedHeadOfAccount.id;
+              this.loadSelectedHeadOfAccounts();
+            }
 
+          }
+        },
+        err => {
+          this.error = true;
+          this.errorMessage = "Error occured please contact administrator";
         }
-      },
-      err => {
-        this.error = true;
-        this.errorMessage = "Error occured please contact administrator";
-      }
       );
 
   }
@@ -176,7 +188,7 @@ export class VoucherComponent implements OnInit {
     let cgstAmount = +this.voucher.cgstAmount;
     let totalAmount = +this.voucher.totalAmount;
     let others = +this.voucher.others;
-    let reimbursement =+this.voucher.reimbursement;
+    let reimbursement = +this.voucher.reimbursement;
     let tdsAmount = +this.voucher.tdsAmount;
 
     if (this.selVendorGstnId != '') {
@@ -192,7 +204,7 @@ export class VoucherComponent implements OnInit {
       totalAmount = ((totalNetAmount) - (tdsAmount + others + reimbursement));
     }
     else {
-      totalAmount = ((totalNetAmount) - ( others + reimbursement ));
+      totalAmount = ((totalNetAmount) - (others + reimbursement));
     }
 
     // console.log(totalAmount);
@@ -228,6 +240,23 @@ export class VoucherComponent implements OnInit {
     return returnDate;
   }
 
+  approveVoucher(): void {
+    this.success = false;
+    this.error = false;
+    this.voucherService.approve(this.voucher)
+      .subscribe(
+        voucher => {
+          this.voucher = voucher;
+          // console.log("vendors-"+vendors1);
+          //this.loadSelectedVendors();
+        },
+        err => {
+          this.error = true;
+          this.errorMessage = "Error occured please contact administrator";
+          console.log(err);
+        }
+      );
+  }
   readThis(inputValue: any): void {
     var file: File = inputValue.files[0];
     var myReader: FileReader = new FileReader();

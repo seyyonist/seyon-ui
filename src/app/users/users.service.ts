@@ -63,7 +63,11 @@ export class UserService {
   }
   getRoles(): Observable<string[]> {
     var url = Urls.getDomain().concat(APIURLS.userrole).concat("/authenticated");
-   // console.log("getting user role in user service observable")
+    return this.http.get<string[]>(url, { headers: httpOptions.headers })
+  }
+
+  getRoleCodes(): Observable<string[]> {
+    var url = Urls.getDomain().concat(APIURLS.user).concat("/roleCodes");
     return this.http.get<string[]>(url, { headers: httpOptions.headers })
   }
 }

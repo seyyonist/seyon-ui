@@ -48,4 +48,16 @@ export class VoucherService {
     return this.http.get<Vendor[]>(url, { headers: httpOptions.headers });
   }
 
+  approve(voucher: Voucher): Observable<Voucher> {
+    var url = Urls.getDomain().concat(APIURLS.approveVoucher);
+    return this.http.post<Voucher>(url, voucher, { headers: httpOptions.headers });
+  }
+
+  getFyaVouchers(pageNo: number = 0): Observable<SearchVoucherResult> {
+    var url = Urls.getDomain().concat(APIURLS.voucher).concat("/fya")
+      .concat("?pageNumber=")
+      .concat(pageNo.toString())
+    console.log("Searching : " + url);
+    return this.http.get<SearchVoucherResult>(url, { headers: httpOptions.headers });
+  }
 }
