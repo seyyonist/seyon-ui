@@ -22,4 +22,7 @@ export class Vendor {
     vendorBankName: string ="";
     vendorBankBranch: string ="";
     vendorBankBranchIfscCode: string ="";
+    companyStatus: string ="";
+    vendorBankBranchSwiftCode: string ="";
+    bankAcctType: string ="";
 }
