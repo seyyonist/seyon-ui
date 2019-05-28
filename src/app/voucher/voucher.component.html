@@ -108,19 +108,19 @@
           Deduct TDS
         </div>
 
-        <div class="col-md-2 field-labels" *ngIf="voucher.deductTds || selVendorPanId!=''">
+        <div class="col-md-2 field-labels" *ngIf="voucher.deductTds">
           TDS Percentage
         </div>
-        <div class="col-md-1" *ngIf="voucher.deductTds || selVendorPanId!=''">
+        <div class="col-md-1" *ngIf="voucher.deductTds">
           <input type="text" class="form-control inp-border-bottom" name="tdsPercent" id="tdsPercent" [(ngModel)]="voucher.tdsPercent"
-            *ngIf="voucher.deductTds || selVendorPanId!=''" />
+            *ngIf="voucher.deductTds" />
         </div>
-        <div class="col-md-2 field-labels" *ngIf="voucher.deductTds || selVendorPanId!=''">
+        <div class="col-md-2 field-labels" *ngIf="voucher.deductTds">
           TDS Amount
         </div>
-        <div class="col-md-1" *ngIf="voucher.deductTds || selVendorPanId!=''">
+        <div class="col-md-1" *ngIf="voucher.deductTds">
           <input type="text" class="form-control inp-border-bottom" name="tdsAmount" id="tdsAmount" [(ngModel)]="voucher.tdsAmount"
-            (change)="calculateVoucherTotal()" *ngIf="voucher.deductTds || selVendorPanId!=''" />
+            (change)="calculateVoucherTotal()" *ngIf="voucher.deductTds" />
         </div>
 
 
