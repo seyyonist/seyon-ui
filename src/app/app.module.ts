@@ -38,6 +38,7 @@ import { VendorService } from './vendor/vendor.service';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { HeadOfAccountComponent } from './head-of-account/head-of-account.component';
 import { HeadOfAccountService } from './head-of-account/head-of-account.service';
+import { VoucherFyaComponent } from './voucher/voucher-fya/voucher-fya.component';
 
 
 const appRoutes: Routes = [
@@ -52,8 +53,9 @@ const appRoutes: Routes = [
   { path: 'invoice-search', component: InvoiceSearchComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'generate-invoice/:id', component: GenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'company', component: CompanyComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
-  { path: 'voucherNew/:id', component: VoucherComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER','CLIENT']} },
-  { path: 'voucher-search', component: VoucherSearchComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER','CLIENT']} },
+  { path: 'voucherNew/:id', component: VoucherComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: 'voucher-search', component: VoucherSearchComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: 'voucher-fya', component: VoucherFyaComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','VOUCHER_ADMIN']} },
   { path: 'invoiceManu/:id',component:InvoiceManuComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'invoiceManuSuccess/:ids',component:InvoiceManuSuccessComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'manufacturingInvoice/:proformaId',component:ManufacturingInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
@@ -83,7 +85,8 @@ const appRoutes: Routes = [
     HasRoleDirective,
     InvoiceReportComponent,
     VendorComponent,
-    HeadOfAccountComponent
+    HeadOfAccountComponent,
+    VoucherFyaComponent
   ],
   imports: [
     RouterModule.forRoot(

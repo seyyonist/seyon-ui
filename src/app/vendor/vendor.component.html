@@ -83,15 +83,15 @@ Successfully Saved
               <input type="tel" class="form-control underlined" name="faxNo" id="faxNo" required="false" [(ngModel)]="vendor.faxNo" />
             </div>
             <div class="md-form ">
-              <label for="pan" [class.active]="vendor.pan!=''">PAN *</label>
-              <input type="text" class="form-control underlined" name="pan" id="pan" pattern="[A-Za-z]{5}\d{4}[A-Za-z]{1}" title="min 10 characters" required="true"
+              <label for="pan" [class.active]="vendor.pan!=''">PAN</label>
+              <input type="text" class="form-control underlined" name="pan" id="pan" pattern="[A-Za-z]{5}\d{4}[A-Za-z]{1}" title="min 10 characters" required="false"
                 [(ngModel)]="vendor.pan" />
               <small>AAAAA1111A</small>
             </div>
             <div class="md-form ">
-              <label for="gstin" [class.active]="vendor.gstin!=''">GSTIN * </label>
+              <label for="gstin" [class.active]="vendor.gstin!=''">GSTIN</label>
               <input type="text" class="form-control underlined" name="gstin" id="gstin" pattern="^([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-7]{1})([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$" title="min 15,max 20 characters"
-                required="true" [(ngModel)]="vendor.gstin" />
+                required="false" [(ngModel)]="vendor.gstin" />
               <small>sample : 24AAACB5343E1Z7</small>
             </div>
             <div class="md-form ">

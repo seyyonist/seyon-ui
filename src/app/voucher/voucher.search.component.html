@@ -7,7 +7,7 @@
   {{errorMessage}}
 </div>
 <div class="searchBox" *ngIf="visible" [@slideInOut]>
-  <form (ngSubmit)="submit()" name="searchForm">
+  <form (ngSubmit)="submit(0)" name="searchForm">
     <div class="card">
       <div class="card-header stylish-color-dark white-text">
         Search
@@ -105,6 +105,19 @@
       </tbody>
     </table>
   </div>
+  <div class="card-footer">
+    <!--Table runat="server" ID="tblPrint" width="595px" heigh="842px" Border="1" />-->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><button class="btn btn-info btn-sm" [disabled]="searchResult.first" (click)="submit(0)">First</button></li>
+        <li class="page-item" *ngFor="let pageNo of numbers">
+          <button class="btn btn-info btn-sm" (click)="submit(pageNo)">{{pageNo+1}}</button>
+        </li>
+        <li class="page-item"><button class="btn btn-info btn-sm" [disabled]="searchResult.last" (click)="submit(searchResult.totalElements-1)">Last</button></li>
+      </ul>
+    </nav>
+    <small style="color:#432fb5">Page Size is {{searchResult.size}}.</small>
+  </div>
 </div>
 
 <div class="modal fade" id="voucherDeleteModal" tabindex="-1" role="dialog" aria-labelledby="voucherDeleteModal" aria-hidden="true">
@@ -140,7 +153,7 @@
             <b>Pan :</b> {{voucher.vendorPanNo}}
           </div>
           <div class="col-md-6 ">
-            <b>Head Of Account :</b> {{voucher.headOfAccount}}
+            <b>Head Of Account :</b> {{voucher.headOfAccountId}}
           </div>
           <div class="col-md-12 ">
             <b>Bank Details :</b> {{voucher.vendorBankAcctNo}},{{voucher.vendorBankName}},{{voucher.vendorBankBranch}},{{voucher.vendorBankBranchIfscCode}}

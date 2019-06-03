@@ -1,6 +1,6 @@
 
 export class Vendor {
-    id: Number;
+    id: number;
     name: string='';
     contactPerson: string='';
     addrLine1: string='';
