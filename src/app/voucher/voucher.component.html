@@ -13,224 +13,196 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col-md-3 border-right field-labels">
+        <div class="col-md-3 border-right">
+          <h4 class="sub-header">
+            <span class="index">1</span>ID Details
+          </h4>
+
           <label for="voucherId" [class.active]="true">Voucher Id</label>
           <input type="text" readonly class="form-control underlined" name="voucherId" id="voucherId" [(ngModel)]="voucher.voucherId"
           />
-        </div>
 
-        <div class="col-md-3 border-right field-labels">
+
+
           <label for="voucherDate" [class.active]="true">Voucher Date</label>
           <label class="form-control underlined">{{voucher.createdDate | date:'yyyy-MM-dd'}}</label>
 
-        </div>
 
-        <div class="col-md-3 border-right field-labels">
+
+
           <label for="invoiceId" [class.active]="true">Invoice Id</label>
           <input type="text" class="form-control underlined" name="invoiceId" id="invoiceId" [(ngModel)]="voucher.invoiceId" />
-        </div>
 
-        <div class="col-md-3 field-labels">
+
+
           <label for="invoiceDate" [class.active]="true">Invoice Date</label>
           <input type="date" class="form-control underlined" name="invoiceDate" id="invoiceDate" [(ngModel)]="voucher.invoiceDate"
             [value]="voucher.invoiceDate | date:'yyyy-MM-dd'" [max]="curDate" />
-        </div>
-      </div>
-
-      <hr/>
-      <div class="row">
-
-        <div class="col-md-2 text-right field-labels">
-          Select Vendor
-        </div>
-        <div class="col-md-3 border-right">
-          <select [ngModelOptions]="{standalone: true}" (change)="loadSelectedVendors()" class="form-control underlined" [(ngModel)]="selectedVendorId">
+          <div class="md-form">
+            Select Vendor
+          </div>
+          <div class="md-form">
+            <select [ngModelOptions]="{standalone: true}" (change)="loadSelectedVendors()" class="form-control underlined" [(ngModel)]="selectedVendorId">
         <option></option>
         <option *ngFor="let vendor of vendors" [ngValue]="vendor.id" [selected]="vendor.id === selectedVendorId">{{vendor.name}}</option>
          </select>
-        </div>
-        <div class="col-md-2 text-right field-labels">
-          Head of Account
-        </div>
-        <div class="col-md-3 text-right field-labels">
-          <!--<textarea rows="1" type="text" class="form-control underlined" name="headOfAccount" id="headOfAccount" [(ngModel)]="voucher.headOfAccount">
+          </div>
+          <div class="md-form">
+            Head of Account
+          </div>
+          <div class="md-form">
+            <!--<textarea rows="1" type="text" class="form-control underlined" name="headOfAccount" id="headOfAccount" [(ngModel)]="voucher.headOfAccount">
             </textarea>-->
-          <select [ngModelOptions]="{standalone: true}" (change)="loadSelectedHeadOfAccounts()" class="form-control underlined" [(ngModel)]="selHeadOfAccountId">
-            <option></option>
-            <option *ngFor="let headOfAccount of headOfAccounts" [ngValue]="headOfAccount.id" [selected]="headOfAccount.id === selHeadOfAccountId">{{headOfAccount.headOfAccountName}}</option>
-         </select>
-        </div>
-      </div>
+            <select [ngModelOptions]="{standalone: true}" (change)="loadSelectedHeadOfAccounts()" class="form-control underlined" [(ngModel)]="selHeadOfAccountId">
+              <option></option>
+              <option *ngFor="let headOfAccount of headOfAccounts" [ngValue]="headOfAccount.id" [selected]="headOfAccount.id === selHeadOfAccountId">{{headOfAccount.headOfAccountName}}</option>
+            </select>
+          </div>
 
-      <hr/>
 
-      <div class="row">
-        <div class="col-md-1 field-labels">
-          Particulars
         </div>
-        <div class="col-md-10 border-right field-labels">
-          <textarea rows="1" type="text" class="form-control underlined" name="particulars" id="particulars" [(ngModel)]="voucher.particulars">
+
+
+
+        <div class="col-md-3 border-left">
+          <h4 class="sub-header">
+            <span class="index">2</span>Amount Details
+          </h4>
+          <div class="md-form">
+            Net Amount:
+            <input type="text" class="form-control inp-border-bottom" name="netAmount" id="netAmount" [(ngModel)]="voucher.netAmount"
+              (change)="calculateVoucherTotal()" />
+          </div>
+
+
+          <div class="md-form">
+            CGST Amt:
+            <input type="text" class="form-control inp-border-bottom" name="cgstAmount" id="cgstAmount" [(ngModel)]="voucher.cgstAmount"
+              (change)="calculateVoucherTotal()" *ngIf="selVendorGstnId!=''" />
+          </div>
+
+
+          <div class="md-form">
+            SGST Amt:
+            <input type="text" class="form-control inp-border-bottom" name="sgstAmount" id="sgstAmount" [(ngModel)]="voucher.sgstAmount"
+              (change)="calculateVoucherTotal()" *ngIf="selVendorGstnId!=''" />
+          </div>
+
+
+          <div class="md-form">
+            IGST Amt:
+            <input type="text" class="form-control inp-border-bottom" name="igstAmount" id="igstAmount" [(ngModel)]="voucher.igstAmount"
+              (change)="calculateVoucherTotal()" *ngIf="selVendorGstnId!=''" />
+          </div>
+
+          <div class="md-form" *ngIf="selVendorGstnId!=''">
+            <input type="checkbox" name="availGstInputCredit" id="availGstInputCredit" data-md-icheck [(ngModel)]="voucher.availGstInputCredit"
+              (change)="availInputCreditOption($event)" /> Avail GST Input Credit
+          </div>
+
+          <div class="md-form">
+            Voucher Particulars
+          </div>
+          <div class="md-form">
+            <textarea rows="3" type="text" class="form-control underlined" name="particulars" id="particulars" [(ngModel)]="voucher.particulars">
             </textarea>
+          </div>
+
         </div>
 
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-1 field-labels">
-          Net Amount:
-        </div>
-        <div class="col-md-1">
-          <input type="text" class="form-control inp-border-bottom" name="netAmount" id="netAmount" [(ngModel)]="voucher.netAmount"
-            (change)="calculateVoucherTotal()" />
-        </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-2 field-labels">
-          Deductions
-        </div>
+        <div class="col-md-3 border-left">
+
+          <h4 class="sub-header">
+            <span class="index">3</span>Deductions
+          </h4>
+          <div class="md-form" *ngIf="selVendorPanId!=''">
+            <input type="checkbox" name="deductTds" id="deductTds" data-md-icheck [checked]="voucher.deductTds" [(ngModel)]="voucher.deductTds"
+              (change)="tdsDeductOption($event)" *ngIf="selVendorPanId!=''" /> Deduct TDS
+          </div>
+
+          <div class="md-form" *ngIf="voucher.deductTds">
+            TDS Percentage
+          </div>
+          <div class="md-form" *ngIf="voucher.deductTds">
+            <input type="text" class="form-control inp-border-bottom" name="tdsPercent" id="tdsPercent" [(ngModel)]="voucher.tdsPercent"
+              *ngIf="voucher.deductTds" />
+          </div>
+          <div class="md-form" *ngIf="voucher.deductTds">
+            TDS Amount
+          </div>
+          <div class="md-form" *ngIf="voucher.deductTds">
+            <input type="text" class="form-control inp-border-bottom" name="tdsAmount" id="tdsAmount" [(ngModel)]="voucher.tdsAmount"
+              (change)="calculateVoucherTotal()" *ngIf="voucher.deductTds" />
+          </div>
+
+          <div class="md-form">
+            Others
+          </div>
+          <div class="md-form">
+            <input type="text" class="form-control inp-border-bottom" name="others" id="others" [(ngModel)]="voucher.others" (change)="calculateVoucherTotal()"
+            />
+          </div>
+          <div class="md-form">
+            Reimbursement:
+          </div>
+          <div class="md-form">
+            <input type="text" class="form-control inp-border-bottom" name="reimbursement" id="reimbursement" [(ngModel)]="voucher.reimbursement"
+              (change)="calculateVoucherTotal()" />
+          </div>
+
+          <div class="md-form">
+            Deduction Remarks
+          </div>
+          <div class="md-form">
+            <input type="text" class="form-control inp-border-bottom" name="deductionRemark" id="deductionRemark" [(ngModel)]="voucher.deductionRemark"
+            />
+          </div>
 
 
-
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-1 field-labels">
-          CGST Amt:
-        </div>
-        <div class="col-md-1">
-          <input type="text" class="form-control inp-border-bottom" name="cgstAmount" id="cgstAmount" [(ngModel)]="voucher.cgstAmount"
-            (change)="calculateVoucherTotal()" *ngIf="selVendorGstnId!=''" />
-        </div>
-        <div class="col-md-2">
-        </div>
-        <input type="checkbox" name="deductTds" id="deductTds" data-md-icheck [checked]="voucher.deductTds" [(ngModel)]="voucher.deductTds" (change)="tdsDeductOption($event)" *ngIf="selVendorPanId!=''"/>
-        <div class="col-md-1 field-labels" *ngIf="selVendorPanId!=''">
-          Deduct TDS
         </div>
 
-        <div class="col-md-2 field-labels" *ngIf="voucher.deductTds">
-          TDS Percentage
-        </div>
-        <div class="col-md-1" *ngIf="voucher.deductTds">
-          <input type="text" class="form-control inp-border-bottom" name="tdsPercent" id="tdsPercent" [(ngModel)]="voucher.tdsPercent"
-            *ngIf="voucher.deductTds" />
-        </div>
-        <div class="col-md-2 field-labels" *ngIf="voucher.deductTds">
-          TDS Amount
-        </div>
-        <div class="col-md-1" *ngIf="voucher.deductTds">
-          <input type="text" class="form-control inp-border-bottom" name="tdsAmount" id="tdsAmount" [(ngModel)]="voucher.tdsAmount"
-            (change)="calculateVoucherTotal()" *ngIf="voucher.deductTds" />
-        </div>
+        <div class="col-md-3 border-left">
+          <h4 class="sub-header">
+            <span class="index">4</span>Amount Details
+          </h4>
 
+          <div class="md-form">
+            Total Net Amount:
+          </div>
+          <div class="md-form">
+            <input type="text" class="form-control inp-border-bottom" name="totalNetAmount" id="totalNetAmount" [(ngModel)]="voucher.totalNetAmount"
+            />
+          </div>
 
-
-      </div>
-
-      <hr/>
-      <div class="row">
-        <div class="col-md-1 field-labels">
-          SGST Amt:
-        </div>
-        <div class="col-md-1">
-          <input type="text" class="form-control inp-border-bottom" name="sgstAmount" id="sgstAmount" [(ngModel)]="voucher.sgstAmount"
-            (change)="calculateVoucherTotal()" *ngIf="selVendorGstnId!=''" />
-        </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-1 field-labels">
-          Others
-        </div>
-        <div class="col-md-1">
-          <input type="text" class="form-control inp-border-bottom" name="others" id="others" [(ngModel)]="voucher.others" (change)="calculateVoucherTotal()"
-          />
-        </div>
-
-      </div>
-
-      <hr/>
-      <div class="row">
-        <div class="col-md-1 field-labels">
-          IGST Amt:
-        </div>
-        <div class="col-md-1">
-          <input type="text" class="form-control inp-border-bottom" name="igstAmount" id="igstAmount" [(ngModel)]="voucher.igstAmount"
-            (change)="calculateVoucherTotal()" *ngIf="selVendorGstnId!=''" />
-        </div>
-        <div class="col-md-3" *ngIf="selVendorGstnId!=''">
-          <input type="checkbox" name="availGstInputCredit" id="availGstInputCredit" data-md-icheck [(ngModel)]="voucher.availGstInputCredit" (change)="availInputCreditOption($event)" />
-            Avail GST Input Credit
+          <div class="md-form">
+            Total Amount Due
+          </div>
+          <div class="md-form">
+            <input type="text" class="form-control inp-border-bottom" name="totalAmount" id="totalAmount" [(ngModel)]="voucher.totalAmount"
+            />
+          </div>
           
-        </div>
-        <div class="col-md-1 field-labels">
-          Reimbursement:
-        </div>
-        <div class="col-md-1">
-          <input type="text" class="form-control inp-border-bottom" name="reimbursement" id="reimbursement" [(ngModel)]="voucher.reimbursement"
-            (change)="calculateVoucherTotal()" />
-        </div>
+          <div class="md-form">
+             <div class="md-form">Voucher Bill Image</div>
+            <input type="file" id="file-logo" (change)="onFileChange($event)" />
+            <input type="hidden" name="logo" id="logo" [(ngModel)]="voucher.voucherImg" />
+            <img height="100" id="img-logo" [src]="voucher.voucherImg" />
+          </div>
 
-        <div class="col-md-1 field-labels">
-          Deduction Remarks
-        </div>
-        <div class="col-md-3">
-          <input type="text" class="form-control inp-border-bottom" name="deductionRemark" id="deductionRemark" [(ngModel)]="voucher.deductionRemark"
-          />
         </div>
 
       </div>
 
-      <hr/>
-      <div class="row">
-        <div class="col-md-1 field-labels">
-          Total Net Amount:
-        </div>
-        <div class="col-md-1">
-          <input type="text" class="form-control inp-border-bottom" name="totalNetAmount" id="totalNetAmount" [(ngModel)]="voucher.totalNetAmount"
-          />
-        </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-1 field-labels">
-          Total Amount Due
-        </div>
-        <div class="col-md-1">
-          <input type="text" class="form-control inp-border-bottom" name="totalAmount" id="totalAmount" [(ngModel)]="voucher.totalAmount"
-          />
-        </div>
-        <button type="button" class="btn btn-info float-right" (click)="calculateVoucherTotal()">Calculate</button>
-
-
-
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-3 field-labels">
-          <label for="file-logo" [class.active]="true">Voucher Bill</label>
-          <input type="file" id="file-logo" (change)="onFileChange($event)" />
-          <input type="hidden" name="logo" id="logo" [(ngModel)]="voucher.voucherImg" />
-          <img height="100" id="img-logo" [src]="voucher.voucherImg" />
-        </div>
-        <div class="col-md-2">
-        </div>
-
-        <div class="card-body">
-          <div class="row float-left">
-            <button class="btn btn-success" type="submit"> <i class="fa fa-save"></i>&nbsp;Save</button>
-            <span *ngIf="voucher.voucherId!=''">
+    </div>
+  
+  <div class="card-footer">
+    <div class="row float-right">
+      <button type="button" class="btn btn-info float-right" (click)="calculateVoucherTotal()">Calculate</button>
+      <button class="btn btn-success" type="submit"> <i class="fa fa-save"></i>&nbsp;Save</button>
+      <span *ngIf="voucher.voucherId!=''">
               <button class="btn btn-warning" *appHasRole="{'role':['COMPANY_ADMIN'],'userRole':userRole}" (click)="approveVoucher()" > <i class="fas fa-check-double"></i>&nbsp;Approve</button>
             </span>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
+  </div>
 </form>
