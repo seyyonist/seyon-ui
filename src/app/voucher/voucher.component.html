@@ -8,6 +8,10 @@
 <div class="alert alert-success" role="alert" *ngIf="success">
   Successfully Saved
 </div>
+<div class="alert alert-success" role="alert" *ngIf="approveSuccess">
+  Successfully Approved
+</div>
+
 
 <form (ngSubmit)="saveVoucher()" name="voucherForm" ngNativeValidate>
   <div class="card">
@@ -36,8 +40,8 @@
 
 
           <label for="invoiceDate" [class.active]="true">Invoice Date</label>
-          <input type="date" class="form-control underlined" name="invoiceDate" id="invoiceDate" [(ngModel)]="voucher.invoiceDate"
-            [value]="voucher.invoiceDate | date:'yyyy-MM-dd'" [max]="curDate" />
+          <input type="date" class="form-control underlined" name="invoiceDate" id="invoiceDate" required="true" [ngModel]="voucher.invoiceDate | date:'yyyy-MM-dd'"
+          (ngModelChange)="voucher.invoiceDate = $event" [value]="date | date:'yyyy-MM-dd'" />
           <div class="md-form">
             Select Vendor
           </div>
@@ -181,9 +185,9 @@
             <input type="text" class="form-control inp-border-bottom" name="totalAmount" id="totalAmount" [(ngModel)]="voucher.totalAmount"
             />
           </div>
-          
+
           <div class="md-form">
-             <div class="md-form">Voucher Bill Image</div>
+            <div class="md-form">Voucher Bill Image</div>
             <input type="file" id="file-logo" (change)="onFileChange($event)" />
             <input type="hidden" name="logo" id="logo" [(ngModel)]="voucher.voucherImg" />
             <img height="100" id="img-logo" [src]="voucher.voucherImg" />
@@ -194,15 +198,25 @@
       </div>
 
     </div>
-  
-  <div class="card-footer">
-    <div class="row float-right">
-      <button type="button" class="btn btn-info float-right" (click)="calculateVoucherTotal()">Calculate</button>
-      <button class="btn btn-success" type="submit"> <i class="fa fa-save"></i>&nbsp;Save</button>
-      <span *ngIf="voucher.voucherId!=''">
-              <button class="btn btn-warning" *appHasRole="{'role':['COMPANY_ADMIN'],'userRole':userRole}" (click)="approveVoucher()" > <i class="fas fa-check-double"></i>&nbsp;Approve</button>
-            </span>
+
+    <div class="card-footer">
+      <div class="row float-right">
+        <button type="button" class="btn btn-info float-right" (click)="calculateVoucherTotal()">Calculate</button>
+        <button class="btn btn-success" type="submit"> <i class="fa fa-save"></i>&nbsp;Save</button>
+
+      </div>
     </div>
   </div>
-  </div>
 </form>
+<div class="card mt-4 wow fadeIn">
+
+  <div class="md-form" *ngIf="voucher.voucherId!='' && voucher.status=='NEW'">
+    Voucher waiting for approval:
+
+    <span *ngIf="voucher.voucherId!=''&& voucher.status=='NEW'">
+              <button class="btn btn-warning" *appHasRole="{'role':['COMPANY_ADMIN'],'userRole':userRole}" (click)="approveVoucher()" > 
+                <i class="fas fa-check-double"></i>&nbsp;Approve</button>
+            </span>
+  </div>
+
+</div>
