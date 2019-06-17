@@ -18,6 +18,7 @@ export class VoucherComponent implements OnInit {
   error: boolean = false;
   errorMessage: string = "";
   success: boolean = true;
+  approveSuccess: boolean = true;
   isTDSChecked: boolean = false;
   voucher: Voucher = new Voucher();
   selectedVendorId: number;
@@ -47,6 +48,7 @@ export class VoucherComponent implements OnInit {
   createNewVoucher() {
     this.success = false;
     this.error = false;
+    this.approveSuccess=false;
     this.voucher = new Voucher();
     this.voucher.createdDate = new Date();
     this.getHeadOfAccounts();
@@ -58,6 +60,7 @@ export class VoucherComponent implements OnInit {
   ngOnInit() {
     this.success = false;
     this.error = false;
+    this.approveSuccess=false;
     this.curDate = this.getNowDate();
     this.getVendors();
     this.getHeadOfAccounts();
@@ -123,6 +126,7 @@ export class VoucherComponent implements OnInit {
 
     this.success = false;
     this.error = false;
+    this.approveSuccess=false;
     this.voucherService.getVendors()
       .subscribe(
         vendors1 => {
@@ -152,6 +156,7 @@ export class VoucherComponent implements OnInit {
 
     this.success = false;
     this.error = false;
+    this.approveSuccess = false;
     this.headOfAccountService.getHeadofAccountForCompany()
       .subscribe(
         headOfAccounts => {
@@ -243,10 +248,12 @@ export class VoucherComponent implements OnInit {
   approveVoucher(): void {
     this.success = false;
     this.error = false;
+    this.approveSuccess=false;
     this.voucherService.approve(this.voucher)
       .subscribe(
         voucher => {
           this.voucher = voucher;
+          this.approveSuccess=true;
           // console.log("vendors-"+vendors1);
           //this.loadSelectedVendors();
         },
