@@ -1,7 +1,7 @@
 <!-- Heading -->
 <h3 class="mb-2 mb-sm-0 pt-1 pb-2">
-      <span>Company</span>
-    </h3>
+  <span>Company</span>
+</h3>
 <!-- Heading -->
 
 <div class="alert alert-danger" role="alert" *ngIf="error">
@@ -29,13 +29,22 @@
             <label for="addressLine2" [class.active]="true">Address Line 2</label>
             <input type="text" class="form-control underlined" name="addressLine2" id="addressLine2" [(ngModel)]="company.addressLine2">
           </div>
-          <div class="md-form ">
-            <label for="city" [class.active]="true">City</label>
-            <input type="text" class="form-control underlined" name="city" id="city" [(ngModel)]="company.city" />
-          </div>
-          <div class="md-form ">
+        
+          <div class="md-form">
             <label for="state" [class.active]="true">State</label>
-            <input type="text" class="form-control underlined" name="state" id="state" [(ngModel)]="company.state" />
+            <select [ngModelOptions]="{standalone: true}" (change)="loadSelectedStates()" class="form-control underlined" [(ngModel)]="selectedStateName">
+             <option></option>
+            <option *ngFor="let state of states" [ngValue]="state.state" [selected]="state.state === selectedStateName">{{state.state}}</option>
+            </select>
+          </div>
+          <label for="stateCode" [class.active]="true">State Code: {{selectedStateCode}}</label>
+           <div class="md-form ">
+            <label for="city" [class.active]="true">City</label>
+            <!-- <input type="text" class="form-control underlined" name="city" id="city" [(ngModel)]="company.city" />-->
+            <select [ngModelOptions]="{standalone: true}" class="form-control underlined" [(ngModel)]="selectedCity">
+             <option></option>
+            <option *ngFor="let district of selectedStateDistricts" [ngValue]="district" [selected]="district === selectedCity">{{district}}</option>
+            </select>
           </div>
           <div class="md-form ">
             <label for="pinCode" [class.active]="true">Pincode *</label>
@@ -69,13 +78,13 @@
           </div>
           <div class="md-form ">
             <label for="primaryEmail" [class.active]="true">Primary Email</label>
-            <input type="email" class="form-control underlined" name="primaryEmail" id="primaryEmail"
-              [(ngModel)]="company.primaryEmail" />
+            <input type="email" class="form-control underlined" name="primaryEmail" id="primaryEmail" [(ngModel)]="company.primaryEmail"
+            />
           </div>
           <div class="md-form ">
             <label for="secondaryEmail" [class.active]="true">Secondary Email</label>
-            <input type="email" class="form-control underlined" name="secondaryEmail" id="secondaryEmail" 
-              [(ngModel)]="company.secondaryEmail" />
+            <input type="email" class="form-control underlined" name="secondaryEmail" id="secondaryEmail" [(ngModel)]="company.secondaryEmail"
+            />
           </div>
 
 
