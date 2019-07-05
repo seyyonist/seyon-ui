@@ -35,9 +35,11 @@ export class States {
     
 }
 
+//state Code logic - begin
 export class State {
     state: string = "";
     code: string = "";
     districts: String[] = [];
     selectedDistrict: string = "";
 }
+//state Code logic - end
