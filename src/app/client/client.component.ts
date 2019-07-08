@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Client } from './client.domain';
-
 import { ClientService } from './client.service';
+import { State } from '../company/company.domain';
+import { CompanyService } from '../company/company.service';
 
 @Component({
   selector: 'app-client',
@@ -18,11 +19,23 @@ export class ClientComponent implements OnInit {
   tempClient: Client = new Client();
   success: boolean = true;
 
-  constructor(private clientService: ClientService) { }
+    //state Code logic - begin
+  states: State[] = [];
+  selectedStateDistricts: String[] = [];
+  selectedStateCode: string = "";
+  selectedStateName: string = "";
+  selectedState: State = new State();
+  selectedCity: String = "";
+  //state Code logic - end
+
+  constructor(private clientService: ClientService,private companyService: CompanyService) { }
 
 
 
   ngOnInit() {
+      //state Code logic - begin
+    this.getStates();
+    //state Code logic - end
     this.getClients();
   }
 
@@ -34,6 +47,7 @@ export class ClientComponent implements OnInit {
       clients => {
         this.clients = clients;
         this.filterClients = clients;
+        
       },
       err => {
         this.error = true;
@@ -45,16 +59,34 @@ export class ClientComponent implements OnInit {
   edit(client: Client): void {
     this.client = client;
     this.tempClient=client;
+            //State Code logic - begin
+        if (client) {
+          this.selectedStateName = client.state;
+          if (client.state) {
+            this.selectedState = this.states.find(states => states.state === client.state);
+            this.selectedStateDistricts = this.selectedState.districts;
+            this.selectedStateCode = this.selectedState.code;
+            this.selectedCity = client.city;
+          }
+        }
+        //state Code logic - end
   }
+  
   new(): void {
     this.success = false;
     this.error = false;
     this.client = new Client();
     this.tempClient=new Client();
   }
+
   submit(): void {
     this.success = false;
     this.error = false;
+    //state Code logic - begin
+    this.client.state = this.selectedStateName;
+    this.client.stateCode = this.selectedStateCode;
+    this.client.city = this.selectedCity;
+    //state Code logic - end
     this.clientService.save(this.client)
       .subscribe(
       client => {
@@ -108,4 +140,35 @@ export class ClientComponent implements OnInit {
     }
 
   }*/
+
+    //state Code logic
+  getStates(): void {
+    this.success = false;
+    this.error = false;
+    this.companyService.getStateCodes()
+      .subscribe(
+      resp => {
+        this.states = resp.states;
+        //console.log(this.states);
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured please contact administrator";
+      }
+      )
+  }
+
+   //state Code logic
+  loadSelectedStates(): void {
+    let selectedState;
+    //console.log(this.selectedStateName);
+    selectedState = this.states.find(states => states.state === this.selectedStateName);
+    //console.log(selectedState);
+    if (selectedState) {
+      this.selectedState = selectedState;
+      this.selectedStateCode = selectedState.code;
+      this.selectedStateDistricts = selectedState.districts;
+    }
+
+  }
 }
