@@ -3,8 +3,9 @@ export class Company {
     ownerName: string = "";
     addressLine1: string = "";
     addressLine2: string = "";
-    city: string = "";
+    city: String = "";
     state: string = "";
+    stateCode: string = "";
     pinCode: string = "";
     phonePrimary: string = "";
     phoneSecondary: string = "";
@@ -28,3 +29,17 @@ export class Company {
     termsAndCondns: string = "";
     status:string="";
 }
+
+export class States {
+    state: State[] = [];
+    
+}
+
+//state Code logic - begin
+export class State {
+    state: string = "";
+    code: string = "";
+    districts: String[] = [];
+    selectedDistrict: string = "";
+}
+//state Code logic - end

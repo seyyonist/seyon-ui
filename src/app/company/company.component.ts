@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Company } from './company.domain';
 import { CompanyService } from './company.service';
 import { CompanyGlobalVar } from '../globals';
+import { States } from './company.domain';
+import { State } from './company.domain';
 
 @Component({
   selector: 'app-company',
@@ -16,10 +18,23 @@ export class CompanyComponent implements OnInit {
   success: boolean = true;
   company: Company = new Company();
 
-  constructor(private companyService: CompanyService,private companyGlobalVar: CompanyGlobalVar) { }
+  //state Code logic - begin
+  states: State[] = [];
+  selectedStateDistricts: String[] = [];
+  selectedStateCode: string = "";
+  selectedStateName: string = "";
+  selectedState: State = new State();
+  selectedCity: String = "";
+  //state Code logic - end
+
+  constructor(private companyService: CompanyService, private companyGlobalVar: CompanyGlobalVar) { }
 
   ngOnInit() {
+    //state Code logic - begin
+    this.getStates();
+    //state Code logic - end
     this.getCompany();
+
   }
 
   getCompany(): void {
@@ -29,10 +44,22 @@ export class CompanyComponent implements OnInit {
       .subscribe(
       company => {
         this.company = company;
-        if(this.company.gstNo!=""){
-          this.companyGlobalVar.gstNo=this.company.gstNo;
-        }else{
-          this.companyGlobalVar.gstNo="";
+        //State Code logic - begin
+        if (company) {
+          this.selectedStateName = company.state;
+          if (company.state) {
+            this.selectedState = this.states.find(states => states.state === company.state);
+            this.selectedStateDistricts = this.selectedState.districts;
+          }
+          this.selectedStateCode = company.stateCode;
+          this.selectedCity = company.city;
+        }
+        //state Code logic - end
+
+        if (this.company.gstNo != "") {
+          this.companyGlobalVar.gstNo = this.company.gstNo;
+        } else {
+          this.companyGlobalVar.gstNo = "";
         }
       },
       err => {
@@ -48,6 +75,12 @@ export class CompanyComponent implements OnInit {
 
     this.success = false;
     this.error = false;
+    //state Code logic - begin
+    this.company.state = this.selectedStateName;
+    this.company.stateCode = this.selectedStateCode;
+    this.company.city = this.selectedCity;
+    //state Code logic - end
+
     this.companyService.save(this.company)
       .subscribe(
       company => {
@@ -77,5 +110,39 @@ export class CompanyComponent implements OnInit {
   onFileChange($event): void {
     this.readThis($event.target);
   }
+
+
+  //state Code logic
+  getStates(): void {
+    this.success = false;
+    this.error = false;
+    this.companyService.getStateCodes()
+      .subscribe(
+      resp => {
+        this.states = resp.states;
+        //console.log(this.states);
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured please contact administrator";
+      }
+      )
+
+  }
+
+  //state Code logic
+  loadSelectedStates(): void {
+    let selectedState;
+    //console.log(this.selectedStateName);
+    selectedState = this.states.find(states => states.state === this.selectedStateName);
+    //console.log(selectedState);
+    if (selectedState) {
+      this.selectedState = selectedState;
+      this.selectedStateCode = selectedState.code;
+      this.selectedStateDistricts = selectedState.districts;
+    }
+
+  }
+
 
 }

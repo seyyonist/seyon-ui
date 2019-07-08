@@ -6,6 +6,8 @@ import * as _ from 'underscore';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
 import { Company } from './company.domain';
+import { States } from './company.domain';
+import { State } from './company.domain';
 
 
 const httpOptions = {
@@ -26,6 +28,11 @@ export class CompanyService {
   getCompany(): Observable<Company> {
     var url = Urls.getDomain().concat(APIURLS.getcompany);
     return this.http.get<Company>(url);
+  }
+
+   getStateCodes(): Observable<any> {
+    var url = Urls.getDomain().concat(APIURLS.getStateCode);
+    return this.http.get<any>(url);
   }
 
 }
