@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Vendor } from './vendor.domain';
 import { VendorService } from './vendor.service';
+import { State } from '../company/company.domain';
+import { CompanyService } from '../company/company.service';
 
 @Component({
   selector: 'app-vendor',
@@ -17,11 +19,21 @@ export class VendorComponent implements OnInit {
   tempClient: Vendor = new Vendor();
   success: boolean = true;
 
-  constructor(private vendorService: VendorService) { }
+  //state Code logic - begin
+  states: State[] = [];
+  selectedStateDistricts: String[] = [];
+  selectedStateCode: string = "";
+  selectedStateName: string = "";
+  selectedState: State = new State();
+  selectedCity: String = "";
+  //state Code logic - end
 
-
+  constructor(private vendorService: VendorService, private companyService: CompanyService) { }
 
   ngOnInit() {
+      //state Code logic - begin
+    this.getStates();
+    //state Code logic - end
     this.getVendors()
   }
 
@@ -44,7 +56,19 @@ export class VendorComponent implements OnInit {
   edit(vendor: Vendor): void {
     this.vendor = vendor;
     this.tempClient=vendor;
+    //State Code logic - begin
+        if (vendor) {
+          this.selectedStateName = vendor.state;
+          if (vendor.state) {
+            this.selectedState = this.states.find(states => states.state === vendor.state);
+            this.selectedStateDistricts = this.selectedState.districts;
+            this.selectedStateCode = this.selectedState.code;
+            this.selectedCity = vendor.city;
+          }
+        }
+        //state Code logic - end
   }
+
   new(): void {
     this.success = false;
     this.error = false;
@@ -54,6 +78,11 @@ export class VendorComponent implements OnInit {
   submit(): void {
     this.success = false;
     this.error = false;
+    //state Code logic - begin
+    this.vendor.state = this.selectedStateName;
+    this.vendor.stateCode = this.selectedStateCode;
+    this.vendor.city = this.selectedCity;
+    //state Code logic - end
     this.vendorService.save(this.vendor)
       .subscribe(
         vendor => {
@@ -71,4 +100,35 @@ export class VendorComponent implements OnInit {
   onSearchChange(searchValue: string): void {
     this.filterVendors = this.vendors.filter(cl => cl.name.toLowerCase().includes(searchValue.toLowerCase()));
   }
+
+    //state Code logic
+  getStates(): void {
+    this.success = false;
+    this.error = false;
+    this.companyService.getStateCodes()
+      .subscribe(
+      resp => {
+        this.states = resp.states;
+        //console.log(this.states);
+      },
+      err => {
+        this.error = true;
+        this.errorMessage = "Error occured please contact administrator";
+      }
+      )
+  }
+
+   //state Code logic
+  loadSelectedStates(): void {
+    let selectedState;
+    //console.log(this.selectedStateName);
+    selectedState = this.states.find(states => states.state === this.selectedStateName);
+    //console.log(selectedState);
+    if (selectedState) {
+      this.selectedState = selectedState;
+      this.selectedStateCode = selectedState.code;
+      this.selectedStateDistricts = selectedState.districts;
+    }
+  }
+
 }
