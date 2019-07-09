@@ -5,8 +5,9 @@ export class Vendor {
     contactPerson: string='';
     addrLine1: string='';
     addrLine2: string='';
-    city: string='';
+    city: String="";
     state: string= "";
+    stateCode: string= "";
     pincode: string='';
     phonePrimary: string='';
     phoneSecondary: string='';
