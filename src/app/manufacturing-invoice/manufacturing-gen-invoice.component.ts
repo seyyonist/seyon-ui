@@ -115,6 +115,7 @@ export class ManufacturingGenInvoiceComponent implements OnInit {
     this.invoiceService.saveManufacturingInvoice(this.manufacturingInvoice).subscribe(
       succ => {
         this.manufacturingInvoice = succ;
+        this.manufacturingInvoice.url=APIURLS.printManIInvoiceUrl.concat(succ.proFormaId)
         alert("Invoice Generated ")
       },
       err => {
