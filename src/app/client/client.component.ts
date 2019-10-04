@@ -87,6 +87,25 @@ export class ClientComponent implements OnInit {
     this.client.stateCode = this.selectedStateCode;
     this.client.city = this.selectedCity;
     //state Code logic - end
+
+    //PAN and GST Match logic and Validation
+    let pan = this.client.pan;
+    let gstin=this.client.gstin;
+
+    if(pan!=null && gstin != null){
+      if(gstin.substring(2,12)!=pan){
+        this.error = true;
+        this.errorMessage = "GSTN - PAN not matching";
+        return;
+      }
+      if(this.client.stateCode!=gstin.substring(0,2)){
+        this.error = true;
+        this.errorMessage = "GSTN - State code not matching";
+        return;
+      }
+      console.log("gstn - state and pan validation success");
+    }
+
     this.clientService.save(this.client)
       .subscribe(
       client => {
@@ -95,8 +114,9 @@ export class ClientComponent implements OnInit {
         this.success = true;
       },
       err => {
+        console.log(err);
         this.error = true;
-        this.errorMessage = "Error occured please contact administrator";
+        this.errorMessage = err.error.message;
       }
       )
   }
