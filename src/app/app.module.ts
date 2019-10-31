@@ -39,6 +39,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { HeadOfAccountComponent } from './head-of-account/head-of-account.component';
 import { HeadOfAccountService } from './head-of-account/head-of-account.service';
 import { VoucherFyaComponent } from './voucher/voucher-fya/voucher-fya.component';
+import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
 
 
 const appRoutes: Routes = [
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
   { path: 'invoiceManuSuccess/:ids',component:InvoiceManuSuccessComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'manufacturingInvoice/:proformaId',component:ManufacturingInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'generate-manu-invoice/:proformaId',component:ManufacturingGenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
-  { path: 'invoiceReport',component:InvoiceReportComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}}
+  { path: 'invoiceReport',component:InvoiceReportComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}},
+  { path: 'bulkUpload',component:BulkUploadComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}}
   
 ]
 
@@ -86,7 +88,8 @@ const appRoutes: Routes = [
     InvoiceReportComponent,
     VendorComponent,
     HeadOfAccountComponent,
-    VoucherFyaComponent
+    VoucherFyaComponent,
+    BulkUploadComponent
   ],
   imports: [
     RouterModule.forRoot(

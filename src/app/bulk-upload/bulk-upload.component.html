@@ -1,0 +1,53 @@
+<div class="clearfix">
+  <h3 class="mb-2 mb-sm-0 pt-1 pb-2 float-left">Bulk Upload of invoices</h3>
+</div>
+<!-- Heading -->
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  {{errorMessage}}
+</div>
+<div class="alert alert-success" role="alert" *ngIf="success">
+  Successfully Uploaded
+</div>
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-3 border-right">
+        <h4 class="sub-header">
+          <span class="index">1</span>Select & Upload
+        </h4>
+        <div class="md-form">
+          Select Invoice Type
+          <select [ngModelOptions]="{standalone: true}" class="form-control underlined"
+            [(ngModel)]="selectedInvoiceType">
+            <option>Service</option>
+            <!-- <option>Manufacturing</option> -->
+          </select>
+        </div>
+        <div class="md-form">
+          Select Client
+          <select (change)="loadSelectedClient()" class="form-control underlined" [(ngModel)]="selClientId">
+            <option></option>
+            <option *ngFor="let cli of clients" [ngValue]="cli.id" [selected]="cli.id === selClientId">{{cli.name}}
+            </option>
+          </select>
+        </div>
+        <div class="md-form ">
+          <label for="file" [class.active]="true">Select CSV</label>
+          <input type="file" id="file" (change)="onFileChange($event)" />
+        </div>
+        <div class="md-form">
+          <button class="btn btn-primary btn-sm" (click)="loadData()">Load</button>
+        </div>
+      </div>
+      <div class="col-md-9 border-right">
+        <h4 class="sub-header">
+          <span class="index">2</span>Review
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="row float-right">
+      <button type="button" class="btn btn-info float-right" (click)="upload()">Upload</button>
+    </div>
+  </div>
