@@ -42,7 +42,7 @@
       <div class="col-md-2"><b>Proforma Date : </b></div>
       <div class="col-md-3">
         <input type="date" class="form-control underlined" name="proformaDate" id="proformaDate" required="true" [ngModel]="invoice.performaDate | date:'yyyy-MM-dd'"
-          (ngModelChange)="invoice.performaDate = $event" [value]="date | date:'yyyy-MM-dd'" [min]="minProformaDate" [max]="curDate"
+          (ngModelChange)="invoice.performaDate = $event" [value]="date | date:'yyyy-MM-dd'" [max]="curDate"
         />
       </div>
     </div>
@@ -55,9 +55,9 @@
         <br/> {{selectedClient.city}}, {{selectedClient.state}},
         <br/> {{selectedClient.pincode}}.
         <br/>
-        <i>Phone : </i> {{selectedClient.phonePrimary}}.
+        <i>Phone : </i> {{selectedClient.phonePrimary}}
         <br/>
-        <i>Email : </i> {{selectedClient.email}}.
+        <i>Email : </i> {{selectedClient.email}}
         <br/>
       </div>
     </div>
