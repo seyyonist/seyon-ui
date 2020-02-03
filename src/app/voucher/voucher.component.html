@@ -112,6 +112,14 @@
             </textarea>
           </div>
 
+          <div class="md-form">
+            Reimbursement:
+          </div>
+          <div class="md-form">
+            <input type="text" class="form-control inp-border-bottom" name="reimbursement" id="reimbursement" [(ngModel)]="voucher.reimbursement"
+              (change)="calculateVoucherTotal()" />
+          </div>
+
         </div>
 
         <div class="col-md-3 border-left">
@@ -146,14 +154,6 @@
             <input type="text" class="form-control inp-border-bottom" name="others" id="others" [(ngModel)]="voucher.others" (change)="calculateVoucherTotal()"
             />
           </div>
-          <div class="md-form">
-            Reimbursement:
-          </div>
-          <div class="md-form">
-            <input type="text" class="form-control inp-border-bottom" name="reimbursement" id="reimbursement" [(ngModel)]="voucher.reimbursement"
-              (change)="calculateVoucherTotal()" />
-          </div>
-
           <div class="md-form">
             Deduction Remarks
           </div>

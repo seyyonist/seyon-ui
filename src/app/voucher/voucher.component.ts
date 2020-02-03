@@ -206,10 +206,10 @@ export class VoucherComponent implements OnInit {
     // console.log(totalNetAmount);
 
     if (this.selVendorPanId != '') {
-      totalAmount = ((totalNetAmount) - (tdsAmount + others + reimbursement));
+      totalAmount = ((totalNetAmount+ reimbursement) - (tdsAmount + others ));
     }
     else {
-      totalAmount = ((totalNetAmount) - (others + reimbursement));
+      totalAmount = ((totalNetAmount+ reimbursement) - (others));
     }
 
     // console.log(totalAmount);
