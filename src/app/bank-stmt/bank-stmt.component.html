@@ -1,0 +1,40 @@
+<div>
+    <div>
+        <input id="csvFile" type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".csv" />
+    </div>
+
+    <hr />
+    <table class="table table-striped" id="tblbankStmts" cellpadding="0" cellspacing="0" ng-show="isTabVisible">
+        <tbody *ngFor="let stmt of stmts">
+            <tr>
+                <td>{{stmt.sno}}</td>
+                <td>{{stmt.valueDate}}</td>
+                <td>{{stmt.transactionDate}}</td>
+                <td>{{stmt.chequeNo}}</td>
+                <td>{{stmt.txnRemarks}}</td>
+                <td>{{stmt.debitAmt}}</td>
+                <td>{{stmt.creditAmt}}</td>
+                <td>{{stmt.balance}}</td>
+                <td>
+
+
+                    <label for="headofAccount" class="active">Head of Account</label>
+                    <select id="headofAccount" name="headofAccount " class="browser-default custom-select md-select" required="false" [(ngModel)]="stmt.headofAccount">
+                            <option></option>
+                            <option *ngFor="let headofAcct of headofAccts" [ngValue]="headofAcct.id">{{headofAcct.headOfAccountName}}</option>
+                            </select>
+
+
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    <div class="card-body">
+        <div class="row float-right">
+            <button class="btn btn-secondary" (click)="generateXml()">
+             <i class="fa fa-calculator">&nbsp;</i> Generate Tally XML
+             </button>
+        </div>
+    </div>
+</div>
