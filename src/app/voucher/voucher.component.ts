@@ -32,6 +32,7 @@ export class VoucherComponent implements OnInit {
   selHeadOfAccountId: Number;
   selectedHeadOfAccount: HeadOfAccount;
   headOfAccounts: HeadOfAccount[] = [];
+  date:Date=new Date()
 
   constructor(private voucherService: VoucherService, private route: ActivatedRoute, private headOfAccountService: HeadOfAccountService, private userService: UserService) {
     var vId;
@@ -271,7 +272,7 @@ export class VoucherComponent implements OnInit {
     let self = this;
     myReader.readAsDataURL(file);
     myReader.onloadend = function (e) {
-      self.voucher.voucherImg = myReader.result;
+      self.voucher.voucherImg = myReader.result as string;
     }
   }
 

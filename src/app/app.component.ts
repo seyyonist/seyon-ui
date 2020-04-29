@@ -11,8 +11,11 @@ import { CompanyGlobalVar } from './globals';
 export class AppComponent {
   title = 'app';
   company: Company = new Company();
+  companyGlobalVar:CompanyGlobalVar;
 
-  constructor(private companyService: CompanyService,private companyGlobalVar: CompanyGlobalVar){}
+  constructor(private companyService: CompanyService,private companyGVar: CompanyGlobalVar){
+    this.companyGlobalVar=companyGVar;
+  }
 
   ngOnInit() {
 

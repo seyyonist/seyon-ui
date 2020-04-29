@@ -32,6 +32,7 @@ export class InvoiceComponent implements OnInit {
   showSac: boolean = false;
   minProformaDate: string = "";
   curDate:string = "";
+  date:Date=new Date()
   constructor(private route: ActivatedRoute, private clientService: ClientService
     , private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar) {
     var invoiceIdParam

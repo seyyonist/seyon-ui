@@ -26,6 +26,18 @@ export class Voucher {
     voucherImg: string = "";
     availGstInputCredit: boolean;
     deductTds: boolean;
+    vendorAddressLine1:string="";
+    vendorAddressLine2:string="";
+    vendorAddressCity:string="";
+    vendorAddressState:string="";
+    vendorBankAcctNo:string="";
+    vendorBankName:string="";
+    vendorBankBranch:string="";
+    vendorBankBranchIfscCode:string="";
+    vendorPanNo:string="";
+    cgstPercent:string="";
+    sgstPercent:string="";
+    igstPercent:string="";
 
 }
 

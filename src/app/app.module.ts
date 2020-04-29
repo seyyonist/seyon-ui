@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -35,12 +34,10 @@ import {ExcelGeneratorService} from './excel/excel-generator.service';
 import { InvoiceReportComponent } from './reports/invoice-report/invoice-report.component';
 import { VendorComponent } from './vendor/vendor.component';
 import { VendorService } from './vendor/vendor.service';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { HeadOfAccountComponent } from './head-of-account/head-of-account.component';
 import { HeadOfAccountService } from './head-of-account/head-of-account.service';
 import { VoucherFyaComponent } from './voucher/voucher-fya/voucher-fya.component';
-import { BankStmtComponent } from './bank-stmt/bank-stmt.component';
-import { BankStatementService } from './bank-stmt/bank-stmt.service';
+
 
 
 const appRoutes: Routes = [
@@ -63,7 +60,6 @@ const appRoutes: Routes = [
   { path: 'manufacturingInvoice/:proformaId',component:ManufacturingInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'generate-manu-invoice/:proformaId',component:ManufacturingGenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'invoiceReport',component:InvoiceReportComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}},
-  { path: 'bank-stmt', component: BankStmtComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} }
   
 ]
 
@@ -89,8 +85,7 @@ const appRoutes: Routes = [
     InvoiceReportComponent,
     VendorComponent,
     HeadOfAccountComponent,
-    VoucherFyaComponent,
-    BankStmtComponent
+    VoucherFyaComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -99,12 +94,10 @@ const appRoutes: Routes = [
     ),
     BrowserModule,
     FormsModule,
-    HttpModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    ChartsModule
+    BrowserAnimationsModule
   ],
-  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,ExcelGeneratorService,VendorService,HeadOfAccountService,BankStatementService],
+  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,ExcelGeneratorService,VendorService,HeadOfAccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

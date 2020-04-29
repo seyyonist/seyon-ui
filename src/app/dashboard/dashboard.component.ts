@@ -21,7 +21,7 @@ const httpOptions = {
 export class DashboardComponent implements OnInit {
 
   
-  chart = [];
+  chart:Chart[];
 
   clientCount: Number = 0;
   vendorCount: Number = 0;

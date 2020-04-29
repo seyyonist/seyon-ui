@@ -25,7 +25,7 @@ export class GenInvoiceComponent implements OnInit {
   client: Client=new Client();
   minInvoiceDate: string = "";
   curDate:string = "";
-
+  date:Date=new Date();
   constructor(private route: ActivatedRoute, private genInvoiceService: GenInvoiceService,
     private clientService: ClientService) {
     var invoiceIdParam

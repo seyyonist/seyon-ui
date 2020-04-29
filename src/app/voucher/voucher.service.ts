@@ -8,7 +8,6 @@ import { Urls, APIURLS } from '../app.constants';
 import { Voucher} from './voucher.domain';
 import { SearchVoucher } from './voucher.domain';
 import { SearchVoucherResult } from './voucher.domain';
-import { text } from '@angular/core/src/render3/instructions';
 import { Vendor } from '../vendor/vendor.domain';
 
 const httpOptions = {

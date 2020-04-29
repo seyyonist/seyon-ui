@@ -103,7 +103,7 @@ export class CompanyComponent implements OnInit {
     let self = this;
     myReader.readAsDataURL(file);
     myReader.onloadend = function (e) {
-      self.company.logoImg = myReader.result;
+      self.company.logoImg = myReader.result as string;
     }
   }
 
