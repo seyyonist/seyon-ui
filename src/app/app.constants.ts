@@ -1,7 +1,7 @@
 import { environment } from "../environments/environment";
 
 const URLS = {
-    local: "",
+    local: "http://localhost:8020",
     prod: ""
 }
 

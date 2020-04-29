@@ -4,14 +4,13 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
 
 import { Chart } from 'chart.js';
+import { NavComponent } from '../nav/nav.component';
+import { HeaderComponent } from '../header/header.component';
 
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-
-
-
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +28,10 @@ export class DashboardComponent implements OnInit {
   voucherMonthCount: Number = 0;
   constructor(private http: HttpClient) {
   }
-
+  
+ ngOnInit() {
+    this.refresh();
+  }
   getClientCount(): void {
     var url = Urls.getDomain().concat(APIURLS.client).concat("/totalNumberOfClients");
     let options = { headers: httpOptions.headers, responseType: 'text' as 'json' }
@@ -175,9 +177,7 @@ export class DashboardComponent implements OnInit {
       }
     )
   }
-  ngOnInit() {
-    this.refresh();
-  }
+  
 
   refresh(): void {
     this.getClientCount();

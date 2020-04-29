@@ -6,6 +6,7 @@ import * as _ from 'underscore';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
 import {UserInfo,UserRole, UserCompanies} from '../users/users.domain';
+import { OAuthService } from '../app.auth.service';
 
 
 const httpOptions = {
@@ -23,12 +24,15 @@ export class HeaderComponent implements OnInit {
   userRole:UserRole[]=[];
   userCompanies:UserCompanies[]=[];
 
-  constructor(private http: HttpClient) {
-    this.getUser();
+  constructor(private http: HttpClient,private oauthService:OAuthService) {
    
    }
 
   ngOnInit() {
+    if(!this.oauthService.isAuthenticated()){
+      return false;
+    }
+    this.getUser();
   }
 
 

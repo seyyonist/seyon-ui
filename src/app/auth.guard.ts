@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Urls, APIURLS } from './app.constants';
 import { UserInfo, UserRole } from './users/users.domain';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { promise } from 'protractor';
 import { CompanyGlobalVar } from './globals';
+import { Cookie } from './Cookie';
+import { OAuthService } from './app.auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,17 +17,21 @@ const httpOptions = {
 @Injectable()
 export class AuthGuard implements CanActivate {
 
+  
   userRole: string[];
   permissions: string[];
-  constructor(private http: HttpClient, private companyVariable: CompanyGlobalVar) {
-
+  constructor(private http: HttpClient, private companyVariable: CompanyGlobalVar,public router: Router,private oauthService:OAuthService) {
   }
-
-
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    let JWTCookie=this.oauthService.isAuthenticated()
+    console.log(JWTCookie);
+    if(!JWTCookie){
+      this.router.navigate(['login']);
+      return false;
+    }
     let allow = false;
     //  console.log("Verifying the URL to access ", state.url);
     this.permissions = next.data.role

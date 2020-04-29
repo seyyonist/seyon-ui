@@ -6,6 +6,7 @@ import { UserService } from '../users/users.service';
 import { UserCompanies } from '../users/users.domain';
 import { APIURLS, Urls } from '../app.constants';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { OAuthService } from '../app.auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -22,11 +23,16 @@ export class NavComponent implements OnInit {
   show:boolean=true;
   userRole:string[];
   userCompanies:UserCompanies[]=[];
-  constructor(private companyService: CompanyService,private companyGlobalVar: CompanyGlobalVar,private userService:UserService,private http: HttpClient) { }
+
+  constructor(private companyService: CompanyService,private companyGlobalVar: CompanyGlobalVar,
+    private userService:UserService,private http: HttpClient,private oauthService:OAuthService) { }
 
   ngOnInit() {
-
     console.debug("Inside NavComponent init");
+    if(!this.oauthService.isAuthenticated()){
+      return false;
+    }
+
     this.companyService.getCompany()
     .subscribe(
     company => {

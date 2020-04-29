@@ -37,6 +37,9 @@ import { VendorService } from './vendor/vendor.service';
 import { HeadOfAccountComponent } from './head-of-account/head-of-account.component';
 import { HeadOfAccountService } from './head-of-account/head-of-account.service';
 import { VoucherFyaComponent } from './voucher/voucher-fya/voucher-fya.component';
+import { LoginComponent } from './login/login.component';
+import { ProcessLoginComponent } from './process-login/process-login.component';
+import { OAuthService } from './app.auth.service';
 
 
 
@@ -60,7 +63,8 @@ const appRoutes: Routes = [
   { path: 'manufacturingInvoice/:proformaId',component:ManufacturingInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'generate-manu-invoice/:proformaId',component:ManufacturingGenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'invoiceReport',component:InvoiceReportComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}},
-  
+  { path: 'login',component:LoginComponent},
+  { path: 'processLogin',component:ProcessLoginComponent}
 ]
 
 @NgModule({
@@ -85,7 +89,9 @@ const appRoutes: Routes = [
     InvoiceReportComponent,
     VendorComponent,
     HeadOfAccountComponent,
-    VoucherFyaComponent
+    VoucherFyaComponent,
+    LoginComponent,
+    ProcessLoginComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -97,7 +103,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,ExcelGeneratorService,VendorService,HeadOfAccountService],
+  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,ExcelGeneratorService,VendorService,HeadOfAccountService,OAuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
