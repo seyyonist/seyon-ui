@@ -24,29 +24,15 @@ export class NavComponent implements OnInit {
   userRole:string[];
   userCompanies:UserCompanies[]=[];
 
-  constructor(private companyService: CompanyService,private companyGlobalVar: CompanyGlobalVar,
+  constructor(private companyService: CompanyService,public companyGlobalVar: CompanyGlobalVar,
     private userService:UserService,private http: HttpClient,private oauthService:OAuthService) { }
 
   ngOnInit() {
     console.debug("Inside NavComponent init");
-    if(!this.oauthService.isAuthenticated()){
-      return false;
-    }
-
     this.companyService.getCompany()
     .subscribe(
     company => {
       this.company = company;
-      this.companyGlobalVar.companyName=company.companyName;
-      this.companyGlobalVar.ownerName=company.ownerName;
-      this.companyGlobalVar.state=company.state;
-      this.companyGlobalVar.pinCode=company.pinCode;
-      this.companyGlobalVar.phonePrimary=company.phonePrimary;
-      this.companyGlobalVar.tanNo=company.tanNo;
-      this.companyGlobalVar.gstNo=company.gstNo;
-      this.companyGlobalVar.panNo=company.panNo;
-      this.companyGlobalVar.primaryEmail=company.primaryEmail;
-
     },
     err => {
       console.error("Not able to set companyGlobalVar");

@@ -6,6 +6,7 @@ import { Urls, APIURLS } from '../app.constants';
 import { Chart } from 'chart.js';
 import { NavComponent } from '../nav/nav.component';
 import { HeaderComponent } from '../header/header.component';
+import { CompanyGlobalVar } from '../globals';
 
 
 const httpOptions = {
@@ -26,7 +27,7 @@ export class DashboardComponent implements OnInit {
   vendorCount: Number = 0;
   voucherTotalCount: Number = 0;
   voucherMonthCount: Number = 0;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,public companyGlobalVar:CompanyGlobalVar) {
   }
   
  ngOnInit() {

@@ -40,11 +40,14 @@ import { VoucherFyaComponent } from './voucher/voucher-fya/voucher-fya.component
 import { LoginComponent } from './login/login.component';
 import { ProcessLoginComponent } from './process-login/process-login.component';
 import { OAuthService } from './app.auth.service';
+import { HomeComponent } from './home/home.component';
 
 
 
 const appRoutes: Routes = [
-  { path: '', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: '', component: HomeComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: 'login',component:LoginComponent},
+  { path: 'processLogin',component:ProcessLoginComponent},
   { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
   { path: 'client', component: ClientComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}  },
   { path: 'vendor', component: VendorComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}  },
@@ -63,8 +66,7 @@ const appRoutes: Routes = [
   { path: 'manufacturingInvoice/:proformaId',component:ManufacturingInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'generate-manu-invoice/:proformaId',component:ManufacturingGenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'invoiceReport',component:InvoiceReportComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}},
-  { path: 'login',component:LoginComponent},
-  { path: 'processLogin',component:ProcessLoginComponent}
+  
 ]
 
 @NgModule({
@@ -91,7 +93,8 @@ const appRoutes: Routes = [
     HeadOfAccountComponent,
     VoucherFyaComponent,
     LoginComponent,
-    ProcessLoginComponent
+    ProcessLoginComponent,
+    HomeComponent
   ],
   imports: [
     RouterModule.forRoot(

@@ -5,6 +5,7 @@ import { Particulars, InvoiceData, Invoice, SACCode, ManufacturingInvoice } from
 import { Client } from '../client/client.domain';
 import { ClientService } from '../client/client.service';
 import {APIURLS} from '../app.constants'
+import { CompanyGlobalVar } from '../globals';
 
 @Component({
   selector: 'app-manufacturing-gen-invoice',
@@ -21,7 +22,8 @@ export class ManufacturingGenInvoiceComponent implements OnInit {
   selSacCode: SACCode = new SACCode();
   selSacId: number;
 
-  constructor(private route: ActivatedRoute, private invoiceService: InvoiceService, private clientService: ClientService) {
+  constructor(private route: ActivatedRoute, private invoiceService: InvoiceService,
+     private clientService: ClientService,public companyGlobalVar:CompanyGlobalVar) {
 
     this.route.params.subscribe(params => {
       this.proformaId = params['proformaId']

@@ -26,10 +26,11 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+      let path:string=window.location.pathname 
     let JWTCookie=this.oauthService.isAuthenticated()
     console.log(JWTCookie);
     if(!JWTCookie){
-      this.router.navigate(['login']);
+      this.router.navigate(['login'], { queryParams:{navTo: path}} );
       return false;
     }
     let allow = false;

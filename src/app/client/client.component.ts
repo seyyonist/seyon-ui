@@ -3,6 +3,7 @@ import { Client } from './client.domain';
 import { ClientService } from './client.service';
 import { State } from '../company/company.domain';
 import { CompanyService } from '../company/company.service';
+import { CompanyGlobalVar } from '../globals';
 
 @Component({
   selector: 'app-client',
@@ -28,7 +29,7 @@ export class ClientComponent implements OnInit {
   selectedCity: String = "";
   //state Code logic - end
 
-  constructor(private clientService: ClientService,private companyService: CompanyService) { }
+  constructor(private clientService: ClientService,private companyService: CompanyService,public companyGlobalVar:CompanyGlobalVar) { }
 
 
 

@@ -1,114 +1,136 @@
-<h3 class="mb-2 mb-sm-0 pt-1 pb-2">
-          <span>PerformA Invoice (Manufacturing)</span>
-      </h3>
+<app-nav></app-nav>
+<div class="pt-2 mx-lg-1 pb-5 mb-4">
+  <div class="container-fluid mt-0">
+    <h3 class="mb-2 mb-sm-0 pt-1 pb-2">
+      <span>PerformA Invoice (Manufacturing)</span>
+    </h3>
 
-<!-- Heading -->
+    <!-- Heading -->
 
-<div class="card" *ngIf="manufacturingInvoice.id">
-  <div class="card-body">
-    <div class="row">
-      <!-- <div class="col-md-1 "><b>Client</b></div>
+    <div class="card" *ngIf="manufacturingInvoice.id">
+      <div class="card-body">
+        <div class="row">
+          <!-- <div class="col-md-1 "><b>Client</b></div>
       <div class="col-md-3">
         <select (change)="loadSelectedClient()" class="form-control underlined" [(ngModel)]="selClientId" [disabled]="(manufacturingInvoice.status=='CANCELED' || manufacturingInvoice.type=='INVOICE')">
         <option></option>
         <option *ngFor="let cli of clients" [ngValue]="cli.id" [selected]="cli.id === selClientId">{{cli.name}}</option>
          </select>
       </div> -->
-      <div class="col-md-2">
-        <b>Performa Id</b>
-      </div>
-      <div class="col-md-2">
-        {{manufacturingInvoice.proFormaId}}
-      </div>
-      <div class="col-md-2">
-        <b>Invoice Id</b>
-      </div>
-      <div class="col-md-2">
-        {{manufacturingInvoice.invoiceId}}
-      </div>
-      <div class="col-md-4">
-        
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-1"><b>Status : </b></div>
-      <div class="col-md-2">NEW</div>
-      <div class="col-md-2"><b>GSTIN : </b></div>
-      <div class="col-md-3">{{selectedClient.gstin}}</div>
-      <div class="col-md-1"><b>Date : </b></div>
-      <div class="col-md-3" >{{manufacturingInvoice.performaDate | date:"dd MMM yyyy HH:mm"}}</div>
-    </div>
-    <div class="row">
-      <div class="col-md-1"><b>Client Name : </b></div>
-      <div class="col-md-2">{{selectedClient.name}}</div>
-      <div class="col-md-2"><b>Address : </b></div>
-      <div class="col-md-4">
-        {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},
-        <br/> {{selectedClient.city}}, {{selectedClient.state}},
-        <br/> {{selectedClient.pincode}}.
-        <br/>
-        <i>Phone : </i> {{selectedClient.phonePrimary}}.
-        <br/>
-        <i>Email : </i> {{selectedClient.email}}.
-        <br/>
-      </div>
-    </div>
-   <hr/>
-   <h4 class="sub-header">
-    <span class="index">1</span>Particulars
-  </h4>
+          <div class="col-md-2">
+            <b>Performa Id</b>
+          </div>
+          <div class="col-md-2">
+            {{manufacturingInvoice.proFormaId}}
+          </div>
+          <div class="col-md-2">
+            <b>Invoice Id</b>
+          </div>
+          <div class="col-md-2">
+            {{manufacturingInvoice.invoiceId}}
+          </div>
+          <div class="col-md-4">
 
-    <table class="table table-striped">
-      <tr>
-        <th WIDTH="30%">Description</th>
-        <th *ngIf="showSac">SAC Code</th>
-        <th>Quantity</th>
-        <th>Rate</th>
-        <th *ngIf="showSac">gst</th>
-        <th>Amount</th>
-      </tr>
-      <tr>
-        <td WIDTH="30%">
-          <textarea type="text" class="form-control" required="true" [(ngModel)]="manufacturingInvoice.itemDescription" (change)="calculateAmount()" [disabled]="manufacturingInvoice.type==='INVOICE'">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"><b>Status : </b></div>
+          <div class="col-md-2">NEW</div>
+          <div class="col-md-2"><b>GSTIN : </b></div>
+          <div class="col-md-3">{{selectedClient.gstin}}</div>
+          <div class="col-md-1"><b>Date : </b></div>
+          <div class="col-md-3">{{manufacturingInvoice.performaDate | date:"dd MMM yyyy HH:mm"}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"><b>Client Name : </b></div>
+          <div class="col-md-2">{{selectedClient.name}}</div>
+          <div class="col-md-2"><b>Address : </b></div>
+          <div class="col-md-4">
+            {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},
+            <br /> {{selectedClient.city}}, {{selectedClient.state}},
+            <br /> {{selectedClient.pincode}}.
+            <br />
+            <i>Phone : </i> {{selectedClient.phonePrimary}}.
+            <br />
+            <i>Email : </i> {{selectedClient.email}}.
+            <br />
+          </div>
+        </div>
+        <hr />
+        <h4 class="sub-header">
+          <span class="index">1</span>Particulars
+        </h4>
+
+        <table class="table table-striped">
+          <tr>
+            <th WIDTH="30%">Description</th>
+            <th *ngIf="showSac">SAC Code</th>
+            <th>Quantity</th>
+            <th>Rate</th>
+            <th *ngIf="showSac">gst</th>
+            <th>Amount</th>
+          </tr>
+          <tr>
+            <td WIDTH="30%">
+              <textarea type="text" class="form-control" required="true"
+                [(ngModel)]="manufacturingInvoice.itemDescription" (change)="calculateAmount()"
+                [disabled]="manufacturingInvoice.type==='INVOICE'">
           </textarea>
-        </td>
-        <td WIDTH="10%" *ngIf="showSac">
-         <!-- <select (change)="loadSelectedSac(manufacturingInvoice)" class="form-control underlined" [(ngModel)]="manufacturingInvoice.sacCodeId">
+            </td>
+            <td WIDTH="10%" *ngIf="showSac">
+              <!-- <select (change)="loadSelectedSac(manufacturingInvoice)" class="form-control underlined" [(ngModel)]="manufacturingInvoice.sacCodeId">
         <option></option>
         <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === manufacturingInvoice.sacCodeId">{{sac.sacCode}}</option>
         </select>-->
-         {{manufacturingInvoice.sacCode}}
-        </td>
-        <td WIDTH="10%">
-          <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="manufacturingInvoice.quantity" (change)="calculateAmount()" [disabled]="manufacturingInvoice.type==='INVOICE'"
-          />
-        </td>
-        <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0" [(ngModel)]="manufacturingInvoice.performaRate" (change)="calculateAmount()" [disabled]="manufacturingInvoice.type==='INVOICE'"
-          />
-        </td>
-        <td WIDTH="10%" *ngIf="showSac">
-          <p *ngIf="manufacturingInvoice.cgstPerfomaPercent>0">cgst={{manufacturingInvoice.cgstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>
-          <p *ngIf="manufacturingInvoice.sgstPerfomaPercent>0">sgst={{manufacturingInvoice.sgstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>
-          <p *ngIf="manufacturingInvoice.igstPerfomaPercent>0">igst={{manufacturingInvoice.igstPerfomaPercent}}%, :{{manufacturingInvoice.cgstPerfoma}}</p>
-        </td>
-        <td WIDTH="10%">
-          <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="manufacturingInvoice.calculatedPerformaAmount" />
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="card-footer">
-    <div class="row float-right">
-      <a target="_blank" style="color:white;background-color:#432fb5" class="btn" [href]="this.manufacturingInvoice.purl">
-        <i class="fa fa-print"></i>
-   </a>
-  <button class="btn btn-info" (click)="calculateAmount()"> <i class="fa fa-calculator">&nbsp;</i> Calculate Amount</button>
-  <button class="btn btn-info" (click)="save()"> <i class="fa fa-save">&nbsp;</i> Save</button>
-  <a class="btn btn-warning" routerLink="/generate-manu-invoice/{{manufacturingInvoice.id}}" routerLinkActive="active"><i class="fa fa-eye">&nbsp;</i>View As Invoice</a>
+              {{manufacturingInvoice.sacCode}}
+            </td>
+            <td WIDTH="10%">
+              <input type="number" class="form-control" required="false" min="0" size="3"
+                [(ngModel)]="manufacturingInvoice.quantity" (change)="calculateAmount()"
+                [disabled]="manufacturingInvoice.type==='INVOICE'" />
+            </td>
+            <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0"
+                [(ngModel)]="manufacturingInvoice.performaRate" (change)="calculateAmount()"
+                [disabled]="manufacturingInvoice.type==='INVOICE'" />
+            </td>
+            <td WIDTH="10%" *ngIf="showSac">
+              <p *ngIf="manufacturingInvoice.cgstPerfomaPercent>0">cgst={{manufacturingInvoice.cgstPerfomaPercent}}%,
+                :{{manufacturingInvoice.cgstPerfoma}}</p>
+              <p *ngIf="manufacturingInvoice.sgstPerfomaPercent>0">sgst={{manufacturingInvoice.sgstPerfomaPercent}}%,
+                :{{manufacturingInvoice.cgstPerfoma}}</p>
+              <p *ngIf="manufacturingInvoice.igstPerfomaPercent>0">igst={{manufacturingInvoice.igstPerfomaPercent}}%,
+                :{{manufacturingInvoice.cgstPerfoma}}</p>
+            </td>
+            <td WIDTH="10%">
+              <input type="number" readoly class="form-control" required="true" readonly
+                [(ngModel)]="manufacturingInvoice.calculatedPerformaAmount" />
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="card-footer">
+        <div class="row float-right">
+          <a target="_blank" style="color:white;background-color:#432fb5" class="btn"
+            [href]="this.manufacturingInvoice.purl">
+            <i class="fa fa-print"></i>
+          </a>
+          <button class="btn btn-info" (click)="calculateAmount()"> <i class="fa fa-calculator">&nbsp;</i> Calculate
+            Amount</button>
+          <button class="btn btn-info" (click)="save()"> <i class="fa fa-save">&nbsp;</i> Save</button>
+          <a class="btn btn-warning" routerLink="/generate-manu-invoice/{{manufacturingInvoice.id}}"
+            routerLinkActive="active"><i class="fa fa-eye">&nbsp;</i>View As Invoice</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-danger" role="alert" *ngIf="!(manufacturingInvoice.id)">
+      No records found
     </div>
   </div>
 </div>
-
-<div class="alert alert-danger" role="alert" *ngIf="!(manufacturingInvoice.id)" >
-   No records found
+<div class="companyMenu fixed-bottom clearfix">
+  <div class="company-name">Welcome : {{companyGlobalVar.companyName}} </div>
+  <a routerLink="/company" routerLinkActive="active" title="edit profile" class="company-icon">
+    <i class="fa fa-cog"></i>
+  </a>
 </div>

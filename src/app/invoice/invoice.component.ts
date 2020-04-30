@@ -34,7 +34,7 @@ export class InvoiceComponent implements OnInit {
   curDate:string = "";
   date:Date=new Date()
   constructor(private route: ActivatedRoute, private clientService: ClientService
-    , private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar) {
+    , private invoiceService: InvoiceService, public companyGlobalVar: CompanyGlobalVar) {
     var invoiceIdParam
     this.route.params.subscribe(params => {
       invoiceIdParam = params['id']

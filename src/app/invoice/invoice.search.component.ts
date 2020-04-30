@@ -7,6 +7,7 @@ import { SearchInvoice, Invoice, SearchResult } from './invoice.domain';
 import { Client } from '../client/client.domain';
 import { ClientService } from '../client/client.service';
 import { APIURLS } from '../app.constants';
+import { CompanyGlobalVar } from '../globals';
 
 @Component({
   selector: 'app-invoice-search',
@@ -43,7 +44,8 @@ export class InvoiceSearchComponent implements OnInit {
       this.visible=true
   }
 
-  constructor(private route: ActivatedRoute, private invoiceService: InvoiceService, private clientService: ClientService) {
+  constructor(private route: ActivatedRoute, private invoiceService: InvoiceService,
+     private clientService: ClientService,public companyGlobalVar:CompanyGlobalVar) {
   }
 
   ngOnInit() {

@@ -15,7 +15,7 @@ import { CompanyGlobalVar } from '../globals';
 export class InvoiceManuSuccessComponent implements OnInit {
   ids:string[]=[]
   success:boolean=false
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,public companyGlobalVar:CompanyGlobalVar) {
     var invoiceIdParam
     this.route.params.subscribe(params => {
       invoiceIdParam = params['ids']

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,14 +8,17 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  @ViewChild('oauthFrm') authForm;
   url:string="https://accounts.google.com/o/oauth2/v2/auth"
-  clientId:string="410959341886-3g4nmi1s7kml78goolgkrkooe2h2618i.apps.googleusercontent.com"
+  clientId:string="165388735281-2tg16ked6s5nblgjehbntb2a40rup4qf.apps.googleusercontent.com"
   redirectUrl:string= "http://"+window.location.host+"/processLogin"
   scope:string="profile email"
+  navTo:string="";
 
-
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+      this.navTo = params['navTo'];
+    });
+   }
 
   ngOnInit(): void {
     //check we have JWT cookie in if yess then auth is already done redirect to dashboard.
@@ -41,7 +45,7 @@ export class LoginComponent implements OnInit {
                   'redirect_uri': this.redirectUrl,
                   'response_type': 'code',
                   'scope': this.scope,
-                  'state': this.randomStr(20)};
+                  'state': this.randomStr(20)+"navTo["+this.navTo+"]"};
   
     // Add form parameters as hidden input values.
     for (var p in params) {

@@ -5,6 +5,7 @@ import { GenInvoiceService } from './gen-invoice.service';
 import { ClientService } from '../client/client.service';
 import { Client } from '../client/client.domain';
 import {APIURLS } from '../app.constants';
+import { CompanyGlobalVar } from '../globals';
 
 @Component({
   selector: 'app-gen-invoice',
@@ -27,7 +28,7 @@ export class GenInvoiceComponent implements OnInit {
   curDate:string = "";
   date:Date=new Date();
   constructor(private route: ActivatedRoute, private genInvoiceService: GenInvoiceService,
-    private clientService: ClientService) {
+    private clientService: ClientService,public companyGlobalVar:CompanyGlobalVar) {
     var invoiceIdParam
     this.route.params.subscribe(params => {
       invoiceIdParam = params['id']

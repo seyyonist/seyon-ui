@@ -3,6 +3,7 @@ import { Vendor } from './vendor.domain';
 import { VendorService } from './vendor.service';
 import { State } from '../company/company.domain';
 import { CompanyService } from '../company/company.service';
+import { CompanyGlobalVar } from '../globals';
 
 @Component({
   selector: 'app-vendor',
@@ -28,7 +29,7 @@ export class VendorComponent implements OnInit {
   selectedCity: String = "";
   //state Code logic - end
 
-  constructor(private vendorService: VendorService, private companyService: CompanyService) { }
+  constructor(private vendorService: VendorService, private companyService: CompanyService,public companyGlobalVar:CompanyGlobalVar) { }
 
   ngOnInit() {
       //state Code logic - begin

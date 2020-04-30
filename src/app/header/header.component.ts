@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
 import {UserInfo,UserRole, UserCompanies} from '../users/users.domain';
 import { OAuthService } from '../app.auth.service';
+import { CompanyGlobalVar } from '../globals';
 
 
 const httpOptions = {
@@ -24,11 +25,12 @@ export class HeaderComponent implements OnInit {
   userRole:UserRole[]=[];
   userCompanies:UserCompanies[]=[];
 
-  constructor(private http: HttpClient,private oauthService:OAuthService) {
+  constructor(private http: HttpClient,private oauthService:OAuthService,public companyGlobalVar:CompanyGlobalVar) {
    
    }
 
   ngOnInit() {
+    console.log("header component")
     if(!this.oauthService.isAuthenticated()){
       return false;
     }

@@ -6,6 +6,7 @@ import { UserService } from '../users/users.service';
 import { Vendor } from '../vendor/vendor.domain';
 import { HeadOfAccount } from '../head-of-account/head-of-account.domain';
 import { HeadOfAccountService } from '../head-of-account/head-of-account.service';
+import { CompanyGlobalVar } from '../globals';
 
 @Component({
   selector: 'app-voucher',
@@ -34,7 +35,9 @@ export class VoucherComponent implements OnInit {
   headOfAccounts: HeadOfAccount[] = [];
   date:Date=new Date()
 
-  constructor(private voucherService: VoucherService, private route: ActivatedRoute, private headOfAccountService: HeadOfAccountService, private userService: UserService) {
+  constructor(private voucherService: VoucherService, private route: ActivatedRoute,
+     private headOfAccountService: HeadOfAccountService, private userService: UserService
+     ,public companyGlobalVar:CompanyGlobalVar) {
     var vId;
     this.route.params.subscribe(params => {
       vId = params['id']

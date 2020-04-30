@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Company } from './company.domain';
 import { CompanyService } from './company.service';
 import { CompanyGlobalVar } from '../globals';
-import { States } from './company.domain';
 import { State } from './company.domain';
+import {city_state} from './city_state';
+import {status} from './company_status';
 
 @Component({
   selector: 'app-company',
@@ -19,7 +20,7 @@ export class CompanyComponent implements OnInit {
   company: Company = new Company();
 
   //state Code logic - begin
-  states: State[] = [];
+  states: any[] = [];
   selectedStateDistricts: String[] = [];
   selectedStateCode: string = "";
   selectedStateName: string = "";
@@ -27,11 +28,12 @@ export class CompanyComponent implements OnInit {
   selectedCity: String = "";
   //state Code logic - end
 
-  constructor(private companyService: CompanyService, private companyGlobalVar: CompanyGlobalVar) { }
+  constructor(private companyService: CompanyService,public companyGlobalVar:CompanyGlobalVar) { }
 
   ngOnInit() {
     //state Code logic - begin
-    this.getStates();
+    this.states=city_state.states;
+    //this.getStates();
     //state Code logic - end
     this.getCompany();
 

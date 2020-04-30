@@ -14,7 +14,9 @@ export class AppComponent {
   company: Company = new Company();
   companyGlobalVar:CompanyGlobalVar;
 
-  constructor(private companyService: CompanyService,private companyGVar: CompanyGlobalVar,private oauthService:OAuthService){
+  constructor(private companyService: CompanyService,
+    private companyGVar: CompanyGlobalVar,
+    private oauthService:OAuthService){
     this.companyGlobalVar=companyGVar;
   }
 
@@ -23,24 +25,6 @@ export class AppComponent {
       return false;
     }
     console.debug("Inside NavComponent init");
-    this.companyService.getCompany()
-    .subscribe(
-    company => {
-      this.company = company;
-      this.companyGlobalVar.companyName=company.companyName;
-      this.companyGlobalVar.ownerName=company.ownerName;
-      this.companyGlobalVar.state=company.state;
-      this.companyGlobalVar.pinCode=company.pinCode;
-      this.companyGlobalVar.phonePrimary=company.phonePrimary;
-      this.companyGlobalVar.tanNo=company.tanNo;
-      this.companyGlobalVar.gstNo=company.gstNo;
-      this.companyGlobalVar.panNo=company.panNo;
-      this.companyGlobalVar.primaryEmail=company.primaryEmail;
-    },
-    err => {
-      console.error("Not able to set companyGlobalVar");
-    }
-    )
   }
 
 }

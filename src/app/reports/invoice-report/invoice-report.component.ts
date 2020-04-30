@@ -7,6 +7,7 @@ import { SearchInvoice, Invoice, SearchResult } from '../../invoice/invoice.doma
 import { Client } from '../../client/client.domain';
 import { ClientService } from '../../client/client.service';
 import { APIURLS } from '../../app.constants';
+import { CompanyGlobalVar } from '../../globals';
 
 @Component({
   selector: 'app-invoice-report',
@@ -42,7 +43,8 @@ export class InvoiceReportComponent implements OnInit {
     else
       this.visible=true
   }
-  constructor(private excelGenerator:ExcelGeneratorService, private invoiceService: InvoiceService, private clientService: ClientService) {}
+  constructor(private excelGenerator:ExcelGeneratorService, private invoiceService: InvoiceService, 
+    private clientService: ClientService,public companyGlobalVar:CompanyGlobalVar) {}
 
   ngOnInit() {
     this.getClients();
