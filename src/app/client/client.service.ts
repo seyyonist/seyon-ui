@@ -6,6 +6,8 @@ import * as _ from 'underscore';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
 import {Client} from './client.domain';
+import { OAuthService } from '../app.auth.service';
+import { CompanyGlobalVar } from '../globals';
 
 
 
@@ -16,16 +18,19 @@ const httpOptions = {
 
 @Injectable()
 export class ClientService { 
-  constructor(private http: HttpClient) {
+  headers:HttpHeaders = new HttpHeaders()
+  constructor(private http: HttpClient,private oauthService:OAuthService,private globalVar:CompanyGlobalVar) {
   }
 
   getForCompany(): Observable<Client[]> {
     var url = Urls.getDomain().concat(APIURLS.client);
-    return this.http.get<Client[]>(url);
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.get<Client[]>(url,{headers:headers});
   }
 
   save(client:Client): Observable<Client> {
     var url = Urls.getDomain().concat(APIURLS.client);
-    return this.http.post<Client>(url,client,{headers:httpOptions.headers});
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.post<Client>(url,client,{headers:headers});
   }
 }

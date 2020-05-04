@@ -23,6 +23,7 @@ export const APIURLS = {
     getUserCompanies:"/api/company/getUserCompany",
     adduserrole: "/api/userrole/adduserrole",
     getcompany: "/api/company/getCompany",
+    getcompanyForUser:"/api/company/getCompanyForUser",
     updatecompany: "/api/company/updateCompany",
     savevoucher : "/api/voucher/saveVoucher",
     approveVoucher : "/api/voucher/approve",

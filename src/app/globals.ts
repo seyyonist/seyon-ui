@@ -14,4 +14,12 @@ export class CompanyGlobalVar {
     primaryEmail: string = "";
     userRoles:string[];
     
+    selectedCompany:string="";
+
 } 
+
+export class OauthUserJwt{
+     jwt:string="";
+	 picture:string="";
+	 name:string="";
+}

@@ -20,7 +20,7 @@ const httpOptions = {
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  imagePath:string=""
   user:UserInfo=new UserInfo();
   userRole:UserRole[]=[];
   userCompanies:UserCompanies[]=[];
@@ -35,12 +35,14 @@ export class HeaderComponent implements OnInit {
       return false;
     }
     this.getUser();
+    this.imagePath=this.oauthService.getLoggedInUser().picture
   }
 
 
   getUser(): void {
     var url = Urls.getDomain().concat(APIURLS.user).concat("/authenticated");
-     this.http.get<UserInfo>(url, { headers: httpOptions.headers })
+    let headers=this.oauthService.getAuthHeaders()
+     this.http.get<UserInfo>(url, { headers: headers })
      .subscribe(
        user=>{
         this.user=user;
@@ -55,7 +57,8 @@ export class HeaderComponent implements OnInit {
 
   getRoles(email:string): void {
     var url = Urls.getDomain().concat(APIURLS.userrole).concat("?email=").concat(email);
-     this.http.get<UserRole[]>(url, { headers: httpOptions.headers })
+    let headers=this.oauthService.getAuthHeaders()
+     this.http.get<UserRole[]>(url, { headers: headers })
      .subscribe(
        userRole=>{
         this.userRole=userRole;

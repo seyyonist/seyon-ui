@@ -20,8 +20,11 @@ export class AuthGuard implements CanActivate {
   
   userRole: string[];
   permissions: string[];
-  constructor(private http: HttpClient, private companyVariable: CompanyGlobalVar,public router: Router,private oauthService:OAuthService) {
+  constructor(private http: HttpClient, private companyVariable: CompanyGlobalVar,
+    public router: Router,private oauthService:OAuthService) {
   }
+
+ 
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -64,7 +67,8 @@ export class AuthGuard implements CanActivate {
     return new Promise<boolean>((resolve, reject) => {
       var url = Urls.getDomain().concat(APIURLS.userrole).concat("/authenticated");
       // console.log("getting user role in Authguard")
-      this.http.get<string[]>(url, { headers: httpOptions.headers })
+      let headers = this.oauthService.getAuthHeaders()
+      this.http.get<string[]>(url, { headers:headers})
         .subscribe(resp => {
           for (const checkPermission of this.permissions) {
             const permissionFound = resp.find(x => x.toUpperCase() === checkPermission.toUpperCase());

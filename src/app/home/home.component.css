@@ -1,3 +1,23 @@
 .logo-img{
     height:27px
 }
+
+.comp-active{
+	padding: 5px;
+    background: #00a000;
+    width: 80px;
+    align-items: center;
+    text-align: center;
+    color: white;
+    border-radius: 10%;
+}
+
+.comp-inActive{
+	padding: 5px;
+    background: grey;
+    width: 80px;
+    align-items: center;
+    text-align: center;
+    color: white;
+    border-radius: 10%;	
+}

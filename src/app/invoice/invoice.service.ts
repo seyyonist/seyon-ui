@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
 import { Particulars, InvoiceData, Invoice, SearchInvoice, SearchResult,SACCode, } from './invoice.domain';
 import { ManufacturingInvoice } from '../manufacturing-invoice/invoice.manu.domain';
+import { OAuthService } from '../app.auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,19 +16,21 @@ const httpOptions = {
 
 @Injectable()
 export class InvoiceService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private oauthService:OAuthService) {
   }
 
   savePerforma(invoiceData: InvoiceData): Observable<InvoiceData> {
     var url = Urls.getDomain().concat(APIURLS.invoice).concat("/performa");
     console.log(APIURLS.invoice + "  " + url);
-    return this.http.post<InvoiceData>(url, invoiceData, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.post<InvoiceData>(url, invoiceData, { headers: headers });
   }
 
   saveInvoice(invoiceData: InvoiceData): Observable<InvoiceData> {
     var url = Urls.getDomain().concat(APIURLS.invoice);
     console.log(APIURLS.invoice + "  " + url);
-    return this.http.post<InvoiceData>(url, invoiceData, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.post<InvoiceData>(url, invoiceData, { headers: headers });
   }
 
   cancel(invoiceId: number): Observable<Invoice> {
@@ -36,7 +39,8 @@ export class InvoiceService {
       .concat("?invoiceId=")
       .concat(invoiceId.toString());
     console.log("Cancel invoice  " + url);
-    return this.http.patch<Invoice>(url, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.patch<Invoice>(url, { headers: headers });
   }
 
   getInvoice(id: number): Observable<InvoiceData> {
@@ -44,7 +48,8 @@ export class InvoiceService {
       .concat("?invoiceId=")
       .concat(id.toString());
     console.log(APIURLS.invoice + "  " + url);
-    return this.http.get<InvoiceData>(url, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.get<InvoiceData>(url, { headers: headers });
   }
 
   searchInvoice(searchInvoice: SearchInvoice,category: string, pageNo: number = 0): Observable<SearchResult> {
@@ -63,7 +68,8 @@ export class InvoiceService {
     url=url.concat("?pageNumber=")
       .concat(pageNo.toString())
     console.log("Searching : " + url);
-    return this.http.post<SearchResult>(url, searchInvoice, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.post<SearchResult>(url, searchInvoice, { headers: headers });
   }
 
 
@@ -80,42 +86,49 @@ export class InvoiceService {
      console.log(url);
     }
     console.log("Searching : " + url);
-    return this.http.post<Invoice[]>(url, searchInvoice, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.post<Invoice[]>(url, searchInvoice, { headers:headers });
   }
 
 
   getSACCode():Observable<SACCode[]>{
     var url = Urls.getDomain().concat(APIURLS.invoice).concat("/sac");
-    return this.http.get<SACCode[]>(url, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.get<SACCode[]>(url, { headers: headers });
   }
 
   deleteParti(partiId:number):Observable<string>{
     var url = Urls.getDomain().concat(APIURLS.invoice).concat("/delParticular?particularId=").concat(partiId.toString());
-    let options= { responseType: 'text' as 'json'};
+    let headers=this.oauthService.getAuthHeaders()
+    let options= {headers:headers, responseType: 'text' as 'json'};
     return this.http.get<string>(url,options)
   }
 
   saveManufacProformaInvoice(manufacturingInvoice:ManufacturingInvoice[]):Observable<ManufacturingInvoice[]>{
      var url = Urls.getDomain().concat(APIURLS.manInvoice).concat("/performa");
-     return this.http.post<ManufacturingInvoice[]>(url, manufacturingInvoice, { headers: httpOptions.headers });
+     let headers=this.oauthService.getAuthHeaders()
+     return this.http.post<ManufacturingInvoice[]>(url, manufacturingInvoice, { headers: headers });
   }
 
   getManufacturingInvoice(proformaId:string):Observable<ManufacturingInvoice>{
     var url=Urls.getDomain().concat(APIURLS.manInvoice)
     .concat("?id=")
       .concat(proformaId);
-    return this.http.get<ManufacturingInvoice>(url,{headers:httpOptions.headers})
+      let headers=this.oauthService.getAuthHeaders()
+    return this.http.get<ManufacturingInvoice>(url,{headers:headers})
   }
 
   saveManufacturingInvoice(manufacturingInvoice:ManufacturingInvoice): Observable<ManufacturingInvoice> {
     var url = Urls.getDomain().concat(APIURLS.manInvoice).concat("/invoice");
-    return this.http.post<ManufacturingInvoice>(url, manufacturingInvoice, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.post<ManufacturingInvoice>(url, manufacturingInvoice, { headers: headers });
   }
 
   getMinProfomaDate():Observable<string>{
      var url = Urls.getDomain().concat(APIURLS.invoice).concat("/minProformaDate");
       //console.log("getMinProfomaDate url : " + url);
-      let options= { responseType: 'text' as 'json'};
+      let headers=this.oauthService.getAuthHeaders()
+      let options= { headers:headers,responseType: 'text' as 'json'};
     return this.http.get<string>(url, options );
   }
 

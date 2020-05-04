@@ -43,3 +43,11 @@ export class State {
     selectedDistrict: string = "";
 }
 //state Code logic - end
+
+export class CompanyRole{
+    companyId:string=""
+    companyName:string=""
+    roleCode:string[]=[]
+    active:boolean=false;
+}
+    

@@ -53,7 +53,8 @@ export class NavComponent implements OnInit {
 
   getUserCompanies():void{
     var url = Urls.getDomain().concat(APIURLS.getUserCompanies);
-    this.http.get<UserCompanies[]>(url, { headers: httpOptions.headers })
+    let headers=this.oauthService.getAuthHeaders()
+    this.http.get<UserCompanies[]>(url, { headers:headers })
     .subscribe(
       result=>{
        this.userCompanies=result;

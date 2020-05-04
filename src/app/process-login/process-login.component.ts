@@ -4,7 +4,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Urls } from '../app.constants';
 import { OAuthService } from '../app.auth.service';
 import { CompanyService } from '../company/company.service';
-import { CompanyGlobalVar } from '../globals';
+import { CompanyGlobalVar, OauthUserJwt } from '../globals';
 
 
 const httpOptions = {
@@ -32,32 +32,14 @@ export class ProcessLoginComponent implements OnInit {
   }
   ngOnInit(): void {
     this.process(this.code).then(
-      jwt => {
+      user => {
         console.log("setting jwt")  
-        this.oauthService.setJwt(jwt);
+        this.oauthService.setOauthUser(user);
         let navTo=this.state.substring(
           this.state.lastIndexOf("[") + 1, 
           this.state.lastIndexOf("]")
-      );
-        this.companyService.getCompany()
-        .subscribe(
-        company => {
-          this.companyGlobalVar.companyName=company.companyName;
-          this.companyGlobalVar.ownerName=company.ownerName;
-          this.companyGlobalVar.state=company.state;
-          this.companyGlobalVar.pinCode=company.pinCode;
-          this.companyGlobalVar.phonePrimary=company.phonePrimary;
-          this.companyGlobalVar.tanNo=company.tanNo;
-          this.companyGlobalVar.gstNo=company.gstNo;
-          this.companyGlobalVar.panNo=company.panNo;
-          this.companyGlobalVar.primaryEmail=company.primaryEmail;
-          this.router.navigate(['']);
-        },
-        err => {
-          console.error("Not able to set companyGlobalVar");
-        }
-        )
-       
+        );
+        this.router.navigate(['']);
       },
       err => console.log(err)
     )
@@ -65,12 +47,12 @@ export class ProcessLoginComponent implements OnInit {
    
   }
 
-  process(code: string): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
+  process(code: string): Promise<OauthUserJwt> {
+    return new Promise<OauthUserJwt>((resolve, reject) => {
       var url = Urls.getDomain().concat("/jwt");
       let options = { };
-      this.http.post<string>(url, code, 
-        { headers: httpOptions.headers,responseType: 'text' as 'json'  })
+      this.http.post<OauthUserJwt>(url, code, 
+        { headers: httpOptions.headers})
         .subscribe(resp => {
           resolve(resp)
         }, err => {

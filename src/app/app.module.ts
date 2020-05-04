@@ -45,7 +45,7 @@ import { HomeComponent } from './home/home.component';
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: '', component: HomeComponent },
   { path: 'login',component:LoginComponent},
   { path: 'processLogin',component:ProcessLoginComponent},
   { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
@@ -57,7 +57,8 @@ const appRoutes: Routes = [
   { path: 'invoiceNew/:id', component: InvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
   { path: 'invoice-search', component: InvoiceSearchComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'generate-invoice/:id', component: GenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
-  { path: 'company', component: CompanyComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: 'company/:newCompany', component: CompanyComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: 'new-company/:newCompany', component: CompanyComponent },
   { path: 'voucherNew/:id', component: VoucherComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
   { path: 'voucher-search', component: VoucherSearchComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
   { path: 'voucher-fya', component: VoucherFyaComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','VOUCHER_ADMIN']} },
