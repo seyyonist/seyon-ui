@@ -1,0 +1,218 @@
+<div class="primary-color text-center p-3">
+  <img src="../../assets/img/logo-white.png" class="logo-img" alt="">
+</div>
+
+<div class="pt-2 mx-lg-1 pb-5 mb-4">
+  <div class="container-fluid mt-0">
+    <!-- Heading -->
+    <h3 class="mb-2 mb-sm-0 pt-1 pb-2">
+      <span>Company</span>
+    </h3>
+    <!-- Heading -->
+
+    <div class="alert alert-danger" role="alert" *ngIf="error">
+      {{errorMessage}}
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="success">
+      Successfully Saved
+    </div>
+    <form (ngSubmit)="submitCompany()" name="companyForm" ngNativeValidate>
+      <div class="card">
+        <div class="card-header stylish-color-dark white-text">
+          <h5>Name : {{company.companyName}}</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3 border-right">
+              <h4 class="sub-header">
+                <span class="index">1</span>Company
+              </h4>
+              <div class="md-form ">
+                <label for="cmpName" [class.active]="true">Company Name</label>
+                <input type="text" class="form-control underlined" name="cmpName" id="cmpName"
+                  [(ngModel)]="company.companyName">
+              </div>
+              <div class="md-form ">
+                <label for="addressLine1" [class.active]="true">Address Line 1</label>
+                <input type="text" class="form-control underlined" name="addressLine1" id="addressLine1"
+                  [(ngModel)]="company.addressLine1">
+              </div>
+              <div class="md-form ">
+                <label for="addressLine2" [class.active]="true">Address Line 2</label>
+                <input type="text" class="form-control underlined" name="addressLine2" id="addressLine2"
+                  [(ngModel)]="company.addressLine2">
+              </div>
+
+              <div class="md-form">
+                <label for="state" [class.active]="true">State</label>
+                <select [ngModelOptions]="{standalone: true}" (change)="loadSelectedStates()"
+                  class="form-control underlined" [(ngModel)]="selectedStateName">
+                  <option></option>
+                  <option *ngFor="let state of states" [ngValue]="state.state"
+                    [selected]="state.state === selectedStateName">{{state.state}}</option>
+                </select>
+              </div>
+              <label for="stateCode" [class.active]="true">State Code: {{selectedStateCode}}</label>
+              <div class="md-form ">
+                <label for="city" [class.active]="true">City</label>
+                <!-- <input type="text" class="form-control underlined" name="city" id="city" [(ngModel)]="company.city" />-->
+                <select [ngModelOptions]="{standalone: true}" class="form-control underlined"
+                  [(ngModel)]="selectedCity">
+                  <option></option>
+                  <option *ngFor="let district of selectedStateDistricts" [ngValue]="district"
+                    [selected]="district === selectedCity">{{district}}</option>
+                </select>
+              </div>
+              <div class="md-form ">
+                <label for="pinCode" [class.active]="true">Pincode *</label>
+                <input type="text" class="form-control underlined" name="pinCode" id="pinCode"
+                  [(ngModel)]="company.pinCode" />
+              </div>
+              <div class=" md-form ">
+                <label for="status" [class.active]="company.status!=''">Company Status *</label>
+                <select id="status" name="status" class="browser-default custom-select md-select" required="true"
+                  [(ngModel)]="company.status">
+                  <option value="Artificial_Juridical_person">Artificial Juridical person</option>
+                  <option value="Association_of_persons">Association of persons</option>
+                  <option value="Body_of_Individuals">Body of Individuals</option>
+                  <option value="Company" selected>Company</option>
+                  <option value="Firm">Firm</option>
+                  <option value="Government">Government</option>
+                  <option value="Hindu_Undivided_family">Hindu Undivided family</option>
+                  <option value="Individual">Individual</option>
+                  <option value="Limited_Liability_partnership">Limited Liability partnership</option>
+                  <option value="Local_Authority">Local Authority</option>
+                  <option value="Trust">Trust</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-3 border-right">
+              <h4 class="sub-header">
+                <span class="index">2</span>Owner
+              </h4>
+              <div class="md-form ">
+                <label for="ownerName" [class.active]="true">Owner Name</label>
+                <input type="text" class="form-control underlined" name="ownerName" id="ownerName"
+                  [(ngModel)]="company.ownerName" readonly/>
+              </div>
+              <div class="md-form ">
+                <label for="primaryEmail" [class.active]="true">Primary Email</label>
+                <input type="email" class="form-control underlined" name="primaryEmail" id="primaryEmail"
+                  [(ngModel)]="company.primaryEmail" readonly/>
+              </div>
+              <div class="md-form ">
+                <label for="secondaryEmail" [class.active]="true">Secondary Email</label>
+                <input type="email" class="form-control underlined" name="secondaryEmail" id="secondaryEmail"
+                  [(ngModel)]="company.secondaryEmail" />
+              </div>
+
+
+              <div class="md-form ">
+                <label for="faxNo" [class.active]="true">Fax No</label>
+                <input type="tel" class="form-control underlined" name="faxNo" id="faxNo" [(ngModel)]="company.faxNo" />
+              </div>
+
+              <div class="md-form ">
+                <label for="phonePrimary" [class.active]="true">Primary Phone</label>
+                <input type="tel" class="form-control underlined" name="phonePrimary" id="phonePrimary"
+                  [(ngModel)]="company.phonePrimary" />
+              </div>
+
+              <div class="md-form">
+                <label for="phoneSecondary" [class.active]="true">Secondary Phone</label>
+                <input type="tel" class="form-control underlined" name="phoneSecondary" id="phoneSecondary"
+                  [(ngModel)]="company.phoneSecondary" />
+              </div>
+            </div>
+
+            <div class="col-md-3 border-right">
+              <h4 class="sub-header">
+                <span class="index">3</span>Bank
+              </h4>
+              <div class="md-form ">
+                <label for="bankName" [class.active]="true">Bank Name</label>
+                <input type="text" class="form-control underlined" name="bankName" id="bankName"
+                  [(ngModel)]="company.bankName" />
+              </div>
+              <div class="md-form ">
+                <label for="branchIFSCCode" [class.active]="true">IFSC Code</label>
+                <input type="text" class="form-control underlined" name="branchIFSCCode" id="branchIFSCCode"
+                  [(ngModel)]="company.branchIFSCCode" />
+              </div>
+              <div class="md-form ">
+                <label for="branch" [class.active]="true">Branch</label>
+                <input type="text" class="form-control underlined" name="branch" id="branch"
+                  [(ngModel)]="company.branch" />
+              </div>
+              <div class="md-form ">
+                <label for="accountNo" [class.active]="true">Account Number</label> <input type="text"
+                  class="form-control underlined" name="accountNo" id="accountNo" [(ngModel)]="company.accountNo" />
+              </div>
+              <div class="md-form ">
+                <label for="accountName" [class.active]="true">Account Name</label> <input type="text"
+                  class="form-control underlined" name="accountName" id="accountName"
+                  [(ngModel)]="company.accountName" />
+              </div>
+              <div class="md-form ">
+                <label for="accountType" [class.active]="true">Account Type</label>
+                <input type="text" class="form-control underlined" name="accountType" id="accountType"
+                  [(ngModel)]="company.accountType" />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <h4 class="sub-header">
+                <span class="index">4</span>Other
+              </h4>
+
+              <div class="md-form ">
+                <label for="tanNo" [class.active]="true">Tan Number</label>
+                <input type="text" class="form-control underlined" name="tanNo" id="tanNo"
+                  [(ngModel)]="company.tanNo" />
+              </div>
+
+              <div class="md-form ">
+                <label for="gstNo" [class.active]="true">GST Number</label>
+                <input type="text" class="form-control underlined" name="gstNo" id="gstNo"
+                  [(ngModel)]="company.gstNo" />
+              </div>
+
+              <div class="md-form ">
+                <label for="panNo" [class.active]="true">PAN Number</label>
+                <input type="text" class="form-control underlined" name="panNo" id="panNo"
+                  [(ngModel)]="company.panNo" />
+              </div>
+              <div class="md-form ">
+                <label for="serviceTaxRegNo" [class.active]="true">Service TAX Reg number</label>
+                <input type="text" class="form-control underlined" name="serviceTaxRegNo" id="serviceTaxRegNo"
+                  [(ngModel)]="company.serviceTaxRegNo" />
+              </div>
+              <div class="md-form ">
+                <label for="accountingType" [class.active]="true">Accounting Type</label> <input type="text"
+                  class="form-control underlined" name="accountingType" id="accountingType"
+                  [(ngModel)]="company.accountingType" />
+              </div>
+
+              <div class="md-form ">
+                <label for="swiftCode" [class.active]="true">Swift Code</label> <input type="text"
+                  class="form-control underlined" name="swiftCode" id="swiftCode" [(ngModel)]="company.swiftCode" />
+              </div>
+
+              <div class="md-form ">
+                <label for="file-logo" [class.active]="true">Logo</label>
+                <input type="file" id="file-logo" (change)="onFileChange($event)" />
+              </div>
+              <input type="hidden" name="logo" id="logo" [(ngModel)]="company.logoImg" />
+              <img height="100" id="img-logo" [src]="company.logoImg" />
+            </div>
+          </div>
+
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-success float-right waves-effect m-0" type="submit">
+            <i class="fa fa-save"></i>&nbsp;Save </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

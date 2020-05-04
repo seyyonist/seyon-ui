@@ -41,6 +41,8 @@ import { LoginComponent } from './login/login.component';
 import { ProcessLoginComponent } from './process-login/process-login.component';
 import { OAuthService } from './app.auth.service';
 import { HomeComponent } from './home/home.component';
+import { NewCompanyComponent } from './new-company/new-company.component';
+import { NewCompanyService } from './new-company/new-company.service';
 
 
 
@@ -58,7 +60,7 @@ const appRoutes: Routes = [
   { path: 'invoice-search', component: InvoiceSearchComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'generate-invoice/:id', component: GenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'company/:newCompany', component: CompanyComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
-  { path: 'new-company/:newCompany', component: CompanyComponent },
+  { path: 'new-company', component: NewCompanyComponent },
   { path: 'voucherNew/:id', component: VoucherComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
   { path: 'voucher-search', component: VoucherSearchComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
   { path: 'voucher-fya', component: VoucherFyaComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','VOUCHER_ADMIN']} },
@@ -95,7 +97,8 @@ const appRoutes: Routes = [
     VoucherFyaComponent,
     LoginComponent,
     ProcessLoginComponent,
-    HomeComponent
+    HomeComponent,
+    NewCompanyComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -107,7 +110,11 @@ const appRoutes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,ExcelGeneratorService,VendorService,HeadOfAccountService,OAuthService],
+  providers: [ClientService, UserService, InvoiceService, CompanyService, 
+    VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,
+    ExcelGeneratorService,VendorService,HeadOfAccountService,OAuthService,
+    NewCompanyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

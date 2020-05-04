@@ -21,5 +21,6 @@ export class CompanyGlobalVar {
 export class OauthUserJwt{
      jwt:string="";
 	 picture:string="";
-	 name:string="";
+     name:string="";
+     email:string="";
 }

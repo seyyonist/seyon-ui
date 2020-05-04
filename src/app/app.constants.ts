@@ -34,5 +34,6 @@ export const APIURLS = {
     printManPInvoiceUrl:"/api/manuFacturingInvoice/PhtmlReport?performaId=",
     vendor : "/api/vendor",
     headofaccount : "/api/headofaccount",
-    getStateCode : "/city_state.json"
+    getStateCode : "/city_state.json",
+    createCompany:"/api/company/createCompany"
 }
