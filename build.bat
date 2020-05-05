@@ -1,1 +1,1 @@
-ng build --env=prod --base-href /ui/
+ng build --env=prod

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CompanyGlobalVar } from '../globals';
+import { CompanyGlobalVar, OauthUserJwt } from '../globals';
 import { CompanyService } from '../company/company.service';
 import { CompanyRole } from '../company/company.domain';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { OAuthService } from '../app.auth.service';
 export class HomeComponent implements OnInit {
 
   companyRole:CompanyRole[]=[]
+  userInfo:OauthUserJwt= new OauthUserJwt()
 
   constructor(public companyGlobalVar: CompanyGlobalVar, 
     public companyService: CompanyService,public router: Router,private oauthService:OAuthService) { }
@@ -25,7 +26,8 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['login'] );
       return;
     }
-    
+    this.userInfo=this.oauthService.getLoggedInUser()
+    console.log(this.userInfo);
     this.companyService.getCompanyForUser()
     .subscribe(
       companyRole => {
