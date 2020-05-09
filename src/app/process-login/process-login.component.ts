@@ -50,8 +50,8 @@ export class ProcessLoginComponent implements OnInit {
   process(code: string): Promise<OauthUserJwt> {
     return new Promise<OauthUserJwt>((resolve, reject) => {
       var url = Urls.getDomain().concat("/jwt");
-      let options = { };
-      this.http.post<OauthUserJwt>(url, code, 
+      let req = { code:code,redirectUrl:"http://"+window.location.host+"/processLogin" };
+      this.http.post<OauthUserJwt>(url, req, 
         { headers: httpOptions.headers})
         .subscribe(resp => {
           resolve(resp)
