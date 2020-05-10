@@ -6,6 +6,7 @@ import { UserService } from '../users/users.service';
 import { UserCompanies } from '../users/users.domain';
 import { APIURLS, Urls } from '../app.constants';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { OAuthService } from '../app.auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -22,25 +23,16 @@ export class NavComponent implements OnInit {
   show:boolean=true;
   userRole:string[];
   userCompanies:UserCompanies[]=[];
-  constructor(private companyService: CompanyService,private companyGlobalVar: CompanyGlobalVar,private userService:UserService,private http: HttpClient) { }
+
+  constructor(private companyService: CompanyService,public companyGlobalVar: CompanyGlobalVar,
+    private userService:UserService,private http: HttpClient,private oauthService:OAuthService) { }
 
   ngOnInit() {
-
     console.debug("Inside NavComponent init");
     this.companyService.getCompany()
     .subscribe(
     company => {
       this.company = company;
-      this.companyGlobalVar.companyName=company.companyName;
-      this.companyGlobalVar.ownerName=company.ownerName;
-      this.companyGlobalVar.state=company.state;
-      this.companyGlobalVar.pinCode=company.pinCode;
-      this.companyGlobalVar.phonePrimary=company.phonePrimary;
-      this.companyGlobalVar.tanNo=company.tanNo;
-      this.companyGlobalVar.gstNo=company.gstNo;
-      this.companyGlobalVar.panNo=company.panNo;
-      this.companyGlobalVar.primaryEmail=company.primaryEmail;
-
     },
     err => {
       console.error("Not able to set companyGlobalVar");
@@ -61,7 +53,8 @@ export class NavComponent implements OnInit {
 
   getUserCompanies():void{
     var url = Urls.getDomain().concat(APIURLS.getUserCompanies);
-    this.http.get<UserCompanies[]>(url, { headers: httpOptions.headers })
+    let headers=this.oauthService.getAuthHeaders()
+    this.http.get<UserCompanies[]>(url, { headers:headers })
     .subscribe(
       result=>{
        this.userCompanies=result;

@@ -1,181 +1,210 @@
-<div class="clearfix">
-  <h3 class="mb-2 mb-sm-0 pt-1 pb-2 float-left">Proforma Invoice (Service)</h3>
-  <button type="button" class="btn teal darken-3 float-right" (click)="createNewInvoice()">New Invoice</button>
-</div>
+<app-nav></app-nav>
 
-<!-- Heading -->
-
-<div class="alert alert-danger" role="alert" *ngIf="error">
-  {{errorMessage}}
-</div>
-<div class="alert alert-success" role="alert" *ngIf="success">
-  Successfully Saved
-</div>
-
-<div class="card">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-md-1 "><b>Client</b></div>
-      <div class="col-md-2">
-        <select (change)="loadSelectedClient()" class="form-control underlined" [(ngModel)]="selClientId" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
-        <option></option>
-        <option *ngFor="let cli of clients" [ngValue]="cli.id" [selected]="cli.id === selClientId">{{cli.name}}</option>
-         </select>
-      </div>
-      <div class="col-md-2"><b>Performa Id : </b></div>
-      <div class="col-md-3">{{invoice.performaId}}</div>
-      <div class="col-md-2" *ngIf="showSac"><b>SAC code: </b></div>
-      <div class="col-md-2" *ngIf="showSac">
-        <select (change)="loadSelectedSac()" class="form-control underlined" [(ngModel)]="selSacId" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
-        <option></option>
-        <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === selSacId">{{sac.sacCode}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-    </div>
-    <div class="row">
-      <div class="col-md-1"><b>Status : </b></div>
-      <div class="col-md-2">{{invoice.status}}</div>
-      <div class="col-md-2"><b>GSTIN : </b></div>
-      <div class="col-md-2">{{selectedClient.gstin}}</div>
-      <div class="col-md-2"><b>Proforma Date : </b></div>
-      <div class="col-md-3">
-        <input type="date" class="form-control underlined" name="proformaDate" id="proformaDate" required="true" [ngModel]="invoice.performaDate | date:'yyyy-MM-dd'"
-          (ngModelChange)="invoice.performaDate = $event" [value]="date | date:'yyyy-MM-dd'" [max]="curDate"
-        />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-1"><b>Name : </b></div>
-      <div class="col-md-2">{{selectedClient.name}}</div>
-      <div class="col-md-2"><b>Address : </b></div>
-      <div class="col-md-4">
-        {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},
-        <br/> {{selectedClient.city}}, {{selectedClient.state}},
-        <br/> {{selectedClient.pincode}}.
-        <br/>
-        <i>Phone : </i> {{selectedClient.phonePrimary}}
-        <br/>
-        <i>Email : </i> {{selectedClient.email}}
-        <br/>
-      </div>
-    </div>
-    <div class="clear-fix border-top p-3">
-      <h4 class="sub-header">
-        <span class="index">1</span>Particulars
-        <button class="btn btn-success float-right" (click)="addRow()" *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
-        <i class="fa fa-plus">&nbsp;</i>AddRow</button>
-      </h4>
+<div class="pt-2 mx-lg-1 pb-5 mb-4">
+  <div class="container-fluid mt-0">
+    <div class="clearfix">
+      <h3 class="mb-2 mb-sm-0 pt-1 pb-2 float-left">Proforma Invoice (Service)</h3>
+      <button type="button" class="btn teal darken-3 float-right" (click)="createNewInvoice()">New Invoice</button>
     </div>
 
-    <table class="table table-striped">
-      <thead class="blue lighten-5">
-        <tr>
-          <th colspan="7">Professional service rendered in connection with</th>
-          <!--<th>Quantity</th>-->
-          <th>Rate</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let field of particulars;let i=index">
-          <td>{{i+1}}</td>
-          <td><button class="btn btn-sm btn-danger pl-2 pr-2" (click)="deletParticulars(field.id)" *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i class="fa fa-trash"></i></button></td>
+    <!-- Heading -->
 
-          <td colspan="5" WIDTH="80%">
-            <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)"
+    <div class="alert alert-danger" role="alert" *ngIf="error">
+      {{errorMessage}}
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="success">
+      Successfully Saved
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-1 "><b>Client</b></div>
+          <div class="col-md-2">
+            <select (change)="loadSelectedClient()" class="form-control underlined" [(ngModel)]="selClientId"
               [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+              <option></option>
+              <option *ngFor="let cli of clients" [ngValue]="cli.id" [selected]="cli.id === selClientId">{{cli.name}}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-2"><b>Performa Id : </b></div>
+          <div class="col-md-3">{{invoice.performaId}}</div>
+          <div class="col-md-2" *ngIf="showSac"><b>SAC code: </b></div>
+          <div class="col-md-2" *ngIf="showSac">
+            <select (change)="loadSelectedSac()" class="form-control underlined" [(ngModel)]="selSacId"
+              [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+              <option></option>
+              <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === selSacId">{{sac.sacCode}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+        </div>
+        <div class="row">
+          <div class="col-md-1"><b>Status : </b></div>
+          <div class="col-md-2">{{invoice.status}}</div>
+          <div class="col-md-2"><b>GSTIN : </b></div>
+          <div class="col-md-2">{{selectedClient.gstin}}</div>
+          <div class="col-md-2"><b>Proforma Date : </b></div>
+          <div class="col-md-3">
+            <input type="date" class="form-control underlined" name="proformaDate" id="proformaDate" required="true"
+              [ngModel]="invoice.performaDate | date:'yyyy-MM-dd'" (ngModelChange)="invoice.performaDate = $event"
+              [value]="date | date:'yyyy-MM-dd'" [max]="curDate" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"><b>Name : </b></div>
+          <div class="col-md-2">{{selectedClient.name}}</div>
+          <div class="col-md-2"><b>Address : </b></div>
+          <div class="col-md-4">
+            {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},
+            <br /> {{selectedClient.city}}, {{selectedClient.state}},
+            <br /> {{selectedClient.pincode}}.
+            <br />
+            <i>Phone : </i> {{selectedClient.phonePrimary}}
+            <br />
+            <i>Email : </i> {{selectedClient.email}}
+            <br />
+          </div>
+        </div>
+        <div class="clear-fix border-top p-3">
+          <h4 class="sub-header">
+            <span class="index">1</span>Particulars
+            <button class="btn btn-success float-right" (click)="addRow()"
+              *ngIf="!(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+              <i class="fa fa-plus">&nbsp;</i>AddRow</button>
+          </h4>
+        </div>
+
+        <table class="table table-striped">
+          <thead class="blue lighten-5">
+            <tr>
+              <th colspan="7">Professional service rendered in connection with</th>
+              <!--<th>Quantity</th>-->
+              <th>Rate</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let field of particulars;let i=index">
+              <td>{{i+1}}</td>
+              <td><button class="btn btn-sm btn-danger pl-2 pr-2" (click)="deletParticulars(field.id)"
+                  *ngIf="field.id && !(invoice.status=='CANCELED' || invoice.type=='INVOICE')"><i
+                    class="fa fa-trash"></i></button></td>
+
+              <td colspan="5" WIDTH="80%">
+                <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription"
+                  (change)="calculateAmount(field)"
+                  [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
           </textarea>
-          </td>
-          <!-- <td WIDTH="10%">
+              </td>
+              <!-- <td WIDTH="10%">
           <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="field.quantity"  (change)="calculateAmount(field)" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')"/>
         </td>-->
-          <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.performaRate" (change)="calculateAmount(field)"
-              [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')" />
-          </td>
-          <td WIDTH="10%">
-            <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedPerformaAmount" />
-          </td>
-        </tr>
+              <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0"
+                  [(ngModel)]="field.performaRate" (change)="calculateAmount(field)"
+                  [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')" />
+              </td>
+              <td WIDTH="10%">
+                <input type="number" readoly class="form-control" required="true" readonly
+                  [(ngModel)]="field.calculatedPerformaAmount" />
+              </td>
+            </tr>
 
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="7">
-          </td>
-          <th>
-            Enter Reimbursement Amount(if any)
-          </th>
-          <th><input type="number" class="form-control" required="false" min="0" [(ngModel)]="invoice.reimbPerfomaAmount" (change)="calculateTotal()"
-              [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')" /> </th>
-        </tr>
-        <tr>
-          <td colspan="7">
-          </td>
-          <th>
-            SUM =
-          </th>
-          <th>{{invoice.totalPerfomaBeforeTax}}</th>
-        </tr>
-        <tr *ngIf="cgstDisplay">
-          <td colspan="6">
-          </td>
-          <th style="text-align: right">
-            CGST =
-          </th>
-          <td>{{invoice.cgstPerfomaPercent}}</td>
-          <td>{{invoice.cgstPerfoma}}</td>
-        </tr>
-        <tr *ngIf="sgstDisplay">
-          <td colspan="6">
-          </td>
-          <th style="text-align: right">
-            SGST =
-          </th>
-          <td>{{invoice.sgstPerfomaPercent}}</td>
-          <td>{{invoice.sgstPerfoma}}</td>
-        </tr>
-        <tr *ngIf="igstDisplay">
-          <td colspan="6">
-          </td>
-          <th style="text-align: right">
-            IGST =
-          </th>
-          <td>{{invoice.igstPerfomaPercent}}</td>
-          <td>{{invoice.igstPerfoma}}</td>
-        </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="7">
+              </td>
+              <th>
+                Enter Reimbursement Amount(if any)
+              </th>
+              <th><input type="number" class="form-control" required="false" min="0"
+                  [(ngModel)]="invoice.reimbPerfomaAmount" (change)="calculateTotal()"
+                  [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')" /> </th>
+            </tr>
+            <tr>
+              <td colspan="7">
+              </td>
+              <th>
+                SUM =
+              </th>
+              <th>{{invoice.totalPerfomaBeforeTax}}</th>
+            </tr>
+            <tr *ngIf="cgstDisplay">
+              <td colspan="6">
+              </td>
+              <th style="text-align: right">
+                CGST =
+              </th>
+              <td>{{invoice.cgstPerfomaPercent}}</td>
+              <td>{{invoice.cgstPerfoma}}</td>
+            </tr>
+            <tr *ngIf="sgstDisplay">
+              <td colspan="6">
+              </td>
+              <th style="text-align: right">
+                SGST =
+              </th>
+              <td>{{invoice.sgstPerfomaPercent}}</td>
+              <td>{{invoice.sgstPerfoma}}</td>
+            </tr>
+            <tr *ngIf="igstDisplay">
+              <td colspan="6">
+              </td>
+              <th style="text-align: right">
+                IGST =
+              </th>
+              <td>{{invoice.igstPerfomaPercent}}</td>
+              <td>{{invoice.igstPerfoma}}</td>
+            </tr>
 
-        <tr>
-          <td colspan="7">
-          </td>
-          <th>
-            Total =
-          </th>
-          <th>{{invoice.totalPerfomaAmount}}</th>
-        </tr>
-      </tfoot>
-    </table>
+            <tr>
+              <td colspan="7">
+              </td>
+              <th>
+                Total =
+              </th>
+              <th>{{invoice.totalPerfomaAmount}}</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="card mt-4 wow fadeIn">
+      <div class="card-body">
+        <div class="row float-right">
+          <a target="_blank" style="color:white;background-color:#432fb5" class="btn" [href]="invoice.purl"
+            *ngIf="invoice.purl && invoice.performaId!=''">
+            <i class="fa fa-print"></i>
+          </a>&nbsp;
+          <a routerLink="/generate-invoice/{{invoice.id}}" class="btn btn-success"
+            *ngIf="invoice.performaId!='' && invoice.status!='CANCELED'">
+            <i class="fa fa-eye">&nbsp;</i>
+            View as Invoice
+          </a>&nbsp;
+          <button class="btn btn-secondary" (click)="calculateTotal()"
+            [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+            <i class="fa fa-calculator">&nbsp;</i> Calculate Total
+          </button>&nbsp;
+          <button class="btn btn-primary" (click)="savePerformaInvoice()"
+            [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+            <i class="fa fa-save">&nbsp;</i>Save Proforma</button>&nbsp;
+          <button class="btn btn-warning" (click)="cancelInvoice()" *ngIf="invoice.performaId!=''"
+            [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+            <i class="fa fa-ban">&nbsp;</i>Cancel Invoice</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
-
-<div class="card mt-4 wow fadeIn">
-  <div class="card-body">
-    <div class="row float-right">
-      <a target="_blank" style="color:white;background-color:#432fb5" class="btn" [href]="invoice.purl" *ngIf="invoice.purl && invoice.performaId!=''">
-            <i class="fa fa-print"></i>
-      </a>&nbsp;
-      <a routerLink="/generate-invoice/{{invoice.id}}" class="btn btn-success" *ngIf="invoice.performaId!='' && invoice.status!='CANCELED'">
-        <i class="fa fa-eye">&nbsp;</i>
-        View as Invoice
-      </a>&nbsp;
-      <button class="btn btn-secondary" (click)="calculateTotal()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
-      <i class="fa fa-calculator">&nbsp;</i> Calculate Total
-      </button>&nbsp;
-      <button class="btn btn-primary" (click)="savePerformaInvoice()" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
-        <i class="fa fa-save">&nbsp;</i>Save Proforma</button>&nbsp;
-      <button class="btn btn-warning" (click)="cancelInvoice()" *ngIf="invoice.performaId!=''" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
-         <i class="fa fa-ban">&nbsp;</i>Cancel Invoice</button>
-    </div>
-  </div>
+<div class="companyMenu fixed-bottom clearfix">
+  <div class="company-name">Welcome : {{companyGlobalVar.companyName}} </div>
+  <a routerLink="/company/selected" routerLinkActive="active" title="edit profile" class="company-icon">
+    <i class="fa fa-cog"></i>
+  </a>
 </div>

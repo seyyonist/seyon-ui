@@ -5,9 +5,11 @@ import { catchError, map, tap } from 'rxjs/operators';
 import * as _ from 'underscore';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
-import { Company } from './company.domain';
+import { Company, CompanyRole } from './company.domain';
 import { States } from './company.domain';
 import { State } from './company.domain';
+import { OAuthService } from '../app.auth.service';
+import { CompanyGlobalVar } from '../globals';
 
 
 const httpOptions = {
@@ -17,22 +19,32 @@ const httpOptions = {
 
 @Injectable()
 export class CompanyService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private oauthService:OAuthService,private globalVar:CompanyGlobalVar) {
   }
 
   save(company: Company): Observable<Company> {
     var url = Urls.getDomain().concat(APIURLS.updatecompany);
-    return this.http.post<Company>(url, company, { headers: httpOptions.headers });
+    let headers = this.oauthService.getAuthHeaders()
+    return this.http.post<Company>(url, company, { headers: headers });
   }
 
   getCompany(): Observable<Company> {
     var url = Urls.getDomain().concat(APIURLS.getcompany);
-    return this.http.get<Company>(url);
+    let headers=this.oauthService.getAuthHeaders()
+    console.log(headers);
+    return this.http.get<Company>(url,{ headers: headers });
+  }
+
+  getCompanyForUser(): Observable<CompanyRole[]> {
+    var url = Urls.getDomain().concat(APIURLS.getcompanyForUser);
+    let headers=this.oauthService.getAuthHeaders("Y");    
+    return this.http.get<CompanyRole[]>(url,{ headers: headers });
   }
 
    getStateCodes(): Observable<any> {
     var url = Urls.getDomain().concat(APIURLS.getStateCode);
-    return this.http.get<any>(url);
+    let headers = this.oauthService.getAuthHeaders()
+    return this.http.get<any>(url,{ headers: headers });
   }
 
 }

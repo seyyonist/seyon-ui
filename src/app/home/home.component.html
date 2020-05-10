@@ -1,0 +1,42 @@
+<div class="primary-color text-center p-3">
+    <img src="../../assets/img/logo-white.png" class="logo-img" alt="">
+</div>
+<div class="pt-2 mx-lg-1 pb-5 mb-4">
+    <div class="container-fluid mt-0">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <b>Welcome :&nbsp;{{userInfo.name}}</b> <br />
+                        <b>logged in Using :&nbsp;{{userInfo.email}}</b> <br />
+                        <a routerLink="/new-company" class="btn btn-primary">Create Company</a><br />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <b>Which company you want to access</b>
+                        <div class="list-group">
+                            <a *ngFor="let c of companyRole;let i=index"
+                                class="list-group-item list-group-item-action flex-column align-items-start"
+                                (click)="selectedCompany(c)">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-2 h5">{{c.companyName}}</h5>
+                                    <small class="comp-active" *ngIf="c.active">Active</small>
+                                    <small class="comp-inActive" *ngIf="!c.active">InActive</small>
+                                </div>
+                                <p class="mb-2">
+                                    You are going to access as :
+                                    <span>
+                                        {{c.roleCode}}
+                                    </span>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

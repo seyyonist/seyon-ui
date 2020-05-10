@@ -108,9 +108,9 @@
 }
 
 .companyMenu {
-	background-color: #a9becc;
+	background-color: #021029;
 	width: 100%;
-	color:black
+	color:white
 }
 
 .company-name {
@@ -127,7 +127,7 @@
 	height: 100%;
 	padding: 10px;
 	font-size: 18px;
-	color:black
+	color:white
 }
 
 .profile-userpic {

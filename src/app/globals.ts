@@ -13,4 +13,15 @@ export class CompanyGlobalVar {
     panNo: string = "";
     primaryEmail: string = "";
     userRoles:string[];
+    
+    selectedCompany:string="";
+
 } 
+
+export class OauthUserJwt{
+     jwt:string="";
+	 picture:string="";
+     name:string="";
+     email:string="";
+     admin:boolean=false;
+}

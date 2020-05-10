@@ -9,6 +9,7 @@ import { VendorService } from '../vendor/vendor.service';
 import { ExcelGeneratorService } from '../excel/excel-generator.service';
 import { HeadOfAccount } from '../head-of-account/head-of-account.domain';
 import { HeadOfAccountService } from '../head-of-account/head-of-account.service';
+import { CompanyGlobalVar } from '../globals';
 
 @Component({
   selector: 'app-voucher.search',
@@ -45,7 +46,9 @@ export class VoucherSearchComponent implements OnInit {
     else
       this.visible = true
   }
-  constructor(private excelGenerator: ExcelGeneratorService, private route: ActivatedRoute, private voucherService: VoucherService, private vendorService: VendorService, private headOfAccountService: HeadOfAccountService) { }
+  constructor(private excelGenerator: ExcelGeneratorService, private route: ActivatedRoute,
+     private voucherService: VoucherService, private vendorService: VendorService,
+      private headOfAccountService: HeadOfAccountService,public companyGlobalVar:CompanyGlobalVar) { }
 
   ngOnInit() {
     this.getVendors();

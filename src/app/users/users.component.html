@@ -1,70 +1,77 @@
-<h3 class="mb-2 mb-sm-0 pt-1 pb-2">
+<app-nav></app-nav>
+
+<div class="pt-2 mx-lg-1 pb-5 mb-4">
+  <div class="container-fluid mt-0">
+    <h3 class="mb-2 mb-sm-0 pt-1 pb-2">
       <span>Manage User</span>
     </h3>
-<!-- Heading -->
-<div class="alert alert-danger" role="alert" *ngIf="error">
-  {{errorMessage}}
-</div>
-<div class="alert alert-success" role="alert" *ngIf="success">
-  Successfully Saved
-</div>
-<div class="row">
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header grey lighten-4" >
-        <div class="md-form input-group mb-3">
-          <label for="search">Search</label>
-          <input type="text" class="form-control" id="search" />
-          <div class="input-group-append">
-            <button class="btn primary-color waves-effect m-0" (click)="new()">
-               <i class="fa fa-plus-square"></i> &nbsp;Add New</button>
+    <!-- Heading -->
+    <div class="alert alert-danger" role="alert" *ngIf="error">
+      {{errorMessage}}
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="success">
+      Successfully Saved
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header grey lighten-4">
+            <div class="md-form input-group mb-3">
+              <label for="search">Search</label>
+              <input type="text" class="form-control" id="search" />
+              <div class="input-group-append">
+                <button class="btn primary-color waves-effect m-0" (click)="new()">
+                  <i class="fa fa-plus-square"></i> &nbsp;Add New</button>
+              </div>
+            </div>
+          </div>
+          <div style="overflow:auto;height:400px;background-color:white;">
+            <ul class="list-group list-group-flush">
+              <li *ngFor="let user of users" class="list-group-item" (click)="edit(user)" style="cursor: pointer;">
+                {{user.name}}
+                <span class="float-right">
+                  <i class="fa fa-arrow-right"></i>
+                </span>
+              </li>
+            </ul>
+            <div>
+            </div>
           </div>
         </div>
       </div>
-      <div style="overflow:auto;height:400px;background-color:white;">
-        <ul class="list-group list-group-flush">
-          <li *ngFor="let user of users" class="list-group-item" (click)="edit(user)" style="cursor: pointer;">
-            {{user.name}}
-            <span class="float-right">
-              <i class="fa fa-arrow-right"></i>
-            </span>
-          </li>
-        </ul>
-        <div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-8">
-    <form (ngSubmit)="submit()" name="userForm" ngNativeValidate>
-      <div class="card">
-        <div class="card-header stylish-color-dark white-text" >
-          <h5> User </h5>
-        </div>
-        <div class="card-body">
+      <div class="col-md-8">
+        <form (ngSubmit)="submit()" name="userForm" ngNativeValidate>
+          <div class="card">
+            <div class="card-header stylish-color-dark white-text">
+              <h5> User </h5>
+            </div>
+            <div class="card-body">
 
-          <div class="row">
-            <div class="col-md-6 border-right">
-              <h4 class="sub-header">
-                <span class="index">1</span>User
-              </h4>
-              <div class="md-form">
-                <label for="name" [class.active]="user.name!=''">Name</label>
-                <input type="text" class="form-control underlined" name="name" id="name" required="true" [(ngModel)]="user.name" />
-              </div>
+              <div class="row">
+                <div class="col-md-6 border-right">
+                  <h4 class="sub-header">
+                    <span class="index">1</span>User
+                  </h4>
+                  <div class="md-form">
+                    <label for="name" [class.active]="user.name!=''">Name</label>
+                    <input type="text" class="form-control underlined" name="name" id="name" required="true"
+                      [(ngModel)]="user.name" />
+                  </div>
 
-              <div class="md-form">
-                <label for="email" [class.active]="user.email!=''">Gmail</label>
-                <input type="text" class="form-control underlined" name="email" id="email" required="true" [(ngModel)]="user.email" />
-              </div>
-              <div class="md-form">
-                <label for="active" [class.active]="user.active!=''">Active</label>
-                <select id="active" name="active " class="browser-default custom-select md-select" required="true" [(ngModel)]="user.active">
-                  <option value="true" selected>Active </option>
-                  <option value="false">InActive </option>
-                </select>
-              </div>
-              <!-- <h5 class="sub-header">
+                  <div class="md-form">
+                    <label for="email" [class.active]="user.email!=''">Gmail</label>
+                    <input type="text" class="form-control underlined" name="email" id="email" required="true"
+                      [(ngModel)]="user.email" />
+                  </div>
+                  <div class="md-form">
+                    <label for="active" [class.active]="user.active!=''">Active</label>
+                    <select id="active" name="active " class="browser-default custom-select md-select" required="true"
+                      [(ngModel)]="user.active">
+                      <option value="true" selected>Active </option>
+                      <option value="false">InActive </option>
+                    </select>
+                  </div>
+                  <!-- <h5 class="sub-header">
                 <span class="index">2</span>Password:
               </h5>
               <div class="md-form">
@@ -76,42 +83,53 @@
                 <input type="password" class="form-control underlined" name="retype_password" id="retype_password" required="">
               </div> -->
 
-            </div>
-            <div class="col-md-6">
-              <h4 class="sub-header">
-                <span class="index">3</span>User Role
-              </h4>
-              <span *ngIf="!showRoles">Select a User to view or manage role </span>
-              <div *ngIf="showRoles">
-                <div class="md-form input-group">
-                  <select id="RoleSelect" name="roleSelect " class="browser-default custom-select md-select" [(ngModel)]="userRole.roleCode">
-                    <option></option>
-                    <option *ngFor="let roleCode of roleCodes" [ngValue]="roleCode" [selected]="roleCode === userRole.roleCode">{{roleCode}}</option>
-                  </select>
-                  <div class="input-group-append">
-                    <button type="button" name="addRole" (click)="adduserRole(userRole.roleCode)" class="btn btn-success btn-sm waves-effect m-0">
-                      <i class="fa fa-plus-square"></i>&nbsp;Add Role</button>
+                </div>
+                <div class="col-md-6">
+                  <h4 class="sub-header">
+                    <span class="index">3</span>User Role
+                  </h4>
+                  <span *ngIf="!showRoles">Select a User to view or manage role </span>
+                  <div *ngIf="showRoles">
+                    <div class="md-form input-group">
+                      <select id="RoleSelect" name="roleSelect " class="browser-default custom-select md-select"
+                        [(ngModel)]="userRole.roleCode">
+                        <option></option>
+                        <option *ngFor="let roleCode of roleCodes" [ngValue]="roleCode"
+                          [selected]="roleCode === userRole.roleCode">{{roleCode}}</option>
+                      </select>
+                      <div class="input-group-append">
+                        <button type="button" name="addRole" (click)="adduserRole(userRole.roleCode)"
+                          class="btn btn-success btn-sm waves-effect m-0">
+                          <i class="fa fa-plus-square"></i>&nbsp;Add Role</button>
+                      </div>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li *ngFor="let userRole of userRoles" class="list-group-item" style="cursor: pointer;">
+                        {{userRole.roleCode}}
+                        <span class="float-right">
+                          <i (click)="deleteUserRole(userRole.id)" class="fa fa-trash"></i>
+                        </span>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-                <ul class="list-group list-group-flush">
-                  <li *ngFor="let userRole of userRoles" class="list-group-item" style="cursor: pointer;">
-                    {{userRole.roleCode}}
-                    <span class="float-right">
-                        <i (click)="deleteUserRole(userRole.id)" class="fa fa-trash"></i>
-                      </span>
-                  </li>
-                </ul>
               </div>
+
+            </div>
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-success float-right waves-effect m-0">
+                <i class="fa fa-save"></i>&nbsp;Save</button>
             </div>
           </div>
-
-        </div>
-
-        <div class="card-footer">
-          <button type="submit" class="btn btn-success float-right waves-effect m-0">
-                <i class="fa fa-save"></i>&nbsp;Save</button>
-        </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
+</div>
+<div class="companyMenu fixed-bottom clearfix">
+  <div class="company-name">Welcome : {{companyGlobalVar.companyName}} </div>
+  <a routerLink="/company/selected" routerLinkActive="active" title="edit profile" class="company-icon">
+    <i class="fa fa-cog"></i>
+  </a>
 </div>

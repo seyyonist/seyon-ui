@@ -8,8 +8,8 @@ import { Urls, APIURLS } from '../app.constants';
 import { Voucher} from './voucher.domain';
 import { SearchVoucher } from './voucher.domain';
 import { SearchVoucherResult } from './voucher.domain';
-import { text } from '@angular/core/src/render3/instructions';
 import { Vendor } from '../vendor/vendor.domain';
+import { OAuthService } from '../app.auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,12 +18,13 @@ const httpOptions = {
 
 @Injectable()
 export class VoucherService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private oauthService:OAuthService) {
   } 
 
   save(voucher: Voucher): Observable<Voucher> {
     var url = Urls.getDomain().concat(APIURLS.savevoucher);
-    return this.http.post<Voucher>(url, voucher, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.post<Voucher>(url, voucher, { headers: headers });
   }
 
   searchVoucher(searchVoucher: SearchVoucher, pageNo: number = 0): Observable<SearchVoucherResult> {
@@ -31,26 +32,31 @@ export class VoucherService {
       .concat("?pageNumber=")
       .concat(pageNo.toString())
     console.log("Searching : " + url);
-    return this.http.post<SearchVoucherResult>(url, searchVoucher, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.post<SearchVoucherResult>(url, searchVoucher, { headers: headers });
   }
   
   getVoucher(id:number): Observable<Voucher> {
     var url = Urls.getDomain().concat(APIURLS.voucher).concat("?id=").concat(id.toString());
-    return this.http.get<Voucher>(url,{ headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.get<Voucher>(url,{ headers: headers });
   }
   deleteVoucher(id:number): Observable<string> {
     var url = Urls.getDomain().concat(APIURLS.voucher).concat("?id=").concat(id.toString());
-    return this.http.delete<string>(url,{responseType:'text' as 'json'});
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.delete<string>(url,{headers:headers,responseType:'text' as 'json'});
   }
 
   getVendors():Observable<Vendor[]>{
     var url = Urls.getDomain().concat(APIURLS.vendor);
-    return this.http.get<Vendor[]>(url, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.get<Vendor[]>(url, { headers: headers });
   }
 
   approve(voucher: Voucher): Observable<Voucher> {
     var url = Urls.getDomain().concat(APIURLS.approveVoucher);
-    return this.http.post<Voucher>(url, voucher, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.post<Voucher>(url, voucher, { headers: headers });
   }
 
   getFyaVouchers(pageNo: number = 0): Observable<SearchVoucherResult> {
@@ -58,6 +64,7 @@ export class VoucherService {
       .concat("?pageNumber=")
       .concat(pageNo.toString())
     console.log("Searching : " + url);
-    return this.http.get<SearchVoucherResult>(url, { headers: httpOptions.headers });
+    let headers=this.oauthService.getAuthHeaders()
+    return this.http.get<SearchVoucherResult>(url, { headers: headers });
   }
 }

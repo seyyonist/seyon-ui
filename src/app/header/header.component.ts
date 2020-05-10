@@ -6,6 +6,8 @@ import * as _ from 'underscore';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Urls, APIURLS } from '../app.constants';
 import {UserInfo,UserRole, UserCompanies} from '../users/users.domain';
+import { OAuthService } from '../app.auth.service';
+import { CompanyGlobalVar } from '../globals';
 
 
 const httpOptions = {
@@ -18,23 +20,29 @@ const httpOptions = {
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  imagePath:string=""
   user:UserInfo=new UserInfo();
   userRole:UserRole[]=[];
   userCompanies:UserCompanies[]=[];
 
-  constructor(private http: HttpClient) {
-    this.getUser();
+  constructor(private http: HttpClient,private oauthService:OAuthService,public companyGlobalVar:CompanyGlobalVar) {
    
    }
 
   ngOnInit() {
+    console.log("header component")
+    if(!this.oauthService.isAuthenticated()){
+      return false;
+    }
+    this.getUser();
+    this.imagePath=this.oauthService.getLoggedInUser().picture
   }
 
 
   getUser(): void {
     var url = Urls.getDomain().concat(APIURLS.user).concat("/authenticated");
-     this.http.get<UserInfo>(url, { headers: httpOptions.headers })
+    let headers=this.oauthService.getAuthHeaders()
+     this.http.get<UserInfo>(url, { headers: headers })
      .subscribe(
        user=>{
         this.user=user;
@@ -49,7 +57,8 @@ export class HeaderComponent implements OnInit {
 
   getRoles(email:string): void {
     var url = Urls.getDomain().concat(APIURLS.userrole).concat("?email=").concat(email);
-     this.http.get<UserRole[]>(url, { headers: httpOptions.headers })
+    let headers=this.oauthService.getAuthHeaders()
+     this.http.get<UserRole[]>(url, { headers: headers })
      .subscribe(
        userRole=>{
         this.userRole=userRole;

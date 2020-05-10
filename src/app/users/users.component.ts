@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserInfo } from './users.domain';
 import { UserRole } from './users.domain';
 import { UserService } from './users.service';
+import { CompanyGlobalVar } from '../globals';
 
 @Component({
   selector: 'app-users',
@@ -21,7 +22,7 @@ export class UsersComponent implements OnInit {
   showRoles: boolean = false;
   roleCodes:string[]=[];
   
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,public companyGlobalVar:CompanyGlobalVar) { }
 
   ngOnInit() {
     this.getUsers();

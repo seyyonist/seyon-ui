@@ -1,133 +1,153 @@
-<div class="clearfix">
-  <h3 class="mb-2 mb-sm-0 pt-1 pb-2 float-left">Proforma Invoice (Manufacturing)</h3>
-  <button type="button" class="btn teal darken-3 float-right" (click)="createNewManuInvoice()">New Invoice</button>
-</div>
+<app-nav></app-nav>
 
-<!-- Heading -->
-<div class="alert alert-danger" role="alert" *ngIf="error">
-  {{errorMessage}}
-</div>
-<div class="alert alert-success" role="alert" *ngIf="success">
-  Successfully Saved
-</div>
-
-<div class="card">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-md-1 "><b>Client</b></div>
-      <div class="col-md-3">
-        <select (change)="loadSelectedClient()" class="form-control underlined" [(ngModel)]="selClientId" [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
-        <option></option>
-        <option *ngFor="let cli of clients" [ngValue]="cli.id" [selected]="cli.id === selClientId">{{cli.name}}</option>
-         </select>
-      </div>
-      <div class="col-md-4">
-
-      </div>
-      <div class="col-md-4">
-
-      </div>
+<div class="pt-2 mx-lg-1 pb-5 mb-4">
+  <div class="container-fluid mt-0">
+    <div class="clearfix">
+      <h3 class="mb-2 mb-sm-0 pt-1 pb-2 float-left">Proforma Invoice (Manufacturing)</h3>
+      <button type="button" class="btn teal darken-3 float-right" (click)="createNewManuInvoice()">New Invoice</button>
     </div>
-    <div class="row">
-      <div class="col-md-1"><b>Status : </b></div>
-      <div class="col-md-2">NEW</div>
-      <div class="col-md-2"><b>GSTIN : </b></div>
-      <div class="col-md-3">{{selectedClient.gstin}}</div>
-      <div class="col-md-1"><b>Date : </b></div>
-      <div class="col-md-3">{{invoice.performaDate | date:"dd MMM yyyy HH:mm"}}</div>
-    </div>
-    <div class="row">
-      <div class="col-md-1"><b>Name : </b></div>
-      <div class="col-md-2">{{selectedClient.name}}</div>
-      <div class="col-md-2"><b>Address : </b></div>
-      <div class="col-md-4">
-        {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},
-        <br/> {{selectedClient.city}}, {{selectedClient.state}},
-        <br/> {{selectedClient.pincode}}.
-        <br/>
-        <i>Phone : </i> {{selectedClient.phonePrimary}}
-        <br/>
-        <i>Email : </i> {{selectedClient.email}}
-        <br/>
-      </div>
-    </div>
-    <div class="clear-fix border-top p-3">
-      <h4 class="sub-header">
-        <span class="index">1</span>Particulars
-        <button class="btn btn-success float-right" (click)="addRow()">
-            <i class="fa fa-plus">&nbsp;</i>AddRow</button>
-      </h4>
-    </div>
-    <table class="table table-striped">
-      <thead class="blue lighten-5">
-        <tr>
-          <th colspan="4">Description</th>
-          <th *ngIf="showSac">SAC Code</th>
-          <th>Quantity</th>
-          <th>Rate</th>
-          <th *ngIf="showSac">gst</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let field of manufacturingInvoice;let i=index">
 
-          <td width="40px"><button class="btn btn-sm btn-danger pl-2 pr-2" (click)="deletRow(field.id)"><i class="fa fa-trash"></i></button></td>
+    <!-- Heading -->
+    <div class="alert alert-danger" role="alert" *ngIf="error">
+      {{errorMessage}}
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="success">
+      Successfully Saved
+    </div>
 
-          <td colspan="3">
-            <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription" (change)="calculateAmount(field)">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-1 "><b>Client</b></div>
+          <div class="col-md-3">
+            <select (change)="loadSelectedClient()" class="form-control underlined" [(ngModel)]="selClientId"
+              [disabled]="(invoice.status=='CANCELED' || invoice.type=='INVOICE')">
+              <option></option>
+              <option *ngFor="let cli of clients" [ngValue]="cli.id" [selected]="cli.id === selClientId">{{cli.name}}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-4">
+
+          </div>
+          <div class="col-md-4">
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"><b>Status : </b></div>
+          <div class="col-md-2">NEW</div>
+          <div class="col-md-2"><b>GSTIN : </b></div>
+          <div class="col-md-3">{{selectedClient.gstin}}</div>
+          <div class="col-md-1"><b>Date : </b></div>
+          <div class="col-md-3">{{invoice.performaDate | date:"dd MMM yyyy HH:mm"}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"><b>Name : </b></div>
+          <div class="col-md-2">{{selectedClient.name}}</div>
+          <div class="col-md-2"><b>Address : </b></div>
+          <div class="col-md-4">
+            {{selectedClient.addrLine1}} {{selectedClient.addrLine2}},
+            <br /> {{selectedClient.city}}, {{selectedClient.state}},
+            <br /> {{selectedClient.pincode}}.
+            <br />
+            <i>Phone : </i> {{selectedClient.phonePrimary}}
+            <br />
+            <i>Email : </i> {{selectedClient.email}}
+            <br />
+          </div>
+        </div>
+        <div class="clear-fix border-top p-3">
+          <h4 class="sub-header">
+            <span class="index">1</span>Particulars
+            <button class="btn btn-success float-right" (click)="addRow()">
+              <i class="fa fa-plus">&nbsp;</i>AddRow</button>
+          </h4>
+        </div>
+        <table class="table table-striped">
+          <thead class="blue lighten-5">
+            <tr>
+              <th colspan="4">Description</th>
+              <th *ngIf="showSac">SAC Code</th>
+              <th>Quantity</th>
+              <th>Rate</th>
+              <th *ngIf="showSac">gst</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let field of manufacturingInvoice;let i=index">
+
+              <td width="40px"><button class="btn btn-sm btn-danger pl-2 pr-2" (click)="deletRow(field.id)"><i
+                    class="fa fa-trash"></i></button></td>
+
+              <td colspan="3">
+                <textarea type="text" class="form-control" required="true" [(ngModel)]="field.itemDescription"
+                  (change)="calculateAmount(field)">
           </textarea>
-          </td>
-          <td WIDTH="10%" *ngIf="showSac">
-            <select (change)="loadSelectedSac(field)" class="form-control underlined" [(ngModel)]="field.sacCodeId">
-        <option></option>
-        <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === field.sacCodeId">{{sac.sacCode}}</option>
-        </select>
-          </td>
-          <td WIDTH="10%">
-            <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="field.quantity" (change)="calculateAmount(field)"
-            />
-          </td>
-          <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0" [(ngModel)]="field.performaRate" (change)="calculateAmount(field)"
-            />
-          </td>
-          <td WIDTH="10%" *ngIf="showSac">
-            <p *ngIf="field.cgstPerfomaPercent>0">cgst={{field.cgstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>
-            <p *ngIf="field.sgstPerfomaPercent>0">sgst={{field.sgstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>
-            <p *ngIf="field.igstPerfomaPercent>0">igst={{field.igstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>
-          </td>
-          <td WIDTH="10%">
-            <input type="number" readoly class="form-control" required="true" readonly [(ngModel)]="field.calculatedPerformaAmount" />
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr *ngIf="showSac">
-          <td colspan="7">
-          </td>
-          <th>
-            SUM =
-          </th>
-          <td>{{totalPerfomaBeforeTax}}</td>
-        </tr>
-        <tr *ngIf="!showSac">
-          <td colspan="5">
-          </td>
-          <th>
-            SUM =
-          </th>
-          <td>{{totalPerfomaBeforeTax}}</td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-</div>
+              </td>
+              <td WIDTH="10%" *ngIf="showSac">
+                <select (change)="loadSelectedSac(field)" class="form-control underlined" [(ngModel)]="field.sacCodeId">
+                  <option></option>
+                  <option *ngFor="let sac of sacCodes" [ngValue]="sac.id" [selected]="sac.id === field.sacCodeId">
+                    {{sac.sacCode}}</option>
+                </select>
+              </td>
+              <td WIDTH="10%">
+                <input type="number" class="form-control" required="false" min="0" size="3" [(ngModel)]="field.quantity"
+                  (change)="calculateAmount(field)" />
+              </td>
+              <td WIDTH="10%"><input type="number" class="form-control" required="false" min="0"
+                  [(ngModel)]="field.performaRate" (change)="calculateAmount(field)" />
+              </td>
+              <td WIDTH="10%" *ngIf="showSac">
+                <p *ngIf="field.cgstPerfomaPercent>0">cgst={{field.cgstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>
+                <p *ngIf="field.sgstPerfomaPercent>0">sgst={{field.sgstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>
+                <p *ngIf="field.igstPerfomaPercent>0">igst={{field.igstPerfomaPercent}}%, :{{field.cgstPerfoma}}</p>
+              </td>
+              <td WIDTH="10%">
+                <input type="number" readoly class="form-control" required="true" readonly
+                  [(ngModel)]="field.calculatedPerformaAmount" />
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr *ngIf="showSac">
+              <td colspan="7">
+              </td>
+              <th>
+                SUM =
+              </th>
+              <td>{{totalPerfomaBeforeTax}}</td>
+            </tr>
+            <tr *ngIf="!showSac">
+              <td colspan="5">
+              </td>
+              <th>
+                SUM =
+              </th>
+              <td>{{totalPerfomaBeforeTax}}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
 
-<div class="card mt-4 wow fadeIn">
-  <div class="card-body">
-    <div class="row float-right">
-      <button class="btn btn-info" (click)="calculateTotal()"> <i class="fa fa-calculator">&nbsp;</i>Calculate Amount</button>&nbsp;
-      <button class="btn btn-primary" (click)="savePerformaInvoice()" ><i class="fa fa-cogs">&nbsp;</i>Generate Proforma</button>
+    <div class="card mt-4 wow fadeIn">
+      <div class="card-body">
+        <div class="row float-right">
+          <button class="btn btn-info" (click)="calculateTotal()"> <i class="fa fa-calculator">&nbsp;</i>Calculate
+            Amount</button>&nbsp;
+          <button class="btn btn-primary" (click)="savePerformaInvoice()"><i class="fa fa-cogs">&nbsp;</i>Generate
+            Proforma</button>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+<div class="companyMenu fixed-bottom clearfix">
+  <div class="company-name">Welcome : {{companyGlobalVar.companyName}} </div>
+  <a routerLink="/company/selected" routerLinkActive="active" title="edit profile" class="company-icon">
+    <i class="fa fa-cog"></i>
+  </a>
 </div>

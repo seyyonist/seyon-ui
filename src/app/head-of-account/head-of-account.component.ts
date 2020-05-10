@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeadOfAccountService } from './head-of-account.service';
 import { HeadOfAccount } from './head-of-account.domain';
+import { CompanyGlobalVar } from '../globals';
 
 @Component({
   selector: 'app-head-of-account',
@@ -16,7 +17,7 @@ export class HeadOfAccountComponent implements OnInit {
   headOfAccount: HeadOfAccount = new HeadOfAccount();
   tempHeadOfAccount: HeadOfAccount = new HeadOfAccount();
 
-  constructor(private headOfAccountService: HeadOfAccountService) { }
+  constructor(private headOfAccountService: HeadOfAccountService,public companyGlobalVar:CompanyGlobalVar) { }
 
   ngOnInit() {
     this.getHeadOfAccounts();

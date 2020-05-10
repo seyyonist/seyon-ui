@@ -1,184 +1,212 @@
-<h3 class="mb-2 mb-sm-0 pt-1 pb-2">
+<app-nav></app-nav>
+
+<div class="pt-2 mx-lg-1 pb-5 mb-4">
+  <div class="container-fluid mt-0">
+    <h3 class="mb-2 mb-sm-0 pt-1 pb-2">
       <span>Search Invoice</span>
     </h3>
-<!-- Heading -->
-<div class="alert alert-danger" role="alert" *ngIf="error">
-  {{errorMessage}}
-</div>
-<div class="searchBox" *ngIf="visible" [@slideInOut]>
-<form (ngSubmit)="submit()" name="searchForm" ngNativeValidate>
-  <div class="card">
-    <div class="card-header stylish-color-dark white-text">
-      Search
-      <button type="button" class="close white-text" (click)="showSearch()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+    <!-- Heading -->
+    <div class="alert alert-danger" role="alert" *ngIf="error">
+      {{errorMessage}}
     </div>
-    <div class="card-body">
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-3">
-          <div class="md-form mt-1">
-            <label for="category" class="active">Category </label>
-            <select id="category" name="category " class="browser-default custom-select md-select" required="false" [(ngModel)]="searchInvoice.category"
-              (change)="clearResult()">
-                  <option value="SERVICE">SERVICE</option>
-                  <option value="MANUFACTURING">MANUFACTURING</option>                  
-                </select>
+    <div class="searchBox" *ngIf="visible" [@slideInOut]>
+      <form (ngSubmit)="submit()" name="searchForm" ngNativeValidate>
+        <div class="card">
+          <div class="card-header stylish-color-dark white-text">
+            Search
+            <button type="button" class="close white-text" (click)="showSearch()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          </div>
-          <div class="col-md-3">
-            <div class="md-form mt-1">
-            <label for="name" class="active">Performa Id </label>
-            <input type="text" class="form-control underlined" name="performa Id" id="performaId" required="false" [(ngModel)]="searchInvoice.performaId"
-            />
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="md-form mt-1">
-            <label for="name" class="active">Invoice Id </label>
-            <input type="text" class="form-control underlined" name="invoiceId" id="invoiceId" required="false" [(ngModel)]="searchInvoice.invoiceId"
-            />
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="md-form mt-1">
-            <label for="status" class="active">Status </label>
-            <select id="status" name="status " class="browser-default custom-select md-select" required="false" [(ngModel)]="searchInvoice.status">
-                  <option value="NEW">NEW</option>
-                  <option value="CANCELED">CANCELED</option>                  
-                </select>
-            </div>
-          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="md-form mt-1">
+                    <label for="category" class="active">Category </label>
+                    <select id="category" name="category " class="browser-default custom-select md-select"
+                      required="false" [(ngModel)]="searchInvoice.category" (change)="clearResult()">
+                      <option value="SERVICE">SERVICE</option>
+                      <option value="MANUFACTURING">MANUFACTURING</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="md-form mt-1">
+                    <label for="name" class="active">Performa Id </label>
+                    <input type="text" class="form-control underlined" name="performa Id" id="performaId"
+                      required="false" [(ngModel)]="searchInvoice.performaId" />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="md-form mt-1">
+                    <label for="name" class="active">Invoice Id </label>
+                    <input type="text" class="form-control underlined" name="invoiceId" id="invoiceId" required="false"
+                      [(ngModel)]="searchInvoice.invoiceId" />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="md-form mt-1">
+                    <label for="status" class="active">Status </label>
+                    <select id="status" name="status " class="browser-default custom-select md-select" required="false"
+                      [(ngModel)]="searchInvoice.status">
+                      <option value="NEW">NEW</option>
+                      <option value="CANCELED">CANCELED</option>
+                    </select>
+                  </div>
+                </div>
 
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-3">
-             <div class="md-form mt-1">
-            <label for="client" class="active">Client </label>
-            <select id="client" name="client " class="browser-default custom-select md-select" required="false" [(ngModel)]="searchInvoice.clientId">
-              <option></option>
-              <option *ngFor="let cli of clients" [ngValue]="cli.id">{{cli.name}}</option>
-            </select>
-             </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="md-form mt-1">
+                    <label for="client" class="active">Client </label>
+                    <select id="client" name="client " class="browser-default custom-select md-select" required="false"
+                      [(ngModel)]="searchInvoice.clientId">
+                      <option></option>
+                      <option *ngFor="let cli of clients" [ngValue]="cli.id">{{cli.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="md-form mt-1">
+                    <label for="startDt" class="active">Performa/Invoice </label>
+                    <select id="status" name="status " class="browser-default custom-select md-select" required="false"
+                      [(ngModel)]="searchInvoice.type">
+                      <option></option>
+                      <option value="PERFORMA">PERFORMA </option>
+                      <option value="INVOICE">INVOICE </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="md-form mt-1">
+                    <label for="startDt" class="active">Start Date </label>
+                    <input type="date" class="form-control underlined" name="startDt" id="startDt" required="false"
+                      [(ngModel)]="searchInvoice.invoiceStDate" />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="md-form mt-1">
+                    <label for="endDt" class="active">End Date</label>
+                    <input type="date" class="form-control underlined" name="endDt" id="endDt" required="false"
+                      [(ngModel)]="searchInvoice.invoiceEdDate" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-md-3">
-             <div class="md-form mt-1">
-            <label for="startDt" class="active">Performa/Invoice </label>
-            <select id="status" name="status " class="browser-default custom-select md-select" required="false" [(ngModel)]="searchInvoice.type">
-                  <option></option>
-                  <option value="PERFORMA">PERFORMA </option>
-                  <option value="INVOICE">INVOICE </option>               
-                </select>
-             </div>
-          </div>
-          <div class="col-md-3">
-             <div class="md-form mt-1">
-            <label for="startDt" class="active">Start Date </label>
-            <input type="date" class="form-control underlined" name="startDt" id="startDt" required="false" [(ngModel)]="searchInvoice.invoiceStDate"
-            />
-             </div>
-          </div>
-          <div class="col-md-3">
-             <div class="md-form mt-1">
-            <label for="endDt" class="active">End Date</label>
-            <input type="date" class="form-control underlined" name="endDt" id="endDt" required="false" [(ngModel)]="searchInvoice.invoiceEdDate"
-            />
-             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card-footer">
-      <button type="submit" class="btn btn-sm btn-primary float-right m-0">
+          <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-primary float-right m-0">
               <i class="fa fa-search">&nbsp;</i>
               Search</button>
-      <!-- <button type="reset" class="btn btn-secondary float-right">
+            <!-- <button type="reset" class="btn btn-secondary float-right">
               <i class="fa fa-refresh">&nbsp;</i>
               Reset</button> -->
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card">
+      <div class="card-header rgba-blue-light">
+        <button class="btn btn-circle purple darken-4" (click)="showSearch()"><i
+            class="fa fa-search"></i></button>&nbsp;
+        <small>
+          Displaying {{searchResult.numberOfElements}}/{{searchResult.totalElements}} items in this page
+          for [ Category={{searchInvoice.category}}, Performa Id={{searchInvoice.performaId}}, Invoice
+          Id={{searchInvoice.invoiceId}},
+          Status={{searchInvoice.status}}, Client={{searchInvoice.clientId}}, Type={{searchInvoice.type}},
+          StartDate={{searchInvoice.invoiceStDate}}, EndDate={{searchInvoice.invoiceEdDate}} ]
+        </small>
+      </div>
+      <div class="card-body">
+
+        <table class="table table-striped">
+          <thead class="orange lighten-4">
+            <tr>
+              <th>Invoice Id</th>
+              <th>Performa Id</th>
+              <th>Client</th>
+              <th>Performa Date</th>
+              <th>Invoice Date</th>
+              <th>Performa Amount</th>
+              <th>Invoice Amount</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Print</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let invoice of invoices">
+              <td>
+                <a routerLink="/generate-invoice/{{invoice.id}}"
+                  *ngIf="invoice.invoiceId && searchInvoice.category=='SERVICE'">{{invoice.invoiceId}}</a>
+                <a routerLink="/generate-invoice/{{invoice.id}}"
+                  *ngIf="!invoice.invoiceId && searchInvoice.category=='SERVICE'" class="btn btn-success">Generate
+                  Invoice</a>
+                <a routerLink="/generate-manu-invoice/{{invoice.id}}"
+                  *ngIf="invoice.invoiceId && searchInvoice.category=='MANUFACTURING'">{{invoice.invoiceId}}</a>
+                <a routerLink="/generate-manu-invoice/{{invoice.id}}"
+                  *ngIf="!invoice.invoiceId && searchInvoice.category=='MANUFACTURING'" class="btn btn-success">Generate
+                  Invoice</a>
+
+              </td>
+              <td>
+                <a routerLink="/performaView/{{invoice.id}}"
+                  *ngIf="invoice.performaId && searchInvoice.category=='SERVICE'">{{invoice.performaId}}</a>
+                <a routerLink="/manufacturingInvoice/{{invoice.id}}"
+                  *ngIf="invoice.proFormaId && searchInvoice.category=='MANUFACTURING'">{{invoice.proFormaId}}</a>
+              </td>
+              <td>{{invoice.clientName}}</td>
+              <td>{{invoice.performaDate | date:'yyyy-MM-dd'}}</td>
+              <td>{{invoice.invoiceDate | date:'yyyy-MM-dd'}}</td>
+              <td *ngIf="searchInvoice.category=='MANUFACTURING'">{{invoice.calculatedPerformaAmount}}</td>
+              <td *ngIf="searchInvoice.category=='MANUFACTURING'">{{invoice.calculatedInvoiceAmount}}</td>
+              <td *ngIf="searchInvoice.category=='SERVICE'">{{invoice.totalPerfomaAmount}}</td>
+              <td *ngIf="searchInvoice.category=='SERVICE'">{{invoice.totalInvoiceAmount}}</td>
+
+              <td>{{invoice.type}}</td>
+              <td>{{invoice.status}}</td>
+              <td>
+                <div class="btn-group">
+                  <a target="_blank" style="color:white;background-color:#432fb5;border:white solid 1px;"
+                    class="btn btn-sm p-2" [href]="invoice.purl">
+                    P
+                  </a>
+                  <a target="_blank" *ngIf="invoice.invoiceId"
+                    style="color:white;background-color:#3c3c3c;border:white solid 1px;" class="btn btn-sm p-2"
+                    [href]="invoice.url">
+                    I
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer">
+        <!--Table runat="server" ID="tblPrint" width="595px" heigh="842px" Border="1" />-->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item"><button class="btn btn-info btn-sm" [disabled]="searchResult.first"
+                (click)="submit(0)">First</button></li>
+            <li class="page-item" *ngFor="let pageNo of numbers">
+              <button class="btn btn-info btn-sm" (click)="submit(pageNo)">{{pageNo+1}}</button>
+            </li>
+            <li class="page-item"><button class="btn btn-info btn-sm" [disabled]="searchResult.last"
+                (click)="submit(searchResult.totalElements-1)">Last</button></li>
+          </ul>
+        </nav>
+        <small style="color:#432fb5">Page Size is {{searchResult.size}}.</small>
+      </div>
     </div>
   </div>
-</form>
 </div>
-<div class="card">
-  <div class="card-header rgba-blue-light">
-    <button class="btn btn-circle purple darken-4" (click)="showSearch()"><i  class="fa fa-search"></i></button>&nbsp;
-       <small>
-         Displaying {{searchResult.numberOfElements}}/{{searchResult.totalElements}} items in this page
-         for [ Category={{searchInvoice.category}}, Performa Id={{searchInvoice.performaId}}, Invoice Id={{searchInvoice.invoiceId}},
-         Status={{searchInvoice.status}}, Client={{searchInvoice.clientId}}, Type={{searchInvoice.type}}, 
-         StartDate={{searchInvoice.invoiceStDate}}, EndDate={{searchInvoice.invoiceEdDate}} ]
-       </small>
-  </div>
-  <div class="card-body">
-
-    <table class="table table-striped">
-      <thead class="orange lighten-4">
-        <tr>
-          <th>Invoice Id</th>
-          <th>Performa Id</th>
-          <th>Client</th>
-          <th>Performa Date</th>
-          <th>Invoice Date</th>
-          <th>Performa Amount</th>
-          <th>Invoice Amount</th>
-          <th>Type</th>
-          <th>Status</th>
-          <th>Print</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let invoice of invoices">
-          <td>
-            <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId && searchInvoice.category=='SERVICE'">{{invoice.invoiceId}}</a>
-            <a routerLink="/generate-invoice/{{invoice.id}}" *ngIf="!invoice.invoiceId && searchInvoice.category=='SERVICE'" class="btn btn-success">Generate Invoice</a>
-            <a routerLink="/generate-manu-invoice/{{invoice.id}}" *ngIf="invoice.invoiceId && searchInvoice.category=='MANUFACTURING'">{{invoice.invoiceId}}</a>
-            <a routerLink="/generate-manu-invoice/{{invoice.id}}" *ngIf="!invoice.invoiceId && searchInvoice.category=='MANUFACTURING'"
-              class="btn btn-success">Generate Invoice</a>
-
-          </td>
-          <td>
-            <a routerLink="/performaView/{{invoice.id}}" *ngIf="invoice.performaId && searchInvoice.category=='SERVICE'">{{invoice.performaId}}</a>
-            <a routerLink="/manufacturingInvoice/{{invoice.id}}" *ngIf="invoice.proFormaId && searchInvoice.category=='MANUFACTURING'">{{invoice.proFormaId}}</a>
-          </td>
-          <td>{{invoice.clientName}}</td>
-          <td>{{invoice.performaDate | date:'yyyy-MM-dd'}}</td>
-          <td>{{invoice.invoiceDate | date:'yyyy-MM-dd'}}</td>
-          <td *ngIf="searchInvoice.category=='MANUFACTURING'">{{invoice.calculatedPerformaAmount}}</td>
-          <td *ngIf="searchInvoice.category=='MANUFACTURING'">{{invoice.calculatedInvoiceAmount}}</td>
-          <td *ngIf="searchInvoice.category=='SERVICE'">{{invoice.totalPerfomaAmount}}</td>
-          <td *ngIf="searchInvoice.category=='SERVICE'">{{invoice.totalInvoiceAmount}}</td>
-
-          <td>{{invoice.type}}</td>
-          <td>{{invoice.status}}</td>
-          <td>
-            <div class="btn-group">
-              <a target="_blank" style="color:white;background-color:#432fb5;border:white solid 1px;" class="btn btn-sm p-2" [href]="invoice.purl">
-                  P
-              </a>
-              <a target="_blank" *ngIf="invoice.invoiceId" style="color:white;background-color:#3c3c3c;border:white solid 1px;" class="btn btn-sm p-2"
-                [href]="invoice.url">
-                 I
-              </a>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="card-footer">
-    <!--Table runat="server" ID="tblPrint" width="595px" heigh="842px" Border="1" />-->
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item"><button class="btn btn-info btn-sm" [disabled]="searchResult.first" (click)="submit(0)">First</button></li>
-        <li class="page-item" *ngFor="let pageNo of numbers">
-          <button class="btn btn-info btn-sm" (click)="submit(pageNo)">{{pageNo+1}}</button>
-        </li>
-        <li class="page-item"><button class="btn btn-info btn-sm" [disabled]="searchResult.last" (click)="submit(searchResult.totalElements-1)">Last</button></li>
-      </ul>
-    </nav>
-    <small style="color:#432fb5">Page Size is {{searchResult.size}}.</small>
-  </div>
+<div class="companyMenu fixed-bottom clearfix">
+  <div class="company-name">Welcome : {{companyGlobalVar.companyName}} </div>
+  <a routerLink="/company/selected" routerLinkActive="active" title="edit profile" class="company-icon">
+    <i class="fa fa-cog"></i>
+  </a>
 </div>

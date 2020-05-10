@@ -34,7 +34,7 @@ export class InvoiceManuComponent implements OnInit {
   totalPerfomaBeforeTax: number = 0;
 
   constructor(private route: ActivatedRoute, private clientService: ClientService
-    , private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar,
+    , private invoiceService: InvoiceService, public companyGlobalVar: CompanyGlobalVar,
     private router: Router) {
     var invoiceIdParam
     this.route.params.subscribe(params => {

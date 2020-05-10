@@ -1,7 +1,7 @@
 import { environment } from "../environments/environment";
 
 const URLS = {
-    local: "",
+    local: "http://localhost:8020",
     prod: ""
 }
 
@@ -23,6 +23,7 @@ export const APIURLS = {
     getUserCompanies:"/api/company/getUserCompany",
     adduserrole: "/api/userrole/adduserrole",
     getcompany: "/api/company/getCompany",
+    getcompanyForUser:"/api/company/getCompanyForUser",
     updatecompany: "/api/company/updateCompany",
     savevoucher : "/api/voucher/saveVoucher",
     approveVoucher : "/api/voucher/approve",
@@ -33,5 +34,6 @@ export const APIURLS = {
     printManPInvoiceUrl:"/api/manuFacturingInvoice/PhtmlReport?performaId=",
     vendor : "/api/vendor",
     headofaccount : "/api/headofaccount",
-    getStateCode : "/city_state.json"
+    getStateCode : "/city_state.json",
+    createCompany:"/api/company/createCompany"
 }

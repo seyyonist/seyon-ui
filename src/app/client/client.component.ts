@@ -3,6 +3,8 @@ import { Client } from './client.domain';
 import { ClientService } from './client.service';
 import { State } from '../company/company.domain';
 import { CompanyService } from '../company/company.service';
+import { CompanyGlobalVar } from '../globals';
+import { city_state } from '../city_state';
 
 @Component({
   selector: 'app-client',
@@ -20,7 +22,7 @@ export class ClientComponent implements OnInit {
   success: boolean = true;
 
     //state Code logic - begin
-  states: State[] = [];
+  states: any[] = [];
   selectedStateDistricts: String[] = [];
   selectedStateCode: string = "";
   selectedStateName: string = "";
@@ -28,7 +30,7 @@ export class ClientComponent implements OnInit {
   selectedCity: String = "";
   //state Code logic - end
 
-  constructor(private clientService: ClientService,private companyService: CompanyService) { }
+  constructor(private clientService: ClientService,private companyService: CompanyService,public companyGlobalVar:CompanyGlobalVar) { }
 
 
 
@@ -163,19 +165,7 @@ export class ClientComponent implements OnInit {
 
     //state Code logic
   getStates(): void {
-    this.success = false;
-    this.error = false;
-    this.companyService.getStateCodes()
-      .subscribe(
-      resp => {
-        this.states = resp.states;
-        //console.log(this.states);
-      },
-      err => {
-        this.error = true;
-        this.errorMessage = "Error occured please contact administrator";
-      }
-      )
+    this.states=city_state.states;
   }
 
    //state Code logic

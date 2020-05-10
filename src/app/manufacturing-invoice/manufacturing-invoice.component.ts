@@ -23,7 +23,7 @@ export class ManufacturingInvoiceComponent implements OnInit {
   selSacId: number;
   showSac:boolean=false;
 
-  constructor(private route: ActivatedRoute, private invoiceService: InvoiceService, private companyGlobalVar: CompanyGlobalVar
+  constructor(private route: ActivatedRoute, private invoiceService: InvoiceService, public companyGlobalVar: CompanyGlobalVar
     , private clientService: ClientService) {
     this.route.params.subscribe(params => {
       this.proformaId = params['proformaId']

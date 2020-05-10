@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -35,16 +34,22 @@ import {ExcelGeneratorService} from './excel/excel-generator.service';
 import { InvoiceReportComponent } from './reports/invoice-report/invoice-report.component';
 import { VendorComponent } from './vendor/vendor.component';
 import { VendorService } from './vendor/vendor.service';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { HeadOfAccountComponent } from './head-of-account/head-of-account.component';
 import { HeadOfAccountService } from './head-of-account/head-of-account.service';
 import { VoucherFyaComponent } from './voucher/voucher-fya/voucher-fya.component';
-import { BankStmtComponent } from './bank-stmt/bank-stmt.component';
-import { BankStatementService } from './bank-stmt/bank-stmt.service';
+import { LoginComponent } from './login/login.component';
+import { ProcessLoginComponent } from './process-login/process-login.component';
+import { OAuthService } from './app.auth.service';
+import { HomeComponent } from './home/home.component';
+import { NewCompanyComponent } from './new-company/new-company.component';
+import { NewCompanyService } from './new-company/new-company.service';
+
 
 
 const appRoutes: Routes = [
-  { path: '', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: '', component: HomeComponent },
+  { path: 'login',component:LoginComponent},
+  { path: 'processLogin',component:ProcessLoginComponent},
   { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
   { path: 'client', component: ClientComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}  },
   { path: 'vendor', component: VendorComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}  },
@@ -54,7 +59,8 @@ const appRoutes: Routes = [
   { path: 'invoiceNew/:id', component: InvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
   { path: 'invoice-search', component: InvoiceSearchComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'generate-invoice/:id', component: GenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
-  { path: 'company', component: CompanyComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: 'company/:newCompany', component: CompanyComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
+  { path: 'new-company', component: NewCompanyComponent },
   { path: 'voucherNew/:id', component: VoucherComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
   { path: 'voucher-search', component: VoucherSearchComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} },
   { path: 'voucher-fya', component: VoucherFyaComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','VOUCHER_ADMIN']} },
@@ -63,7 +69,6 @@ const appRoutes: Routes = [
   { path: 'manufacturingInvoice/:proformaId',component:ManufacturingInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'generate-manu-invoice/:proformaId',component:ManufacturingGenInvoiceComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']}},
   { path: 'invoiceReport',component:InvoiceReportComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN']}},
-  { path: 'bank-stmt', component: BankStmtComponent,canActivate: [AuthGuard], data: {role: ['COMPANY_ADMIN','COMPANY_USER']} }
   
 ]
 
@@ -90,7 +95,10 @@ const appRoutes: Routes = [
     VendorComponent,
     HeadOfAccountComponent,
     VoucherFyaComponent,
-    BankStmtComponent
+    LoginComponent,
+    ProcessLoginComponent,
+    HomeComponent,
+    NewCompanyComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -99,12 +107,14 @@ const appRoutes: Routes = [
     ),
     BrowserModule,
     FormsModule,
-    HttpModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    ChartsModule
+    BrowserAnimationsModule
   ],
-  providers: [ClientService, UserService, InvoiceService, CompanyService, VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,ExcelGeneratorService,VendorService,HeadOfAccountService,BankStatementService],
+  providers: [ClientService, UserService, InvoiceService, CompanyService, 
+    VoucherService,GenInvoiceService,CompanyGlobalVar,AuthGuard,
+    ExcelGeneratorService,VendorService,HeadOfAccountService,OAuthService,
+    NewCompanyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
