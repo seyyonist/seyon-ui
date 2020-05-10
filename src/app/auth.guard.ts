@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { Urls, APIURLS } from './app.constants';
 import { UserInfo, UserRole } from './users/users.domain';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { promise } from 'protractor';
 import { CompanyGlobalVar } from './globals';
 import { Cookie } from './Cookie';
 import { OAuthService } from './app.auth.service';
